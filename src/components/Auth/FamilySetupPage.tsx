@@ -95,37 +95,32 @@ export function FamilySetupPage() {
     setIsLoading(true);
 
     try {
-      const { data: familyData, error: familyError } = await supabase
-        .from('families')
-        .select('*')
-        .eq('invite_code', inviteCode.trim().toUpperCase())
-        .maybeSingle();
+      const { data: { session } } = await supabase.auth.getSession();
 
-      if (familyError) throw familyError;
-
-      if (!familyData) {
-        throw new Error('Invalid invite code');
+      if (!session) {
+        throw new Error('No active session. Please log in again.');
       }
 
-      const { data: existingMembers } = await supabase
-        .from('family_members')
-        .select('color')
-        .eq('family_id', familyData.id);
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-family`;
 
-      const usedColors = new Set(existingMembers?.map(m => m.color) || []);
-      const availableColor = COLORS.find(c => !usedColors.has(c)) || COLORS[0];
-
-      const { error: memberError } = await supabase.from('family_members').insert({
-        name: joinMemberName.trim(),
-        email: user.email,
-        role: 'child',
-        family_id: familyData.id,
-        user_id: user.id,
-        is_admin: false,
-        color: availableColor,
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          inviteCode: inviteCode.trim().toUpperCase(),
+          memberName: joinMemberName.trim(),
+          color: COLORS[0],
+        }),
       });
 
-      if (memberError) throw memberError;
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to join family');
+      }
 
       await refreshAuth();
     } catch (err: unknown) {
