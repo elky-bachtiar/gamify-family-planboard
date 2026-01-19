@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Users, UserPlus, Key } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { COLORS } from '../../types';
 
+function getInviteCodeFromUrl(): string | null {
+  const path = window.location.pathname;
+  const match = path.match(/^\/join\/([A-Za-z0-9]+)$/);
+  return match ? match[1].toUpperCase() : null;
+}
+
 export function FamilySetupPage() {
   const { user, refreshAuth } = useAuth();
-  const [mode, setMode] = useState<'choose' | 'create' | 'join'>('choose');
+  const urlInviteCode = getInviteCodeFromUrl();
+  const [mode, setMode] = useState<'choose' | 'create' | 'join'>(urlInviteCode ? 'join' : 'choose');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -14,8 +21,15 @@ export function FamilySetupPage() {
   const [memberName, setMemberName] = useState('');
   const [memberRole, setMemberRole] = useState<'parent' | 'child'>('parent');
 
-  const [inviteCode, setInviteCode] = useState('');
+  const [inviteCode, setInviteCode] = useState(urlInviteCode || '');
   const [joinMemberName, setJoinMemberName] = useState('');
+
+  useEffect(() => {
+    if (urlInviteCode) {
+      setInviteCode(urlInviteCode);
+      setMode('join');
+    }
+  }, [urlInviteCode]);
 
   const handleCreateFamily = async (e: React.FormEvent) => {
     e.preventDefault();

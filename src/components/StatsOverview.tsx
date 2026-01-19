@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 export function StatsOverview() {
   const { currentMember } = useFamily();
-  const { family } = useAuth();
+  const { family, isAdmin } = useAuth();
   const [stats, setStats] = useState({
     totalTasks: 0,
     completedTasks: 0,
@@ -18,17 +18,23 @@ export function StatsOverview() {
     if (currentMember && family) {
       loadStats();
     }
-  }, [currentMember, family]);
+  }, [currentMember, family, isAdmin]);
 
   const loadStats = async () => {
     if (!currentMember || !family) return;
 
-    const { data: allTasks } = await supabase
+    let query = supabase
       .from('tasks')
       .select('*')
       .eq('family_id', family.id)
-      .eq('assigned_to', currentMember.id)
       .eq('is_archived', false);
+
+    if (!isAdmin) {
+      // Non-admins see their tasks + unassigned tasks
+      query = query.or(`assigned_to.eq.${currentMember.id},assigned_to.is.null`);
+    }
+
+    const { data: allTasks } = await query;
 
     const completedTasks = allTasks?.filter(t => t.status === 'completed').length || 0;
     const pendingTasks = allTasks?.filter(t => t.status !== 'completed').length || 0;
@@ -90,7 +96,9 @@ export function StatsOverview() {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">Your Stats</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-4">
+        {isAdmin ? 'Family Stats' : 'Your Stats'}
+      </h2>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {statCards.map((stat) => (

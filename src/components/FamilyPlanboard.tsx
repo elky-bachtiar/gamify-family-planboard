@@ -7,9 +7,9 @@ import type { TaskWithMember } from '../types';
 import { TaskCard } from './TaskCard';
 import { TaskModal } from './TaskModal';
 
-export function WeeklyCalendar() {
+export function FamilyPlanboard() {
   const { currentMember } = useFamily();
-  const { family, isAdmin } = useAuth();
+  const { family } = useAuth();
   const [currentWeekStart, setCurrentWeekStart] = useState<Date>(getWeekStart(new Date()));
   const [tasks, setTasks] = useState<TaskWithMember[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +47,8 @@ export function WeeklyCalendar() {
     const weekEnd = new Date(currentWeekStart);
     weekEnd.setDate(currentWeekStart.getDate() + 6);
 
-    let query = supabase
+    // Fetch ALL family tasks (no assigned_to filter)
+    const { data, error } = await supabase
       .from('tasks')
       .select('*, family_members!assigned_to(*)')
       .eq('family_id', family.id)
@@ -55,13 +56,6 @@ export function WeeklyCalendar() {
       .gte('due_date', formatLocalDate(currentWeekStart))
       .lte('due_date', formatLocalDate(weekEnd))
       .order('due_datetime');
-
-    if (!isAdmin) {
-      // Non-admins see their tasks + unassigned tasks
-      query = query.or(`assigned_to.eq.${currentMember.id},assigned_to.is.null`);
-    }
-
-    const { data, error } = await query;
 
     if (error) {
       console.error('Error loading tasks:', error);
@@ -75,7 +69,7 @@ export function WeeklyCalendar() {
     loadTasks();
 
     const subscription = supabase
-      .channel('tasks_changes')
+      .channel('family_planboard_tasks')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, () => {
         loadTasks();
       })
@@ -84,7 +78,7 @@ export function WeeklyCalendar() {
     return () => {
       subscription.unsubscribe();
     };
-  }, [currentMember, currentWeekStart, family, isAdmin]);
+  }, [currentMember, currentWeekStart, family]);
 
   const previousWeek = () => {
     const newStart = new Date(currentWeekStart);
@@ -121,9 +115,7 @@ export function WeeklyCalendar() {
     <div className="bg-white rounded-lg shadow">
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">
-            {isAdmin ? 'All Family Tasks' : 'Weekly Tasks'}
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900">Family Planboard</h2>
           <div className="flex items-center gap-2">
             <button
               onClick={previousWeek}

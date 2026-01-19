@@ -1,9 +1,11 @@
-import { Trophy, Star, Flame } from 'lucide-react';
+import { Trophy, Star, Flame, User, Users } from 'lucide-react';
 import { useFamily } from '../contexts/FamilyContext';
+import { useView } from '../contexts/ViewContext';
 import { getPointsForNextLevel } from '../types';
 
 export function Header() {
   const { currentMember, familyMembers, setCurrentMember } = useFamily();
+  const { currentView, setCurrentView } = useView();
 
   if (!currentMember) return null;
 
@@ -13,8 +15,32 @@ export function Header() {
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <h1 className="text-2xl font-bold text-gray-900">Family Planboard</h1>
+            <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
+              <button
+                onClick={() => setCurrentView('dashboard')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  currentView === 'dashboard'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <User className="w-4 h-4" />
+                My Tasks
+              </button>
+              <button
+                onClick={() => setCurrentView('family-planboard')}
+                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  currentView === 'family-planboard'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <Users className="w-4 h-4" />
+                Family Board
+              </button>
+            </div>
           </div>
 
           <div className="flex items-center gap-6">

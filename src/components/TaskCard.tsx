@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CheckCircle2, Circle, Star, Trash2, Sparkles } from 'lucide-react';
+import { CheckCircle2, Circle, Star, Trash2, Sparkles, UserPlus } from 'lucide-react';
 import { useFamily } from '../contexts/FamilyContext';
 import { completeTask } from '../lib/gamification';
 import { supabase } from '../lib/supabase';
@@ -15,9 +15,13 @@ export function TaskCard({ task, onUpdate }: TaskCardProps) {
   const { currentMember } = useFamily();
   const [isCompleting, setIsCompleting] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [isClaiming, setIsClaiming] = useState(false);
 
   const isCompleted = task.status === 'completed';
   const priorityConfig = PRIORITY_CONFIG[task.priority];
+  const isUnassigned = !task.assigned_to;
+  const isAssignedToOther = task.assigned_to && task.assigned_to !== currentMember?.id;
+  const assignee = task.family_members;
 
   const handleComplete = async () => {
     if (!currentMember || isCompleted) return;
@@ -32,6 +36,21 @@ export function TaskCard({ task, onUpdate }: TaskCardProps) {
     }
 
     setIsCompleting(false);
+  };
+
+  const handleClaim = async () => {
+    if (!currentMember || !isUnassigned) return;
+
+    setIsClaiming(true);
+    const { error } = await supabase
+      .from('tasks')
+      .update({ assigned_to: currentMember.id })
+      .eq('id', task.id);
+
+    if (!error) {
+      onUpdate();
+    }
+    setIsClaiming(false);
   };
 
   const handleDelete = async () => {
@@ -52,6 +71,8 @@ export function TaskCard({ task, onUpdate }: TaskCardProps) {
       className={`relative p-3 rounded-lg border-2 transition-all ${
         isCompleted
           ? 'bg-green-50 border-green-200 opacity-75'
+          : isUnassigned
+          ? 'bg-gray-50 border-dashed border-gray-300 hover:border-blue-400'
           : 'bg-white border-gray-200 hover:border-gray-300'
       }`}
     >
@@ -95,7 +116,7 @@ export function TaskCard({ task, onUpdate }: TaskCardProps) {
             <p className="text-xs text-gray-600 mt-1 line-clamp-2">{task.description}</p>
           )}
 
-          <div className="flex items-center gap-2 mt-2">
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
             <span
               className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-white ${priorityConfig.color}`}
             >
@@ -106,6 +127,26 @@ export function TaskCard({ task, onUpdate }: TaskCardProps) {
               <Star className="w-3 h-3" fill="currentColor" />
               {task.point_value}
             </span>
+
+            {isAssignedToOther && assignee && (
+              <span
+                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-white"
+                style={{ backgroundColor: assignee.color }}
+              >
+                {assignee.name}
+              </span>
+            )}
+
+            {isUnassigned && !isCompleted && (
+              <button
+                onClick={handleClaim}
+                disabled={isClaiming}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
+              >
+                <UserPlus className="w-3 h-3" />
+                {isClaiming ? 'Claiming...' : 'Claim'}
+              </button>
+            )}
           </div>
         </div>
       </div>
