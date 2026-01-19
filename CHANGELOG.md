@@ -1,0 +1,335 @@
+# Changelog
+
+All notable changes to Gamify Family Planboard will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [Unreleased]
+
+### Added
+- **Multi-Language Support (i18n)** - Internationalization with English (default) and Dutch
+  - `src/i18n/index.ts` - i18next setup with language detection and localStorage persistence
+  - `src/i18n/locales/en/` - English translations (common, auth, tasks, gamification, admin)
+  - `src/i18n/locales/nl/` - Dutch translations (common, auth, tasks, gamification, admin)
+  - `src/components/LanguageSwitcher.tsx` - Dropdown with flag icons for language selection
+  - Language switcher in Header and all auth pages (Login, Register, Family Setup, Child PIN Login)
+  - Browser language auto-detection with fallback to English
+  - Language preference persisted in localStorage
+  - Date formatting respects selected language (weekdays, dates)
+  - Pluralization support (e.g., "1 point" vs "5 points", "1 dag" vs "5 dagen")
+  - Components migrated:
+    - Core: Header, TaskCard, TaskModal, TaskDetailModal, EditRecurringTaskDialog, RecurrenceSelector, ProfileModal, WeeklyCalendar
+    - Auth: LoginPage, RegisterPage, FamilySetupPage, ChildPinLogin
+    - Stats: StatsOverview, Leaderboard, Achievements
+    - Child Dashboard: ChildDashboard, ChildHeader, ChildTabBar, TodayTaskList
+    - Child Tasks: ChildTaskCard, ChildCreateTaskModal, TaskCompletionModal
+    - Child Gamification: DailyGreeting, ApprovalCelebration, LevelProgress, StreakDisplay
+    - Child Views: ChildBadgesView, ChildStatsView
+    - Rewards: RewardsOverview, RewardSettings, RedemptionManager
+    - Admin: AdminPanel, EditMemberModal, DeleteMemberConfirmModal, PaletteSelector, CreateChildModal, TaskApprovalManager
+- **Child Mobile Gamification Flow** - Duolingo-style mobile experience for children (`src/components/Child/`)
+  - `ChildDashboard.tsx` - Mobile-first dashboard for PIN users
+  - `ChildHeader.tsx` - Compact header with avatar, points, streak, level progress bar
+  - `TodayTaskList.tsx` - Today's tasks filtered by child with real-time sync
+  - `ChildTaskCard.tsx` - Large touch-friendly task cards (48px+ tap targets)
+  - `TaskCompletionModal.tsx` - Full-screen task detail with "I'm Done!" button
+  - `ChildTabBar.tsx` - Bottom navigation (Home/Badges/Stats)
+  - `DailyGreeting.tsx` - Welcome screen with streak celebration (auto-dismiss)
+- **Gamification Components** (`src/components/Child/Gamification/`)
+  - `StreakDisplay.tsx` - Animated fire icon with streak count and milestone highlights
+  - `LevelProgress.tsx` - Animated progress bar showing XP to next level
+  - `DailyGoalRing.tsx` - Circular SVG progress indicator for daily tasks
+  - `ComboIndicator.tsx` - Combo streak display (+10% per consecutive task, max +50%)
+  - `PointsAnimation.tsx` - Flying "+X points" celebration overlay
+  - `ApprovalCelebration.tsx` - Full-screen confetti celebration when parent approves
+  - `AchievementToast.tsx` - Slide-in notification for unlocked achievements
+- **Child Views** (`src/components/Child/Views/`)
+  - `ChildBadgesView.tsx` - Achievement/badge gallery with earned/locked states
+  - `ChildStatsView.tsx` - Points history, weekly stats, streak calendar
+- **CSS Animations** for gamification effects:
+  - `animate-flame` - Flame flicker for streak display
+  - `animate-confetti-fall` - Confetti particles for celebrations
+  - `animate-points-fly` - Points flying up animation
+  - `animate-sparkle-*` - Sparkle effects (4 variants)
+  - `animate-slide-up` - Mobile modal slide-up animation
+  - `animate-fade-in` - Fade in animation
+  - `animate-float` - Floating/bouncing animation for empty state star
+  - `safe-area-bottom` - iOS safe area padding for bottom nav
+- **Real-time Task Approval Detection** - Children see instant celebration when parent approves their task
+- **Unassigned Task Visibility** - Children can see unassigned tasks in "Available to Claim" section
+  - `TodayTaskList.tsx` - Fetches both assigned and unassigned tasks for today
+  - "Available to Claim" section with distinct blue styling and dashed border
+  - Hand icon and "Tap to claim!" badge on claimable task cards
+- **Task Claiming** - Children can claim unassigned tasks to add to their list
+  - `TaskCompletionModal.tsx` - "Claim This Task!" button for unassigned tasks
+  - Task is assigned to child after claiming, then they can complete it for points
+- **Child Task Creation** - Children can create their own tasks
+  - `ChildCreateTaskModal.tsx` - Mobile-first task creation modal
+  - Tasks auto-assigned to child with default 10 points
+  - Points can be adjusted by parents when approving the completed task
+  - Floating action button (FAB) on task list for quick task creation
+- **Fun Empty State** - Engaging empty state when no tasks exist for the day
+  - Animated floating star icon with CSS `animate-float` animation
+  - "Ready for an adventure?" playful heading
+  - Quick task suggestion chips (Read, Clean, Exercise, Create, Learn, Pet care)
+  - Clicking a suggestion pre-fills the task creation modal
+  - Gradient "Create My Own Task" button with sparkle icon
+- **Admin Panel** - New admin management interface (`src/components/Admin/`)
+- **Admin Member Management** - Full CRUD for family members in Admin Panel
+  - Edit member name and color (`src/components/Admin/EditMemberModal.tsx`)
+  - Delete member with confirmation (`src/components/Admin/DeleteMemberConfirmModal.tsx`)
+  - Edit/delete buttons on each member row
+- **Task Editing** - Admins can edit tasks from Task Detail modal
+  - Edit button (pencil icon) in header for non-completed tasks
+  - Full form: title, description, assignee, due date/time, priority
+  - Points auto-update based on priority change
+- **Color Palettes** - 11 themed color palettes for profile customization
+  - Palettes: Default, Soft Pastels, Vintage, Retro, Neon, Summer, Fall, Winter, Spring, Happy, Kids
+  - Family-level palette selection in Admin Panel
+  - `PaletteSelector` component (`src/components/Admin/PaletteSelector.tsx`)
+  - `useColorPalette` hook (`src/hooks/useColorPalette.ts`)
+  - Migration: `20260119190000_add_color_palette_to_families.sql`
+- **Rewards System** - Points-based rewards with redemption workflow (`src/components/Rewards/`)
+- **Child PIN Login** - Children can log in with a simple PIN code (`src/components/Auth/ChildPinLogin.tsx`)
+- **Profile Modal** - User profile viewing and editing (`src/components/ProfileModal.tsx`)
+- **Task Detail Modal** - Detailed task view with edit capability (`src/components/TaskDetailModal.tsx`)
+- **Edge Functions** for secure operations:
+  - `create-child` - Create child accounts with PIN authentication
+  - `pin-login` - Authenticate children via PIN
+- **Task Approval Workflow** - Non-admin task completions now require parent approval
+  - Tasks enter `pending_approval` status when children complete them
+  - Parents approve or reject from Admin Panel
+  - Points only awarded after approval
+  - New database columns: `completed_by`, `approved_by`, `approved_at`
+  - Migration: `20260119180000_add_task_approval_workflow.sql`
+- **Task Approval Manager** - New admin component for reviewing pending tasks (`src/components/Admin/TaskApprovalManager.tsx`)
+  - Approve/reject buttons with real-time updates
+  - Shows who completed each task
+  - "Recently Approved" section showing last 5 approved tasks
+- **Copy PIN Link** - Button to copy login URL for existing PIN users in Admin Panel member list
+- **Recurring Tasks** - Admins can create recurring tasks with multiple patterns
+  - `RecurrenceSelector.tsx` - UI component for selecting recurrence patterns
+  - Pattern options: One time, Daily, Weekly, Specific days (choose weekdays)
+  - End date picker with preview count ("This will create X tasks")
+  - Tasks are generated upfront as individual instances linked by `recurring_task_group_id`
+  - Purple repeat icon indicator on recurring task cards
+  - `src/lib/recurrence.ts` - Utility functions for generating recurring task instances
+  - Migration: `20260119200000_add_recurring_tasks.sql`
+- **Task Tags/Objects** - Free-form tags for categorizing and filtering tasks
+  - `TagInput.tsx` - Reusable tag input component with keyboard support (Enter/comma to add)
+  - Tags displayed on TaskCard (max 2 visible + overflow indicator)
+  - Tags viewable and editable in TaskDetailModal
+  - Tags included when creating tasks (single or recurring)
+  - Tag-based filtering in WeeklyCalendar header
+  - Migration: `20260119210000_add_associated_items_to_tasks.sql`
+- **Edit Recurring Tasks as Group** - Bulk edit all future recurring task instances
+  - `EditRecurringTaskDialog.tsx` - Dialog to choose "Edit this task only" or "Edit all future tasks"
+  - Shows count of affected future tasks
+  - Bulk updates: title, description, assigned_to, priority, point_value, associated_items
+  - Per-instance fields preserved: due_date, due_datetime
+  - `countFutureRecurringTasks()` utility function in recurrence.ts
+
+### Changed
+- **Task Claiming UI** - Immediate UI refresh when a child claims a task
+  - Added `onClaimSuccess` callback to `TaskCompletionModal.tsx`
+  - Task list now refreshes instantly without waiting for realtime subscription
+- **App.tsx** - PIN users (children) are now automatically routed to the mobile-first ChildDashboard instead of the standard Dashboard
+- **Dashboard Layout Redesign** - StatsOverview now spans full width at top, with Leaderboard and AdminPanel side-by-side below
+- **ProfileModal** now uses family's selected color palette for color picker
+- **CreateChildModal** now uses family's selected color palette for color picker
+- **AdminPanel** member list now shows edit/delete buttons with immediate UI refresh after changes
+- Consolidated database migrations into cleaner structure:
+  - `20260119140000_initial_schema.sql` - Core schema
+  - `20260119150000_fix_family_members_infinite_recursion.sql` - RLS policy fixes
+  - `20260119160000_add_rewards_and_pin_features.sql` - Rewards and PIN support
+  - `20260119170000_add_pin_user_rls_support.sql` - PIN user RLS policies
+- Updated `AuthContext` with support for PIN-based child authentication
+- Updated `FamilyContext` with improved member management
+- Enhanced `Header` component with profile and admin navigation
+- Improved `AdminPanel` with child management, reward approval, and new "Approvals" tab
+- Updated `Achievements`, `Leaderboard`, and `StatsOverview` components
+- Enhanced `TaskCard` with pending approval state (yellow styling, clock icon, "Awaiting Approval" badge)
+- Updated `WeeklyCalendar` component
+- Improved gamification logic in `src/lib/gamification.ts` with `approveTask()` and `rejectTask()` functions
+- Updated database types in `src/lib/database.types.ts` with `pending_approval` status
+- Enhanced Supabase client configuration
+
+### Fixed
+- Family members RLS infinite recursion issue
+
+### Removed
+- Deprecated individual migration files (consolidated into new structure)
+
+## [0.3.0] - 2026-01-19
+
+### Added
+- **Secure Invite Code System** via edge function
+  - `join-family` edge function for secure family joining
+  - Server-side invite code validation
+  - Prevents unauthorized family data access
+- Debug logging to join-family edge function
+
+### Fixed
+- Security vulnerability: Removed insecure RLS policy that would have exposed all families
+- Database remains locked down with strict RLS policies
+
+### Security
+- All invite code lookups now happen server-side with proper authentication
+- Edge function validates all inputs and checks authorization
+- Follows principle of least privilege
+
+## [0.2.0] - 2026-01-19
+
+### Added
+- **Authentication System**
+  - Supabase Auth integration with email/password
+  - Login and Register pages with validation
+  - Persistent sessions
+  - AuthRouter for routing authenticated vs unauthenticated users
+
+- **Family Management**
+  - Families table with unique invite codes
+  - FamilySetupPage for creating or joining families
+  - `generate_invite_code()` database function
+  - Role selection (parent/child) during setup
+  - Auto-assigns unique colors to members
+
+- **Enhanced Task Management**
+  - Date AND time picker for precise scheduling
+  - Task assignment to any family member
+  - Optional assignment (unassigned tasks allowed)
+  - Family-scoped task creation
+  - Tasks exclude archived items
+
+- **Parent Permissions Infrastructure**
+  - `is_admin` flag for parent permissions
+  - `manual_points_awards` table for parent-awarded points
+  - Database ready for manual point awards UI
+
+- **Reward System Infrastructure**
+  - `reward_redemptions` table for points-to-money conversion
+  - Configurable conversion rate per family
+  - Parent approval workflow (database ready)
+
+- **Task History Infrastructure**
+  - `task_history` table for archived tasks
+  - `is_archived` flag for task lifecycle
+  - Weekly reset capability (database ready)
+
+- **Custom Achievements Infrastructure**
+  - `is_custom` flag for user-created achievements
+  - Family-specific achievements support
+
+### Changed
+- All components now family-scoped
+- Leaderboard shows only family members
+- StatsOverview calculates family-specific statistics
+- Achievements display global + custom family achievements
+- FamilyContext works with AuthContext for family data
+- Real-time subscriptions scoped to family
+
+### Security
+- Row Level Security policies ensure family data isolation
+- Users can only view their family's data
+- Parents can create achievements and award points
+- Complete data isolation between families
+
+## [0.1.1] - 2026-01-19
+
+### Fixed
+- Families SELECT policy for family creators
+  - Creators can now see their family immediately after creation
+  - Fixed RLS policy that blocked SELECT after INSERT
+- Families INSERT policy for authenticated users
+
+## [0.1.0] - 2026-01-19
+
+### Added
+- **Initial Project Setup**
+  - React 18 + TypeScript + Vite
+  - Tailwind CSS styling
+  - Supabase integration (PostgreSQL, Auth, Realtime)
+  - Lucide React icons
+
+- **Database Schema**
+  - `family_members` - Profiles with points, levels, streaks, roles
+  - `tasks` - Tasks with assignments, due dates, priorities, point values
+  - `achievements` - Badge definitions with unlock conditions
+  - `user_achievements` - Earned achievements tracking
+  - `points_history` - Point transaction audit log
+  - `weekly_goals` - Weekly objectives tracking
+  - Row Level Security policies for all tables
+  - Performance indexes on frequently queried columns
+
+- **Family Member Management**
+  - Welcome screen for creating members with custom colors
+  - Member switcher for viewing different members' tasks
+  - Profile persistence using localStorage
+
+- **Weekly Calendar View**
+  - Seven-day week view with task organization
+  - Week navigation with today button
+  - Task completion tracking per day
+  - Quick-add button for each day
+
+- **Task Management**
+  - Create tasks with title, description, due date, priority
+  - Three priority levels: low (5pts), medium (10pts), high (20pts)
+  - Visual task cards with status indicators
+  - Task completion with celebration animations
+  - Task deletion
+
+- **Gamification System**
+  - Points awarded based on task priority
+  - 12-level progression system with point thresholds
+  - Progress bars showing advancement
+  - 9 default achievements:
+    - First task completion
+    - Task count milestones
+    - Points total milestones
+    - Streak achievements
+    - Perfect week
+  - Automatic achievement unlocking
+  - Streak tracking for consecutive days
+
+- **Leaderboard**
+  - Family ranking by total points
+  - Special styling for top 3 (crown, medals)
+  - Current levels and streaks display
+  - Real-time updates
+
+- **Statistics Dashboard**
+  - Total/completed/pending task counters
+  - Weekly points earned tracking
+  - Completion rate with progress bar
+  - Color-coded stat cards
+
+- **Achievements Gallery**
+  - Grid display of all achievements
+  - Locked/unlocked visual states
+  - Earned date display
+  - Progress tracking (X of Y unlocked)
+
+- **Real-Time Features**
+  - Live task updates (create, complete, delete)
+  - Instant leaderboard refresh
+  - Achievement notifications
+  - Family member sync
+
+- **User Experience**
+  - Clean, modern interface
+  - Color-coded family members
+  - Gradient backgrounds and shadows
+  - Responsive grid layouts
+  - Celebration animations
+  - Smooth transitions
+  - Loading spinners
+  - Hover effects
+
+### Technical
+- Modular component architecture
+- Context API for global state
+- Custom hooks for data management
+- Type-safe TypeScript throughout
+- Efficient real-time subscription management
+- Subscription cleanup on unmount

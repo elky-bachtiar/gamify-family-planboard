@@ -1,0 +1,119 @@
+{
+  "card": {
+    "awaitingApproval": "Wacht op goedkeuring",
+    "claim": "Claimen",
+    "claiming": "Claimen...",
+    "deleteConfirm": "Weet je zeker dat je deze taak wilt verwijderen?"
+  },
+  "priority": {
+    "low": "Laag",
+    "medium": "Gemiddeld",
+    "high": "Hoog"
+  },
+  "status": {
+    "pending": "In behandeling",
+    "completed": "Voltooid",
+    "pendingApproval": "Wacht op goedkeuring"
+  },
+  "modal": {
+    "createTitle": "Nieuwe taak aanmaken",
+    "editTitle": "Taak bewerken",
+    "viewTitle": "Taakdetails",
+    "titleLabel": "Taaktitel",
+    "titlePlaceholder": "Voer taaktitel in",
+    "descriptionLabel": "Beschrijving (Optioneel)",
+    "descriptionPlaceholder": "Voeg details toe over deze taak",
+    "priorityLabel": "Prioriteit",
+    "pointsLabel": "Punten",
+    "dueDateLabel": "Einddatum",
+    "dueTimeLabel": "Eindtijd",
+    "assigneeLabel": "Toewijzen aan",
+    "unassigned": "Niet toegewezen",
+    "createButton": "Taak aanmaken",
+    "creating": "Aanmaken...",
+    "updateButton": "Taak bijwerken",
+    "updating": "Bijwerken...",
+    "pts": "ptn",
+    "errors": {
+      "noRecurrenceTasks": "Er worden geen taken aangemaakt met de huidige herhalingsinstellingen",
+      "createFailed": "Taak aanmaken mislukt. Probeer het opnieuw."
+    }
+  },
+  "recurrence": {
+    "repeat": "Herhalen",
+    "oneTime": "Eenmalig",
+    "daily": "Dagelijks",
+    "weekly": "Wekelijks",
+    "specificDays": "Specifieke dagen",
+    "selectDays": "Selecteer dagen",
+    "endDate": "Einddatum",
+    "willCreate": "Dit maakt <strong>{{count}}</strong> taak aan",
+    "willCreate_other": "Dit maakt <strong>{{count}}</strong> taken aan",
+    "noTasksCreated": "Er worden geen taken aangemaakt met de huidige instellingen",
+    "weekdays": {
+      "sun": "Zo",
+      "mon": "Ma",
+      "tue": "Di",
+      "wed": "Wo",
+      "thu": "Do",
+      "fri": "Vr",
+      "sat": "Za"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Weekoverzicht",
+    "noTasks": "Geen taken voor deze dag",
+    "addTask": "Taak toevoegen"
+  },
+  "filters": {
+    "all": "Alle",
+    "myTasks": "Mijn taken",
+    "unassigned": "Niet toegewezen",
+    "completed": "Voltooid"
+  },
+  "empty": {
+    "noTasks": "Nog geen taken",
+    "noTasksDescription": "Maak een taak aan om te beginnen!"
+  },
+  "detail": {
+    "editTask": "Taak bewerken",
+    "description": "Beschrijving",
+    "dueDate": "Einddatum",
+    "dueTime": "Eindtijd",
+    "priority": "Prioriteit",
+    "points": "Punten",
+    "pointsValue": "{{count}} punten",
+    "assignedTo": "Toegewezen aan",
+    "unassigned": "Niet toegewezen",
+    "tagsObjects": "Tags/Objecten",
+    "tagsHint": "Druk op Enter of komma om een tag toe te voegen",
+    "tagsPlaceholder": "bijv. vaatwasser, keuken",
+    "completedAt": "Voltooid op",
+    "saveChanges": "Wijzigingen opslaan",
+    "saving": "Opslaan...",
+    "close": "Sluiten"
+  },
+  "recurringEdit": {
+    "title": "Herhalende taak bewerken",
+    "partOfSeries": "\"{{title}}\" maakt deel uit van een herhalende takenreeks. Hoe wil je de wijzigingen toepassen?",
+    "editSingleTitle": "Alleen deze taak opslaan",
+    "editSingleDescription": "Wijzigingen worden alleen toegepast op deze specifieke taak",
+    "editAllFutureTitle": "Alle toekomstige taken opslaan",
+    "editAllFutureBadge": "{{count}} taken",
+    "editAllFutureDescription": "Wijzigingen worden toegepast op alle niet-voltooide taken vanaf vandaag",
+    "updating": "Taken bijwerken..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Goedemorgen",
+      "afternoon": "Goedemiddag",
+      "evening": "Goedenavond"
+    },
+    "todaysTasks": "Taken van vandaag",
+    "completedToday": "Vandaag voltooid",
+    "pointsEarned": "Punten verdiend",
+    "keepGoing": "Ga zo door!",
+    "allDone": "Alles klaar!",
+    "createTask": "Taak aanmaken"
+  }
+}

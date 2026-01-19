@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
 import { PRIORITY_CONFIG } from '../types';
+import { RecurrenceSelector } from './RecurrenceSelector';
+import { TagInput } from './TagInput';
+import type { RecurrencePattern } from '../lib/recurrence';
+import { generateRecurringTaskInstances, validateRecurrenceConfig } from '../lib/recurrence';
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -13,8 +18,9 @@ interface TaskModalProps {
 }
 
 export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskModalProps) {
+  const { t } = useTranslation(['tasks', 'common']);
   const { currentMember, familyMembers } = useFamily();
-  const { family } = useAuth();
+  const { family, isAdmin } = useAuth();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
@@ -22,6 +28,14 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
   const [assignedTo, setAssignedTo] = useState<string>('');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [isCreating, setIsCreating] = useState(false);
+
+  // Recurrence state (admin only)
+  const [recurrencePattern, setRecurrencePattern] = useState<RecurrencePattern>(null);
+  const [recurrenceDays, setRecurrenceDays] = useState<number[]>([]);
+  const [recurrenceEndDate, setRecurrenceEndDate] = useState('');
+
+  // Tags/Associated items state
+  const [associatedItems, setAssociatedItems] = useState<string[]>([]);
 
   useEffect(() => {
     if (defaultDate) {
@@ -40,6 +54,10 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
       setDueTime('12:00');
       setPriority('medium');
       setAssignedTo(currentMember?.id || '');
+      setRecurrencePattern(null);
+      setRecurrenceDays([]);
+      setRecurrenceEndDate('');
+      setAssociatedItems([]);
     }
   }, [isOpen]);
 
@@ -47,29 +65,84 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
     e.preventDefault();
     if (!currentMember || !family || !title.trim() || !dueDate) return;
 
+    // Validate recurrence configuration if enabled
+    if (recurrencePattern) {
+      const recurrenceConfig = {
+        pattern: recurrencePattern,
+        days: recurrenceDays,
+        endDate: new Date(recurrenceEndDate),
+        startDate: new Date(dueDate),
+      };
+
+      const validationError = validateRecurrenceConfig(recurrenceConfig);
+      if (validationError) {
+        alert(t('tasks:modal.errors.noRecurrenceTasks'));
+        return;
+      }
+    }
+
     setIsCreating(true);
 
     try {
       const dueDatetime = `${dueDate}T${dueTime}:00`;
 
-      const { error } = await supabase.from('tasks').insert({
-        title: title.trim(),
-        description: description.trim(),
-        assigned_to: assignedTo || null,
-        due_date: dueDate,
-        due_datetime: dueDatetime,
-        priority,
-        point_value: PRIORITY_CONFIG[priority].points,
-        created_by: currentMember.id,
-        family_id: family.id,
-      });
+      if (recurrencePattern && recurrenceEndDate) {
+        // Generate and insert recurring task instances
+        const groupId = crypto.randomUUID();
+        const recurrenceConfig = {
+          pattern: recurrencePattern,
+          days: recurrenceDays,
+          endDate: new Date(recurrenceEndDate),
+          startDate: new Date(dueDate),
+        };
 
-      if (error) throw error;
+        const taskInstances = generateRecurringTaskInstances(
+          {
+            title: title.trim(),
+            description: description.trim(),
+            assigned_to: assignedTo || null,
+            due_datetime: dueDatetime,
+            priority,
+            point_value: PRIORITY_CONFIG[priority].points,
+            created_by: currentMember.id,
+            family_id: family.id,
+            associated_items: associatedItems,
+          },
+          recurrenceConfig,
+          groupId
+        );
+
+        if (taskInstances.length === 0) {
+          alert(t('tasks:modal.errors.noRecurrenceTasks'));
+          setIsCreating(false);
+          return;
+        }
+
+        const { error } = await supabase.from('tasks').insert(taskInstances);
+        if (error) throw error;
+      } else {
+        // Single task creation
+        const { error } = await supabase.from('tasks').insert({
+          title: title.trim(),
+          description: description.trim(),
+          assigned_to: assignedTo || null,
+          due_date: dueDate,
+          due_datetime: dueDatetime,
+          priority,
+          point_value: PRIORITY_CONFIG[priority].points,
+          created_by: currentMember.id,
+          family_id: family.id,
+          associated_items: associatedItems,
+        });
+
+        if (error) throw error;
+      }
 
       onTaskCreated();
       onClose();
     } catch (error) {
       console.error('Error creating task:', error);
+      alert(t('tasks:modal.errors.createFailed'));
     } finally {
       setIsCreating(false);
     }
@@ -81,7 +154,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">Create New Task</h2>
+          <h2 className="text-xl font-bold text-gray-900">{t('tasks:modal.createTitle')}</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -93,14 +166,14 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-              Task Title
+              {t('tasks:modal.titleLabel')}
             </label>
             <input
               id="title"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter task title"
+              placeholder={t('tasks:modal.titlePlaceholder')}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             />
@@ -108,13 +181,13 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
 
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-              Description (Optional)
+              {t('tasks:modal.descriptionLabel')}
             </label>
             <textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add details about this task"
+              placeholder={t('tasks:modal.descriptionPlaceholder')}
               rows={3}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             />
@@ -122,7 +195,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
 
           <div>
             <label htmlFor="assignedTo" className="block text-sm font-medium text-gray-700 mb-1">
-              Assign To
+              {t('tasks:modal.assigneeLabel')}
             </label>
             <select
               id="assignedTo"
@@ -130,7 +203,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
               onChange={(e) => setAssignedTo(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">Unassigned</option>
+              <option value="">{t('tasks:modal.unassigned')}</option>
               {familyMembers.map((member) => (
                 <option key={member.id} value={member.id}>
                   {member.name}
@@ -142,7 +215,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">
-                Due Date
+                {t('tasks:modal.dueDateLabel')}
               </label>
               <input
                 id="dueDate"
@@ -155,7 +228,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
             </div>
             <div>
               <label htmlFor="dueTime" className="block text-sm font-medium text-gray-700 mb-1">
-                Due Time
+                {t('tasks:modal.dueTimeLabel')}
               </label>
               <input
                 id="dueTime"
@@ -170,7 +243,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Priority
+              {t('tasks:modal.priorityLabel')}
             </label>
             <div className="grid grid-cols-3 gap-2">
               {(Object.keys(PRIORITY_CONFIG) as Array<'low' | 'medium' | 'high'>).map((p) => {
@@ -186,13 +259,40 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    <div className="text-sm font-medium text-gray-900 capitalize">{p}</div>
-                    <div className="text-xs text-gray-600">{config.points} pts</div>
+                    <div className="text-sm font-medium text-gray-900 capitalize">{t(`tasks:priority.${p}`)}</div>
+                    <div className="text-xs text-gray-600">{config.points} {t('tasks:modal.pts')}</div>
                   </button>
                 );
               })}
             </div>
           </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {t('tasks:modal.tagsLabel', 'Tags/Objects')}
+            </label>
+            <TagInput
+              tags={associatedItems}
+              onTagsChange={setAssociatedItems}
+              placeholder={t('tasks:modal.tagsPlaceholder', 'e.g., dishwasher, kitchen')}
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              {t('tasks:modal.tagsHint', 'Press Enter or comma to add a tag')}
+            </p>
+          </div>
+
+          {/* Recurrence selector (admin only) */}
+          {isAdmin && dueDate && (
+            <RecurrenceSelector
+              pattern={recurrencePattern}
+              onPatternChange={setRecurrencePattern}
+              selectedDays={recurrenceDays}
+              onDaysChange={setRecurrenceDays}
+              endDate={recurrenceEndDate}
+              onEndDateChange={setRecurrenceEndDate}
+              startDate={new Date(dueDate)}
+            />
+          )}
 
           <div className="flex gap-2 pt-4">
             <button
@@ -200,14 +300,14 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
               onClick={onClose}
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
             >
-              Cancel
+              {t('common:buttons.cancel')}
             </button>
             <button
               type="submit"
-              disabled={isCreating || !title.trim() || !dueDate}
+              disabled={isCreating || !title.trim() || !dueDate || (recurrencePattern !== null && !recurrenceEndDate)}
               className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
-              {isCreating ? 'Creating...' : 'Create Task'}
+              {isCreating ? t('tasks:modal.creating') : t('tasks:modal.createButton')}
             </button>
           </div>
         </form>

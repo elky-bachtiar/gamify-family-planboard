@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trophy, Medal, Crown } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { getSupabaseClient } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { FamilyMember } from '../types';
 
 export function Leaderboard() {
+  const { t } = useTranslation('gamification');
   const { family } = useAuth();
   const [members, setMembers] = useState<FamilyMember[]>([]);
 
@@ -12,6 +14,7 @@ export function Leaderboard() {
     if (family) {
       loadMembers();
 
+      const supabase = getSupabaseClient();
       const subscription = supabase
         .channel('leaderboard_changes')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'family_members' }, () => {
@@ -28,6 +31,7 @@ export function Leaderboard() {
   const loadMembers = async () => {
     if (!family) return;
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('family_members')
       .select('*')
@@ -43,14 +47,14 @@ export function Leaderboard() {
     if (index === 0) return <Crown className="w-6 h-6 text-yellow-500" />;
     if (index === 1) return <Medal className="w-6 h-6 text-gray-400" />;
     if (index === 2) return <Medal className="w-6 h-6 text-amber-600" />;
-    return <span className="text-lg font-bold text-gray-400">#{index + 1}</span>;
+    return <span className="text-lg font-bold text-gray-400">{t('leaderboard.rank', { rank: index + 1 })}</span>;
   };
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex items-center gap-2 mb-6">
         <Trophy className="w-6 h-6 text-yellow-500" />
-        <h2 className="text-xl font-bold text-gray-900">Family Leaderboard</h2>
+        <h2 className="text-xl font-bold text-gray-900">{t('leaderboard.title')}</h2>
       </div>
 
       <div className="space-y-3">
@@ -77,14 +81,14 @@ export function Leaderboard() {
             <div className="flex-1">
               <div className="font-semibold text-gray-900">{member.name}</div>
               <div className="text-sm text-gray-600">
-                Level {member.current_level} • {member.total_points} points
+                {t('leaderboard.levelAndPoints', { level: member.current_level, points: member.total_points })}
               </div>
             </div>
 
             {member.current_streak > 0 && (
               <div className="text-right">
                 <div className="text-2xl font-bold text-orange-500">{member.current_streak}</div>
-                <div className="text-xs text-gray-500">day streak</div>
+                <div className="text-xs text-gray-500">{t('streak.dayStreak')}</div>
               </div>
             )}
           </div>
@@ -92,7 +96,7 @@ export function Leaderboard() {
 
         {members.length === 0 && (
           <div className="text-center py-8 text-gray-500">
-            No family members yet
+            {t('leaderboard.noMembers')}
           </div>
         )}
       </div>

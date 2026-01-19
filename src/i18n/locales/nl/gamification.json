@@ -1,0 +1,222 @@
+{
+  "points": {
+    "value": "{{count}} punten",
+    "value_one": "{{count}} punt",
+    "earned": "Verdiende punten",
+    "total": "Totaal punten",
+    "weekly": "Wekelijkse punten"
+  },
+  "level": {
+    "current": "Niveau {{level}}",
+    "progressTo": "Voortgang naar niveau {{level}}",
+    "maxLevel": "Maximaal niveau bereikt!"
+  },
+  "streak": {
+    "current": "{{count}} dagen",
+    "current_one": "{{count}} dag",
+    "dayStreak": "dagen achter elkaar",
+    "keepItUp": "Ga zo door!",
+    "streakLost": "Reeks verloren",
+    "newRecord": "Nieuw record!"
+  },
+  "achievements": {
+    "title": "Prestaties",
+    "unlocked": "{{count}} van {{total}} ontgrendeld",
+    "earned": "Behaald op {{date}}",
+    "noAchievements": "Nog geen prestaties beschikbaar",
+    "locked": "Vergrendeld",
+    "newlyUnlocked": "Prestatie ontgrendeld!"
+  },
+  "leaderboard": {
+    "title": "Familie ranglijst",
+    "noMembers": "Nog geen familieleden",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Niveau {{level}} • {{points}} punten"
+  },
+  "stats": {
+    "familyStats": "Familiestatistieken",
+    "yourStats": "Jouw statistieken",
+    "totalTasks": "Totaal taken",
+    "completed": "Voltooid",
+    "pending": "In behandeling",
+    "weeklyPoints": "Wekelijkse punten",
+    "completionRate": "Voltooiingspercentage"
+  },
+  "rewards": {
+    "title": "Beloningen",
+    "myRewards": "Mijn beloningen",
+    "overview": "Beloningen overzicht",
+    "redeem": "Punten inwisselen",
+    "redeemButton": "Inwisselen",
+    "pointsToRedeem": "In te wisselen punten",
+    "cashValue": "Geldwaarde",
+    "perPoint": "€{{rate}} per punt",
+    "availablePoints": "Beschikbare punten",
+    "redeemableValue": "Inwisselbare waarde",
+    "pendingRedemptions": "Openstaande inwisselingen",
+    "redemptionHistory": "Inwisselgeschiedenis",
+    "noRedemptions": "Nog geen inwisselverzoeken",
+    "requestRedemption": "Inwisseling aanvragen",
+    "minimumPlaceholder": "Minimum: {{minimum}} punten",
+    "requesting": "Aanvragen...",
+    "needMinimum": "Je hebt minimaal {{minimum}} punten nodig om in te wisselen.",
+    "keepEarning": "Blijf punten verdienen om beloningen te ontgrendelen!",
+    "weeklyGoal": {
+      "title": "Weekdoel voortgang",
+      "progress": "{{current}} / {{target}} punten",
+      "reached": "Doel behaald! €{{bonus}} bonus verdiend deze week!",
+      "earnMore": "Verdien nog {{remaining}} punten voor €{{bonus}} bonus"
+    },
+    "settings": {
+      "title": "Beloningsinstellingen",
+      "enableRewards": "Beloningen inschakelen",
+      "enableDescription": "Sta familieleden toe om punten in te wisselen voor beloningen",
+      "pointsToMoneyRate": "Punten naar geld tarief",
+      "pointsToMoneyRateHint": "Bedrag per punt (bijv. 0,01 = €0,01 per punt)",
+      "minimumRedemption": "Minimum punten voor inwisseling",
+      "minimumRedemptionHint": "Minimum punten vereist om in te wisselen",
+      "weeklyBonusTarget": "Wekelijks bonusdoel",
+      "weeklyTargetPoints": "Wekelijks doelpunten",
+      "weeklyTargetPointsHint": "Punten nodig voor weekbonus (0 = uitgeschakeld)",
+      "weeklyBonusAmount": "Wekelijks bonusbedrag",
+      "weeklyBonusAmountHint": "Bonusbedrag bij behalen weekdoel",
+      "example": "Voorbeeld: {{points}} punten = €{{money}}",
+      "weeklyGoalExample": "Weekdoel: Verdien {{points}} punten voor €{{bonus}} bonus",
+      "savedSuccess": "Instellingen succesvol opgeslagen!",
+      "saveFailed": "Opslaan van instellingen mislukt",
+      "saving": "Opslaan...",
+      "saveButton": "Beloningsinstellingen opslaan"
+    },
+    "status": {
+      "pending": "In behandeling",
+      "approved": "Goedgekeurd",
+      "rejected": "Afgewezen",
+      "paid": "Betaald"
+    },
+    "actions": {
+      "approve": "Goedkeuren",
+      "reject": "Afwijzen",
+      "markPaid": "Markeer als betaald"
+    },
+    "manager": {
+      "title": "Inwisselverzoeken",
+      "pendingApproval": "Wacht op goedkeuring ({{count}})",
+      "awaitingPayment": "Goedgekeurd - Wacht op betaling ({{count}})",
+      "toPay": "€{{amount}} te betalen",
+      "processing": "Verwerken...",
+      "recentHistory": "Recente geschiedenis",
+      "pointsEquals": "{{points}} punten = €{{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Weekdoel",
+    "progress": "{{current}} / {{target}} punten",
+    "completed": "Doel behaald!",
+    "notSet": "Geen doel ingesteld"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% naar niveau {{level}}"
+    },
+    "tabs": {
+      "home": "Home",
+      "badges": "Badges",
+      "stats": "Stats"
+    },
+    "dailyGreeting": {
+      "dayStreak": "dagen achter elkaar!",
+      "letsGo": "Aan de slag!",
+      "tapToContinue": "Tik ergens om verder te gaan",
+      "motivation": {
+        "startStreak": "Laten we vandaag een nieuwe reeks starten!",
+        "greatStart": "Geweldige start! Ga zo door!",
+        "momentum": "Je bouwt momentum op!",
+        "onFire": "Je bent on fire! Geweldig!",
+        "dedication": "Ongelooflijke toewijding!",
+        "superstar": "Je bent een superster!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Voortgang vandaag",
+      "done": "{{done}}/{{total}} klaar",
+      "allDone": "Alles klaar! Goed gedaan!",
+      "emptyState": {
+        "title": "Klaar voor een avontuur?",
+        "subtitle": "Maak een taak aan om punten te verdienen en te levelen!",
+        "quickIdeas": "Snelle ideeën:",
+        "createOwn": "Maak je eigen taak"
+      },
+      "sections": {
+        "myTasks": "Mijn taken ({{count}})",
+        "available": "Beschikbaar om te claimen ({{count}})",
+        "waitingApproval": "Wacht op goedkeuring ({{count}})",
+        "waitingForParent": "Wacht op ouder ({{count}})",
+        "completed": "Voltooid ({{count}})"
+      },
+      "suggestions": {
+        "read": "Lezen",
+        "clean": "Opruimen",
+        "exercise": "Sporten",
+        "create": "Maken",
+        "learn": "Leren",
+        "petCare": "Huisdier verzorgen"
+      }
+    },
+    "dailyGreeting": {
+      "welcome": "Welkom terug!",
+      "letsGo": "Aan de slag!"
+    },
+    "taskCard": {
+      "tapToClaim": "Tik om te claimen!",
+      "pendingApproval": "Wacht op goedkeuring",
+      "waitingForParent": "Wacht op ouder"
+    },
+    "taskModal": {
+      "createTitle": "Maak je taak",
+      "whatToDo": "Wat wil je doen?",
+      "placeholder": "Bijv., 20 minuten lezen",
+      "createButton": "Taak aanmaken",
+      "creating": "Aanmaken...",
+      "sentForApproval": "Taak naar ouder gestuurd!",
+      "parentWillReview": "Je ouder zal je taak bekijken en goedkeuren."
+    },
+    "completion": {
+      "title": "Taak voltooien",
+      "claimTask": "Claim deze taak!",
+      "claiming": "Claimen...",
+      "imDone": "Ik ben klaar!",
+      "submitting": "Indienen...",
+      "earnPoints": "Verdien {{points}} punten!",
+      "alreadyCompleted": "Al voltooid!",
+      "waitingApproval": "Wacht op goedkeuring..."
+    },
+    "celebration": {
+      "approved": "Taak goedgekeurd!",
+      "approvedBig": "GOEDGEKEURD!",
+      "youEarned": "Je hebt verdiend",
+      "points": "punten!",
+      "awesome": "Geweldig!",
+      "total": "Totaal: {{points}} punten"
+    },
+    "badges": {
+      "title": "Mijn badges",
+      "unlockedCount": "{{unlocked}}/{{total}} ontgrendeld",
+      "noBadges": "Nog geen badges",
+      "noBadgesHint": "Voltooi taken om badges te verdienen!",
+      "earned": "Behaald op {{date}}"
+    },
+    "statsView": {
+      "title": "Mijn statistieken",
+      "totalPoints": "Totaal punten",
+      "currentLevel": "Huidig niveau",
+      "currentStreak": "Huidige reeks",
+      "days": "dagen",
+      "thisWeek": "Deze week",
+      "tasksDone": "Taken gedaan",
+      "pointsEarned": "Punten verdiend",
+      "activeDays": "Actieve dagen",
+      "recentActivity": "Recente activiteit",
+      "noActivity": "Nog geen activiteit. Voltooi wat taken!"
+    }
+  }
+}

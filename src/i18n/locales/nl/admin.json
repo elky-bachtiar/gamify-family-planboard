@@ -1,0 +1,90 @@
+{
+  "panel": {
+    "title": "Beheerderspaneel",
+    "tabs": {
+      "members": "Leden",
+      "approvals": "Goedkeuringen",
+      "rewards": "Beloningen"
+    }
+  },
+  "inviteCode": {
+    "title": "Uitnodigingscode",
+    "copyLink": "Link kopiëren",
+    "copied": "Gekopieerd!"
+  },
+  "members": {
+    "title": "Familieleden",
+    "count": "Familieleden ({{count}})",
+    "addChild": "Kind toevoegen (PIN)",
+    "admin": "Beheerder",
+    "pinUser": "PIN-gebruiker",
+    "points": "{{count}} punten",
+    "level": "Niveau {{level}}",
+    "editMember": "Lid bewerken",
+    "deleteMember": "Lid verwijderen"
+  },
+  "createChild": {
+    "title": "Kind account toevoegen",
+    "subtitle": "Maak een PIN-gebaseerd account voor een kind",
+    "nameLabel": "Naam van het kind",
+    "namePlaceholder": "Voer naam in",
+    "pinLabel": "Pincode",
+    "pinPlaceholder": "Voer 4-cijferige pincode in",
+    "pinHelp": "Deze pincode wordt door het kind gebruikt om in te loggen",
+    "colorLabel": "Kleur",
+    "createButton": "Kind account aanmaken",
+    "creating": "Aanmaken...",
+    "success": {
+      "title": "Kind account aangemaakt!",
+      "message": "Deel deze link met {{name}} om toegang te krijgen tot het dashboard:",
+      "copyLink": "Inloglink kopiëren",
+      "pin": "Pincode: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Lid bewerken",
+    "nameLabel": "Naam",
+    "namePlaceholder": "Voer naam in",
+    "colorLabel": "Profielkleur",
+    "pinUserWarning": "Dit is een PIN-gebaseerd kindaccount. Om de PIN te resetten, moet je een nieuw account aanmaken.",
+    "saveButton": "Wijzigingen opslaan",
+    "saving": "Opslaan..."
+  },
+  "deleteMember": {
+    "title": "Lid verwijderen",
+    "message": "Weet je zeker dat je {{name}} wilt verwijderen? Dit verwijdert ook alle taken en puntengeschiedenis.",
+    "warning": "Deze actie kan niet ongedaan worden gemaakt.",
+    "warningIntro": "Waarschuwing: Deze actie kan niet ongedaan worden gemaakt. Alle gegevens van {{name}} worden permanent verwijderd, inclusief:",
+    "warningPoints": "Punten en niveauvoortgang",
+    "warningAchievements": "Behaalde prestaties",
+    "warningTasks": "Taakgeschiedenis",
+    "warningRedemptions": "Inwisselrecords",
+    "pointsAndLevel": "{{points}} punten · Niveau {{level}}",
+    "deleteButton": "Lid verwijderen",
+    "deleting": "Verwijderen..."
+  },
+  "approvals": {
+    "title": "Taakgoedkeuringen",
+    "pendingApprovals": "Openstaande goedkeuringen",
+    "noPending": "Geen taken wachten op goedkeuring",
+    "submittedBy": "Ingediend door {{name}}",
+    "approveButton": "Goedkeuren",
+    "rejectButton": "Afwijzen",
+    "approving": "Goedkeuren...",
+    "rejecting": "Afwijzen...",
+    "newTaskRequests": "Nieuwe taakverzoeken",
+    "noNewTaskRequests": "Geen nieuwe taakverzoeken",
+    "createdBy": "Aangemaakt door {{name}}",
+    "points": "Punten"
+  },
+  "palette": {
+    "title": "Kleurenpalet",
+    "description": "Kies een kleurenpalet voor profielkleuren in je familie.",
+    "current": "Huidig: {{name}}",
+    "select": "Selecteer palet",
+    "saveButton": "Palet opslaan",
+    "saving": "Opslaan...",
+    "saved": "Palet opgeslagen!",
+    "saveFailed": "Opslaan mislukt"
+  }
+}

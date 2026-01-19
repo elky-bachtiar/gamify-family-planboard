@@ -1,0 +1,64 @@
+{
+  "app": {
+    "title": "Family Planboard"
+  },
+  "navigation": {
+    "myTasks": "My Tasks",
+    "familyBoard": "Family Board",
+    "dashboard": "Dashboard"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "copy": "Copy",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "loading": "Loading...",
+    "create": "Create",
+    "update": "Update",
+    "add": "Add"
+  },
+  "labels": {
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "description": "Description",
+    "status": "Status",
+    "priority": "Priority",
+    "points": "points",
+    "level": "Level",
+    "days": "days",
+    "dayStreak": "day streak"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "networkError": "Network error. Please try again.",
+    "unauthorized": "You are not authorized to perform this action"
+  },
+  "empty": {
+    "noData": "No data available",
+    "noResults": "No results found"
+  },
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This Week"
+  },
+  "confirmation": {
+    "areYouSure": "Are you sure?",
+    "cannotUndo": "This action cannot be undone."
+  },
+  "profile": {
+    "settings": "Profile Settings",
+    "signOut": "Sign Out"
+  }
+}

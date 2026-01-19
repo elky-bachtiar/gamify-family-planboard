@@ -1,0 +1,222 @@
+{
+  "points": {
+    "value": "{{count}} points",
+    "value_one": "{{count}} point",
+    "earned": "Points Earned",
+    "total": "Total Points",
+    "weekly": "Weekly Points"
+  },
+  "level": {
+    "current": "Level {{level}}",
+    "progressTo": "Progress to Level {{level}}",
+    "maxLevel": "Max Level Reached!"
+  },
+  "streak": {
+    "current": "{{count}} days",
+    "current_one": "{{count}} day",
+    "dayStreak": "day streak",
+    "keepItUp": "Keep it up!",
+    "streakLost": "Streak lost",
+    "newRecord": "New record!"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "unlocked": "{{count}} of {{total}} unlocked",
+    "earned": "Earned {{date}}",
+    "noAchievements": "No achievements available yet",
+    "locked": "Locked",
+    "newlyUnlocked": "Achievement Unlocked!"
+  },
+  "leaderboard": {
+    "title": "Family Leaderboard",
+    "noMembers": "No family members yet",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Level {{level}} • {{points}} points"
+  },
+  "stats": {
+    "familyStats": "Family Stats",
+    "yourStats": "Your Stats",
+    "totalTasks": "Total Tasks",
+    "completed": "Completed",
+    "pending": "Pending",
+    "weeklyPoints": "Weekly Points",
+    "completionRate": "Completion Rate"
+  },
+  "rewards": {
+    "title": "Rewards",
+    "myRewards": "My Rewards",
+    "overview": "Rewards Overview",
+    "redeem": "Redeem Points",
+    "redeemButton": "Redeem",
+    "pointsToRedeem": "Points to Redeem",
+    "cashValue": "Cash Value",
+    "perPoint": "${{rate}} per point",
+    "availablePoints": "Available Points",
+    "redeemableValue": "Redeemable Value",
+    "pendingRedemptions": "Pending Redemptions",
+    "redemptionHistory": "Redemption History",
+    "noRedemptions": "No redemption requests yet",
+    "requestRedemption": "Request Redemption",
+    "minimumPlaceholder": "Minimum: {{minimum}} points",
+    "requesting": "Requesting...",
+    "needMinimum": "You need at least {{minimum}} points to request a redemption.",
+    "keepEarning": "Keep earning to unlock rewards!",
+    "weeklyGoal": {
+      "title": "Weekly Goal Progress",
+      "progress": "{{current}} / {{target}} points",
+      "reached": "Goal reached! ${{bonus}} bonus earned this week!",
+      "earnMore": "Earn {{remaining}} more points to get ${{bonus}} bonus"
+    },
+    "settings": {
+      "title": "Reward Settings",
+      "enableRewards": "Enable Rewards",
+      "enableDescription": "Allow family members to redeem points for rewards",
+      "pointsToMoneyRate": "Points to Money Rate",
+      "pointsToMoneyRateHint": "Amount per point (e.g., 0.01 = $0.01 per point)",
+      "minimumRedemption": "Minimum Points for Redemption",
+      "minimumRedemptionHint": "Minimum points needed to request a redemption",
+      "weeklyBonusTarget": "Weekly Bonus Target",
+      "weeklyTargetPoints": "Weekly Target Points",
+      "weeklyTargetPointsHint": "Points needed to earn weekly bonus (0 = disabled)",
+      "weeklyBonusAmount": "Weekly Bonus Amount",
+      "weeklyBonusAmountHint": "Bonus amount for reaching weekly target",
+      "example": "Example: {{points}} points = ${{money}}",
+      "weeklyGoalExample": "Weekly goal: Earn {{points}} points to get ${{bonus}} bonus",
+      "savedSuccess": "Settings saved successfully!",
+      "saveFailed": "Failed to save settings",
+      "saving": "Saving...",
+      "saveButton": "Save Reward Settings"
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "paid": "Paid"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "markPaid": "Mark as Paid"
+    },
+    "manager": {
+      "title": "Redemption Requests",
+      "pendingApproval": "Pending Approval ({{count}})",
+      "awaitingPayment": "Approved - Awaiting Payment ({{count}})",
+      "toPay": "${{amount}} to pay",
+      "processing": "Processing...",
+      "recentHistory": "Recent History",
+      "pointsEquals": "{{points}} points = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Weekly Goal",
+    "progress": "{{current}} / {{target}} points",
+    "completed": "Goal Completed!",
+    "notSet": "No goal set"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% to Level {{level}}"
+    },
+    "tabs": {
+      "home": "Home",
+      "badges": "Badges",
+      "stats": "Stats"
+    },
+    "dailyGreeting": {
+      "dayStreak": "day streak!",
+      "letsGo": "Let's Go!",
+      "tapToContinue": "Tap anywhere to continue",
+      "motivation": {
+        "startStreak": "Let's start a new streak today!",
+        "greatStart": "Great start! Keep it up!",
+        "momentum": "You're building momentum!",
+        "onFire": "You're on fire! Amazing!",
+        "dedication": "Incredible dedication!",
+        "superstar": "You're a superstar!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Today's Progress",
+      "done": "{{done}}/{{total}} done",
+      "allDone": "All done! Great job!",
+      "emptyState": {
+        "title": "Ready for an adventure?",
+        "subtitle": "Create a task to start earning points and level up!",
+        "quickIdeas": "Quick ideas:",
+        "createOwn": "Create My Own Task"
+      },
+      "sections": {
+        "myTasks": "My Tasks ({{count}})",
+        "available": "Available to Claim ({{count}})",
+        "waitingApproval": "Waiting for Approval ({{count}})",
+        "waitingForParent": "Waiting for Parent ({{count}})",
+        "completed": "Completed ({{count}})"
+      },
+      "suggestions": {
+        "read": "Read",
+        "clean": "Clean",
+        "exercise": "Exercise",
+        "create": "Create",
+        "learn": "Learn",
+        "petCare": "Pet care"
+      }
+    },
+    "dailyGreeting": {
+      "welcome": "Welcome back!",
+      "letsGo": "Let's Go!"
+    },
+    "taskCard": {
+      "tapToClaim": "Tap to claim!",
+      "pendingApproval": "Pending approval",
+      "waitingForParent": "Waiting for parent"
+    },
+    "taskModal": {
+      "createTitle": "Create Your Task",
+      "whatToDo": "What do you want to do?",
+      "placeholder": "E.g., Read for 20 minutes",
+      "createButton": "Create Task",
+      "creating": "Creating...",
+      "sentForApproval": "Task sent to parent!",
+      "parentWillReview": "Your parent will review and approve your task."
+    },
+    "completion": {
+      "title": "Complete Task",
+      "claimTask": "Claim This Task!",
+      "claiming": "Claiming...",
+      "imDone": "I'm Done!",
+      "submitting": "Submitting...",
+      "earnPoints": "Earn {{points}} points!",
+      "alreadyCompleted": "Already completed!",
+      "waitingApproval": "Waiting for approval..."
+    },
+    "celebration": {
+      "approved": "Task Approved!",
+      "approvedBig": "APPROVED!",
+      "youEarned": "You earned",
+      "points": "points!",
+      "awesome": "Awesome!",
+      "total": "Total: {{points}} points"
+    },
+    "badges": {
+      "title": "My Badges",
+      "unlockedCount": "{{unlocked}}/{{total}} unlocked",
+      "noBadges": "No badges yet",
+      "noBadgesHint": "Complete tasks to earn badges!",
+      "earned": "Earned {{date}}"
+    },
+    "statsView": {
+      "title": "My Stats",
+      "totalPoints": "Total Points",
+      "currentLevel": "Current Level",
+      "currentStreak": "Current Streak",
+      "days": "days",
+      "thisWeek": "This Week",
+      "tasksDone": "Tasks Done",
+      "pointsEarned": "Points Earned",
+      "activeDays": "Active Days",
+      "recentActivity": "Recent Activity",
+      "noActivity": "No activity yet. Complete some tasks!"
+    }
+  }
+}

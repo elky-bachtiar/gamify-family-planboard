@@ -1,0 +1,119 @@
+{
+  "card": {
+    "awaitingApproval": "Awaiting Approval",
+    "claim": "Claim",
+    "claiming": "Claiming...",
+    "deleteConfirm": "Are you sure you want to delete this task?"
+  },
+  "priority": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High"
+  },
+  "status": {
+    "pending": "Pending",
+    "completed": "Completed",
+    "pendingApproval": "Pending Approval"
+  },
+  "modal": {
+    "createTitle": "Create New Task",
+    "editTitle": "Edit Task",
+    "viewTitle": "Task Details",
+    "titleLabel": "Task Title",
+    "titlePlaceholder": "Enter task title",
+    "descriptionLabel": "Description (Optional)",
+    "descriptionPlaceholder": "Add details about this task",
+    "priorityLabel": "Priority",
+    "pointsLabel": "Points",
+    "dueDateLabel": "Due Date",
+    "dueTimeLabel": "Due Time",
+    "assigneeLabel": "Assign To",
+    "unassigned": "Unassigned",
+    "createButton": "Create Task",
+    "creating": "Creating...",
+    "updateButton": "Update Task",
+    "updating": "Updating...",
+    "pts": "pts",
+    "errors": {
+      "noRecurrenceTasks": "No tasks would be created with the current recurrence settings",
+      "createFailed": "Failed to create task. Please try again."
+    }
+  },
+  "recurrence": {
+    "repeat": "Repeat",
+    "oneTime": "One time",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "specificDays": "Specific days",
+    "selectDays": "Select days",
+    "endDate": "End date",
+    "willCreate": "This will create <strong>{{count}}</strong> task",
+    "willCreate_other": "This will create <strong>{{count}}</strong> tasks",
+    "noTasksCreated": "No tasks will be created with the current settings",
+    "weekdays": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Weekly View",
+    "noTasks": "No tasks for this day",
+    "addTask": "Add Task"
+  },
+  "filters": {
+    "all": "All",
+    "myTasks": "My Tasks",
+    "unassigned": "Unassigned",
+    "completed": "Completed"
+  },
+  "empty": {
+    "noTasks": "No tasks yet",
+    "noTasksDescription": "Create a task to get started!"
+  },
+  "detail": {
+    "editTask": "Edit task",
+    "description": "Description",
+    "dueDate": "Due Date",
+    "dueTime": "Due Time",
+    "priority": "Priority",
+    "points": "Points",
+    "pointsValue": "{{count}} points",
+    "assignedTo": "Assigned To",
+    "unassigned": "Unassigned",
+    "tagsObjects": "Tags/Objects",
+    "tagsHint": "Press Enter or comma to add a tag",
+    "tagsPlaceholder": "e.g., dishwasher, kitchen",
+    "completedAt": "Completed At",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "close": "Close"
+  },
+  "recurringEdit": {
+    "title": "Edit Recurring Task",
+    "partOfSeries": "\"{{title}}\" is part of a recurring task series. How would you like to apply your changes?",
+    "editSingleTitle": "Save this task only",
+    "editSingleDescription": "Changes will only apply to this specific occurrence",
+    "editAllFutureTitle": "Save all future tasks",
+    "editAllFutureBadge": "{{count}} tasks",
+    "editAllFutureDescription": "Changes will apply to all non-completed tasks from today onwards",
+    "updating": "Updating tasks..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "todaysTasks": "Today's Tasks",
+    "completedToday": "Completed Today",
+    "pointsEarned": "Points Earned",
+    "keepGoing": "Keep going!",
+    "allDone": "All done!",
+    "createTask": "Create Task"
+  }
+}

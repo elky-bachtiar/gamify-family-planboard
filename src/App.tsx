@@ -9,6 +9,7 @@ import { StatsOverview } from './components/StatsOverview';
 import { Leaderboard } from './components/Leaderboard';
 import { Achievements } from './components/Achievements';
 import { AdminPanel } from './components/AdminPanel';
+import { ChildDashboard } from './components/Child';
 
 function Dashboard() {
   const { isAdmin } = useAuth();
@@ -18,14 +19,13 @@ function Dashboard() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="lg:col-span-2">
-            <StatsOverview />
-          </div>
-          <div className="space-y-6">
-            <Leaderboard />
-            {isAdmin && <AdminPanel />}
-          </div>
+        <div className="mb-6">
+          <StatsOverview />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <Leaderboard />
+          {isAdmin && <AdminPanel />}
         </div>
 
         <div className="mb-6">
@@ -48,14 +48,13 @@ function FamilyPlanboardView() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="lg:col-span-2">
-            <StatsOverview />
-          </div>
-          <div className="space-y-6">
-            <Leaderboard />
-            {isAdmin && <AdminPanel />}
-          </div>
+        <div className="mb-6">
+          <StatsOverview />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <Leaderboard />
+          {isAdmin && <AdminPanel />}
         </div>
 
         <div className="mb-6">
@@ -72,7 +71,14 @@ function FamilyPlanboardView() {
 
 function MainContent() {
   const { currentView } = useView();
+  const { isPinUser, isAdmin, familyMember } = useAuth();
 
+  // PIN users (children) get the mobile-first ChildDashboard
+  if (isPinUser && !isAdmin && familyMember) {
+    return <ChildDashboard />;
+  }
+
+  // Regular users get the standard views
   return currentView === 'dashboard' ? <Dashboard /> : <FamilyPlanboardView />;
 }
 

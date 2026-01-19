@@ -1,44 +1,65 @@
-import { supabase } from './supabase';
+import { getSupabaseClient } from './supabase';
 import { calculateLevel } from '../types';
 import type { FamilyMember, Task } from '../types';
 
-export async function completeTask(task: Task, member: FamilyMember) {
+export async function completeTask(task: Task, member: FamilyMember, isAdmin: boolean = false) {
   try {
+    const supabase = getSupabaseClient();
     const now = new Date().toISOString();
 
-    const { error: taskError } = await supabase
-      .from('tasks')
-      .update({ status: 'completed', completed_at: now })
-      .eq('id', task.id);
+    if (isAdmin) {
+      // Admin completing task: immediate completion with points
+      const { error: taskError } = await supabase
+        .from('tasks')
+        .update({
+          status: 'completed',
+          completed_at: now,
+          completed_by: member.id,
+          approved_by: member.id,
+          approved_at: now
+        })
+        .eq('id', task.id);
 
-    if (taskError) throw taskError;
+      if (taskError) throw taskError;
 
-    const { error: pointsError } = await supabase
-      .from('points_history')
-      .insert({
-        member_id: member.id,
-        points: task.point_value,
-        reason: `Completed: ${task.title}`,
-        task_id: task.id,
-        family_id: member.family_id,
-      });
+      const { error: pointsError } = await supabase
+        .from('points_history')
+        .insert({
+          member_id: member.id,
+          points: task.point_value,
+          reason: `Completed: ${task.title}`,
+          task_id: task.id,
+          family_id: member.family_id,
+        });
 
-    if (pointsError) throw pointsError;
+      if (pointsError) throw pointsError;
 
-    const newTotalPoints = member.total_points + task.point_value;
-    const newLevel = calculateLevel(newTotalPoints);
+      const newTotalPoints = member.total_points + task.point_value;
+      const newLevel = calculateLevel(newTotalPoints);
 
-    const { error: memberError } = await supabase
-      .from('family_members')
-      .update({
-        total_points: newTotalPoints,
-        current_level: newLevel,
-      })
-      .eq('id', member.id);
+      const { error: memberError } = await supabase
+        .from('family_members')
+        .update({
+          total_points: newTotalPoints,
+          current_level: newLevel,
+        })
+        .eq('id', member.id);
 
-    if (memberError) throw memberError;
+      if (memberError) throw memberError;
 
-    await checkAndAwardAchievements(member.id);
+      await checkAndAwardAchievements(member.id);
+    } else {
+      // Non-admin completing task: requires approval
+      const { error: taskError } = await supabase
+        .from('tasks')
+        .update({
+          status: 'pending_approval',
+          completed_by: member.id
+        })
+        .eq('id', task.id);
+
+      if (taskError) throw taskError;
+    }
 
     return { success: true };
   } catch (error) {
@@ -47,8 +68,97 @@ export async function completeTask(task: Task, member: FamilyMember) {
   }
 }
 
+export async function approveTask(task: Task, approver: FamilyMember) {
+  try {
+    const supabase = getSupabaseClient();
+    const now = new Date().toISOString();
+
+    // Get the member who completed the task
+    if (!task.completed_by) {
+      throw new Error('Task has no completer');
+    }
+
+    const { data: completer, error: completerError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', task.completed_by)
+      .single();
+
+    if (completerError || !completer) throw completerError || new Error('Completer not found');
+
+    // Update task to completed
+    const { error: taskError } = await supabase
+      .from('tasks')
+      .update({
+        status: 'completed',
+        completed_at: now,
+        approved_by: approver.id,
+        approved_at: now
+      })
+      .eq('id', task.id);
+
+    if (taskError) throw taskError;
+
+    // Award points to the completer
+    const { error: pointsError } = await supabase
+      .from('points_history')
+      .insert({
+        member_id: completer.id,
+        points: task.point_value,
+        reason: `Completed: ${task.title}`,
+        task_id: task.id,
+        family_id: completer.family_id,
+      });
+
+    if (pointsError) throw pointsError;
+
+    const newTotalPoints = completer.total_points + task.point_value;
+    const newLevel = calculateLevel(newTotalPoints);
+
+    const { error: memberError } = await supabase
+      .from('family_members')
+      .update({
+        total_points: newTotalPoints,
+        current_level: newLevel,
+      })
+      .eq('id', completer.id);
+
+    if (memberError) throw memberError;
+
+    await checkAndAwardAchievements(completer.id);
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error approving task:', error);
+    return { success: false, error };
+  }
+}
+
+export async function rejectTask(task: Task) {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Reset task to pending
+    const { error: taskError } = await supabase
+      .from('tasks')
+      .update({
+        status: 'pending',
+        completed_by: null
+      })
+      .eq('id', task.id);
+
+    if (taskError) throw taskError;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error rejecting task:', error);
+    return { success: false, error };
+  }
+}
+
 export async function checkAndAwardAchievements(memberId: string) {
   try {
+    const supabase = getSupabaseClient();
     const { data: member } = await supabase
       .from('family_members')
       .select('*')
@@ -115,6 +225,7 @@ export async function checkAndAwardAchievements(memberId: string) {
 
 export async function updateStreak(memberId: string) {
   try {
+    const supabase = getSupabaseClient();
     const today = new Date().toISOString().split('T')[0];
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 

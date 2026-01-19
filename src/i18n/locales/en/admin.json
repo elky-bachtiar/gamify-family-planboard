@@ -1,0 +1,90 @@
+{
+  "panel": {
+    "title": "Admin Panel",
+    "tabs": {
+      "members": "Members",
+      "approvals": "Approvals",
+      "rewards": "Rewards"
+    }
+  },
+  "inviteCode": {
+    "title": "Invite Code",
+    "copyLink": "Copy Link",
+    "copied": "Copied!"
+  },
+  "members": {
+    "title": "Family Members",
+    "count": "Family Members ({{count}})",
+    "addChild": "Add Child (PIN)",
+    "admin": "Admin",
+    "pinUser": "PIN User",
+    "points": "{{count}} points",
+    "level": "Level {{level}}",
+    "editMember": "Edit member",
+    "deleteMember": "Delete member"
+  },
+  "createChild": {
+    "title": "Add Child Account",
+    "subtitle": "Create a PIN-based account for a child",
+    "nameLabel": "Child's Name",
+    "namePlaceholder": "Enter name",
+    "pinLabel": "PIN Code",
+    "pinPlaceholder": "Enter 4-digit PIN",
+    "pinHelp": "This PIN will be used by the child to log in",
+    "colorLabel": "Color",
+    "createButton": "Create Child Account",
+    "creating": "Creating...",
+    "success": {
+      "title": "Child Account Created!",
+      "message": "Share this link with {{name}} to access their dashboard:",
+      "copyLink": "Copy Login Link",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Edit Member",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter name",
+    "colorLabel": "Profile Color",
+    "pinUserWarning": "This is a PIN-based child account. To reset their PIN, you'll need to create a new account.",
+    "saveButton": "Save Changes",
+    "saving": "Saving..."
+  },
+  "deleteMember": {
+    "title": "Delete Member",
+    "message": "Are you sure you want to delete {{name}}? This will also delete all their tasks and points history.",
+    "warning": "This action cannot be undone.",
+    "warningIntro": "Warning: This action cannot be undone. All of {{name}}'s data will be permanently deleted, including:",
+    "warningPoints": "Points and level progress",
+    "warningAchievements": "Achievements earned",
+    "warningTasks": "Task history",
+    "warningRedemptions": "Redemption records",
+    "pointsAndLevel": "{{points}} points · Level {{level}}",
+    "deleteButton": "Delete Member",
+    "deleting": "Deleting..."
+  },
+  "approvals": {
+    "title": "Task Approvals",
+    "pendingApprovals": "Pending Approvals",
+    "noPending": "No tasks awaiting approval",
+    "submittedBy": "Submitted by {{name}}",
+    "approveButton": "Approve",
+    "rejectButton": "Reject",
+    "approving": "Approving...",
+    "rejecting": "Rejecting...",
+    "newTaskRequests": "New Task Requests",
+    "noNewTaskRequests": "No new task requests",
+    "createdBy": "Created by {{name}}",
+    "points": "Points"
+  },
+  "palette": {
+    "title": "Color Palette",
+    "description": "Choose a color palette for profile colors in your family.",
+    "current": "Current: {{name}}",
+    "select": "Select Palette",
+    "saveButton": "Save Palette",
+    "saving": "Saving...",
+    "saved": "Palette saved!",
+    "saveFailed": "Failed to save"
+  }
+}

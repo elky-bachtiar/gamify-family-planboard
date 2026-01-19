@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Award, Lock } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { getSupabaseClient } from '../lib/supabase';
 import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
 import type { AchievementWithEarned } from '../types';
 
 export function Achievements() {
+  const { t, i18n } = useTranslation('gamification');
   const { currentMember } = useFamily();
   const { family } = useAuth();
   const [achievements, setAchievements] = useState<AchievementWithEarned[]>([]);
@@ -14,6 +16,7 @@ export function Achievements() {
     if (currentMember && family) {
       loadAchievements();
 
+      const supabase = getSupabaseClient();
       const subscription = supabase
         .channel('achievements_changes')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'user_achievements' }, () => {
@@ -30,6 +33,7 @@ export function Achievements() {
   const loadAchievements = async () => {
     if (!currentMember || !family) return;
 
+    const supabase = getSupabaseClient();
     const { data: allAchievements } = await supabase
       .from('achievements')
       .select('*')
@@ -59,15 +63,23 @@ export function Achievements() {
 
   const earnedCount = achievements.filter(a => a.earned).length;
 
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(i18n.language, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Award className="w-6 h-6 text-purple-500" />
-          <h2 className="text-xl font-bold text-gray-900">Achievements</h2>
+          <h2 className="text-xl font-bold text-gray-900">{t('achievements.title')}</h2>
         </div>
         <div className="text-sm text-gray-600">
-          {earnedCount} of {achievements.length} unlocked
+          {t('achievements.unlocked', { count: earnedCount, total: achievements.length })}
         </div>
       </div>
 
@@ -96,7 +108,7 @@ export function Achievements() {
 
               {achievement.earned && achievement.earned_at && (
                 <div className="mt-2 text-xs text-purple-600 font-medium">
-                  Earned {new Date(achievement.earned_at).toLocaleDateString()}
+                  {t('achievements.earned', { date: formatDate(achievement.earned_at) })}
                 </div>
               )}
             </div>
@@ -106,7 +118,7 @@ export function Achievements() {
 
       {achievements.length === 0 && (
         <div className="text-center py-8 text-gray-500">
-          No achievements available yet
+          {t('achievements.noAchievements')}
         </div>
       )}
     </div>

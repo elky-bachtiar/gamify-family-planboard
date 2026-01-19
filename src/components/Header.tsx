@@ -1,11 +1,17 @@
-import { Trophy, Star, Flame, User, Users } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Trophy, Star, Flame, User, Users, Settings } from 'lucide-react';
 import { useFamily } from '../contexts/FamilyContext';
 import { useView } from '../contexts/ViewContext';
 import { getPointsForNextLevel } from '../types';
+import { ProfileModal } from './ProfileModal';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Header() {
+  const { t } = useTranslation(['common', 'gamification']);
   const { currentMember, familyMembers, setCurrentMember } = useFamily();
   const { currentView, setCurrentView } = useView();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   if (!currentMember) return null;
 
@@ -16,7 +22,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-bold text-gray-900">Family Planboard</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{t('common:app.title')}</h1>
             <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
               <button
                 onClick={() => setCurrentView('dashboard')}
@@ -27,7 +33,7 @@ export function Header() {
                 }`}
               >
                 <User className="w-4 h-4" />
-                My Tasks
+                {t('common:navigation.myTasks')}
               </button>
               <button
                 onClick={() => setCurrentView('family-planboard')}
@@ -38,7 +44,7 @@ export function Header() {
                 }`}
               >
                 <Users className="w-4 h-4" />
-                Family Board
+                {t('common:navigation.familyBoard')}
               </button>
             </div>
           </div>
@@ -52,13 +58,17 @@ export function Header() {
 
               <div className="flex items-center gap-2 bg-purple-50 px-3 py-2 rounded-lg">
                 <Trophy className="w-5 h-5 text-purple-500" />
-                <span className="font-semibold text-gray-900">Level {currentMember.current_level}</span>
+                <span className="font-semibold text-gray-900">
+                  {t('gamification:level.current', { level: currentMember.current_level })}
+                </span>
               </div>
 
               {currentMember.current_streak > 0 && (
                 <div className="flex items-center gap-2 bg-orange-50 px-3 py-2 rounded-lg">
                   <Flame className="w-5 h-5 text-orange-500" />
-                  <span className="font-semibold text-gray-900">{currentMember.current_streak} days</span>
+                  <span className="font-semibold text-gray-900">
+                    {t('gamification:streak.current', { count: currentMember.current_streak })}
+                  </span>
                 </div>
               )}
             </div>
@@ -78,12 +88,22 @@ export function Header() {
                 </option>
               ))}
             </select>
+
+            <LanguageSwitcher />
+
+            <button
+              onClick={() => setIsProfileOpen(true)}
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              title={t('common:profile.settings')}
+            >
+              <Settings className="w-5 h-5 text-gray-600" />
+            </button>
           </div>
         </div>
 
         <div className="mt-3">
           <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
-            <span>Progress to Level {currentMember.current_level + 1}</span>
+            <span>{t('gamification:level.progressTo', { level: currentMember.current_level + 1 })}</span>
             <span>{Math.round(levelProgress.progress)}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -97,6 +117,11 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      <ProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+      />
     </header>
   );
 }

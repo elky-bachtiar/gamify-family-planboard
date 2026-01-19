@@ -82,11 +82,6 @@ Deno.serve(async (req: Request) => {
       .eq('invite_code', inviteCode)
       .maybeSingle();
 
-    // Debug logging
-    console.log('Looking up invite code:', inviteCode);
-    console.log('Family lookup result:', { family, familyError });
-    console.log('Service role key exists:', !!Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'));
-
     if (familyError) {
       console.error('Family lookup error:', familyError);
       return new Response(

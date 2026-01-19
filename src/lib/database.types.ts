@@ -16,6 +16,9 @@ export interface Database {
           invite_code: string
           point_to_money_rate: number
           minimum_redemption: number
+          weekly_target_points: number
+          weekly_target_bonus: number
+          color_palette: string
           created_at: string
           created_by: string | null
         }
@@ -25,6 +28,9 @@ export interface Database {
           invite_code: string
           point_to_money_rate?: number
           minimum_redemption?: number
+          weekly_target_points?: number
+          weekly_target_bonus?: number
+          color_palette?: string
           created_at?: string
           created_by?: string | null
         }
@@ -34,6 +40,9 @@ export interface Database {
           invite_code?: string
           point_to_money_rate?: number
           minimum_redemption?: number
+          weekly_target_points?: number
+          weekly_target_bonus?: number
+          color_palette?: string
           created_at?: string
           created_by?: string | null
         }
@@ -52,6 +61,9 @@ export interface Database {
           family_id: string | null
           user_id: string | null
           is_admin: boolean
+          pin_hash: string | null
+          child_invite_code: string | null
+          is_pin_user: boolean
           created_at: string
         }
         Insert: {
@@ -67,6 +79,9 @@ export interface Database {
           family_id?: string | null
           user_id?: string | null
           is_admin?: boolean
+          pin_hash?: string | null
+          child_invite_code?: string | null
+          is_pin_user?: boolean
           created_at?: string
         }
         Update: {
@@ -82,6 +97,9 @@ export interface Database {
           family_id?: string | null
           user_id?: string | null
           is_admin?: boolean
+          pin_hash?: string | null
+          child_invite_code?: string | null
+          is_pin_user?: boolean
           created_at?: string
         }
       }
@@ -94,13 +112,24 @@ export interface Database {
           due_date: string
           due_datetime: string | null
           priority: 'low' | 'medium' | 'high'
-          status: 'pending' | 'in_progress' | 'completed'
+          status: 'pending' | 'in_progress' | 'pending_approval' | 'completed'
           point_value: number
           completed_at: string | null
           created_at: string
           created_by: string | null
           family_id: string | null
           is_archived: boolean
+          completed_by: string | null
+          approved_by: string | null
+          approved_at: string | null
+          recurrence_pattern: 'daily' | 'weekly' | 'specific_days' | null
+          recurrence_days: number[] | null
+          recurrence_end_date: string | null
+          recurring_task_group_id: string | null
+          associated_items: string[]
+          creation_approved: boolean
+          creation_approved_by: string | null
+          creation_approved_at: string | null
         }
         Insert: {
           id?: string
@@ -110,13 +139,24 @@ export interface Database {
           due_date?: string
           due_datetime?: string | null
           priority?: 'low' | 'medium' | 'high'
-          status?: 'pending' | 'in_progress' | 'completed'
+          status?: 'pending' | 'in_progress' | 'pending_approval' | 'completed'
           point_value?: number
           completed_at?: string | null
           created_at?: string
           created_by?: string | null
           family_id?: string | null
           is_archived?: boolean
+          completed_by?: string | null
+          approved_by?: string | null
+          approved_at?: string | null
+          recurrence_pattern?: 'daily' | 'weekly' | 'specific_days' | null
+          recurrence_days?: number[] | null
+          recurrence_end_date?: string | null
+          recurring_task_group_id?: string | null
+          associated_items?: string[]
+          creation_approved?: boolean
+          creation_approved_by?: string | null
+          creation_approved_at?: string | null
         }
         Update: {
           id?: string
@@ -126,13 +166,24 @@ export interface Database {
           due_date?: string
           due_datetime?: string | null
           priority?: 'low' | 'medium' | 'high'
-          status?: 'pending' | 'in_progress' | 'completed'
+          status?: 'pending' | 'in_progress' | 'pending_approval' | 'completed'
           point_value?: number
           completed_at?: string | null
           created_at?: string
           created_by?: string | null
           family_id?: string | null
           is_archived?: boolean
+          completed_by?: string | null
+          approved_by?: string | null
+          approved_at?: string | null
+          recurrence_pattern?: 'daily' | 'weekly' | 'specific_days' | null
+          recurrence_days?: number[] | null
+          recurrence_end_date?: string | null
+          recurring_task_group_id?: string | null
+          associated_items?: string[]
+          creation_approved?: boolean
+          creation_approved_by?: string | null
+          creation_approved_at?: string | null
         }
       }
       achievements: {
@@ -360,6 +411,41 @@ export interface Database {
           point_value?: number | null
           completed_at?: string | null
           archived_at?: string
+        }
+      }
+      weekly_earnings: {
+        Row: {
+          id: string
+          family_id: string | null
+          member_id: string | null
+          week_start: string
+          points_earned: number
+          bonus_earned: number
+          bonus_paid: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          family_id?: string | null
+          member_id?: string | null
+          week_start: string
+          points_earned?: number
+          bonus_earned?: number
+          bonus_paid?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          family_id?: string | null
+          member_id?: string | null
+          week_start?: string
+          points_earned?: number
+          bonus_earned?: number
+          bonus_paid?: boolean
+          created_at?: string
+          updated_at?: string
         }
       }
     }

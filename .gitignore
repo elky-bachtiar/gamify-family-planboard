@@ -24,3 +24,8 @@ dist-ssr
 
 # AI context files
 CLAUDE.md
+
+
+# Supabase
+supabase/.temp
+supabase/migrations/_archive

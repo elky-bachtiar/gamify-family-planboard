@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CheckCircle2, Clock, Target, TrendingUp } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { getSupabaseClient } from '../lib/supabase';
 import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
 
 export function StatsOverview() {
+  const { t } = useTranslation('gamification');
   const { currentMember } = useFamily();
   const { family, isAdmin } = useAuth();
   const [stats, setStats] = useState({
@@ -23,6 +25,7 @@ export function StatsOverview() {
   const loadStats = async () => {
     if (!currentMember || !family) return;
 
+    const supabase = getSupabaseClient();
     let query = supabase
       .from('tasks')
       .select('*')
@@ -65,28 +68,28 @@ export function StatsOverview() {
 
   const statCards = [
     {
-      label: 'Total Tasks',
+      label: t('stats.totalTasks'),
       value: stats.totalTasks,
       icon: Target,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50',
     },
     {
-      label: 'Completed',
+      label: t('stats.completed'),
       value: stats.completedTasks,
       icon: CheckCircle2,
       color: 'text-green-600',
       bgColor: 'bg-green-50',
     },
     {
-      label: 'Pending',
+      label: t('stats.pending'),
       value: stats.pendingTasks,
       icon: Clock,
       color: 'text-orange-600',
       bgColor: 'bg-orange-50',
     },
     {
-      label: 'Weekly Points',
+      label: t('stats.weeklyPoints'),
       value: stats.weeklyPoints,
       icon: TrendingUp,
       color: 'text-purple-600',
@@ -97,7 +100,7 @@ export function StatsOverview() {
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <h2 className="text-xl font-bold text-gray-900 mb-4">
-        {isAdmin ? 'Family Stats' : 'Your Stats'}
+        {isAdmin ? t('stats.familyStats') : t('stats.yourStats')}
       </h2>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -115,7 +118,7 @@ export function StatsOverview() {
       {stats.totalTasks > 0 && (
         <div>
           <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-            <span>Completion Rate</span>
+            <span>{t('stats.completionRate')}</span>
             <span className="font-semibold">{completionRate}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3">

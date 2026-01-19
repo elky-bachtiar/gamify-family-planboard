@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase } from '../lib/supabase';
+import { getSupabaseClient } from '../lib/supabase';
 import { useAuth } from './AuthContext';
 import type { FamilyMember } from '../types';
 
@@ -28,11 +28,14 @@ export function FamilyProvider({ children }: { children: ReactNode }) {
     }
 
     try {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('family_members')
         .select('*')
         .eq('family_id', family.id)
         .order('created_at');
+
+      console.log('[FamilyContext] Family members query:', { data, error, family_id: family.id });
 
       if (error) throw error;
       setFamilyMembers(data || []);
@@ -52,6 +55,7 @@ export function FamilyProvider({ children }: { children: ReactNode }) {
 
     if (!family?.id) return;
 
+    const supabase = getSupabaseClient();
     const subscription = supabase
       .channel('family_members_changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'family_members' }, () => {

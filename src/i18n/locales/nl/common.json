@@ -1,0 +1,64 @@
+{
+  "app": {
+    "title": "Familie Planbord"
+  },
+  "navigation": {
+    "myTasks": "Mijn Taken",
+    "familyBoard": "Familiebord",
+    "dashboard": "Dashboard"
+  },
+  "buttons": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "close": "Sluiten",
+    "back": "Terug",
+    "submit": "Verzenden",
+    "confirm": "Bevestigen",
+    "copy": "Kopiëren",
+    "copyLink": "Link kopiëren",
+    "copied": "Gekopieerd!",
+    "loading": "Laden...",
+    "create": "Aanmaken",
+    "update": "Bijwerken",
+    "add": "Toevoegen"
+  },
+  "labels": {
+    "name": "Naam",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "description": "Beschrijving",
+    "status": "Status",
+    "priority": "Prioriteit",
+    "points": "punten",
+    "level": "Niveau",
+    "days": "dagen",
+    "dayStreak": "dagen achter elkaar"
+  },
+  "errors": {
+    "generic": "Er is iets misgegaan",
+    "required": "Dit veld is verplicht",
+    "invalidEmail": "Ongeldig e-mailadres",
+    "networkError": "Netwerkfout. Probeer het opnieuw.",
+    "unauthorized": "Je bent niet bevoegd om deze actie uit te voeren"
+  },
+  "empty": {
+    "noData": "Geen gegevens beschikbaar",
+    "noResults": "Geen resultaten gevonden"
+  },
+  "time": {
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
+    "tomorrow": "Morgen",
+    "thisWeek": "Deze week"
+  },
+  "confirmation": {
+    "areYouSure": "Weet je het zeker?",
+    "cannotUndo": "Deze actie kan niet ongedaan worden gemaakt."
+  },
+  "profile": {
+    "settings": "Profielinstellingen",
+    "signOut": "Uitloggen"
+  }
+}
