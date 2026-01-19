@@ -25,6 +25,13 @@ export function FamilySetupPage() {
     setIsLoading(true);
 
     try {
+      // Refresh session to ensure we have the latest auth state
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        throw new Error('No active session. Please log in again.');
+      }
+
       const { data: inviteCodeResult } = await supabase.rpc('generate_invite_code');
       const generatedCode = inviteCodeResult as string;
 
@@ -38,7 +45,10 @@ export function FamilySetupPage() {
         .select()
         .single();
 
-      if (familyError) throw familyError;
+      if (familyError) {
+        console.error('Family insert error:', familyError);
+        throw familyError;
+      }
 
       const { error: memberError } = await supabase.from('family_members').insert({
         name: memberName.trim(),
@@ -50,10 +60,14 @@ export function FamilySetupPage() {
         color: COLORS[0],
       });
 
-      if (memberError) throw memberError;
+      if (memberError) {
+        console.error('Member insert error:', memberError);
+        throw memberError;
+      }
 
       await refreshAuth();
     } catch (err: unknown) {
+      console.error('Create family error:', err);
       setError((err as Error).message);
       setIsLoading(false);
     }
