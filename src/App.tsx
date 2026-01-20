@@ -56,8 +56,13 @@ function MainContent() {
   const { currentView } = useView();
   const { isPinUser, isAdmin, familyMember } = useAuth();
 
-  // PIN users (children) get the mobile-first ChildDashboard
+  // PIN users (children) always get the ChildDashboard
   if (isPinUser && !isAdmin && familyMember) {
+    return <ChildDashboard />;
+  }
+
+  // Parents can opt into child-mode to see the gamified interface
+  if (currentView === 'child-mode' && familyMember) {
     return <ChildDashboard />;
   }
 

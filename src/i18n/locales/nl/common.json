@@ -5,7 +5,10 @@
   "navigation": {
     "myTasks": "Mijn Taken",
     "familyBoard": "Familiebord",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "childMode": "Kinderweergave",
+    "enterChildMode": "Overschakelen naar kinderweergave",
+    "exitChildMode": "Kinderweergave verlaten"
   },
   "buttons": {
     "save": "Opslaan",

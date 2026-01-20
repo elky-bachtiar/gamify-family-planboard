@@ -5,7 +5,10 @@
   "navigation": {
     "myTasks": "My Tasks",
     "familyBoard": "Family Board",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "childMode": "Child View",
+    "enterChildMode": "Switch to Child View",
+    "exitChildMode": "Exit Child View"
   },
   "buttons": {
     "save": "Save",

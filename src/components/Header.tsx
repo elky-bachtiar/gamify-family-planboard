@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Trophy, Star, Flame, User, Users, Settings } from 'lucide-react';
+import { Trophy, Star, Flame, User, Users, Settings, Gamepad2 } from 'lucide-react';
 import { useFamily } from '../contexts/FamilyContext';
 import { useView } from '../contexts/ViewContext';
+import { useAuth } from '../contexts/AuthContext';
 import { getPointsForNextLevel } from '../types';
 import { ProfileModal } from './ProfileModal';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -10,10 +11,13 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 export function Header() {
   const { t } = useTranslation(['common', 'gamification']);
   const { currentMember, familyMembers, setCurrentMember } = useFamily();
-  const { currentView, setCurrentView } = useView();
+  const { currentView, setCurrentView, isChildMode, toggleChildMode } = useView();
+  const { isPinUser } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   if (!currentMember) return null;
+
+  const showChildModeToggle = !isPinUser;
 
   const levelProgress = getPointsForNextLevel(currentMember.total_points);
 
@@ -23,30 +27,46 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <h1 className="text-2xl font-bold text-gray-900">{t('common:app.title')}</h1>
-            <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
+            {!isChildMode && (
+              <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
+                <button
+                  onClick={() => setCurrentView('dashboard')}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currentView === 'dashboard'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <User className="w-4 h-4" />
+                  {t('common:navigation.myTasks')}
+                </button>
+                <button
+                  onClick={() => setCurrentView('family-planboard')}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currentView === 'family-planboard'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <Users className="w-4 h-4" />
+                  {t('common:navigation.familyBoard')}
+                </button>
+              </div>
+            )}
+            {showChildModeToggle && (
               <button
-                onClick={() => setCurrentView('dashboard')}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  currentView === 'dashboard'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                onClick={toggleChildMode}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isChildMode
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
+                title={isChildMode ? t('common:navigation.exitChildMode') : t('common:navigation.enterChildMode')}
               >
-                <User className="w-4 h-4" />
-                {t('common:navigation.myTasks')}
+                <Gamepad2 className="w-4 h-4" />
+                {isChildMode ? t('common:navigation.exitChildMode') : t('common:navigation.childMode')}
               </button>
-              <button
-                onClick={() => setCurrentView('family-planboard')}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  currentView === 'family-planboard'
-                    ? 'bg-white text-gray-900 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                <Users className="w-4 h-4" />
-                {t('common:navigation.familyBoard')}
-              </button>
-            </div>
+            )}
           </div>
 
           <div className="flex items-center gap-6">
