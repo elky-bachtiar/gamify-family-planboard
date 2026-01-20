@@ -115,5 +115,17 @@
     "keepGoing": "Keep going!",
     "allDone": "All done!",
     "createTask": "Create Task"
+  },
+  "delete": {
+    "confirmTitle": "Delete Task",
+    "recurringTask": "Recurring Task",
+    "confirmMessage": "Are you sure you want to delete \"{{title}}\"?",
+    "recurringMessage": "\"{{title}}\" is part of a recurring task series. What would you like to delete?",
+    "futureTasksInfo": "This series has {{count}} future task",
+    "futureTasksInfo_other": "This series has {{count}} future tasks",
+    "deleteThisOnly": "Delete this task only",
+    "deleteAllFuture": "Delete all {{count}} future tasks",
+    "deleteTask": "Delete Task",
+    "deleting": "Deleting..."
   }
 }

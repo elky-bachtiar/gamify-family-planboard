@@ -7,6 +7,7 @@ import { completeTask } from '../lib/gamification';
 import { getSupabaseClient } from '../lib/supabase';
 import { PRIORITY_CONFIG } from '../types';
 import type { TaskWithMember } from '../types';
+import { DeleteTaskConfirmModal } from './DeleteTaskConfirmModal';
 
 interface TaskCardProps {
   task: TaskWithMember;
@@ -21,6 +22,7 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
   const [isCompleting, setIsCompleting] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [isClaiming, setIsClaiming] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const isCompleted = task.status === 'completed';
   const isPendingApproval = task.status === 'pending_approval';
@@ -62,18 +64,13 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
     setIsClaiming(false);
   };
 
-  const handleDelete = async () => {
-    if (!confirm(t('tasks:card.deleteConfirm'))) return;
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
 
-    const supabase = getSupabaseClient();
-    const { error } = await supabase
-      .from('tasks')
-      .delete()
-      .eq('id', task.id);
-
-    if (!error) {
-      onUpdate();
-    }
+  const handleDeleteConfirmed = () => {
+    setShowDeleteModal(false);
+    onUpdate();
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -125,7 +122,7 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
             </h3>
             {!isCompleted && (
               <button
-                onClick={handleDelete}
+                onClick={handleDeleteClick}
                 className="flex-shrink-0 text-gray-400 hover:text-red-500 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
@@ -203,6 +200,13 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
           </div>
         </div>
       </div>
+
+      <DeleteTaskConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        task={task}
+        onDeleted={handleDeleteConfirmed}
+      />
     </div>
   );
 }

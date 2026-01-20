@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Calendar, Clock, Star, User, AlertCircle, CheckCircle2, Pencil, Save, Tag } from 'lucide-react';
+import { X, Calendar, Clock, Star, User, AlertCircle, CheckCircle2, Pencil, Save, Tag, Trash2 } from 'lucide-react';
 import { PRIORITY_CONFIG } from '../types';
 import type { TaskWithMember } from '../types';
 import { useAuth } from '../contexts/AuthContext';
@@ -8,6 +8,7 @@ import { useFamily } from '../contexts/FamilyContext';
 import { supabase } from '../lib/supabase';
 import { TagInput } from './TagInput';
 import { EditRecurringTaskDialog } from './EditRecurringTaskDialog';
+import { DeleteTaskConfirmModal } from './DeleteTaskConfirmModal';
 import { countFutureRecurringTasks } from '../lib/recurrence';
 
 interface TaskDetailModalProps {
@@ -32,6 +33,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDe
   const [editPriority, setEditPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [editAssociatedItems, setEditAssociatedItems] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Recurring task edit dialog state
   const [showRecurringDialog, setShowRecurringDialog] = useState(false);
@@ -212,6 +214,16 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDe
     setEditPriority(task.priority);
     setEditAssociatedItems(task.associated_items || []);
     setIsEditing(true);
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirmed = () => {
+    setShowDeleteModal(false);
+    onClose();
+    onTaskUpdated?.();
   };
 
   return (
@@ -494,12 +506,23 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDe
               </button>
             </div>
           ) : (
-            <button
-              onClick={onClose}
-              className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
-            >
-              {t('tasks:detail.close')}
-            </button>
+            <div className="flex gap-2">
+              {canEdit && (
+                <button
+                  onClick={handleDeleteClick}
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors font-medium"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  {t('tasks:delete.deleteTask')}
+                </button>
+              )}
+              <button
+                onClick={onClose}
+                className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+              >
+                {t('tasks:detail.close')}
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -512,6 +535,13 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDe
         taskTitle={task.title}
         futureTaskCount={futureTaskCount}
         isUpdating={isSaving}
+      />
+
+      <DeleteTaskConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        task={task}
+        onDeleted={handleDeleteConfirmed}
       />
     </div>
   );

@@ -115,5 +115,17 @@
     "keepGoing": "Ga zo door!",
     "allDone": "Alles klaar!",
     "createTask": "Taak aanmaken"
+  },
+  "delete": {
+    "confirmTitle": "Taak verwijderen",
+    "recurringTask": "Herhalende taak",
+    "confirmMessage": "Weet je zeker dat je \"{{title}}\" wilt verwijderen?",
+    "recurringMessage": "\"{{title}}\" maakt deel uit van een herhalende takenreeks. Wat wil je verwijderen?",
+    "futureTasksInfo": "Deze reeks heeft {{count}} toekomstige taak",
+    "futureTasksInfo_other": "Deze reeks heeft {{count}} toekomstige taken",
+    "deleteThisOnly": "Alleen deze taak verwijderen",
+    "deleteAllFuture": "Alle {{count}} toekomstige taken verwijderen",
+    "deleteTask": "Taak verwijderen",
+    "deleting": "Verwijderen..."
   }
 }
