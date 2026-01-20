@@ -10,6 +10,7 @@ ALTER TABLE family_members ADD COLUMN IF NOT EXISTS is_pin_user boolean DEFAULT 
 -- Create index for child_invite_code lookups
 CREATE INDEX IF NOT EXISTS idx_family_members_child_invite_code ON family_members(child_invite_code) WHERE child_invite_code IS NOT NULL;
 
+
 -- Create weekly earnings tracking table
 CREATE TABLE IF NOT EXISTS weekly_earnings (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

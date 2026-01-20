@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Calendar, Clock, Star, User, AlertCircle, CheckCircle2, Pencil, Save, Tag, Trash2 } from 'lucide-react';
+import { X, Calendar, Clock, Star, User, AlertCircle, CheckCircle2, Pencil, Save, Tag, Trash2, Copy } from 'lucide-react';
 import { PRIORITY_CONFIG } from '../types';
 import type { TaskWithMember } from '../types';
 import { useAuth } from '../contexts/AuthContext';
@@ -10,15 +10,17 @@ import { TagInput } from './TagInput';
 import { EditRecurringTaskDialog } from './EditRecurringTaskDialog';
 import { DeleteTaskConfirmModal } from './DeleteTaskConfirmModal';
 import { countFutureRecurringTasks } from '../lib/recurrence';
+import type { TaskInitialValues } from './TaskModal';
 
 interface TaskDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
   task: TaskWithMember | null;
   onTaskUpdated?: () => void;
+  onCopyTask?: (initialValues: TaskInitialValues, defaultDate: string) => void;
 }
 
-export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDetailModalProps) {
+export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTask }: TaskDetailModalProps) {
   const { t, i18n } = useTranslation(['tasks', 'common']);
   const { isAdmin } = useAuth();
   const { familyMembers } = useFamily();
@@ -226,6 +228,22 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDe
     onTaskUpdated?.();
   };
 
+  const handleCopyTask = () => {
+    if (!task || !onCopyTask) return;
+
+    const initialValues: TaskInitialValues = {
+      title: task.title,
+      description: task.description || '',
+      assignedTo: task.assigned_to || '',
+      priority: task.priority,
+      dueTime: task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00',
+      associatedItems: task.associated_items || [],
+    };
+
+    onClose();
+    onCopyTask(initialValues, task.due_date);
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
@@ -234,6 +252,15 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated }: TaskDe
             {isEditing ? t('tasks:modal.editTitle') : t('tasks:modal.viewTitle')}
           </h2>
           <div className="flex items-center gap-2">
+            {isAdmin && !isEditing && onCopyTask && (
+              <button
+                onClick={handleCopyTask}
+                className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded transition-colors"
+                title={t('tasks:detail.copyTask')}
+              >
+                <Copy className="w-5 h-5" />
+              </button>
+            )}
             {canEdit && !isEditing && (
               <button
                 onClick={handleStartEdit}

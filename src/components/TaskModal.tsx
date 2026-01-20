@@ -10,14 +10,27 @@ import { TagInput } from './TagInput';
 import type { RecurrencePattern } from '../lib/recurrence';
 import { generateRecurringTaskInstances, validateRecurrenceConfig } from '../lib/recurrence';
 
+export interface TaskInitialValues {
+  title?: string;
+  description?: string;
+  assignedTo?: string;
+  priority?: 'low' | 'medium' | 'high';
+  dueTime?: string;
+  associatedItems?: string[];
+  recurrencePattern?: RecurrencePattern;
+  recurrenceDays?: number[];
+  recurrenceEndDate?: string;
+}
+
 interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   onTaskCreated: () => void;
   defaultDate?: string;
+  initialValues?: TaskInitialValues;
 }
 
-export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskModalProps) {
+export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initialValues }: TaskModalProps) {
   const { t } = useTranslation(['tasks', 'common']);
   const { currentMember, familyMembers } = useFamily();
   const { family, isAdmin } = useAuth();
@@ -36,6 +49,46 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
 
   // Tags/Associated items state
   const [associatedItems, setAssociatedItems] = useState<string[]>([]);
+  const [availableTags, setAvailableTags] = useState<string[]>([]);
+
+  // Fetch available tags from family tasks
+  useEffect(() => {
+    async function fetchTags() {
+      if (!family) return;
+
+      try {
+        const { data, error } = await supabase
+          .from('tasks')
+          .select('associated_items')
+          .eq('family_id', family.id)
+          .not('associated_items', 'is', null);
+
+        if (error) throw error;
+
+        // Extract unique tags from all tasks and sort by frequency
+        const tagCounts = new Map<string, number>();
+        (data as Array<{ associated_items: string[] | null }> | null)?.forEach((task) => {
+          const items = task.associated_items;
+          items?.forEach((tag) => {
+            tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+          });
+        });
+
+        // Sort by frequency (most used first)
+        const sortedTags = Array.from(tagCounts.entries())
+          .sort((a, b) => b[1] - a[1])
+          .map(([tag]) => tag);
+
+        setAvailableTags(sortedTags);
+      } catch (error) {
+        console.error('Error fetching tags:', error);
+      }
+    }
+
+    if (isOpen) {
+      fetchTags();
+    }
+  }, [family, isOpen]);
 
   useEffect(() => {
     if (defaultDate) {
@@ -58,8 +111,19 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
       setRecurrenceDays([]);
       setRecurrenceEndDate('');
       setAssociatedItems([]);
+    } else if (initialValues) {
+      // Apply initial values when modal opens (for copy functionality)
+      if (initialValues.title) setTitle(initialValues.title);
+      if (initialValues.description) setDescription(initialValues.description);
+      if (initialValues.assignedTo !== undefined) setAssignedTo(initialValues.assignedTo);
+      if (initialValues.priority) setPriority(initialValues.priority);
+      if (initialValues.dueTime) setDueTime(initialValues.dueTime);
+      if (initialValues.associatedItems) setAssociatedItems(initialValues.associatedItems);
+      if (initialValues.recurrencePattern !== undefined) setRecurrencePattern(initialValues.recurrencePattern);
+      if (initialValues.recurrenceDays) setRecurrenceDays(initialValues.recurrenceDays);
+      if (initialValues.recurrenceEndDate) setRecurrenceEndDate(initialValues.recurrenceEndDate);
     }
-  }, [isOpen]);
+  }, [isOpen, initialValues]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -275,6 +339,8 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate }: TaskM
               tags={associatedItems}
               onTagsChange={setAssociatedItems}
               placeholder={t('tasks:modal.tagsPlaceholder', 'e.g., dishwasher, kitchen')}
+              availableTags={availableTags}
+              showRecentTags={true}
             />
             <p className="mt-1 text-xs text-gray-500">
               {t('tasks:modal.tagsHint', 'Press Enter or comma to add a tag')}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Copy, Check, Users, Shield, DollarSign, UserPlus, Link, CheckCircle2, Pencil, Trash2 } from 'lucide-react';
+import { Copy, Check, Users, Shield, DollarSign, UserPlus, Link, CheckCircle2, Pencil, Trash2, Crown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
 import { RewardSettings, RedemptionManager } from './Rewards';
@@ -8,6 +8,7 @@ import { CreateChildModal } from './Admin/CreateChildModal';
 import { TaskApprovalManager } from './Admin/TaskApprovalManager';
 import { EditMemberModal } from './Admin/EditMemberModal';
 import { DeleteMemberConfirmModal } from './Admin/DeleteMemberConfirmModal';
+import { ToggleAdminModal } from './Admin/ToggleAdminModal';
 import { PaletteSelector } from './Admin/PaletteSelector';
 import type { FamilyMember } from '../types';
 
@@ -16,21 +17,38 @@ export function AdminPanel() {
   const { family, isAdmin, refreshAuth } = useAuth();
   const { familyMembers } = useFamily();
   const [copied, setCopied] = useState(false);
+  const [copiedParent, setCopiedParent] = useState(false);
   const [copiedMemberId, setCopiedMemberId] = useState<string | null>(null);
   const [isCreateChildOpen, setIsCreateChildOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'members' | 'approvals' | 'rewards'>('members');
   const [editingMember, setEditingMember] = useState<FamilyMember | null>(null);
   const [deletingMember, setDeletingMember] = useState<FamilyMember | null>(null);
+  const [togglingAdminMember, setTogglingAdminMember] = useState<FamilyMember | null>(null);
 
   if (!isAdmin || !family) return null;
 
   const inviteLink = `${window.location.origin}/join/${family.invite_code}`;
+  const parentInviteLink = family.parent_invite_code
+    ? `${window.location.origin}/join-parent/${family.parent_invite_code}`
+    : null;
+  const adminCount = familyMembers.filter(m => m.is_admin).length;
 
   const handleCopyInvite = async () => {
     try {
       await navigator.clipboard.writeText(inviteLink);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const handleCopyParentInvite = async () => {
+    if (!parentInviteLink) return;
+    try {
+      await navigator.clipboard.writeText(parentInviteLink);
+      setCopiedParent(true);
+      setTimeout(() => setCopiedParent(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
@@ -94,33 +112,71 @@ export function AdminPanel() {
       <div className="p-6">
         {activeTab === 'members' && (
           <div className="space-y-6">
-            <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">{t('admin:inviteCode.title')}</h3>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 px-3 py-2 bg-gray-100 rounded-lg text-sm font-mono text-gray-800 truncate">
-                  {family.invite_code}
-                </code>
-                <button
-                  onClick={handleCopyInvite}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    copied
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                  }`}
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4" />
-                      {t('common:buttons.copied')}
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      {t('common:buttons.copyLink')}
-                    </>
-                  )}
-                </button>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 mb-2">{t('admin:inviteCode.title')}</h3>
+                <p className="text-xs text-gray-500 mb-2">{t('admin:inviteCode.description')}</p>
+                <div className="flex items-center gap-2">
+                  <code className="flex-1 px-3 py-2 bg-gray-100 rounded-lg text-sm font-mono text-gray-800 truncate">
+                    {family.invite_code}
+                  </code>
+                  <button
+                    onClick={handleCopyInvite}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      copied
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    }`}
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-4 h-4" />
+                        {t('common:buttons.copied')}
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4" />
+                        {t('common:buttons.copyLink')}
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
+
+              {parentInviteLink && (
+                <div>
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">
+                    <Crown className="w-4 h-4 inline-block mr-1 text-yellow-500" />
+                    {t('admin:parentInviteCode.title')}
+                  </h3>
+                  <p className="text-xs text-gray-500 mb-2">{t('admin:parentInviteCode.description')}</p>
+                  <div className="flex items-center gap-2">
+                    <code className="flex-1 px-3 py-2 bg-yellow-50 rounded-lg text-sm font-mono text-gray-800 truncate">
+                      {family.parent_invite_code}
+                    </code>
+                    <button
+                      onClick={handleCopyParentInvite}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        copiedParent
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                      }`}
+                    >
+                      {copiedParent ? (
+                        <>
+                          <Check className="w-4 h-4" />
+                          {t('common:buttons.copied')}
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          {t('common:buttons.copyLink')}
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
@@ -194,6 +250,17 @@ export function AdminPanel() {
                       </div>
                       <div className="flex items-center gap-1">
                         <button
+                          onClick={() => setTogglingAdminMember(member)}
+                          className={`p-1.5 rounded transition-colors ${
+                            member.is_admin
+                              ? 'text-yellow-500 hover:text-yellow-600 hover:bg-yellow-50'
+                              : 'text-gray-400 hover:text-yellow-500 hover:bg-yellow-50'
+                          }`}
+                          title={member.is_admin ? t('admin:members.demoteAdmin') : t('admin:members.promoteAdmin')}
+                        >
+                          <Crown className="w-4 h-4" />
+                        </button>
+                        <button
                           onClick={() => setEditingMember(member)}
                           className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                           title={t('admin:members.editMember')}
@@ -251,6 +318,13 @@ export function AdminPanel() {
         isOpen={!!deletingMember}
         onClose={() => setDeletingMember(null)}
         member={deletingMember}
+      />
+
+      <ToggleAdminModal
+        isOpen={!!togglingAdminMember}
+        onClose={() => setTogglingAdminMember(null)}
+        member={togglingAdminMember}
+        adminCount={adminCount}
       />
     </div>
   );

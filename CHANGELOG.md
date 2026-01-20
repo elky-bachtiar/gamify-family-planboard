@@ -128,6 +128,50 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Bulk updates: title, description, assigned_to, priority, point_value, associated_items
   - Per-instance fields preserved: due_date, due_datetime
   - `countFutureRecurringTasks()` utility function in recurrence.ts
+- **Parent/Admin Management** - Promote members to admin and invite new parents
+  - **Toggle Admin Status** - Crown icon button on each member to promote/demote admin rights
+    - `src/components/Admin/ToggleAdminModal.tsx` - Confirmation modal with warnings
+    - `supabase/functions/toggle-admin/index.ts` - Edge function with "last admin" protection
+    - Cannot remove the last admin from a family
+    - When promoting, role is automatically set to 'parent'
+  - **Parent Invite Code** - Separate invite code for inviting new parents with admin rights
+    - `parent_invite_code` column added to families table
+    - Shown in AdminPanel below regular invite code with yellow/gold styling
+    - `supabase/functions/join-family-as-parent/index.ts` - Edge function for parent joins
+  - **Join as Parent Flow** - Distinct UI when joining via parent invite link
+    - `/join-parent/{code}` URL pattern recognized by FamilySetupPage
+    - Yellow-themed UI with crown icon indicating admin rights
+    - "You will join with admin rights" notice displayed
+  - Migration: `20260120100000_add_parent_invite_code.sql`
+  - Translations added for EN and NL
+- **Tag Suggestions When Creating Tasks** - Previously used tags now suggested when creating new tasks
+  - `src/components/TagInput.tsx` - Enhanced with suggestions dropdown and quick-add chips
+  - Suggestions appear when typing, filtered by input text
+  - Recent/frequently used tags shown as quick-add chips above input
+  - Arrow key navigation in suggestions dropdown
+  - Tags fetched from family's existing tasks, sorted by usage frequency
+- **Copy Task Functionality** - Duplicate existing tasks with pre-filled values
+  - Copy button (green icon) in TaskDetailModal header for admins
+  - Opens TaskModal pre-filled with copied task's title, description, assignee, priority, time, and tags
+  - `TaskInitialValues` interface exported from TaskModal
+  - `onCopyTask` callback prop added to TaskDetailModal
+- **Familiebord Filters** - Filter tasks by status and assignee in Family Planboard
+  - `src/components/FamilyPlanboard.tsx` - Added filter controls
+  - Status filter: All / Pending / Pending Approval / Completed
+  - Assignee filter: All / Unassigned / [Family member names]
+  - Toggle filter panel with filter icon (shows count of active filters)
+  - Clear filters button when filters are active
+  - Translations added for EN and NL (`tasks.filters.*`, `tasks.planboard.*`)
+- **Tags Display in Child Task Cards** - Children can now see task tags
+  - `src/components/Child/ChildTaskCard.tsx` - Added tags display (max 2 + overflow)
+  - Due date displayed for overdue tasks (orange styling with calendar icon)
+  - `isOverdue` prop to indicate tasks from previous days
+- **Overdue Unassigned Tasks Visibility** - Children can see and claim unassigned tasks from previous days
+  - `src/components/Child/TodayTaskList.tsx` - Modified query to fetch overdue unassigned pending tasks
+  - Overdue tasks shown in "Available to Claim" section with date indicator
+- **End Time Filtering for Unassigned Tasks** - Unassigned tasks hidden 1 hour after their due time
+  - `src/components/Child/TodayTaskList.tsx` - Client-side filtering for expired tasks
+  - Tasks with `due_datetime + 1 hour < now` are filtered from available tasks
 
 ### Changed
 - **Task Claiming UI** - Immediate UI refresh when a child claims a task
@@ -156,6 +200,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - Family members RLS infinite recursion issue
+- **Welcome Message Translation Placeholders** - Fixed duplicate `dailyGreeting` keys in gamification translations
+  - Merged two `dailyGreeting` objects in `en/gamification.json` and `nl/gamification.json`
+  - `motivation.*` translation keys now accessible (were being overwritten by duplicate key)
 
 ### Removed
 - Deprecated individual migration files (consolidated into new structure)

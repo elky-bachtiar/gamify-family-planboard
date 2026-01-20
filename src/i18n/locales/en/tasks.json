@@ -69,7 +69,15 @@
     "all": "All",
     "myTasks": "My Tasks",
     "unassigned": "Unassigned",
-    "completed": "Completed"
+    "completed": "Completed",
+    "pending": "Pending",
+    "pendingApproval": "Pending Approval",
+    "status": "Status",
+    "assignee": "Assignee"
+  },
+  "planboard": {
+    "title": "Family Planboard",
+    "today": "Today"
   },
   "empty": {
     "noTasks": "No tasks yet",
@@ -77,6 +85,7 @@
   },
   "detail": {
     "editTask": "Edit task",
+    "copyTask": "Copy task",
     "description": "Description",
     "dueDate": "Due Date",
     "dueTime": "Due Time",

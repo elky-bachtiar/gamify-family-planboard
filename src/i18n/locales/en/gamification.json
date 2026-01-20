@@ -124,6 +124,7 @@
       "stats": "Stats"
     },
     "dailyGreeting": {
+      "welcome": "Welcome back!",
       "dayStreak": "day streak!",
       "letsGo": "Let's Go!",
       "tapToContinue": "Tap anywhere to continue",
@@ -161,10 +162,6 @@
         "learn": "Learn",
         "petCare": "Pet care"
       }
-    },
-    "dailyGreeting": {
-      "welcome": "Welcome back!",
-      "letsGo": "Let's Go!"
     },
     "taskCard": {
       "tapToClaim": "Tap to claim!",

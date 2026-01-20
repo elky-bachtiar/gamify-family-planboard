@@ -124,6 +124,7 @@
       "stats": "Stats"
     },
     "dailyGreeting": {
+      "welcome": "Welkom terug!",
       "dayStreak": "dagen achter elkaar!",
       "letsGo": "Aan de slag!",
       "tapToContinue": "Tik ergens om verder te gaan",
@@ -161,10 +162,6 @@
         "learn": "Leren",
         "petCare": "Huisdier verzorgen"
       }
-    },
-    "dailyGreeting": {
-      "welcome": "Welkom terug!",
-      "letsGo": "Aan de slag!"
     },
     "taskCard": {
       "tapToClaim": "Tik om te claimen!",

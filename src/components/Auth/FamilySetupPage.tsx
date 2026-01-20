@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Users, UserPlus, Key } from 'lucide-react';
+import { Users, UserPlus, Key, Crown } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
 import { COLORS } from '../../types';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 
-function getInviteCodeFromUrl(): string | null {
+function getInviteCodeFromUrl(): { code: string | null; isParentInvite: boolean } {
   const path = window.location.pathname;
+  const parentMatch = path.match(/^\/join-parent\/([A-Za-z0-9]+)$/);
+  if (parentMatch) {
+    return { code: parentMatch[1].toUpperCase(), isParentInvite: true };
+  }
   const match = path.match(/^\/join\/([A-Za-z0-9]+)$/);
-  return match ? match[1].toUpperCase() : null;
+  return { code: match ? match[1].toUpperCase() : null, isParentInvite: false };
 }
 
 export function FamilySetupPage() {
   const { t } = useTranslation(['auth', 'common']);
   const { user, refreshAuth } = useAuth();
-  const urlInviteCode = getInviteCodeFromUrl();
+  const { code: urlInviteCode, isParentInvite: urlIsParentInvite } = getInviteCodeFromUrl();
   const [mode, setMode] = useState<'choose' | 'create' | 'join'>(urlInviteCode ? 'join' : 'choose');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,13 +30,15 @@ export function FamilySetupPage() {
 
   const [inviteCode, setInviteCode] = useState(urlInviteCode || '');
   const [joinMemberName, setJoinMemberName] = useState('');
+  const [isParentInvite, setIsParentInvite] = useState(urlIsParentInvite);
 
   useEffect(() => {
     if (urlInviteCode) {
       setInviteCode(urlInviteCode);
+      setIsParentInvite(urlIsParentInvite);
       setMode('join');
     }
-  }, [urlInviteCode]);
+  }, [urlInviteCode, urlIsParentInvite]);
 
   const handleCreateFamily = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +110,22 @@ export function FamilySetupPage() {
         throw new Error(t('auth:familySetup.errors.noSession'));
       }
 
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-family`;
+      // Use different endpoint for parent invite vs regular invite
+      const apiUrl = isParentInvite
+        ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-family-as-parent`
+        : `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-family`;
+
+      const requestBody = isParentInvite
+        ? {
+            parentInviteCode: inviteCode.trim().toUpperCase(),
+            memberName: joinMemberName.trim(),
+            color: COLORS[0],
+          }
+        : {
+            inviteCode: inviteCode.trim().toUpperCase(),
+            memberName: joinMemberName.trim(),
+            color: COLORS[0],
+          };
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -112,11 +133,7 @@ export function FamilySetupPage() {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          inviteCode: inviteCode.trim().toUpperCase(),
-          memberName: joinMemberName.trim(),
-          color: COLORS[0],
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const result = await response.json();
@@ -288,14 +305,35 @@ export function FamilySetupPage() {
       </div>
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <Key className="w-8 h-8 text-blue-600" />
+          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
+            isParentInvite ? 'bg-yellow-100' : 'bg-blue-100'
+          }`}>
+            {isParentInvite ? (
+              <Crown className="w-8 h-8 text-yellow-600" />
+            ) : (
+              <Key className="w-8 h-8 text-blue-600" />
+            )}
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {t('auth:familySetup.joinFamily.title')}
+            {isParentInvite
+              ? t('auth:familySetup.joinAsParent.title')
+              : t('auth:familySetup.joinFamily.title')}
           </h1>
-          <p className="text-gray-600">{t('auth:familySetup.joinFamily.subtitle')}</p>
+          <p className="text-gray-600">
+            {isParentInvite
+              ? t('auth:familySetup.joinAsParent.subtitle')
+              : t('auth:familySetup.joinFamily.subtitle')}
+          </p>
         </div>
+
+        {isParentInvite && (
+          <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm">
+            <div className="flex items-center gap-2">
+              <Crown className="w-4 h-4" />
+              <span className="font-medium">{t('auth:familySetup.joinAsParent.adminNotice')}</span>
+            </div>
+          </div>
+        )}
 
         {error && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
@@ -306,7 +344,9 @@ export function FamilySetupPage() {
         <form onSubmit={handleJoinFamily} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              {t('auth:familySetup.joinFamily.inviteCodeLabel')}
+              {isParentInvite
+                ? t('auth:familySetup.joinAsParent.inviteCodeLabel')
+                : t('auth:familySetup.joinFamily.inviteCodeLabel')}
             </label>
             <input
               type="text"
@@ -314,7 +354,11 @@ export function FamilySetupPage() {
               onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
               placeholder={t('auth:familySetup.joinFamily.inviteCodePlaceholder')}
               maxLength={8}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent uppercase text-center text-xl font-mono"
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:border-transparent uppercase text-center text-xl font-mono ${
+                isParentInvite
+                  ? 'border-yellow-300 focus:ring-yellow-500 bg-yellow-50'
+                  : 'border-gray-300 focus:ring-blue-500'
+              }`}
               required
             />
           </div>
@@ -344,9 +388,17 @@ export function FamilySetupPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+              className={`flex-1 px-4 py-2 text-white rounded-lg transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed ${
+                isParentInvite
+                  ? 'bg-yellow-500 hover:bg-yellow-600'
+                  : 'bg-blue-600 hover:bg-blue-700'
+              }`}
             >
-              {isLoading ? t('auth:familySetup.joinFamily.submitting') : t('auth:familySetup.joinFamily.submitButton')}
+              {isLoading
+                ? t('auth:familySetup.joinFamily.submitting')
+                : isParentInvite
+                  ? t('auth:familySetup.joinAsParent.submitButton')
+                  : t('auth:familySetup.joinFamily.submitButton')}
             </button>
           </div>
         </form>

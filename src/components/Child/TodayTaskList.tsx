@@ -41,15 +41,19 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
     try {
       const supabase = getSupabaseClient();
 
-      // Fetch tasks assigned to child OR unassigned tasks for today
+      // Fetch tasks for today OR overdue unassigned pending tasks from previous days
       // Use explicit foreign key hint to avoid ambiguity
       const { data, error } = await supabase
         .from('tasks')
         .select('*, family_members!assigned_to(*)')
         .eq('family_id', family.id)
-        .eq('due_date', today)
         .eq('is_archived', false)
-        .or(`assigned_to.eq.${currentMember.id},assigned_to.is.null`)
+        .or(
+          // Today's tasks (assigned to child or unassigned)
+          `and(due_date.eq.${today},or(assigned_to.eq.${currentMember.id},assigned_to.is.null)),` +
+          // Overdue unassigned pending tasks from previous days
+          `and(due_date.lt.${today},assigned_to.is.null,status.eq.pending)`
+        )
         .order('due_datetime', { ascending: true, nullsFirst: false });
 
       if (error) throw error;
@@ -92,7 +96,24 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
   // Only show tasks that are creation_approved (or where creation_approved is undefined for backward compat)
   const approvedTasks = tasks.filter(t => t.creation_approved !== false);
   const myPendingTasks = approvedTasks.filter(t => t.status === 'pending' && t.assigned_to === currentMember?.id);
-  const availableTasks = approvedTasks.filter(t => t.status === 'pending' && t.assigned_to === null);
+
+  // Filter available (unassigned) tasks:
+  // - Hide tasks that are past their due_datetime + 1 hour
+  const now = new Date();
+  const oneHourMs = 60 * 60 * 1000;
+  const availableTasks = approvedTasks.filter(t => {
+    if (t.status !== 'pending' || t.assigned_to !== null) return false;
+
+    // If task has a due_datetime, check if it's more than 1 hour past
+    if (t.due_datetime) {
+      const dueTime = new Date(t.due_datetime);
+      if (dueTime.getTime() + oneHourMs < now.getTime()) {
+        return false; // Task is expired (more than 1 hour past due time)
+      }
+    }
+    return true;
+  });
+
   const pendingApprovalTasks = approvedTasks.filter(t => t.status === 'pending_approval');
   const completedTasks = approvedTasks.filter(t => t.status === 'completed');
 
@@ -252,7 +273,13 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
               </h3>
               <div className="space-y-3">
                 {availableTasks.map(task => (
-                  <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isClaimable />
+                  <ChildTaskCard
+                    key={task.id}
+                    task={task}
+                    onClick={onTaskClick}
+                    isClaimable
+                    isOverdue={task.due_date !== null && task.due_date < today}
+                  />
                 ))}
               </div>
             </div>

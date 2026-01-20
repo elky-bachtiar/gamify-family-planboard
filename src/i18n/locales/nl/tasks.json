@@ -69,7 +69,15 @@
     "all": "Alle",
     "myTasks": "Mijn taken",
     "unassigned": "Niet toegewezen",
-    "completed": "Voltooid"
+    "completed": "Voltooid",
+    "pending": "In behandeling",
+    "pendingApproval": "Wacht op goedkeuring",
+    "status": "Status",
+    "assignee": "Toegewezen aan"
+  },
+  "planboard": {
+    "title": "Familiebord",
+    "today": "Vandaag"
   },
   "empty": {
     "noTasks": "Nog geen taken",
@@ -77,6 +85,7 @@
   },
   "detail": {
     "editTask": "Taak bewerken",
+    "copyTask": "Taak kopieren",
     "description": "Beschrijving",
     "dueDate": "Einddatum",
     "dueTime": "Eindtijd",

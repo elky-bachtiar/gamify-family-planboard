@@ -9,8 +9,13 @@
   },
   "inviteCode": {
     "title": "Invite Code",
+    "description": "Share this code to invite family members (they join without admin rights)",
     "copyLink": "Copy Link",
     "copied": "Copied!"
+  },
+  "parentInviteCode": {
+    "title": "Parent Invite Code",
+    "description": "Share this code to invite another parent or guardian with admin rights"
   },
   "members": {
     "title": "Family Members",
@@ -21,7 +26,24 @@
     "points": "{{count}} points",
     "level": "Level {{level}}",
     "editMember": "Edit member",
-    "deleteMember": "Delete member"
+    "deleteMember": "Delete member",
+    "promoteAdmin": "Make admin",
+    "demoteAdmin": "Remove admin"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Promote to Admin",
+    "demoteTitle": "Remove Admin Rights",
+    "notAdmin": "Not an admin",
+    "promoteWarningTitle": "Grant Admin Rights",
+    "promoteWarningMessage": "{{name}} will be able to manage family settings, approve tasks, and manage other members.",
+    "demoteWarningTitle": "Remove Admin Rights",
+    "demoteWarningMessage": "{{name}} will no longer be able to manage family settings or approve tasks.",
+    "lastAdminTitle": "Cannot Remove Last Admin",
+    "lastAdminMessage": "Every family must have at least one admin. Promote another member to admin first.",
+    "promoteButton": "Make Admin",
+    "demoteButton": "Remove Admin",
+    "promoting": "Promoting...",
+    "demoting": "Removing..."
   },
   "createChild": {
     "title": "Add Child Account",

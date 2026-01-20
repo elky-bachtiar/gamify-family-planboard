@@ -6,7 +6,7 @@ import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
 import type { TaskWithMember } from '../types';
 import { TaskCard } from './TaskCard';
-import { TaskModal } from './TaskModal';
+import { TaskModal, type TaskInitialValues } from './TaskModal';
 import { TaskDetailModal } from './TaskDetailModal';
 
 export function WeeklyCalendar() {
@@ -20,6 +20,7 @@ export function WeeklyCalendar() {
   const [selectedTask, setSelectedTask] = useState<TaskWithMember | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [copyTaskInitialValues, setCopyTaskInitialValues] = useState<TaskInitialValues | undefined>(undefined);
 
   function getWeekStart(date: Date): Date {
     const d = new Date(date);
@@ -156,6 +157,17 @@ export function WeeklyCalendar() {
     setIsDetailModalOpen(true);
   };
 
+  const handleCopyTask = (initialValues: TaskInitialValues, defaultDate: string) => {
+    setCopyTaskInitialValues(initialValues);
+    setSelectedDate(defaultDate);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setCopyTaskInitialValues(undefined);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="p-4 border-b border-gray-200">
@@ -264,15 +276,18 @@ export function WeeklyCalendar() {
 
       <TaskModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleModalClose}
         onTaskCreated={loadTasks}
         defaultDate={selectedDate}
+        initialValues={copyTaskInitialValues}
       />
 
       <TaskDetailModal
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
         task={selectedTask}
+        onTaskUpdated={loadTasks}
+        onCopyTask={handleCopyTask}
       />
     </div>
   );

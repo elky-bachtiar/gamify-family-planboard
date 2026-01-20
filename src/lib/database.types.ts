@@ -14,6 +14,7 @@ export interface Database {
           id: string
           name: string
           invite_code: string
+          parent_invite_code: string
           point_to_money_rate: number
           minimum_redemption: number
           weekly_target_points: number
@@ -26,6 +27,7 @@ export interface Database {
           id?: string
           name: string
           invite_code: string
+          parent_invite_code?: string
           point_to_money_rate?: number
           minimum_redemption?: number
           weekly_target_points?: number
@@ -38,6 +40,7 @@ export interface Database {
           id?: string
           name?: string
           invite_code?: string
+          parent_invite_code?: string
           point_to_money_rate?: number
           minimum_redemption?: number
           weekly_target_points?: number

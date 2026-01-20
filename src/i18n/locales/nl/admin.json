@@ -9,8 +9,13 @@
   },
   "inviteCode": {
     "title": "Uitnodigingscode",
+    "description": "Deel deze code om familieleden uit te nodigen (zonder beheerdersrechten)",
     "copyLink": "Link kopiëren",
     "copied": "Gekopieerd!"
+  },
+  "parentInviteCode": {
+    "title": "Ouder Uitnodigingscode",
+    "description": "Deel deze code om een andere ouder of voogd met beheerdersrechten uit te nodigen"
   },
   "members": {
     "title": "Familieleden",
@@ -21,7 +26,24 @@
     "points": "{{count}} punten",
     "level": "Niveau {{level}}",
     "editMember": "Lid bewerken",
-    "deleteMember": "Lid verwijderen"
+    "deleteMember": "Lid verwijderen",
+    "promoteAdmin": "Beheerder maken",
+    "demoteAdmin": "Beheerder verwijderen"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Promoveren tot Beheerder",
+    "demoteTitle": "Beheerdersrechten Verwijderen",
+    "notAdmin": "Geen beheerder",
+    "promoteWarningTitle": "Beheerdersrechten Verlenen",
+    "promoteWarningMessage": "{{name}} zal familie-instellingen kunnen beheren, taken kunnen goedkeuren en andere leden kunnen beheren.",
+    "demoteWarningTitle": "Beheerdersrechten Verwijderen",
+    "demoteWarningMessage": "{{name}} zal geen familie-instellingen meer kunnen beheren of taken kunnen goedkeuren.",
+    "lastAdminTitle": "Kan Laatste Beheerder Niet Verwijderen",
+    "lastAdminMessage": "Elke familie moet minstens één beheerder hebben. Promoveer eerst een ander lid tot beheerder.",
+    "promoteButton": "Beheerder Maken",
+    "demoteButton": "Beheerder Verwijderen",
+    "promoting": "Promoveren...",
+    "demoting": "Verwijderen..."
   },
   "createChild": {
     "title": "Kind account toevoegen",

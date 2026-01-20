@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Circle, CheckCircle, Clock, Star, ChevronRight, Hand } from 'lucide-react';
+import { Circle, CheckCircle, Clock, Star, ChevronRight, Hand, Tag, CalendarDays } from 'lucide-react';
 import type { TaskWithMember } from '../../types';
 
 interface ChildTaskCardProps {
@@ -7,10 +7,11 @@ interface ChildTaskCardProps {
   onClick: (task: TaskWithMember) => void;
   isClaimable?: boolean;
   isPendingCreation?: boolean;
+  isOverdue?: boolean;
 }
 
-export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCreation = false }: ChildTaskCardProps) {
-  const { t } = useTranslation('gamification');
+export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCreation = false, isOverdue = false }: ChildTaskCardProps) {
+  const { t, i18n } = useTranslation('gamification');
   const isPending = task.status === 'pending';
   const isPendingApproval = task.status === 'pending_approval';
   const isCompleted = task.status === 'completed';
@@ -93,7 +94,20 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
     return `${displayHour}:${minutes} ${ampm}`;
   };
 
+  // Format due date for overdue tasks
+  const formatDueDate = () => {
+    if (!task.due_date) return null;
+    const date = new Date(task.due_date + 'T00:00:00');
+    return date.toLocaleDateString(i18n.language, {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
   const dueTime = formatDueTime();
+  const dueDate = isOverdue ? formatDueDate() : null;
+  const tags = task.associated_items || [];
 
   const isDisabled = isCompleted || isPendingCreation;
 
@@ -121,6 +135,14 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
           {/* Status badge */}
           {config.statusBadge}
 
+          {/* Due date for overdue tasks */}
+          {dueDate && (
+            <span className="text-xs text-orange-600 flex items-center gap-1 font-medium">
+              <CalendarDays className="w-3 h-3" />
+              {dueDate}
+            </span>
+          )}
+
           {/* Due time */}
           {dueTime && !config.statusBadge && (
             <span className="text-xs text-gray-500 flex items-center gap-1">
@@ -129,13 +151,33 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
             </span>
           )}
 
-          {/* Description preview */}
-          {task.description && !config.statusBadge && (
-            <span className="text-xs text-gray-500 truncate max-w-[150px]">
-              {task.description}
-            </span>
+          {/* Tags */}
+          {tags.length > 0 && (
+            <>
+              {tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600"
+                >
+                  <Tag className="w-3 h-3" />
+                  {tag}
+                </span>
+              ))}
+              {tags.length > 2 && (
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500">
+                  +{tags.length - 2}
+                </span>
+              )}
+            </>
           )}
         </div>
+
+        {/* Description preview - move below if tags present */}
+        {task.description && !config.statusBadge && tags.length === 0 && (
+          <span className="text-xs text-gray-500 truncate max-w-[200px] mt-1 block">
+            {task.description}
+          </span>
+        )}
       </div>
 
       {/* Points */}
