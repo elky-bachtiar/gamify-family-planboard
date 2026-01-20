@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { ChildHeader } from './ChildHeader';
 import { ChildTabBar, ChildViewTab } from './ChildTabBar';
 import { TodayTaskList } from './TodayTaskList';
+import { AdminApprovalBanner } from './AdminApprovalBanner';
 import { TaskCompletionModal } from './TaskCompletionModal';
 import { ChildCreateTaskModal } from './ChildCreateTaskModal';
 import { DailyGreeting } from './DailyGreeting';
@@ -126,6 +127,9 @@ export function ChildDashboard() {
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
       <ChildHeader />
+
+      {/* Admin Approval Banner - only shows for admins when there are pending items */}
+      <AdminApprovalBanner />
 
       {/* Main content area */}
       <main>

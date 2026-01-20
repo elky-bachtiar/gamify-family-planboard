@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.0.0-alpha] - 2026-01-20
+
 ### Added
 - **Multi-Language Support (i18n)** - Internationalization with English (default) and Dutch
   - `src/i18n/index.ts` - i18next setup with language detection and localStorage persistence
@@ -193,6 +195,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `src/lib/recurrence.ts` - TaskTemplate interface extended with `start_datetime`
   - Migration: `20260120120000_add_task_start_datetime.sql`
   - Translations added for EN and NL (`tasks.modal.startTimeLabel`, `tasks.modal.startTimeHint`, `tasks.detail.startTime`)
+- **Admin Approval Banner in Child Mode** - Parents/admins can now see and manage pending approvals directly in the child dashboard
+  - `src/components/Child/AdminApprovalBanner.tsx` - Collapsible banner shown only for admin users
+  - Displays count of pending items with expandable detail view
+  - **New Task Requests** section - Child-created tasks awaiting approval with editable point values
+  - **Pending Completion Approvals** section - Tasks completed by children awaiting verification
+  - Approve/reject actions directly from the child view
+  - Real-time updates via Supabase subscription
+  - Integrated into `ChildDashboard.tsx` between header and task list
 
 ### Changed
 - **Task Claiming UI** - Immediate UI refresh when a child claims a task
