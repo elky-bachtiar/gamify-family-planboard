@@ -31,6 +31,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
   const [editDescription, setEditDescription] = useState('');
   const [editDueDate, setEditDueDate] = useState('');
   const [editDueTime, setEditDueTime] = useState('12:00');
+  const [editStartTime, setEditStartTime] = useState('');
   const [editAssignedTo, setEditAssignedTo] = useState<string>('');
   const [editPriority, setEditPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [editAssociatedItems, setEditAssociatedItems] = useState<string[]>([]);
@@ -46,6 +47,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
     assigned_to: string | null;
     due_date: string;
     due_datetime: string;
+    start_datetime: string | null;
     priority: 'low' | 'medium' | 'high';
     point_value: number;
     associated_items: string[];
@@ -58,6 +60,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
       setEditDescription(task.description || '');
       setEditDueDate(task.due_date);
       setEditDueTime(task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00');
+      setEditStartTime(task.start_datetime ? new Date(task.start_datetime).toTimeString().slice(0, 5) : '');
       setEditAssignedTo(task.assigned_to || '');
       setEditPriority(task.priority);
       setEditAssociatedItems(task.associated_items || []);
@@ -101,12 +104,14 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
     if (!task || !editTitle.trim() || !editDueDate) return;
 
     const dueDatetime = `${editDueDate}T${editDueTime}:00`;
+    const startDatetime = editStartTime ? `${editDueDate}T${editStartTime}:00` : null;
     const updatePayload = {
       title: editTitle.trim(),
       description: editDescription.trim(),
       assigned_to: editAssignedTo || null,
       due_date: editDueDate,
       due_datetime: dueDatetime,
+      start_datetime: startDatetime,
       priority: editPriority,
       point_value: PRIORITY_CONFIG[editPriority].points,
       associated_items: editAssociatedItems,
@@ -138,6 +143,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
           assigned_to: payload.assigned_to,
           due_date: payload.due_date,
           due_datetime: payload.due_datetime,
+          start_datetime: payload.start_datetime,
           priority: payload.priority,
           point_value: payload.point_value,
           associated_items: payload.associated_items,
@@ -212,6 +218,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
     setEditDescription(task.description || '');
     setEditDueDate(task.due_date);
     setEditDueTime(task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00');
+    setEditStartTime(task.start_datetime ? new Date(task.start_datetime).toTimeString().slice(0, 5) : '');
     setEditAssignedTo(task.assigned_to || '');
     setEditPriority(task.priority);
     setEditAssociatedItems(task.associated_items || []);
@@ -237,6 +244,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
       assignedTo: task.assigned_to || '',
       priority: task.priority,
       dueTime: task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00',
+      startTime: task.start_datetime ? new Date(task.start_datetime).toTimeString().slice(0, 5) : '',
       associatedItems: task.associated_items || [],
     };
 
@@ -360,6 +368,22 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
             </div>
 
             <div>
+              <label htmlFor="editStartTime" className="block text-sm font-medium text-gray-700 mb-1">
+                {t('tasks:modal.startTimeLabel')}
+              </label>
+              <input
+                id="editStartTime"
+                type="time"
+                value={editStartTime}
+                onChange={(e) => setEditStartTime(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                {t('tasks:modal.startTimeHint')}
+              </p>
+            </div>
+
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {t('tasks:detail.priority')}
               </label>
@@ -447,6 +471,16 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
                 </div>
               )}
             </div>
+
+            {task.start_datetime && (
+              <div>
+                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.startTime')}</label>
+                <div className="flex items-center gap-2 text-gray-700">
+                  <Clock className="w-4 h-4 text-gray-400" />
+                  <span>{formatTime(task.start_datetime)}</span>
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>

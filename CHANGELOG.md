@@ -184,6 +184,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Sort order persists across page refreshes
   - Migration: `20260120110000_add_task_sort_order.sql`
   - Translations added for EN and NL (`tasks.recurringReorder.*`)
+- **Task Start Time & Time-Range Visibility** - Parents can set when tasks become visible to children
+  - `start_datetime` column added to tasks table for defining task visibility window
+  - Admin-only "Start Time" input in TaskModal and TaskDetailModal
+  - Unassigned tasks only appear to children when current time is between start_datetime and due_datetime + 1 hour
+  - Time range display (e.g., "9:00 AM - 11:00 AM") in ChildTaskCard when start time is set
+  - Recurring tasks support: start time is applied to all instances in the series
+  - `src/lib/recurrence.ts` - TaskTemplate interface extended with `start_datetime`
+  - Migration: `20260120120000_add_task_start_datetime.sql`
+  - Translations added for EN and NL (`tasks.modal.startTimeLabel`, `tasks.modal.startTimeHint`, `tasks.detail.startTime`)
 
 ### Changed
 - **Task Claiming UI** - Immediate UI refresh when a child claims a task

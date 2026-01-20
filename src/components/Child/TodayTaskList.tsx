@@ -98,11 +98,20 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
   const myPendingTasks = approvedTasks.filter(t => t.status === 'pending' && t.assigned_to === currentMember?.id);
 
   // Filter available (unassigned) tasks:
+  // - Hide tasks that haven't reached their start_datetime yet
   // - Hide tasks that are past their due_datetime + 1 hour
   const now = new Date();
   const oneHourMs = 60 * 60 * 1000;
   const availableTasks = approvedTasks.filter(t => {
     if (t.status !== 'pending' || t.assigned_to !== null) return false;
+
+    // If task has a start_datetime, only show if current time >= start time
+    if (t.start_datetime) {
+      const startTime = new Date(t.start_datetime);
+      if (now < startTime) {
+        return false; // Task hasn't started yet
+      }
+    }
 
     // If task has a due_datetime, check if it's more than 1 hour past
     if (t.due_datetime) {

@@ -16,6 +16,7 @@ export interface TaskInitialValues {
   assignedTo?: string;
   priority?: 'low' | 'medium' | 'high';
   dueTime?: string;
+  startTime?: string;
   associatedItems?: string[];
   recurrencePattern?: RecurrencePattern;
   recurrenceDays?: number[];
@@ -38,6 +39,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [dueTime, setDueTime] = useState('12:00');
+  const [startTime, setStartTime] = useState('');
   const [assignedTo, setAssignedTo] = useState<string>('');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [isCreating, setIsCreating] = useState(false);
@@ -105,6 +107,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       setDescription('');
       setDueDate(defaultDate || '');
       setDueTime('12:00');
+      setStartTime('');
       setPriority('medium');
       setAssignedTo(currentMember?.id || '');
       setRecurrencePattern(null);
@@ -118,6 +121,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       if (initialValues.assignedTo !== undefined) setAssignedTo(initialValues.assignedTo);
       if (initialValues.priority) setPriority(initialValues.priority);
       if (initialValues.dueTime) setDueTime(initialValues.dueTime);
+      if (initialValues.startTime) setStartTime(initialValues.startTime);
       if (initialValues.associatedItems) setAssociatedItems(initialValues.associatedItems);
       if (initialValues.recurrencePattern !== undefined) setRecurrencePattern(initialValues.recurrencePattern);
       if (initialValues.recurrenceDays) setRecurrenceDays(initialValues.recurrenceDays);
@@ -149,6 +153,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
 
     try {
       const dueDatetime = `${dueDate}T${dueTime}:00`;
+      const startDatetime = startTime ? `${dueDate}T${startTime}:00` : null;
 
       if (recurrencePattern && recurrenceEndDate) {
         // Generate and insert recurring task instances
@@ -166,6 +171,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
             description: description.trim(),
             assigned_to: assignedTo || null,
             due_datetime: dueDatetime,
+            start_datetime: startDatetime,
             priority,
             point_value: PRIORITY_CONFIG[priority].points,
             created_by: currentMember.id,
@@ -192,6 +198,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
           assigned_to: assignedTo || null,
           due_date: dueDate,
           due_datetime: dueDatetime,
+          start_datetime: startDatetime,
           priority,
           point_value: PRIORITY_CONFIG[priority].points,
           created_by: currentMember.id,
@@ -304,6 +311,25 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
               />
             </div>
           </div>
+
+          {isAdmin && (
+            <div>
+              <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 mb-1">
+                {t('tasks:modal.startTimeLabel')}
+              </label>
+              <input
+                id="startTime"
+                type="time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder={t('tasks:modal.startTimePlaceholder')}
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                {t('tasks:modal.startTimeHint')}
+              </p>
+            </div>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">

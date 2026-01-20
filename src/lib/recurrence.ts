@@ -17,6 +17,7 @@ export interface TaskTemplate {
   description?: string;
   assigned_to?: string | null;
   due_datetime?: string | null;
+  start_datetime?: string | null;
   priority: 'low' | 'medium' | 'high';
   point_value: number;
   created_by?: string | null;
@@ -108,12 +109,26 @@ export function generateRecurringTaskInstances(
       dueDatetime = newDateTime.toISOString();
     }
 
+    // If template has a start_datetime, preserve the time portion but update the date
+    let startDatetime: string | null = null;
+    if (template.start_datetime) {
+      const templateStartTime = new Date(template.start_datetime);
+      const newStartDateTime = new Date(date);
+      newStartDateTime.setHours(
+        templateStartTime.getHours(),
+        templateStartTime.getMinutes(),
+        templateStartTime.getSeconds()
+      );
+      startDatetime = newStartDateTime.toISOString();
+    }
+
     return {
       title: template.title,
       description: template.description ?? '',
       assigned_to: template.assigned_to,
       due_date: dueDate,
       due_datetime: dueDatetime,
+      start_datetime: startDatetime,
       priority: template.priority,
       point_value: template.point_value,
       created_by: template.created_by,

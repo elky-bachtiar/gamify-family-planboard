@@ -83,15 +83,30 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
 
   const config = getStatusConfig();
 
-  // Format due time if available
-  const formatDueTime = () => {
-    if (!task.due_datetime) return null;
-    const date = new Date(task.due_datetime);
+  // Format time helper
+  const formatTimeValue = (datetime: string | null) => {
+    if (!datetime) return null;
+    const date = new Date(datetime);
     const hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const displayHour = hours % 12 || 12;
     return `${displayHour}:${minutes} ${ampm}`;
+  };
+
+  // Format due time or time range if start time is set
+  const formatTimeDisplay = () => {
+    if (!task.due_datetime) return null;
+
+    const dueTime = formatTimeValue(task.due_datetime);
+    const startTime = formatTimeValue(task.start_datetime);
+
+    // If we have both start and due time, show as range
+    if (startTime && dueTime) {
+      return `${startTime} - ${dueTime}`;
+    }
+
+    return dueTime;
   };
 
   // Format due date for overdue tasks
@@ -105,7 +120,7 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
     });
   };
 
-  const dueTime = formatDueTime();
+  const timeDisplay = formatTimeDisplay();
   const dueDate = isOverdue ? formatDueDate() : null;
   const tags = task.associated_items || [];
 
@@ -143,11 +158,11 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
             </span>
           )}
 
-          {/* Due time */}
-          {dueTime && !config.statusBadge && (
+          {/* Due time or time range */}
+          {timeDisplay && !config.statusBadge && (
             <span className="text-xs text-gray-500 flex items-center gap-1">
               <Clock className="w-3 h-3" />
-              {dueTime}
+              {timeDisplay}
             </span>
           )}
 

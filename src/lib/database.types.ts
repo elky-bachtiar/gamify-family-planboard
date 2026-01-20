@@ -114,6 +114,7 @@ export interface Database {
           assigned_to: string | null
           due_date: string
           due_datetime: string | null
+          start_datetime: string | null
           priority: 'low' | 'medium' | 'high'
           status: 'pending' | 'in_progress' | 'pending_approval' | 'completed'
           point_value: number
@@ -142,6 +143,7 @@ export interface Database {
           assigned_to?: string | null
           due_date?: string
           due_datetime?: string | null
+          start_datetime?: string | null
           priority?: 'low' | 'medium' | 'high'
           status?: 'pending' | 'in_progress' | 'pending_approval' | 'completed'
           point_value?: number
@@ -170,6 +172,7 @@ export interface Database {
           assigned_to?: string | null
           due_date?: string
           due_datetime?: string | null
+          start_datetime?: string | null
           priority?: 'low' | 'medium' | 'high'
           status?: 'pending' | 'in_progress' | 'pending_approval' | 'completed'
           point_value?: number
