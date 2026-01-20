@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS weekly_earnings (
 -- Enable RLS on weekly_earnings
 ALTER TABLE weekly_earnings ENABLE ROW LEVEL SECURITY;
 
--- RLS policies for weekly_earnings
+-- RLS policies for weekly_earnings (drop first if exists to make migration idempotent)
+DROP POLICY IF EXISTS "Users can view own family weekly earnings" ON weekly_earnings;
 CREATE POLICY "Users can view own family weekly earnings"
   ON weekly_earnings FOR SELECT
   TO authenticated
@@ -38,6 +39,7 @@ CREATE POLICY "Users can view own family weekly earnings"
     )
   );
 
+DROP POLICY IF EXISTS "Admins can insert weekly earnings" ON weekly_earnings;
 CREATE POLICY "Admins can insert weekly earnings"
   ON weekly_earnings FOR INSERT
   TO authenticated
@@ -47,6 +49,7 @@ CREATE POLICY "Admins can insert weekly earnings"
     )
   );
 
+DROP POLICY IF EXISTS "Admins can update weekly earnings" ON weekly_earnings;
 CREATE POLICY "Admins can update weekly earnings"
   ON weekly_earnings FOR UPDATE
   TO authenticated
@@ -73,6 +76,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS weekly_earnings_updated_at ON weekly_earnings;
 CREATE TRIGGER weekly_earnings_updated_at
   BEFORE UPDATE ON weekly_earnings
   FOR EACH ROW
