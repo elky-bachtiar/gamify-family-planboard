@@ -59,8 +59,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
       setEditTitle(task.title);
       setEditDescription(task.description || '');
       setEditDueDate(task.due_date);
-      setEditDueTime(task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00');
-      setEditStartTime(task.start_datetime ? new Date(task.start_datetime).toTimeString().slice(0, 5) : '');
+      // Extract time directly from ISO string to avoid timezone issues
+      setEditDueTime(task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00');
+      setEditStartTime(task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : '');
       setEditAssignedTo(task.assigned_to || '');
       setEditPriority(task.priority);
       setEditAssociatedItems(task.associated_items || []);
@@ -93,11 +94,12 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
   const formatTime = (datetimeStr: string | null) => {
     if (!datetimeStr) return null;
-    const date = new Date(datetimeStr);
-    return date.toLocaleTimeString(i18n.language, {
-      hour: 'numeric',
-      minute: '2-digit',
-    });
+    // Extract time directly from ISO string to avoid timezone conversion issues
+    // Format: "YYYY-MM-DDTHH:MM:SS" or "YYYY-MM-DDTHH:MM:SS+00:00"
+    const timePart = datetimeStr.split('T')[1];
+    if (!timePart) return null;
+    const [hours, minutes] = timePart.split(':');
+    return `${hours}:${minutes}`;
   };
 
   const handleSave = async () => {
@@ -251,8 +253,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
     setEditTitle(task.title);
     setEditDescription(task.description || '');
     setEditDueDate(task.due_date);
-    setEditDueTime(task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00');
-    setEditStartTime(task.start_datetime ? new Date(task.start_datetime).toTimeString().slice(0, 5) : '');
+    // Extract time directly from ISO string to avoid timezone issues
+    setEditDueTime(task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00');
+    setEditStartTime(task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : '');
     setEditAssignedTo(task.assigned_to || '');
     setEditPriority(task.priority);
     setEditAssociatedItems(task.associated_items || []);
@@ -277,8 +280,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
       description: task.description || '',
       assignedTo: task.assigned_to || '',
       priority: task.priority,
-      dueTime: task.due_datetime ? new Date(task.due_datetime).toTimeString().slice(0, 5) : '12:00',
-      startTime: task.start_datetime ? new Date(task.start_datetime).toTimeString().slice(0, 5) : '',
+      // Extract time directly from ISO string to avoid timezone issues
+      dueTime: task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00',
+      startTime: task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : '',
       associatedItems: task.associated_items || [],
     };
 
