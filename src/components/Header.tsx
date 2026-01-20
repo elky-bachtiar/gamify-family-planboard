@@ -113,10 +113,23 @@ export function Header() {
 
             <button
               onClick={() => setIsProfileOpen(true)}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="relative rounded-lg hover:bg-gray-100 transition-colors"
               title={t('common:profile.settings')}
             >
-              <Settings className="w-5 h-5 text-gray-600" />
+              {currentMember.avatar_url ? (
+                <img
+                  src={currentMember.avatar_url}
+                  alt={currentMember.name}
+                  className="w-10 h-10 rounded-lg object-cover"
+                />
+              ) : (
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold"
+                  style={{ backgroundColor: currentMember.color }}
+                >
+                  {currentMember.name.charAt(0).toUpperCase()}
+                </div>
+              )}
             </button>
           </div>
         </div>

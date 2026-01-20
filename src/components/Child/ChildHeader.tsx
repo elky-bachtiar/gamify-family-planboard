@@ -28,12 +28,20 @@ export function ChildHeader() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Avatar */}
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md"
-              style={{ backgroundColor: currentMember.color }}
-            >
-              {currentMember.name.charAt(0).toUpperCase()}
-            </div>
+            {currentMember.avatar_url ? (
+              <img
+                src={currentMember.avatar_url}
+                alt={currentMember.name}
+                className="w-12 h-12 rounded-full object-cover shadow-md"
+              />
+            ) : (
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md"
+                style={{ backgroundColor: currentMember.color }}
+              >
+                {currentMember.name.charAt(0).toUpperCase()}
+              </div>
+            )}
 
             {/* Greeting */}
             <div>

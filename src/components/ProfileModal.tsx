@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, LogOut, User, Save } from 'lucide-react';
+import { X, LogOut, User, Save, Camera, Trash2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
 import { supabase } from '../lib/supabase';
@@ -20,19 +20,103 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
   const [selectedColor, setSelectedColor] = useState(familyMember?.color || colors[0]);
   const [isSaving, setIsSaving] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(familyMember?.avatar_url || null);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen || !familyMember) return null;
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert(t('common:profile.invalidFileType', 'Please select an image file'));
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert(t('common:profile.fileTooLarge', 'File size must be less than 2MB'));
+      return;
+    }
+
+    setSelectedFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  };
+
+  const handleRemoveAvatar = () => {
+    setSelectedFile(null);
+    setPreviewUrl(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const uploadAvatar = async (): Promise<string | null> => {
+    if (!selectedFile || !familyMember) return familyMember.avatar_url;
+
+    setIsUploadingAvatar(true);
+    try {
+      const userId = familyMember.user_id || familyMember.id;
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${userId}/avatar.${fileExt}`;
+
+      // Delete old avatar if exists
+      if (familyMember.avatar_url) {
+        const oldPath = familyMember.avatar_url.split('/').slice(-2).join('/');
+        await supabase.storage.from('avatars').remove([oldPath]);
+      }
+
+      // Upload new avatar
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, selectedFile, {
+          cacheControl: '3600',
+          upsert: true,
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      alert(t('common:profile.uploadFailed', 'Failed to upload avatar'));
+      return familyMember.avatar_url;
+    } finally {
+      setIsUploadingAvatar(false);
+    }
+  };
 
   const handleSave = async () => {
     if (!name.trim()) return;
 
     setIsSaving(true);
     try {
+      let avatarUrl = familyMember.avatar_url;
+
+      // Upload avatar if a new file is selected
+      if (selectedFile) {
+        avatarUrl = await uploadAvatar();
+      } else if (previewUrl === null && familyMember.avatar_url) {
+        // User removed avatar
+        const oldPath = familyMember.avatar_url.split('/').slice(-2).join('/');
+        await supabase.storage.from('avatars').remove([oldPath]);
+        avatarUrl = null;
+      }
+
       const { data, error } = await supabase
         .from('family_members')
         .update({
           name: name.trim(),
           color: selectedColor,
+          avatar_url: avatarUrl,
         } as never)
         .eq('id', familyMember.id)
         .select()
@@ -81,13 +165,53 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         </div>
 
         <div className="p-4 space-y-4">
-          <div className="flex justify-center">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg"
-              style={{ backgroundColor: selectedColor }}
-            >
-              {name.charAt(0).toUpperCase() || '?'}
+          <div className="flex flex-col items-center gap-3">
+            <div className="relative group">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt={name}
+                  className="w-24 h-24 rounded-full object-cover shadow-lg"
+                />
+              ) : (
+                <div
+                  className="w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg"
+                  style={{ backgroundColor: selectedColor }}
+                >
+                  {name.charAt(0).toUpperCase() || '?'}
+                </div>
+              )}
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="absolute bottom-0 right-0 p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors"
+                title={t('common:profile.changeAvatar', 'Change avatar')}
+              >
+                <Camera className="w-4 h-4" />
+              </button>
+              {previewUrl && (
+                <button
+                  type="button"
+                  onClick={handleRemoveAvatar}
+                  className="absolute top-0 right-0 p-2 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg transition-colors"
+                  title={t('common:profile.removeAvatar', 'Remove avatar')}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              )}
             </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            {selectedFile && (
+              <p className="text-sm text-gray-600">
+                {t('common:profile.newAvatarSelected', 'New avatar selected')}
+              </p>
+            )}
           </div>
 
           <div>
@@ -142,11 +266,11 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         <div className="p-4 border-t border-gray-200 space-y-2">
           <button
             onClick={handleSave}
-            disabled={isSaving || !name.trim()}
+            disabled={isSaving || isUploadingAvatar || !name.trim()}
             className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
           >
             <Save className="w-4 h-4" />
-            {isSaving ? t('common:buttons.loading') : t('common:buttons.save')}
+            {isSaving || isUploadingAvatar ? t('common:buttons.loading') : t('common:buttons.save')}
           </button>
 
           <button

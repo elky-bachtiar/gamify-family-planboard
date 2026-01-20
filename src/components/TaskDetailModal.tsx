@@ -170,9 +170,43 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
     try {
       const today = new Date().toISOString().split('T')[0];
 
+      // First, fetch all future tasks to update their start_datetime individually
+      if (pendingUpdate.start_datetime) {
+        const { data: futureTasks, error: fetchError } = await supabase
+          .from('tasks')
+          .select('id, due_date')
+          .eq('recurring_task_group_id', task.recurring_task_group_id)
+          .gte('due_date', today)
+          .neq('status', 'completed');
+
+        if (fetchError) throw fetchError;
+
+        // Extract the time portion from the new start_datetime
+        const startTime = new Date(pendingUpdate.start_datetime).toTimeString().slice(0, 8);
+
+        // Update each task's start_datetime by combining its due_date with the new start time
+        if (futureTasks && futureTasks.length > 0) {
+          const updates = futureTasks.map((t) => ({
+            id: t.id,
+            start_datetime: `${t.due_date}T${startTime}`,
+          }));
+
+          // Batch update start_datetime for all future tasks
+          for (const update of updates) {
+            const { error: updateError } = await supabase
+              .from('tasks')
+              .update({ start_datetime: update.start_datetime } as never)
+              .eq('id', update.id);
+
+            if (updateError) throw updateError;
+          }
+        }
+      }
+
       // Update all future non-completed tasks in the group
-      // Only update: title, description, assigned_to, priority, point_value, associated_items
+      // Update: title, description, assigned_to, priority, point_value, associated_items
       // Keep per-instance: due_date, due_datetime
+      // start_datetime is updated separately above to preserve each task's date
       const { error } = await supabase
         .from('tasks')
         .update({
