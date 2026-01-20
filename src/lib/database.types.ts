@@ -133,6 +133,7 @@ export interface Database {
           creation_approved: boolean
           creation_approved_by: string | null
           creation_approved_at: string | null
+          sort_order: number
         }
         Insert: {
           id?: string
@@ -160,6 +161,7 @@ export interface Database {
           creation_approved?: boolean
           creation_approved_by?: string | null
           creation_approved_at?: string | null
+          sort_order?: number
         }
         Update: {
           id?: string
@@ -187,6 +189,7 @@ export interface Database {
           creation_approved?: boolean
           creation_approved_by?: string | null
           creation_approved_at?: string | null
+          sort_order?: number
         }
       }
       achievements: {

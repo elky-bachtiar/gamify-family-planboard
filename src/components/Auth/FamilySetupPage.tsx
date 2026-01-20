@@ -104,17 +104,8 @@ export function FamilySetupPage() {
     setIsLoading(true);
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (!session) {
-        throw new Error(t('auth:familySetup.errors.noSession'));
-      }
-
       // Use different endpoint for parent invite vs regular invite
-      const apiUrl = isParentInvite
-        ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-family-as-parent`
-        : `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/join-family`;
-
+      const functionName = isParentInvite ? 'join-family-as-parent' : 'join-family';
       const requestBody = isParentInvite
         ? {
             parentInviteCode: inviteCode.trim().toUpperCase(),
@@ -127,19 +118,16 @@ export function FamilySetupPage() {
             color: COLORS[0],
           };
 
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
+      const { data, error: fnError } = await supabase.functions.invoke(functionName, {
+        body: requestBody,
       });
 
-      const result = await response.json();
+      if (fnError) {
+        throw new Error(fnError.message || 'Failed to join family');
+      }
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to join family');
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
       await refreshAuth();

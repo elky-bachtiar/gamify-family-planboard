@@ -172,6 +172,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **End Time Filtering for Unassigned Tasks** - Unassigned tasks hidden 1 hour after their due time
   - `src/components/Child/TodayTaskList.tsx` - Client-side filtering for expired tasks
   - Tasks with `due_datetime + 1 hour < now` are filtered from available tasks
+- **Drag-and-Drop Task Prioritization** - Reorder tasks within each day via drag-and-drop (admin only)
+  - `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` - Accessible drag-and-drop library
+  - `src/components/SortableTaskCard.tsx` - Draggable task card wrapper with grip handle
+  - `src/components/ReorderRecurringTaskDialog.tsx` - Dialog for recurring task reorder options
+  - `src/lib/taskOrdering.ts` - Utility functions for sort order calculations (fractional indexing)
+  - `sort_order` column added to tasks table with index for efficient sorting
+  - Drag handles appear on hover to the left of task cards
+  - Recurring tasks show dialog: "This task only" or "All future tasks"
+  - Keyboard accessible (Space to grab, arrow keys to move)
+  - Sort order persists across page refreshes
+  - Migration: `20260120110000_add_task_sort_order.sql`
+  - Translations added for EN and NL (`tasks.recurringReorder.*`)
 
 ### Changed
 - **Task Claiming UI** - Immediate UI refresh when a child claims a task

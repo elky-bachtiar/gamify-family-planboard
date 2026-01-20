@@ -1,13 +1,34 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight, Plus, Tag, X } from 'lucide-react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { getSupabaseClient } from '../lib/supabase';
 import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
 import type { TaskWithMember } from '../types';
-import { TaskCard } from './TaskCard';
+import { SortableTaskCard } from './SortableTaskCard';
+import { ReorderRecurringTaskDialog } from './ReorderRecurringTaskDialog';
 import { TaskModal, type TaskInitialValues } from './TaskModal';
 import { TaskDetailModal } from './TaskDetailModal';
+import {
+  updateTaskSortOrder,
+  updateRecurringGroupSortOrder,
+  getFutureRecurringTaskCount,
+  getNewSortOrderForPosition,
+} from '../lib/taskOrdering';
 
 export function WeeklyCalendar() {
   const { t, i18n } = useTranslation(['tasks', 'common']);
@@ -21,6 +42,23 @@ export function WeeklyCalendar() {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [copyTaskInitialValues, setCopyTaskInitialValues] = useState<TaskInitialValues | undefined>(undefined);
+
+  // Drag and drop state
+  const [reorderDialogTask, setReorderDialogTask] = useState<TaskWithMember | null>(null);
+  const [pendingReorder, setPendingReorder] = useState<{ taskId: string; newSortOrder: number } | null>(null);
+  const [futureTaskCount, setFutureTaskCount] = useState(0);
+  const [isReordering, setIsReordering] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   function getWeekStart(date: Date): Date {
     const d = new Date(date);
@@ -62,7 +100,8 @@ export function WeeklyCalendar() {
       .eq('is_archived', false)
       .gte('due_date', formatLocalDate(currentWeekStart))
       .lte('due_date', formatLocalDate(weekEnd))
-      .order('due_datetime');
+      .order('sort_order', { ascending: true })
+      .order('due_datetime', { ascending: true });
 
     if (!isAdmin) {
       // Non-admins see their tasks + unassigned tasks
@@ -139,7 +178,78 @@ export function WeeklyCalendar() {
       );
     }
 
-    return filteredTasks;
+    // Sort by sort_order
+    return filteredTasks.sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const activeTask = tasks.find(t => t.id === active.id);
+    const overTask = tasks.find(t => t.id === over.id);
+
+    if (!activeTask || !overTask) return;
+
+    // Get tasks for the day of the dragged task
+    const dayTasks = getTasksForDay(new Date(activeTask.due_date));
+    const oldIndex = dayTasks.findIndex(t => t.id === active.id);
+    const newIndex = dayTasks.findIndex(t => t.id === over.id);
+
+    if (oldIndex === -1 || newIndex === -1) return;
+
+    // Calculate the new sort order
+    const newSortOrder = getNewSortOrderForPosition(dayTasks, activeTask.id, newIndex);
+
+    // Check if this is a recurring task
+    if (activeTask.recurring_task_group_id) {
+      // Show dialog for recurring task
+      setPendingReorder({ taskId: activeTask.id, newSortOrder });
+      setReorderDialogTask(activeTask);
+
+      // Get count of future tasks
+      const count = await getFutureRecurringTaskCount(
+        activeTask.recurring_task_group_id,
+        activeTask.due_date
+      );
+      setFutureTaskCount(count);
+    } else {
+      // Non-recurring task: update directly
+      await updateTaskSortOrder(activeTask.id, newSortOrder);
+      loadTasks();
+    }
+  };
+
+  const handleReorderSingle = async () => {
+    if (!pendingReorder) return;
+
+    setIsReordering(true);
+    await updateTaskSortOrder(pendingReorder.taskId, pendingReorder.newSortOrder);
+    setIsReordering(false);
+    setReorderDialogTask(null);
+    setPendingReorder(null);
+    loadTasks();
+  };
+
+  const handleReorderAllFuture = async () => {
+    if (!pendingReorder || !reorderDialogTask?.recurring_task_group_id) return;
+
+    setIsReordering(true);
+    await updateRecurringGroupSortOrder(
+      reorderDialogTask.recurring_task_group_id,
+      pendingReorder.newSortOrder,
+      reorderDialogTask.due_date
+    );
+    setIsReordering(false);
+    setReorderDialogTask(null);
+    setPendingReorder(null);
+    loadTasks();
+  };
+
+  const handleReorderDialogClose = () => {
+    setReorderDialogTask(null);
+    setPendingReorder(null);
   };
 
   const isToday = (date: Date): boolean => {
@@ -230,49 +340,76 @@ export function WeeklyCalendar() {
         )}
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-gray-200">
-        {weekDays.map((day) => {
-          const dayTasks = getTasksForDay(day);
-          const completedCount = dayTasks.filter(t => t.status === 'completed').length;
-          const totalCount = dayTasks.length;
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="grid grid-cols-7 gap-px bg-gray-200">
+          {weekDays.map((day) => {
+            const dayTasks = getTasksForDay(day);
+            const completedCount = dayTasks.filter(t => t.status === 'completed').length;
+            const totalCount = dayTasks.length;
 
-          return (
-            <div
-              key={day.toISOString()}
-              className={`bg-white min-h-[200px] ${isToday(day) ? 'bg-blue-50' : ''}`}
-            >
-              <div className="p-3 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-xs font-medium text-gray-500 uppercase">
-                      {day.toLocaleDateString(i18n.language, { weekday: 'short' })}
+            return (
+              <div
+                key={day.toISOString()}
+                className={`bg-white min-h-[200px] ${isToday(day) ? 'bg-blue-50' : ''}`}
+              >
+                <div className="p-3 border-b border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-medium text-gray-500 uppercase">
+                        {day.toLocaleDateString(i18n.language, { weekday: 'short' })}
+                      </div>
+                      <div className={`text-lg font-semibold ${isToday(day) ? 'text-blue-600' : 'text-gray-900'}`}>
+                        {day.getDate()}
+                      </div>
                     </div>
-                    <div className={`text-lg font-semibold ${isToday(day) ? 'text-blue-600' : 'text-gray-900'}`}>
-                      {day.getDate()}
-                    </div>
+                    <button
+                      onClick={() => openModalForDate(day)}
+                      className="p-1 hover:bg-gray-200 rounded transition-colors"
+                      title={t('tasks:calendar.addTask')}
+                    >
+                      <Plus className="w-4 h-4 text-gray-600" />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => openModalForDate(day)}
-                    className="p-1 hover:bg-gray-200 rounded transition-colors"
-                    title={t('tasks:calendar.addTask')}
-                  >
-                    <Plus className="w-4 h-4 text-gray-600" />
-                  </button>
+                  <div className="mt-2 text-xs text-gray-600 h-4">
+                    {totalCount > 0 ? `${completedCount}/${totalCount} ${t('gamification:stats.completed').toLowerCase()}` : '\u00A0'}
+                  </div>
                 </div>
-                <div className="mt-2 text-xs text-gray-600 h-4">
-                  {totalCount > 0 ? `${completedCount}/${totalCount} ${t('gamification:stats.completed').toLowerCase()}` : '\u00A0'}
-                </div>
-              </div>
 
-              <div className="p-2 space-y-2">
-                {dayTasks.map(task => (
-                  <TaskCard key={task.id} task={task} onUpdate={loadTasks} onTaskClick={handleTaskClick} />
-                ))}
+                <div className="p-2 pl-8 space-y-2">
+                  <SortableContext
+                    items={dayTasks.map(t => t.id)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {dayTasks.map(task => (
+                      <SortableTaskCard
+                        key={task.id}
+                        task={task}
+                        onUpdate={loadTasks}
+                        onTaskClick={handleTaskClick}
+                        isDragEnabled={isAdmin}
+                      />
+                    ))}
+                  </SortableContext>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </DndContext>
+
+      <ReorderRecurringTaskDialog
+        isOpen={reorderDialogTask !== null}
+        onClose={handleReorderDialogClose}
+        onReorderSingle={handleReorderSingle}
+        onReorderAllFuture={handleReorderAllFuture}
+        taskTitle={reorderDialogTask?.title ?? ''}
+        futureTaskCount={futureTaskCount}
+        isUpdating={isReordering}
+      />
 
       <TaskModal
         isOpen={isModalOpen}

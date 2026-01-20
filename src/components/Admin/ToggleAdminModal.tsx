@@ -30,30 +30,19 @@ export function ToggleAdminModal({ isOpen, onClose, member, adminCount }: Toggle
     setError(null);
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (!session) {
-        throw new Error('Not authenticated');
-      }
-
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/toggle-admin`;
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const { data, error: fnError } = await supabase.functions.invoke('toggle-admin', {
+        body: {
           memberId: member.id,
           makeAdmin: isPromoting,
-        }),
+        },
       });
 
-      const result = await response.json();
+      if (fnError) {
+        throw new Error(fnError.message || 'Failed to update admin status');
+      }
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to update admin status');
+      if (data?.error) {
+        throw new Error(data.error);
       }
 
       await refreshMembers();

@@ -112,6 +112,16 @@
     "editAllFutureDescription": "Wijzigingen worden toegepast op alle niet-voltooide taken vanaf vandaag",
     "updating": "Taken bijwerken..."
   },
+  "recurringReorder": {
+    "title": "Herhalende taak herschikken",
+    "partOfSeries": "\"{{title}}\" maakt deel uit van een herhalende takenreeks. Hoe wil je de nieuwe positie toepassen?",
+    "reorderSingleTitle": "Alleen deze taak herschikken",
+    "reorderSingleDescription": "De nieuwe positie wordt alleen toegepast op deze specifieke taak",
+    "reorderAllFutureTitle": "Alle toekomstige taken herschikken",
+    "reorderAllFutureBadge": "{{count}} taken",
+    "reorderAllFutureDescription": "De nieuwe positie wordt toegepast op alle niet-voltooide taken vanaf vandaag",
+    "updating": "Posities bijwerken..."
+  },
   "child": {
     "greeting": {
       "morning": "Goedemorgen",

@@ -112,6 +112,16 @@
     "editAllFutureDescription": "Changes will apply to all non-completed tasks from today onwards",
     "updating": "Updating tasks..."
   },
+  "recurringReorder": {
+    "title": "Reorder Recurring Task",
+    "partOfSeries": "\"{{title}}\" is part of a recurring task series. How would you like to apply the new position?",
+    "reorderSingleTitle": "Reorder this task only",
+    "reorderSingleDescription": "The new position will only apply to this specific occurrence",
+    "reorderAllFutureTitle": "Reorder all future tasks",
+    "reorderAllFutureBadge": "{{count}} tasks",
+    "reorderAllFutureDescription": "The new position will apply to all non-completed tasks from today onwards",
+    "updating": "Updating positions..."
+  },
   "child": {
     "greeting": {
       "morning": "Good morning",
