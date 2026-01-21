@@ -127,7 +127,7 @@
     "createTitle": "创建对象",
     "editTitle": "编辑对象",
     "deleteTitle": "删除对象",
-    "deleteMessage": "确定要删除"{{name}}"吗？这不会影响现有的任务标签。",
+    "deleteMessage": "确定要删除「{{name}}」吗？这不会影响现有的任务标签。",
     "nameLabel": "对象名称",
     "namePlaceholder": "例如：洗碗机、洗衣、花园",
     "uploadImage": "上传图片",
