@@ -352,7 +352,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
           )}
 
           {/* Weekly task checkbox (admin only) */}
-          {isAdmin && dueDate && !recurrencePattern && (
+          {isAdmin && dueDate && (
             <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
               <input
                 id="isWeeklyTask"
@@ -415,8 +415,8 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
             </p>
           </div>
 
-          {/* Recurrence selector (admin only, not available for weekly tasks) */}
-          {isAdmin && dueDate && !isWeeklyTask && (
+          {/* Recurrence selector (admin only) */}
+          {isAdmin && dueDate && (
             <RecurrenceSelector
               pattern={recurrencePattern}
               onPatternChange={setRecurrencePattern}
