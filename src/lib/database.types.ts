@@ -135,6 +135,7 @@ export interface Database {
           creation_approved_by: string | null
           creation_approved_at: string | null
           sort_order: number
+          is_weekly_task: boolean
         }
         Insert: {
           id?: string
@@ -164,6 +165,7 @@ export interface Database {
           creation_approved_by?: string | null
           creation_approved_at?: string | null
           sort_order?: number
+          is_weekly_task?: boolean
         }
         Update: {
           id?: string
@@ -193,6 +195,7 @@ export interface Database {
           creation_approved_by?: string | null
           creation_approved_at?: string | null
           sort_order?: number
+          is_weekly_task?: boolean
         }
       }
       achievements: {

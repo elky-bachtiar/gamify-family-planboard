@@ -8,9 +8,10 @@ interface ChildTaskCardProps {
   isClaimable?: boolean;
   isPendingCreation?: boolean;
   isOverdue?: boolean;
+  isWeeklyTask?: boolean;
 }
 
-export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCreation = false, isOverdue = false }: ChildTaskCardProps) {
+export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCreation = false, isOverdue = false, isWeeklyTask = false }: ChildTaskCardProps) {
   const { t, i18n } = useTranslation('gamification');
   const isPending = task.status === 'pending';
   const isPendingApproval = task.status === 'pending_approval';
@@ -147,6 +148,14 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
         </h3>
 
         <div className="flex items-center gap-2 mt-1 flex-wrap">
+          {/* Weekly task badge */}
+          {isWeeklyTask && (
+            <span className="text-xs font-medium text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+              <CalendarDays className="w-3 h-3" />
+              {t('tasks:weeklyTask.badge', 'This Week')}
+            </span>
+          )}
+
           {/* Status badge */}
           {config.statusBadge}
 

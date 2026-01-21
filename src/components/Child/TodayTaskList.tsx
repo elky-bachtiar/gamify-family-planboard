@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, RefreshCw, Plus, Sparkles } from 'lucide-react';
+import { Calendar, RefreshCw, Plus, Sparkles, CalendarDays } from 'lucide-react';
 import { getSupabaseClient } from '../../lib/supabase';
 import { useFamily } from '../../contexts/FamilyContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -32,6 +32,18 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
 
   const today = new Date().toISOString().split('T')[0];
 
+  // Calculate the Sunday of the current week (for weekly tasks)
+  const getWeekSunday = (): string => {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const daysUntilSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+    const sunday = new Date(now);
+    sunday.setDate(now.getDate() + daysUntilSunday);
+    return sunday.toISOString().split('T')[0];
+  };
+
+  const weekSunday = getWeekSunday();
+
   const fetchTasks = async (showRefresh = false) => {
     if (!currentMember || !family) return;
 
@@ -42,6 +54,7 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
       const supabase = getSupabaseClient();
 
       // Fetch tasks for today OR overdue unassigned pending tasks from previous days
+      // OR weekly tasks for the current week
       // Use explicit foreign key hint to avoid ambiguity
       const { data, error } = await supabase
         .from('tasks')
@@ -49,10 +62,12 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
         .eq('family_id', family.id)
         .eq('is_archived', false)
         .or(
-          // Today's tasks (assigned to child or unassigned)
-          `and(due_date.eq.${today},or(assigned_to.eq.${currentMember.id},assigned_to.is.null)),` +
-          // Overdue unassigned pending tasks from previous days
-          `and(due_date.lt.${today},assigned_to.is.null,status.eq.pending)`
+          // Today's tasks (assigned to child or unassigned, non-weekly)
+          `and(due_date.eq.${today},is_weekly_task.eq.false,or(assigned_to.eq.${currentMember.id},assigned_to.is.null)),` +
+          // Overdue unassigned pending tasks from previous days (non-weekly)
+          `and(due_date.lt.${today},assigned_to.is.null,status.eq.pending,is_weekly_task.eq.false),` +
+          // Weekly tasks for the current week (assigned to child or unassigned)
+          `and(is_weekly_task.eq.true,due_date.eq.${weekSunday},or(assigned_to.eq.${currentMember.id},assigned_to.is.null))`
         )
         .order('due_datetime', { ascending: true, nullsFirst: false });
 
@@ -95,14 +110,23 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
   // Separate tasks by status and assignment
   // Only show tasks that are creation_approved (or where creation_approved is undefined for backward compat)
   const approvedTasks = tasks.filter(t => t.creation_approved !== false);
-  const myPendingTasks = approvedTasks.filter(t => t.status === 'pending' && t.assigned_to === currentMember?.id);
+
+  // Separate weekly tasks from daily tasks
+  const weeklyTasks = approvedTasks.filter(t => t.is_weekly_task);
+  const dailyApprovedTasks = approvedTasks.filter(t => !t.is_weekly_task);
+
+  // Weekly tasks - separate by status
+  const pendingWeeklyTasks = weeklyTasks.filter(t => t.status === 'pending' || t.status === 'pending_approval');
+  const completedWeeklyTasks = weeklyTasks.filter(t => t.status === 'completed');
+
+  const myPendingTasks = dailyApprovedTasks.filter(t => t.status === 'pending' && t.assigned_to === currentMember?.id);
 
   // Filter available (unassigned) tasks:
   // - Hide tasks that haven't reached their start_datetime yet
   // - Hide tasks that are past their due_datetime + 1 hour
   const now = new Date();
   const oneHourMs = 60 * 60 * 1000;
-  const availableTasks = approvedTasks.filter(t => {
+  const availableTasks = dailyApprovedTasks.filter(t => {
     if (t.status !== 'pending' || t.assigned_to !== null) return false;
 
     // If task has a start_datetime, only show if current time >= start time
@@ -123,8 +147,8 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
     return true;
   });
 
-  const pendingApprovalTasks = approvedTasks.filter(t => t.status === 'pending_approval');
-  const completedTasks = approvedTasks.filter(t => t.status === 'completed');
+  const pendingApprovalTasks = dailyApprovedTasks.filter(t => t.status === 'pending_approval');
+  const completedTasks = dailyApprovedTasks.filter(t => t.status === 'completed');
 
   // Tasks created by child that are waiting for parent approval
   const pendingCreationTasks = tasks.filter(
@@ -255,6 +279,36 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
               <div className="space-y-3">
                 {pendingCreationTasks.map(task => (
                   <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isPendingCreation />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Weekly Tasks Section */}
+          {weeklyTasks.length > 0 && (
+            <div className="bg-purple-50 border border-dashed border-purple-200 rounded-xl p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <CalendarDays className="w-4 h-4 text-purple-600" />
+                <h3 className="text-sm font-semibold text-purple-700 uppercase tracking-wide">
+                  {t('tasks:calendar.weeklyTasks')}
+                </h3>
+              </div>
+              <div className="space-y-3">
+                {pendingWeeklyTasks.map(task => (
+                  <ChildTaskCard
+                    key={task.id}
+                    task={task}
+                    onClick={onTaskClick}
+                    isWeeklyTask
+                  />
+                ))}
+                {completedWeeklyTasks.map(task => (
+                  <ChildTaskCard
+                    key={task.id}
+                    task={task}
+                    onClick={onTaskClick}
+                    isWeeklyTask
+                  />
                 ))}
               </div>
             </div>

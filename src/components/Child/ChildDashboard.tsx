@@ -20,7 +20,7 @@ const GREETING_SHOWN_KEY = 'child_greeting_shown';
 
 export function ChildDashboard() {
   const { currentMember } = useFamily();
-  const { refreshAuth } = useAuth();
+  const { refreshAuth, isAdmin } = useAuth();
   const [activeTab, setActiveTab] = useState<ChildViewTab>('home');
   const [selectedTask, setSelectedTask] = useState<TaskWithMember | null>(null);
   const [showGreeting, setShowGreeting] = useState(false);
@@ -89,7 +89,7 @@ export function ChildDashboard() {
   };
 
   const handleTaskComplete = (_task: TaskWithMember, points: number) => {
-    // Show points animation for completion (pending approval)
+    // Show points animation for completion
     setPendingPoints(points);
     setShowPointsAnimation(true);
 
@@ -97,6 +97,11 @@ export function ChildDashboard() {
     setTimeout(() => {
       setSelectedTask(null);
     }, 300);
+
+    // For admins, refresh auth data immediately since task is auto-approved
+    if (isAdmin) {
+      refreshAuth();
+    }
   };
 
   const handlePointsAnimationComplete = () => {
@@ -168,7 +173,7 @@ export function ChildDashboard() {
       {showPointsAnimation && (
         <PointsAnimation
           points={pendingPoints}
-          isPending={true}
+          isPending={!isAdmin}
           onComplete={handlePointsAnimationComplete}
         />
       )}

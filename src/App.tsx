@@ -54,10 +54,10 @@ function FamilyPlanboardView() {
 
 function MainContent() {
   const { currentView } = useView();
-  const { isPinUser, isAdmin, familyMember } = useAuth();
+  const { isPinUser, familyMember } = useAuth();
 
-  // PIN users (children) always get the ChildDashboard
-  if (isPinUser && !isAdmin && familyMember) {
+  // PIN users always get the ChildDashboard (even if they're admins)
+  if (isPinUser && familyMember) {
     return <ChildDashboard />;
   }
 

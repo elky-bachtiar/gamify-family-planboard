@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronLeft, ChevronRight, Plus, Tag, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus, Tag, X, CalendarDays } from 'lucide-react';
 import {
   DndContext,
   closestCenter,
@@ -167,9 +167,25 @@ export function WeeklyCalendar() {
     setSelectedTags([]);
   };
 
+  // Get weekly tasks for the current week
+  const getWeeklyTasks = (): TaskWithMember[] => {
+    let weeklyTasks = tasks.filter(task => task.is_weekly_task);
+
+    // Apply tag filter if any tags are selected
+    if (selectedTags.length > 0) {
+      weeklyTasks = weeklyTasks.filter(task =>
+        task.associated_items?.some(item => selectedTags.includes(item))
+      );
+    }
+
+    // Sort by sort_order
+    return weeklyTasks.sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
+  };
+
   const getTasksForDay = (date: Date): TaskWithMember[] => {
     const dateStr = formatLocalDate(date);
-    let filteredTasks = tasks.filter(task => task.due_date === dateStr);
+    // Exclude weekly tasks from daily view (they're shown in the floating section)
+    let filteredTasks = tasks.filter(task => task.due_date === dateStr && !task.is_weekly_task);
 
     // Apply tag filter if any tags are selected
     if (selectedTags.length > 0) {
@@ -346,10 +362,12 @@ export function WeeklyCalendar() {
         onDragEnd={handleDragEnd}
       >
         <div className="grid grid-cols-7 gap-px bg-gray-200">
-          {weekDays.map((day) => {
+          {weekDays.map((day, dayIndex) => {
             const dayTasks = getTasksForDay(day);
-            const completedCount = dayTasks.filter(t => t.status === 'completed').length;
-            const totalCount = dayTasks.length;
+            const weeklyTasks = getWeeklyTasks();
+            const allDayTasks = [...dayTasks, ...weeklyTasks];
+            const completedCount = allDayTasks.filter(t => t.status === 'completed').length;
+            const totalCount = allDayTasks.length;
 
             return (
               <div
@@ -378,6 +396,41 @@ export function WeeklyCalendar() {
                     {totalCount > 0 ? `${completedCount}/${totalCount} ${t('gamification:stats.completed').toLowerCase()}` : '\u00A0'}
                   </div>
                 </div>
+
+                {/* Weekly Tasks Section - only show on first day with compact view, or show individual cards on each day */}
+                {weeklyTasks.length > 0 && (
+                  <div className="mx-2 mt-2 p-2 bg-purple-50 border border-dashed border-purple-200 rounded-lg">
+                    {dayIndex === 0 && (
+                      <div className="flex items-center gap-1 mb-2">
+                        <CalendarDays className="w-3 h-3 text-purple-600" />
+                        <span className="text-xs font-medium text-purple-700">
+                          {t('tasks:calendar.weeklyTasks')}
+                        </span>
+                      </div>
+                    )}
+                    <div className="space-y-1">
+                      {weeklyTasks.map(task => (
+                        <div
+                          key={task.id}
+                          onClick={() => handleTaskClick(task)}
+                          className={`flex items-center gap-2 p-1.5 rounded cursor-pointer transition-colors ${
+                            task.status === 'completed'
+                              ? 'bg-purple-100/50 text-purple-400 line-through'
+                              : 'bg-white/60 hover:bg-white text-purple-900'
+                          }`}
+                        >
+                          <span className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                            task.status === 'completed' ? 'bg-green-500' : 'bg-purple-400'
+                          }`} />
+                          <span className="text-xs truncate flex-1">{task.title}</span>
+                          {task.status === 'completed' && (
+                            <span className="text-[10px] text-green-600 font-medium">✓</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="p-2 pl-8 space-y-2">
                   <SortableContext

@@ -66,7 +66,14 @@
   "calendar": {
     "weeklyView": "Weekly View",
     "noTasks": "No tasks for this day",
-    "addTask": "Add Task"
+    "addTask": "Add Task",
+    "weeklyTasks": "Weekly Tasks",
+    "weeklyTasksEmpty": "No weekly tasks this week"
+  },
+  "weeklyTask": {
+    "label": "Weekly task",
+    "hint": "Child can complete this task on any day this week",
+    "badge": "This Week"
   },
   "filters": {
     "all": "All",

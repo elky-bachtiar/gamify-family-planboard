@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X } from 'lucide-react';
+import { X, CalendarDays } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -21,6 +21,7 @@ export interface TaskInitialValues {
   recurrencePattern?: RecurrencePattern;
   recurrenceDays?: number[];
   recurrenceEndDate?: string;
+  isWeeklyTask?: boolean;
 }
 
 interface TaskModalProps {
@@ -52,6 +53,9 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
   // Tags/Associated items state
   const [associatedItems, setAssociatedItems] = useState<string[]>([]);
   const [availableTags, setAvailableTags] = useState<string[]>([]);
+
+  // Weekly task state (admin only)
+  const [isWeeklyTask, setIsWeeklyTask] = useState(false);
 
   // Fetch available tags from family tasks
   useEffect(() => {
@@ -114,6 +118,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       setRecurrenceDays([]);
       setRecurrenceEndDate('');
       setAssociatedItems([]);
+      setIsWeeklyTask(false);
     } else if (initialValues) {
       // Apply initial values when modal opens (for copy functionality)
       if (initialValues.title) setTitle(initialValues.title);
@@ -126,6 +131,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       if (initialValues.recurrencePattern !== undefined) setRecurrencePattern(initialValues.recurrencePattern);
       if (initialValues.recurrenceDays) setRecurrenceDays(initialValues.recurrenceDays);
       if (initialValues.recurrenceEndDate) setRecurrenceEndDate(initialValues.recurrenceEndDate);
+      if (initialValues.isWeeklyTask !== undefined) setIsWeeklyTask(initialValues.isWeeklyTask);
     }
   }, [isOpen, initialValues]);
 
@@ -192,18 +198,32 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
         if (error) throw error;
       } else {
         // Single task creation
+        // For weekly tasks, set due_date to the Sunday of the selected week
+        let effectiveDueDate = dueDate;
+        if (isWeeklyTask) {
+          const selectedDate = new Date(dueDate);
+          const dayOfWeek = selectedDate.getDay();
+          const daysUntilSunday = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+          const weekEnd = new Date(selectedDate);
+          weekEnd.setDate(selectedDate.getDate() + daysUntilSunday);
+          effectiveDueDate = weekEnd.toISOString().split('T')[0];
+        }
+
+        const effectiveDueDatetime = `${effectiveDueDate}T${dueTime}:00`;
+
         const { error } = await supabase.from('tasks').insert({
           title: title.trim(),
           description: description.trim(),
           assigned_to: assignedTo || null,
-          due_date: dueDate,
-          due_datetime: dueDatetime,
+          due_date: effectiveDueDate,
+          due_datetime: effectiveDueDatetime,
           start_datetime: startDatetime,
           priority,
           point_value: PRIORITY_CONFIG[priority].points,
           created_by: currentMember.id,
           family_id: family.id,
           associated_items: associatedItems,
+          is_weekly_task: isWeeklyTask,
         });
 
         if (error) throw error;
@@ -331,6 +351,28 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
             </div>
           )}
 
+          {/* Weekly task checkbox (admin only) */}
+          {isAdmin && dueDate && !recurrencePattern && (
+            <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+              <input
+                id="isWeeklyTask"
+                type="checkbox"
+                checked={isWeeklyTask}
+                onChange={(e) => setIsWeeklyTask(e.target.checked)}
+                className="mt-0.5 w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              />
+              <div className="flex-1">
+                <label htmlFor="isWeeklyTask" className="flex items-center gap-2 text-sm font-medium text-gray-900 cursor-pointer">
+                  <CalendarDays className="w-4 h-4 text-purple-600" />
+                  {t('tasks:weeklyTask.label')}
+                </label>
+                <p className="mt-0.5 text-xs text-gray-600">
+                  {t('tasks:weeklyTask.hint')}
+                </p>
+              </div>
+            </div>
+          )}
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               {t('tasks:modal.priorityLabel')}
@@ -373,8 +415,8 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
             </p>
           </div>
 
-          {/* Recurrence selector (admin only) */}
-          {isAdmin && dueDate && (
+          {/* Recurrence selector (admin only, not available for weekly tasks) */}
+          {isAdmin && dueDate && !isWeeklyTask && (
             <RecurrenceSelector
               pattern={recurrencePattern}
               onPatternChange={setRecurrencePattern}
