@@ -4,7 +4,8 @@
     "tabs": {
       "members": "구성원",
       "approvals": "승인",
-      "rewards": "보상"
+      "rewards": "보상",
+      "objects": "오브젝트"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "저장 중...",
     "saved": "팔레트 저장됨!",
     "saveFailed": "저장 실패"
+  },
+  "objects": {
+    "title": "오브젝트 / 태그",
+    "description": "할 일 태그로 사용할 수 있는 이미지가 있는 오브젝트를 관리합니다. 이미지는 필터 바에 표시됩니다.",
+    "add": "오브젝트 추가",
+    "empty": "아직 오브젝트가 없습니다. 이미지가 있는 태그로 사용할 오브젝트를 추가하세요.",
+    "createTitle": "오브젝트 만들기",
+    "editTitle": "오브젝트 수정",
+    "deleteTitle": "오브젝트 삭제",
+    "deleteMessage": "\"{{name}}\"을(를) 삭제하시겠습니까? 기존 할 일 태그에는 영향을 주지 않습니다.",
+    "nameLabel": "오브젝트 이름",
+    "namePlaceholder": "예: 식기세척기, 빨래, 정원",
+    "uploadImage": "이미지 업로드",
+    "removeImage": "이미지 삭제"
   }
 }

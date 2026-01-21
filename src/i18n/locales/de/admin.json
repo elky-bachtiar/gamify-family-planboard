@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Mitglieder",
       "approvals": "Genehmigungen",
-      "rewards": "Belohnungen"
+      "rewards": "Belohnungen",
+      "objects": "Objekte"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "Wird gespeichert...",
     "saved": "Palette gespeichert!",
     "saveFailed": "Speichern fehlgeschlagen"
+  },
+  "objects": {
+    "title": "Objekte / Tags",
+    "description": "Verwalte Objekte mit Bildern, die als Aufgaben-Tags verwendet werden können. Bilder erscheinen in der Filterleiste.",
+    "add": "Objekt hinzufügen",
+    "empty": "Noch keine Objekte. Füge Objekte hinzu, um sie als Tags mit Bildern zu verwenden.",
+    "createTitle": "Objekt erstellen",
+    "editTitle": "Objekt bearbeiten",
+    "deleteTitle": "Objekt löschen",
+    "deleteMessage": "Bist du sicher, dass du \"{{name}}\" löschen möchtest? Dies beeinflusst keine bestehenden Aufgaben-Tags.",
+    "nameLabel": "Objektname",
+    "namePlaceholder": "z.B. Geschirrspüler, Wäsche, Garten",
+    "uploadImage": "Bild hochladen",
+    "removeImage": "Bild entfernen"
   }
 }

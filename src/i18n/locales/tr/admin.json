@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Üyeler",
       "approvals": "Onaylar",
-      "rewards": "Ödüller"
+      "rewards": "Ödüller",
+      "objects": "Nesneler"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "Kaydediliyor...",
     "saved": "Palet kaydedildi!",
     "saveFailed": "Kaydetme başarısız"
+  },
+  "objects": {
+    "title": "Nesneler / Etiketler",
+    "description": "Görev etiketleri olarak kullanılabilecek resimli nesneleri yönetin. Resimler filtre çubuğunda görünecektir.",
+    "add": "Nesne Ekle",
+    "empty": "Henüz nesne yok. Resimli etiketler olarak kullanmak için nesneler ekleyin.",
+    "createTitle": "Nesne Oluştur",
+    "editTitle": "Nesneyi Düzenle",
+    "deleteTitle": "Nesneyi Sil",
+    "deleteMessage": "\"{{name}}\" nesnesini silmek istediğinizden emin misiniz? Bu, mevcut görev etiketlerini etkilemez.",
+    "nameLabel": "Nesne Adı",
+    "namePlaceholder": "örn. Bulaşık Makinesi, Çamaşır, Bahçe",
+    "uploadImage": "Resim yükle",
+    "removeImage": "Resmi kaldır"
   }
 }

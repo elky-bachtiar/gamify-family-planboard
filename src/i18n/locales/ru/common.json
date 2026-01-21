@@ -54,7 +54,8 @@
     "today": "Сегодня",
     "yesterday": "Вчера",
     "tomorrow": "Завтра",
-    "thisWeek": "На этой неделе"
+    "thisWeek": "На этой неделе",
+    "weekNumber": "Неделя {{week}}"
   },
   "confirmation": {
     "areYouSure": "Вы уверены?",

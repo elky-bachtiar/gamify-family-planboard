@@ -54,7 +54,8 @@
     "today": "Hari Ini",
     "yesterday": "Kemarin",
     "tomorrow": "Besok",
-    "thisWeek": "Minggu Ini"
+    "thisWeek": "Minggu Ini",
+    "weekNumber": "Minggu {{week}}"
   },
   "confirmation": {
     "areYouSure": "Apakah Anda yakin?",

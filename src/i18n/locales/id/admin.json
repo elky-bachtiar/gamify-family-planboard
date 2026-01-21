@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Anggota",
       "approvals": "Persetujuan",
-      "rewards": "Hadiah"
+      "rewards": "Hadiah",
+      "objects": "Objek"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "Menyimpan...",
     "saved": "Palet tersimpan!",
     "saveFailed": "Gagal menyimpan"
+  },
+  "objects": {
+    "title": "Objek / Tag",
+    "description": "Kelola objek dengan gambar yang dapat digunakan sebagai tag tugas. Gambar akan muncul di bilah filter.",
+    "add": "Tambah Objek",
+    "empty": "Belum ada objek. Tambahkan objek untuk digunakan sebagai tag dengan gambar.",
+    "createTitle": "Buat Objek",
+    "editTitle": "Ubah Objek",
+    "deleteTitle": "Hapus Objek",
+    "deleteMessage": "Apakah Anda yakin ingin menghapus \"{{name}}\"? Ini tidak akan mempengaruhi tag tugas yang ada.",
+    "nameLabel": "Nama Objek",
+    "namePlaceholder": "mis. Mesin Cuci Piring, Cucian, Taman",
+    "uploadImage": "Unggah gambar",
+    "removeImage": "Hapus gambar"
   }
 }

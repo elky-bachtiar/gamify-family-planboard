@@ -54,7 +54,8 @@
     "today": "আজ",
     "yesterday": "গতকাল",
     "tomorrow": "আগামীকাল",
-    "thisWeek": "এই সপ্তাহ"
+    "thisWeek": "এই সপ্তাহ",
+    "weekNumber": "সপ্তাহ {{week}}"
   },
   "confirmation": {
     "areYouSure": "আপনি কি নিশ্চিত?",

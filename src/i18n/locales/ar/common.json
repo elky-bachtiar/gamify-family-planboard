@@ -54,7 +54,8 @@
     "today": "اليوم",
     "yesterday": "أمس",
     "tomorrow": "غداً",
-    "thisWeek": "هذا الأسبوع"
+    "thisWeek": "هذا الأسبوع",
+    "weekNumber": "الأسبوع {{week}}"
   },
   "confirmation": {
     "areYouSure": "هل أنت متأكد؟",

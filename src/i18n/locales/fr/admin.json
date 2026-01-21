@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Membres",
       "approvals": "Approbations",
-      "rewards": "Récompenses"
+      "rewards": "Récompenses",
+      "objects": "Objets"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "Enregistrement...",
     "saved": "Palette enregistrée !",
     "saveFailed": "Échec de l'enregistrement"
+  },
+  "objects": {
+    "title": "Objets / Étiquettes",
+    "description": "Gérez les objets avec images utilisables comme étiquettes de tâches. Les images apparaîtront dans la barre de filtres.",
+    "add": "Ajouter un Objet",
+    "empty": "Aucun objet pour l'instant. Ajoutez des objets à utiliser comme étiquettes avec images.",
+    "createTitle": "Créer un Objet",
+    "editTitle": "Modifier l'Objet",
+    "deleteTitle": "Supprimer l'Objet",
+    "deleteMessage": "Êtes-vous sûr de vouloir supprimer \"{{name}}\" ? Cela n'affectera pas les étiquettes de tâches existantes.",
+    "nameLabel": "Nom de l'Objet",
+    "namePlaceholder": "ex. Lave-vaisselle, Lessive, Jardin",
+    "uploadImage": "Télécharger une image",
+    "removeImage": "Supprimer l'image"
   }
 }

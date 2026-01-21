@@ -54,7 +54,8 @@
     "today": "오늘",
     "yesterday": "어제",
     "tomorrow": "내일",
-    "thisWeek": "이번 주"
+    "thisWeek": "이번 주",
+    "weekNumber": "{{week}}주차"
   },
   "confirmation": {
     "areYouSure": "확실합니까?",

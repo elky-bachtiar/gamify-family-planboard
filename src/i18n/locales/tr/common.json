@@ -54,7 +54,8 @@
     "today": "Bugün",
     "yesterday": "Dün",
     "tomorrow": "Yarın",
-    "thisWeek": "Bu Hafta"
+    "thisWeek": "Bu Hafta",
+    "weekNumber": "Hafta {{week}}"
   },
   "confirmation": {
     "areYouSure": "Emin misiniz?",

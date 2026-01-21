@@ -54,7 +54,8 @@
     "today": "今天",
     "yesterday": "昨天",
     "tomorrow": "明天",
-    "thisWeek": "本周"
+    "thisWeek": "本周",
+    "weekNumber": "第 {{week}} 周"
   },
   "confirmation": {
     "areYouSure": "您确定吗？",

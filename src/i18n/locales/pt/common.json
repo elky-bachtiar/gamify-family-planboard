@@ -54,7 +54,8 @@
     "today": "Hoje",
     "yesterday": "Ontem",
     "tomorrow": "Amanha",
-    "thisWeek": "Esta Semana"
+    "thisWeek": "Esta Semana",
+    "weekNumber": "Semana {{week}}"
   },
   "confirmation": {
     "areYouSure": "Tem certeza?",

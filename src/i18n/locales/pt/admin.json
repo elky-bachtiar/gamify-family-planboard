@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Membros",
       "approvals": "Aprovacoes",
-      "rewards": "Recompensas"
+      "rewards": "Recompensas",
+      "objects": "Objetos"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "Salvando...",
     "saved": "Paleta salva!",
     "saveFailed": "Falha ao salvar"
+  },
+  "objects": {
+    "title": "Objetos / Tags",
+    "description": "Gerencie objetos com imagens que podem ser usados como tags de tarefas. As imagens aparecerao na barra de filtros.",
+    "add": "Adicionar Objeto",
+    "empty": "Nenhum objeto ainda. Adicione objetos para usar como tags com imagens.",
+    "createTitle": "Criar Objeto",
+    "editTitle": "Editar Objeto",
+    "deleteTitle": "Excluir Objeto",
+    "deleteMessage": "Tem certeza que deseja excluir \"{{name}}\"? Isso nao afetara as tags de tarefas existentes.",
+    "nameLabel": "Nome do Objeto",
+    "namePlaceholder": "ex. Lava-loucas, Lavanderia, Jardim",
+    "uploadImage": "Enviar imagem",
+    "removeImage": "Remover imagem"
   }
 }

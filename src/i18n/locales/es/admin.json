@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Miembros",
       "approvals": "Aprobaciones",
-      "rewards": "Recompensas"
+      "rewards": "Recompensas",
+      "objects": "Objetos"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "Guardando...",
     "saved": "¡Paleta guardada!",
     "saveFailed": "Error al guardar"
+  },
+  "objects": {
+    "title": "Objetos / Etiquetas",
+    "description": "Administra objetos con imágenes que pueden usarse como etiquetas de tareas. Las imágenes aparecerán en la barra de filtros.",
+    "add": "Agregar Objeto",
+    "empty": "Sin objetos aún. Agrega objetos para usar como etiquetas con imágenes.",
+    "createTitle": "Crear Objeto",
+    "editTitle": "Editar Objeto",
+    "deleteTitle": "Eliminar Objeto",
+    "deleteMessage": "¿Estás seguro de eliminar \"{{name}}\"? Esto no afectará las etiquetas de tareas existentes.",
+    "nameLabel": "Nombre del Objeto",
+    "namePlaceholder": "ej. Lavavajillas, Lavandería, Jardín",
+    "uploadImage": "Subir imagen",
+    "removeImage": "Eliminar imagen"
   }
 }

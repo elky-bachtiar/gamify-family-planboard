@@ -4,7 +4,8 @@
     "tabs": {
       "members": "メンバー",
       "approvals": "承認",
-      "rewards": "ごほうび"
+      "rewards": "ごほうび",
+      "objects": "オブジェクト"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "保存中...",
     "saved": "パレットを保存しました！",
     "saveFailed": "保存に失敗しました"
+  },
+  "objects": {
+    "title": "オブジェクト / タグ",
+    "description": "タスクタグとして使用できる画像付きオブジェクトを管理します。画像はフィルターバーに表示されます。",
+    "add": "オブジェクトを追加",
+    "empty": "オブジェクトがまだありません。画像付きのタグとして使用するオブジェクトを追加してください。",
+    "createTitle": "オブジェクトを作成",
+    "editTitle": "オブジェクトを編集",
+    "deleteTitle": "オブジェクトを削除",
+    "deleteMessage": "「{{name}}」を削除してもよろしいですか？既存のタスクタグには影響しません。",
+    "nameLabel": "オブジェクト名",
+    "namePlaceholder": "例：食洗機、洗濯、庭",
+    "uploadImage": "画像をアップロード",
+    "removeImage": "画像を削除"
   }
 }

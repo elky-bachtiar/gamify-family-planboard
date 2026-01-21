@@ -4,7 +4,8 @@
     "tabs": {
       "members": "成员",
       "approvals": "审批",
-      "rewards": "奖励"
+      "rewards": "奖励",
+      "objects": "对象"
     }
   },
   "inviteCode": {
@@ -117,5 +118,19 @@
     "saving": "保存中...",
     "saved": "调色板已保存！",
     "saveFailed": "保存失败"
+  },
+  "objects": {
+    "title": "对象 / 标签",
+    "description": "管理可用作任务标签的带图片对象。图片将显示在过滤栏中。",
+    "add": "添加对象",
+    "empty": "暂无对象。添加带图片的对象作为标签使用。",
+    "createTitle": "创建对象",
+    "editTitle": "编辑对象",
+    "deleteTitle": "删除对象",
+    "deleteMessage": "确定要删除"{{name}}"吗？这不会影响现有的任务标签。",
+    "nameLabel": "对象名称",
+    "namePlaceholder": "例如：洗碗机、洗衣、花园",
+    "uploadImage": "上传图片",
+    "removeImage": "移除图片"
   }
 }
