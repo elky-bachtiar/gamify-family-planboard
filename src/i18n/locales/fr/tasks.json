@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "En attente d'approbation",
+    "claim": "Réclamer",
+    "claiming": "Réclamation...",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette tâche ?"
+  },
+  "priority": {
+    "low": "Basse",
+    "medium": "Moyenne",
+    "high": "Haute"
+  },
+  "status": {
+    "pending": "En attente",
+    "completed": "Terminée",
+    "pendingApproval": "En attente d'approbation"
+  },
+  "modal": {
+    "createTitle": "Créer une Nouvelle Tâche",
+    "editTitle": "Modifier la Tâche",
+    "viewTitle": "Détails de la Tâche",
+    "titleLabel": "Titre de la Tâche",
+    "titlePlaceholder": "Entrez le titre de la tâche",
+    "descriptionLabel": "Description (Facultatif)",
+    "descriptionPlaceholder": "Ajoutez des détails sur cette tâche",
+    "priorityLabel": "Priorité",
+    "pointsLabel": "Points",
+    "dueDateLabel": "Date Limite",
+    "dueTimeLabel": "Heure Limite",
+    "startTimeLabel": "Heure de Début (Facultatif)",
+    "startTimePlaceholder": "Quand la tâche devient visible",
+    "startTimeHint": "Si définie, la tâche n'apparaît aux enfants qu'après cette heure",
+    "assigneeLabel": "Assigner à",
+    "unassigned": "Non assignée",
+    "createButton": "Créer la Tâche",
+    "creating": "Création...",
+    "updateButton": "Mettre à jour la Tâche",
+    "updating": "Mise à jour...",
+    "pts": "pts",
+    "errors": {
+      "noRecurrenceTasks": "Aucune tâche ne sera créée avec les paramètres de récurrence actuels",
+      "createFailed": "Échec de la création de la tâche. Veuillez réessayer."
+    }
+  },
+  "recurrence": {
+    "repeat": "Répéter",
+    "oneTime": "Une seule fois",
+    "daily": "Quotidien",
+    "weekly": "Hebdomadaire",
+    "specificDays": "Jours spécifiques",
+    "selectDays": "Sélectionner les jours",
+    "endDate": "Date de fin",
+    "willCreate": "Cela créera <strong>{{count}}</strong> tâche",
+    "willCreate_other": "Cela créera <strong>{{count}}</strong> tâches",
+    "noTasksCreated": "Aucune tâche ne sera créée avec les paramètres actuels",
+    "weekdays": {
+      "sun": "Dim",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Vue Hebdomadaire",
+    "noTasks": "Aucune tâche pour ce jour",
+    "addTask": "Ajouter une Tâche",
+    "weeklyTasks": "Tâches Hebdomadaires",
+    "weeklyTasksEmpty": "Aucune tâche hebdomadaire cette semaine"
+  },
+  "weeklyTask": {
+    "label": "Tâche hebdomadaire",
+    "hint": "L'enfant peut accomplir cette tâche n'importe quel jour de cette semaine",
+    "badge": "Cette Semaine"
+  },
+  "filters": {
+    "all": "Toutes",
+    "myTasks": "Mes Tâches",
+    "unassigned": "Non assignées",
+    "completed": "Terminées",
+    "pending": "En attente",
+    "pendingApproval": "En attente d'approbation",
+    "status": "Statut",
+    "assignee": "Assigné à"
+  },
+  "planboard": {
+    "title": "Tableau de Bord Familial",
+    "today": "Aujourd'hui"
+  },
+  "empty": {
+    "noTasks": "Aucune tâche pour le moment",
+    "noTasksDescription": "Créez une tâche pour commencer !"
+  },
+  "detail": {
+    "editTask": "Modifier la tâche",
+    "copyTask": "Copier la tâche",
+    "description": "Description",
+    "dueDate": "Date Limite",
+    "dueTime": "Heure Limite",
+    "startTime": "Heure de Début",
+    "timeRange": "Disponible",
+    "priority": "Priorité",
+    "points": "Points",
+    "pointsValue": "{{count}} points",
+    "assignedTo": "Assignée à",
+    "unassigned": "Non assignée",
+    "tagsObjects": "Tags/Objets",
+    "tagsHint": "Appuyez sur Entrée ou virgule pour ajouter un tag",
+    "tagsPlaceholder": "ex : lave-vaisselle, cuisine",
+    "completedAt": "Terminée le",
+    "saveChanges": "Enregistrer les Modifications",
+    "saving": "Enregistrement...",
+    "close": "Fermer"
+  },
+  "recurringEdit": {
+    "title": "Modifier la Tâche Récurrente",
+    "partOfSeries": "\"{{title}}\" fait partie d'une série de tâches récurrentes. Comment souhaitez-vous appliquer vos modifications ?",
+    "editSingleTitle": "Enregistrer cette tâche uniquement",
+    "editSingleDescription": "Les modifications ne s'appliqueront qu'à cette occurrence spécifique",
+    "editAllFutureTitle": "Enregistrer toutes les tâches futures",
+    "editAllFutureBadge": "{{count}} tâches",
+    "editAllFutureDescription": "Les modifications s'appliqueront à toutes les tâches non terminées à partir d'aujourd'hui",
+    "updating": "Mise à jour des tâches..."
+  },
+  "recurringReorder": {
+    "title": "Réorganiser la Tâche Récurrente",
+    "partOfSeries": "\"{{title}}\" fait partie d'une série de tâches récurrentes. Comment souhaitez-vous appliquer la nouvelle position ?",
+    "reorderSingleTitle": "Réorganiser cette tâche uniquement",
+    "reorderSingleDescription": "La nouvelle position ne s'appliquera qu'à cette occurrence spécifique",
+    "reorderAllFutureTitle": "Réorganiser toutes les tâches futures",
+    "reorderAllFutureBadge": "{{count}} tâches",
+    "reorderAllFutureDescription": "La nouvelle position s'appliquera à toutes les tâches non terminées à partir d'aujourd'hui",
+    "updating": "Mise à jour des positions..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir"
+    },
+    "todaysTasks": "Tâches du Jour",
+    "completedToday": "Terminées Aujourd'hui",
+    "pointsEarned": "Points Gagnés",
+    "keepGoing": "Continue comme ça !",
+    "allDone": "Tout est fait !",
+    "createTask": "Créer une Tâche"
+  },
+  "delete": {
+    "confirmTitle": "Supprimer la Tâche",
+    "recurringTask": "Tâche Récurrente",
+    "confirmMessage": "Êtes-vous sûr de vouloir supprimer \"{{title}}\" ?",
+    "recurringMessage": "\"{{title}}\" fait partie d'une série de tâches récurrentes. Que souhaitez-vous supprimer ?",
+    "futureTasksInfo": "Cette série a {{count}} tâche future",
+    "futureTasksInfo_other": "Cette série a {{count}} tâches futures",
+    "deleteThisOnly": "Supprimer cette tâche uniquement",
+    "deleteAllFuture": "Supprimer les {{count}} tâches futures",
+    "deleteTask": "Supprimer la Tâche",
+    "deleting": "Suppression..."
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "Warte auf Genehmigung",
+    "claim": "Übernehmen",
+    "claiming": "Wird übernommen...",
+    "deleteConfirm": "Bist du sicher, dass du diese Aufgabe löschen möchtest?"
+  },
+  "priority": {
+    "low": "Niedrig",
+    "medium": "Mittel",
+    "high": "Hoch"
+  },
+  "status": {
+    "pending": "Ausstehend",
+    "completed": "Erledigt",
+    "pendingApproval": "Warte auf Genehmigung"
+  },
+  "modal": {
+    "createTitle": "Neue Aufgabe erstellen",
+    "editTitle": "Aufgabe bearbeiten",
+    "viewTitle": "Aufgabendetails",
+    "titleLabel": "Aufgabentitel",
+    "titlePlaceholder": "Aufgabentitel eingeben",
+    "descriptionLabel": "Beschreibung (Optional)",
+    "descriptionPlaceholder": "Details zu dieser Aufgabe hinzufügen",
+    "priorityLabel": "Priorität",
+    "pointsLabel": "Punkte",
+    "dueDateLabel": "Fälligkeitsdatum",
+    "dueTimeLabel": "Fälligkeitszeit",
+    "startTimeLabel": "Startzeit (Optional)",
+    "startTimePlaceholder": "Wann die Aufgabe sichtbar wird",
+    "startTimeHint": "Wenn gesetzt, erscheint die Aufgabe für Kinder erst nach dieser Zeit",
+    "assigneeLabel": "Zuweisen an",
+    "unassigned": "Nicht zugewiesen",
+    "createButton": "Aufgabe erstellen",
+    "creating": "Wird erstellt...",
+    "updateButton": "Aufgabe aktualisieren",
+    "updating": "Wird aktualisiert...",
+    "pts": "Pkt",
+    "errors": {
+      "noRecurrenceTasks": "Mit den aktuellen Wiederholungseinstellungen werden keine Aufgaben erstellt",
+      "createFailed": "Aufgabe konnte nicht erstellt werden. Bitte versuche es erneut."
+    }
+  },
+  "recurrence": {
+    "repeat": "Wiederholen",
+    "oneTime": "Einmalig",
+    "daily": "Täglich",
+    "weekly": "Wöchentlich",
+    "specificDays": "Bestimmte Tage",
+    "selectDays": "Tage auswählen",
+    "endDate": "Enddatum",
+    "willCreate": "Es wird <strong>{{count}}</strong> Aufgabe erstellt",
+    "willCreate_other": "Es werden <strong>{{count}}</strong> Aufgaben erstellt",
+    "noTasksCreated": "Mit den aktuellen Einstellungen werden keine Aufgaben erstellt",
+    "weekdays": {
+      "sun": "So",
+      "mon": "Mo",
+      "tue": "Di",
+      "wed": "Mi",
+      "thu": "Do",
+      "fri": "Fr",
+      "sat": "Sa"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Wochenansicht",
+    "noTasks": "Keine Aufgaben für diesen Tag",
+    "addTask": "Aufgabe hinzufügen",
+    "weeklyTasks": "Wochenaufgaben",
+    "weeklyTasksEmpty": "Keine Wochenaufgaben diese Woche"
+  },
+  "weeklyTask": {
+    "label": "Wochenaufgabe",
+    "hint": "Kind kann diese Aufgabe an jedem Tag dieser Woche erledigen",
+    "badge": "Diese Woche"
+  },
+  "filters": {
+    "all": "Alle",
+    "myTasks": "Meine Aufgaben",
+    "unassigned": "Nicht zugewiesen",
+    "completed": "Erledigt",
+    "pending": "Ausstehend",
+    "pendingApproval": "Warte auf Genehmigung",
+    "status": "Status",
+    "assignee": "Zugewiesen an"
+  },
+  "planboard": {
+    "title": "Familien-Planboard",
+    "today": "Heute"
+  },
+  "empty": {
+    "noTasks": "Noch keine Aufgaben",
+    "noTasksDescription": "Erstelle eine Aufgabe, um loszulegen!"
+  },
+  "detail": {
+    "editTask": "Aufgabe bearbeiten",
+    "copyTask": "Aufgabe kopieren",
+    "description": "Beschreibung",
+    "dueDate": "Fälligkeitsdatum",
+    "dueTime": "Fälligkeitszeit",
+    "startTime": "Startzeit",
+    "timeRange": "Verfügbar",
+    "priority": "Priorität",
+    "points": "Punkte",
+    "pointsValue": "{{count}} Punkte",
+    "assignedTo": "Zugewiesen an",
+    "unassigned": "Nicht zugewiesen",
+    "tagsObjects": "Tags/Objekte",
+    "tagsHint": "Enter oder Komma drücken, um einen Tag hinzuzufügen",
+    "tagsPlaceholder": "z.B. Spülmaschine, Küche",
+    "completedAt": "Erledigt am",
+    "saveChanges": "Änderungen speichern",
+    "saving": "Wird gespeichert...",
+    "close": "Schließen"
+  },
+  "recurringEdit": {
+    "title": "Wiederkehrende Aufgabe bearbeiten",
+    "partOfSeries": "\"{{title}}\" ist Teil einer wiederkehrenden Aufgabenserie. Wie möchtest du deine Änderungen anwenden?",
+    "editSingleTitle": "Nur diese Aufgabe speichern",
+    "editSingleDescription": "Änderungen werden nur auf diese spezifische Aufgabe angewendet",
+    "editAllFutureTitle": "Alle zukünftigen Aufgaben speichern",
+    "editAllFutureBadge": "{{count}} Aufgaben",
+    "editAllFutureDescription": "Änderungen werden auf alle nicht erledigten Aufgaben ab heute angewendet",
+    "updating": "Aufgaben werden aktualisiert..."
+  },
+  "recurringReorder": {
+    "title": "Wiederkehrende Aufgabe neu anordnen",
+    "partOfSeries": "\"{{title}}\" ist Teil einer wiederkehrenden Aufgabenserie. Wie möchtest du die neue Position anwenden?",
+    "reorderSingleTitle": "Nur diese Aufgabe neu anordnen",
+    "reorderSingleDescription": "Die neue Position wird nur auf diese spezifische Aufgabe angewendet",
+    "reorderAllFutureTitle": "Alle zukünftigen Aufgaben neu anordnen",
+    "reorderAllFutureBadge": "{{count}} Aufgaben",
+    "reorderAllFutureDescription": "Die neue Position wird auf alle nicht erledigten Aufgaben ab heute angewendet",
+    "updating": "Positionen werden aktualisiert..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Guten Morgen",
+      "afternoon": "Guten Tag",
+      "evening": "Guten Abend"
+    },
+    "todaysTasks": "Heutige Aufgaben",
+    "completedToday": "Heute erledigt",
+    "pointsEarned": "Punkte verdient",
+    "keepGoing": "Weiter so!",
+    "allDone": "Alles erledigt!",
+    "createTask": "Aufgabe erstellen"
+  },
+  "delete": {
+    "confirmTitle": "Aufgabe löschen",
+    "recurringTask": "Wiederkehrende Aufgabe",
+    "confirmMessage": "Bist du sicher, dass du \"{{title}}\" löschen möchtest?",
+    "recurringMessage": "\"{{title}}\" ist Teil einer wiederkehrenden Aufgabenserie. Was möchtest du löschen?",
+    "futureTasksInfo": "Diese Serie hat {{count}} zukünftige Aufgabe",
+    "futureTasksInfo_other": "Diese Serie hat {{count}} zukünftige Aufgaben",
+    "deleteThisOnly": "Nur diese Aufgabe löschen",
+    "deleteAllFuture": "Alle {{count}} zukünftigen Aufgaben löschen",
+    "deleteTask": "Aufgabe löschen",
+    "deleting": "Wird gelöscht..."
+  }
+}

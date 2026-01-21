@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} Punkte",
+    "value_one": "{{count}} Punkt",
+    "earned": "Verdiente Punkte",
+    "total": "Gesamtpunkte",
+    "weekly": "Wochenpunkte"
+  },
+  "level": {
+    "current": "Level {{level}}",
+    "progressTo": "Fortschritt zu Level {{level}}",
+    "maxLevel": "Maximales Level erreicht!"
+  },
+  "streak": {
+    "current": "{{count}} Tage",
+    "current_one": "{{count}} Tag",
+    "dayStreak": "Tage-Serie",
+    "keepItUp": "Weiter so!",
+    "streakLost": "Serie verloren",
+    "newRecord": "Neuer Rekord!"
+  },
+  "achievements": {
+    "title": "Erfolge",
+    "unlocked": "{{count}} von {{total}} freigeschaltet",
+    "earned": "Verdient am {{date}}",
+    "noAchievements": "Noch keine Erfolge verfügbar",
+    "locked": "Gesperrt",
+    "newlyUnlocked": "Erfolg freigeschaltet!"
+  },
+  "leaderboard": {
+    "title": "Familien-Rangliste",
+    "noMembers": "Noch keine Familienmitglieder",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Level {{level}} - {{points}} Punkte"
+  },
+  "stats": {
+    "familyStats": "Familien-Statistiken",
+    "yourStats": "Deine Statistiken",
+    "totalTasks": "Aufgaben gesamt",
+    "completed": "Erledigt",
+    "pending": "Ausstehend",
+    "weeklyPoints": "Wochenpunkte",
+    "completionRate": "Erledigungsrate"
+  },
+  "rewards": {
+    "title": "Belohnungen",
+    "myRewards": "Meine Belohnungen",
+    "overview": "Belohnungsübersicht",
+    "redeem": "Punkte einlösen",
+    "redeemButton": "Einlösen",
+    "pointsToRedeem": "Einzulösende Punkte",
+    "cashValue": "Geldwert",
+    "perPoint": "{{rate}} EUR pro Punkt",
+    "availablePoints": "Verfügbare Punkte",
+    "redeemableValue": "Einlösbarer Wert",
+    "pendingRedemptions": "Ausstehende Einlösungen",
+    "redemptionHistory": "Einlösungsverlauf",
+    "noRedemptions": "Noch keine Einlösungsanfragen",
+    "requestRedemption": "Einlösung anfordern",
+    "minimumPlaceholder": "Minimum: {{minimum}} Punkte",
+    "requesting": "Wird angefordert...",
+    "needMinimum": "Du benötigst mindestens {{minimum}} Punkte, um eine Einlösung anzufordern.",
+    "keepEarning": "Verdiene weiter, um Belohnungen freizuschalten!",
+    "weeklyGoal": {
+      "title": "Wochenziel-Fortschritt",
+      "progress": "{{current}} / {{target}} Punkte",
+      "reached": "Ziel erreicht! {{bonus}} EUR Bonus diese Woche verdient!",
+      "earnMore": "Verdiene noch {{remaining}} Punkte, um {{bonus}} EUR Bonus zu erhalten"
+    },
+    "settings": {
+      "title": "Belohnungseinstellungen",
+      "enableRewards": "Belohnungen aktivieren",
+      "enableDescription": "Erlaube Familienmitgliedern, Punkte gegen Belohnungen einzulösen",
+      "pointsToMoneyRate": "Punkte-zu-Geld-Rate",
+      "pointsToMoneyRateHint": "Betrag pro Punkt (z.B. 0,01 = 0,01 EUR pro Punkt)",
+      "minimumRedemption": "Mindestpunkte für Einlösung",
+      "minimumRedemptionHint": "Mindestpunkte, um eine Einlösung anzufordern",
+      "weeklyBonusTarget": "Wochenbonus-Ziel",
+      "weeklyTargetPoints": "Wöchentliche Zielpunkte",
+      "weeklyTargetPointsHint": "Punkte, um den Wochenbonus zu verdienen (0 = deaktiviert)",
+      "weeklyBonusAmount": "Wochenbonus-Betrag",
+      "weeklyBonusAmountHint": "Bonusbetrag für das Erreichen des Wochenziels",
+      "example": "Beispiel: {{points}} Punkte = {{money}} EUR",
+      "weeklyGoalExample": "Wochenziel: Verdiene {{points}} Punkte, um {{bonus}} EUR Bonus zu erhalten",
+      "savedSuccess": "Einstellungen erfolgreich gespeichert!",
+      "saveFailed": "Einstellungen konnten nicht gespeichert werden",
+      "saving": "Wird gespeichert...",
+      "saveButton": "Belohnungseinstellungen speichern"
+    },
+    "status": {
+      "pending": "Ausstehend",
+      "approved": "Genehmigt",
+      "rejected": "Abgelehnt",
+      "paid": "Bezahlt"
+    },
+    "actions": {
+      "approve": "Genehmigen",
+      "reject": "Ablehnen",
+      "markPaid": "Als bezahlt markieren"
+    },
+    "manager": {
+      "title": "Einlösungsanfragen",
+      "pendingApproval": "Warten auf Genehmigung ({{count}})",
+      "awaitingPayment": "Genehmigt - Warten auf Zahlung ({{count}})",
+      "toPay": "{{amount}} EUR zu zahlen",
+      "processing": "Wird verarbeitet...",
+      "recentHistory": "Verlauf",
+      "pointsEquals": "{{points}} Punkte = {{money}} EUR"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Wochenziel",
+    "progress": "{{current}} / {{target}} Punkte",
+    "completed": "Ziel erreicht!",
+    "notSet": "Kein Ziel gesetzt"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% zu Level {{level}}"
+    },
+    "tabs": {
+      "home": "Start",
+      "badges": "Abzeichen",
+      "stats": "Statistiken"
+    },
+    "dailyGreeting": {
+      "welcome": "Willkommen zurück!",
+      "dayStreak": "Tage-Serie!",
+      "letsGo": "Los geht's!",
+      "tapToContinue": "Tippe irgendwo, um fortzufahren",
+      "motivation": {
+        "startStreak": "Lass uns heute eine neue Serie starten!",
+        "greatStart": "Toller Start! Weiter so!",
+        "momentum": "Du baust Schwung auf!",
+        "onFire": "Du bist am brennen! Fantastisch!",
+        "dedication": "Unglaubliche Hingabe!",
+        "superstar": "Du bist ein Superstar!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Heutiger Fortschritt",
+      "done": "{{done}}/{{total}} erledigt",
+      "allDone": "Alles erledigt! Super gemacht!",
+      "emptyState": {
+        "title": "Bereit für ein Abenteuer?",
+        "subtitle": "Erstelle eine Aufgabe, um Punkte zu sammeln und aufzusteigen!",
+        "quickIdeas": "Schnelle Ideen:",
+        "createOwn": "Eigene Aufgabe erstellen"
+      },
+      "sections": {
+        "myTasks": "Meine Aufgaben ({{count}})",
+        "available": "Zum Übernehmen verfügbar ({{count}})",
+        "waitingApproval": "Warte auf Genehmigung ({{count}})",
+        "waitingForParent": "Warte auf Eltern ({{count}})",
+        "completed": "Erledigt ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "Meine Aufgaben",
+        "familyTasks": "Familienaufgaben"
+      },
+      "familyTasks": {
+        "noTasks": "Keine Aufgaben zugewiesen",
+        "assignedTo": "Zugewiesen an {{name}}"
+      },
+      "suggestions": {
+        "read": "Lesen",
+        "clean": "Aufräumen",
+        "exercise": "Sport",
+        "create": "Basteln",
+        "learn": "Lernen",
+        "petCare": "Tierpflege"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "Tippe zum Übernehmen!",
+      "pendingApproval": "Warte auf Genehmigung",
+      "waitingForParent": "Warte auf Eltern"
+    },
+    "taskModal": {
+      "createTitle": "Erstelle deine Aufgabe",
+      "whatToDo": "Was möchtest du tun?",
+      "placeholder": "z.B. 20 Minuten lesen",
+      "createButton": "Aufgabe erstellen",
+      "creating": "Wird erstellt...",
+      "sentForApproval": "Aufgabe an Eltern gesendet!",
+      "parentWillReview": "Deine Eltern werden deine Aufgabe prüfen und genehmigen."
+    },
+    "completion": {
+      "title": "Aufgabe erledigen",
+      "claimTask": "Diese Aufgabe übernehmen!",
+      "claiming": "Wird übernommen...",
+      "imDone": "Ich bin fertig!",
+      "submitting": "Wird gesendet...",
+      "earnPoints": "Verdiene {{points}} Punkte!",
+      "alreadyCompleted": "Bereits erledigt!",
+      "waitingApproval": "Warte auf Genehmigung..."
+    },
+    "celebration": {
+      "approved": "Aufgabe genehmigt!",
+      "approvedBig": "GENEHMIGT!",
+      "youEarned": "Du hast verdient",
+      "points": "Punkte!",
+      "awesome": "Super!",
+      "total": "Gesamt: {{points}} Punkte"
+    },
+    "badges": {
+      "title": "Meine Abzeichen",
+      "unlockedCount": "{{unlocked}}/{{total}} freigeschaltet",
+      "noBadges": "Noch keine Abzeichen",
+      "noBadgesHint": "Erledige Aufgaben, um Abzeichen zu verdienen!",
+      "earned": "Verdient am {{date}}"
+    },
+    "statsView": {
+      "title": "Meine Statistiken",
+      "totalPoints": "Gesamtpunkte",
+      "currentLevel": "Aktuelles Level",
+      "currentStreak": "Aktuelle Serie",
+      "days": "Tage",
+      "thisWeek": "Diese Woche",
+      "tasksDone": "Erledigte Aufgaben",
+      "pointsEarned": "Verdiente Punkte",
+      "activeDays": "Aktive Tage",
+      "recentActivity": "Letzte Aktivität",
+      "noActivity": "Noch keine Aktivität. Erledige einige Aufgaben!"
+    }
+  }
+}

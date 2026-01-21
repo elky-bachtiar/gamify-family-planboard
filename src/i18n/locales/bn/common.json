@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "ফ্যামিলি প্ল্যানবোর্ড"
+  },
+  "navigation": {
+    "myTasks": "আমার কাজ",
+    "familyBoard": "পারিবারিক বোর্ড",
+    "dashboard": "ড্যাশবোর্ড",
+    "childMode": "শিশু ভিউ",
+    "enterChildMode": "শিশু ভিউতে যান",
+    "exitChildMode": "শিশু ভিউ থেকে বের হন"
+  },
+  "buttons": {
+    "save": "সংরক্ষণ",
+    "cancel": "বাতিল",
+    "delete": "মুছুন",
+    "edit": "সম্পাদনা",
+    "close": "বন্ধ",
+    "back": "পিছনে",
+    "submit": "জমা দিন",
+    "confirm": "নিশ্চিত",
+    "copy": "কপি",
+    "copyLink": "লিঙ্ক কপি করুন",
+    "copied": "কপি হয়েছে!",
+    "loading": "লোড হচ্ছে...",
+    "create": "তৈরি করুন",
+    "update": "আপডেট",
+    "add": "যোগ করুন"
+  },
+  "labels": {
+    "name": "নাম",
+    "email": "ইমেইল",
+    "password": "পাসওয়ার্ড",
+    "description": "বিবরণ",
+    "status": "অবস্থা",
+    "priority": "অগ্রাধিকার",
+    "points": "পয়েন্ট",
+    "level": "লেভেল",
+    "days": "দিন",
+    "dayStreak": "দিনের স্ট্রিক"
+  },
+  "errors": {
+    "generic": "কিছু ভুল হয়েছে",
+    "required": "এই ক্ষেত্রটি আবশ্যক",
+    "invalidEmail": "অবৈধ ইমেইল ঠিকানা",
+    "networkError": "নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "unauthorized": "এই কাজ করার অনুমতি আপনার নেই"
+  },
+  "empty": {
+    "noData": "কোনো তথ্য নেই",
+    "noResults": "কোনো ফলাফল পাওয়া যায়নি"
+  },
+  "time": {
+    "today": "আজ",
+    "yesterday": "গতকাল",
+    "tomorrow": "আগামীকাল",
+    "thisWeek": "এই সপ্তাহ"
+  },
+  "confirmation": {
+    "areYouSure": "আপনি কি নিশ্চিত?",
+    "cannotUndo": "এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না।"
+  },
+  "profile": {
+    "settings": "প্রোফাইল সেটিংস",
+    "signOut": "সাইন আউট"
+  }
+}

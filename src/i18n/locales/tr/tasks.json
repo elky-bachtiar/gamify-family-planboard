@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "Onay Bekliyor",
+    "claim": "Üstlen",
+    "claiming": "Üstleniliyor...",
+    "deleteConfirm": "Bu görevi silmek istediğinizden emin misiniz?"
+  },
+  "priority": {
+    "low": "Düşük",
+    "medium": "Orta",
+    "high": "Yüksek"
+  },
+  "status": {
+    "pending": "Beklemede",
+    "completed": "Tamamlandı",
+    "pendingApproval": "Onay Bekliyor"
+  },
+  "modal": {
+    "createTitle": "Yeni Görev Oluştur",
+    "editTitle": "Görevi Düzenle",
+    "viewTitle": "Görev Detayları",
+    "titleLabel": "Görev Başlığı",
+    "titlePlaceholder": "Görev başlığını girin",
+    "descriptionLabel": "Açıklama (İsteğe bağlı)",
+    "descriptionPlaceholder": "Bu görev hakkında detay ekleyin",
+    "priorityLabel": "Öncelik",
+    "pointsLabel": "Puan",
+    "dueDateLabel": "Bitiş Tarihi",
+    "dueTimeLabel": "Bitiş Saati",
+    "startTimeLabel": "Başlangıç Saati (İsteğe bağlı)",
+    "startTimePlaceholder": "Görevin görünür olacağı zaman",
+    "startTimeHint": "Ayarlanırsa, görev bu saatten sonra çocuklara görünür",
+    "assigneeLabel": "Atanan Kişi",
+    "unassigned": "Atanmamış",
+    "createButton": "Görev Oluştur",
+    "creating": "Oluşturuluyor...",
+    "updateButton": "Görevi Güncelle",
+    "updating": "Güncelleniyor...",
+    "pts": "puan",
+    "errors": {
+      "noRecurrenceTasks": "Mevcut tekrar ayarlarıyla hiçbir görev oluşturulmayacak",
+      "createFailed": "Görev oluşturulamadı. Lütfen tekrar deneyin."
+    }
+  },
+  "recurrence": {
+    "repeat": "Tekrar",
+    "oneTime": "Bir kez",
+    "daily": "Günlük",
+    "weekly": "Haftalık",
+    "specificDays": "Belirli günler",
+    "selectDays": "Günleri seçin",
+    "endDate": "Bitiş tarihi",
+    "willCreate": "Bu <strong>{{count}}</strong> görev oluşturacak",
+    "willCreate_other": "Bu <strong>{{count}}</strong> görev oluşturacak",
+    "noTasksCreated": "Mevcut ayarlarla hiçbir görev oluşturulmayacak",
+    "weekdays": {
+      "sun": "Paz",
+      "mon": "Pzt",
+      "tue": "Sal",
+      "wed": "Çar",
+      "thu": "Per",
+      "fri": "Cum",
+      "sat": "Cmt"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Haftalık Görünüm",
+    "noTasks": "Bu gün için görev yok",
+    "addTask": "Görev Ekle",
+    "weeklyTasks": "Haftalık Görevler",
+    "weeklyTasksEmpty": "Bu hafta haftalık görev yok"
+  },
+  "weeklyTask": {
+    "label": "Haftalık görev",
+    "hint": "Çocuk bu görevi haftanın herhangi bir günü tamamlayabilir",
+    "badge": "Bu Hafta"
+  },
+  "filters": {
+    "all": "Tümü",
+    "myTasks": "Görevlerim",
+    "unassigned": "Atanmamış",
+    "completed": "Tamamlanan",
+    "pending": "Bekleyen",
+    "pendingApproval": "Onay Bekleyen",
+    "status": "Durum",
+    "assignee": "Atanan"
+  },
+  "planboard": {
+    "title": "Aile Panosu",
+    "today": "Bugün"
+  },
+  "empty": {
+    "noTasks": "Henüz görev yok",
+    "noTasksDescription": "Başlamak için bir görev oluşturun!"
+  },
+  "detail": {
+    "editTask": "Görevi düzenle",
+    "copyTask": "Görevi kopyala",
+    "description": "Açıklama",
+    "dueDate": "Bitiş Tarihi",
+    "dueTime": "Bitiş Saati",
+    "startTime": "Başlangıç Saati",
+    "timeRange": "Uygun",
+    "priority": "Öncelik",
+    "points": "Puan",
+    "pointsValue": "{{count}} puan",
+    "assignedTo": "Atanan Kişi",
+    "unassigned": "Atanmamış",
+    "tagsObjects": "Etiketler/Nesneler",
+    "tagsHint": "Etiket eklemek için Enter veya virgül tuşuna basın",
+    "tagsPlaceholder": "örn. bulaşık makinesi, mutfak",
+    "completedAt": "Tamamlanma Zamanı",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "saving": "Kaydediliyor...",
+    "close": "Kapat"
+  },
+  "recurringEdit": {
+    "title": "Tekrarlayan Görevi Düzenle",
+    "partOfSeries": "\"{{title}}\" tekrarlayan bir görev serisinin parçasıdır. Değişikliklerinizi nasıl uygulamak istersiniz?",
+    "editSingleTitle": "Sadece bu görevi kaydet",
+    "editSingleDescription": "Değişiklikler yalnızca bu belirli göreve uygulanacak",
+    "editAllFutureTitle": "Tüm gelecek görevleri kaydet",
+    "editAllFutureBadge": "{{count}} görev",
+    "editAllFutureDescription": "Değişiklikler bugünden itibaren tüm tamamlanmamış görevlere uygulanacak",
+    "updating": "Görevler güncelleniyor..."
+  },
+  "recurringReorder": {
+    "title": "Tekrarlayan Görevi Yeniden Sırala",
+    "partOfSeries": "\"{{title}}\" tekrarlayan bir görev serisinin parçasıdır. Yeni konumu nasıl uygulamak istersiniz?",
+    "reorderSingleTitle": "Sadece bu görevi yeniden sırala",
+    "reorderSingleDescription": "Yeni konum yalnızca bu belirli göreve uygulanacak",
+    "reorderAllFutureTitle": "Tüm gelecek görevleri yeniden sırala",
+    "reorderAllFutureBadge": "{{count}} görev",
+    "reorderAllFutureDescription": "Yeni konum bugünden itibaren tüm tamamlanmamış görevlere uygulanacak",
+    "updating": "Konumlar güncelleniyor..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Günaydın",
+      "afternoon": "İyi günler",
+      "evening": "İyi akşamlar"
+    },
+    "todaysTasks": "Bugünün Görevleri",
+    "completedToday": "Bugün Tamamlanan",
+    "pointsEarned": "Kazanılan Puan",
+    "keepGoing": "Devam et!",
+    "allDone": "Hepsi bitti!",
+    "createTask": "Görev Oluştur"
+  },
+  "delete": {
+    "confirmTitle": "Görevi Sil",
+    "recurringTask": "Tekrarlayan Görev",
+    "confirmMessage": "\"{{title}}\" görevini silmek istediğinizden emin misiniz?",
+    "recurringMessage": "\"{{title}}\" tekrarlayan bir görev serisinin parçasıdır. Ne silmek istersiniz?",
+    "futureTasksInfo": "Bu serinin {{count}} gelecek görevi var",
+    "futureTasksInfo_other": "Bu serinin {{count}} gelecek görevi var",
+    "deleteThisOnly": "Sadece bu görevi sil",
+    "deleteAllFuture": "Tüm {{count}} gelecek görevi sil",
+    "deleteTask": "Görevi Sil",
+    "deleting": "Siliniyor..."
+  }
+}

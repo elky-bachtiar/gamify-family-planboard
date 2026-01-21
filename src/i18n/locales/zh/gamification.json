@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} 积分",
+    "value_one": "{{count}} 积分",
+    "earned": "获得积分",
+    "total": "总积分",
+    "weekly": "本周积分"
+  },
+  "level": {
+    "current": "等级 {{level}}",
+    "progressTo": "升至等级 {{level}} 的进度",
+    "maxLevel": "已达最高等级！"
+  },
+  "streak": {
+    "current": "{{count}} 天",
+    "current_one": "{{count}} 天",
+    "dayStreak": "天连续",
+    "keepItUp": "继续保持！",
+    "streakLost": "连续记录中断",
+    "newRecord": "新纪录！"
+  },
+  "achievements": {
+    "title": "成就",
+    "unlocked": "已解锁 {{count}}/{{total}}",
+    "earned": "获得于 {{date}}",
+    "noAchievements": "暂无可用成就",
+    "locked": "未解锁",
+    "newlyUnlocked": "成就解锁！"
+  },
+  "leaderboard": {
+    "title": "家庭排行榜",
+    "noMembers": "还没有家庭成员",
+    "rank": "第{{rank}}名",
+    "levelAndPoints": "等级 {{level}} • {{points}} 积分"
+  },
+  "stats": {
+    "familyStats": "家庭统计",
+    "yourStats": "您的统计",
+    "totalTasks": "总任务数",
+    "completed": "已完成",
+    "pending": "待完成",
+    "weeklyPoints": "本周积分",
+    "completionRate": "完成率"
+  },
+  "rewards": {
+    "title": "奖励",
+    "myRewards": "我的奖励",
+    "overview": "奖励概览",
+    "redeem": "兑换积分",
+    "redeemButton": "兑换",
+    "pointsToRedeem": "兑换积分数",
+    "cashValue": "现金价值",
+    "perPoint": "每积分 ${{rate}}",
+    "availablePoints": "可用积分",
+    "redeemableValue": "可兑换价值",
+    "pendingRedemptions": "待处理兑换",
+    "redemptionHistory": "兑换历史",
+    "noRedemptions": "暂无兑换请求",
+    "requestRedemption": "申请兑换",
+    "minimumPlaceholder": "最低：{{minimum}} 积分",
+    "requesting": "申请中...",
+    "needMinimum": "您需要至少 {{minimum}} 积分才能申请兑换。",
+    "keepEarning": "继续努力赚取积分解锁奖励！",
+    "weeklyGoal": {
+      "title": "周目标进度",
+      "progress": "{{current}} / {{target}} 积分",
+      "reached": "目标达成！本周获得 ${{bonus}} 奖励！",
+      "earnMore": "再赚 {{remaining}} 积分可获得 ${{bonus}} 奖励"
+    },
+    "settings": {
+      "title": "奖励设置",
+      "enableRewards": "启用奖励",
+      "enableDescription": "允许家庭成员用积分兑换奖励",
+      "pointsToMoneyRate": "积分兑换比率",
+      "pointsToMoneyRateHint": "每积分金额（例如：0.01 = 每积分 $0.01）",
+      "minimumRedemption": "最低兑换积分",
+      "minimumRedemptionHint": "申请兑换所需的最低积分",
+      "weeklyBonusTarget": "周奖励目标",
+      "weeklyTargetPoints": "周目标积分",
+      "weeklyTargetPointsHint": "获得周奖励所需积分（0 = 禁用）",
+      "weeklyBonusAmount": "周奖励金额",
+      "weeklyBonusAmountHint": "达到周目标的奖励金额",
+      "example": "示例：{{points}} 积分 = ${{money}}",
+      "weeklyGoalExample": "周目标：赚取 {{points}} 积分可获得 ${{bonus}} 奖励",
+      "savedSuccess": "设置保存成功！",
+      "saveFailed": "保存设置失败",
+      "saving": "保存中...",
+      "saveButton": "保存奖励设置"
+    },
+    "status": {
+      "pending": "待处理",
+      "approved": "已批准",
+      "rejected": "已拒绝",
+      "paid": "已支付"
+    },
+    "actions": {
+      "approve": "批准",
+      "reject": "拒绝",
+      "markPaid": "标记为已支付"
+    },
+    "manager": {
+      "title": "兑换请求",
+      "pendingApproval": "待批准 ({{count}})",
+      "awaitingPayment": "已批准 - 待支付 ({{count}})",
+      "toPay": "待支付 ${{amount}}",
+      "processing": "处理中...",
+      "recentHistory": "近期记录",
+      "pointsEquals": "{{points}} 积分 = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "周目标",
+    "progress": "{{current}} / {{target}} 积分",
+    "completed": "目标完成！",
+    "notSet": "未设置目标"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "距离等级 {{level}} 还有 {{percent}}%"
+    },
+    "tabs": {
+      "home": "首页",
+      "badges": "徽章",
+      "stats": "统计"
+    },
+    "dailyGreeting": {
+      "welcome": "欢迎回来！",
+      "dayStreak": "天连续！",
+      "letsGo": "开始吧！",
+      "tapToContinue": "点击任意位置继续",
+      "motivation": {
+        "startStreak": "今天开始新的连续记录吧！",
+        "greatStart": "开局不错！继续保持！",
+        "momentum": "你正在建立势头！",
+        "onFire": "你太棒了！太厉害了！",
+        "dedication": "令人难以置信的坚持！",
+        "superstar": "你是超级明星！"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "今日进度",
+      "done": "{{done}}/{{total}} 已完成",
+      "allDone": "全部完成！做得好！",
+      "emptyState": {
+        "title": "准备好冒险了吗？",
+        "subtitle": "创建一个任务开始赚取积分和升级！",
+        "quickIdeas": "快速想法：",
+        "createOwn": "创建我自己的任务"
+      },
+      "sections": {
+        "myTasks": "我的任务 ({{count}})",
+        "available": "可领取 ({{count}})",
+        "waitingApproval": "等待审批 ({{count}})",
+        "waitingForParent": "等待家长 ({{count}})",
+        "completed": "已完成 ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "我的任务",
+        "familyTasks": "家庭任务"
+      },
+      "familyTasks": {
+        "noTasks": "没有分配的任务",
+        "assignedTo": "分配给 {{name}}"
+      },
+      "suggestions": {
+        "read": "阅读",
+        "clean": "清洁",
+        "exercise": "运动",
+        "create": "创作",
+        "learn": "学习",
+        "petCare": "照顾宠物"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "点击领取！",
+      "pendingApproval": "等待审批",
+      "waitingForParent": "等待家长"
+    },
+    "taskModal": {
+      "createTitle": "创建你的任务",
+      "whatToDo": "你想做什么？",
+      "placeholder": "例如：阅读20分钟",
+      "createButton": "创建任务",
+      "creating": "创建中...",
+      "sentForApproval": "任务已发送给家长！",
+      "parentWillReview": "你的家长会审核并批准你的任务。"
+    },
+    "completion": {
+      "title": "完成任务",
+      "claimTask": "领取此任务！",
+      "claiming": "领取中...",
+      "imDone": "我完成了！",
+      "submitting": "提交中...",
+      "earnPoints": "赚取 {{points}} 积分！",
+      "alreadyCompleted": "已完成！",
+      "waitingApproval": "等待审批..."
+    },
+    "celebration": {
+      "approved": "任务已批准！",
+      "approvedBig": "已批准！",
+      "youEarned": "你获得了",
+      "points": "积分！",
+      "awesome": "太棒了！",
+      "total": "总计：{{points}} 积分"
+    },
+    "badges": {
+      "title": "我的徽章",
+      "unlockedCount": "{{unlocked}}/{{total}} 已解锁",
+      "noBadges": "还没有徽章",
+      "noBadgesHint": "完成任务来获得徽章！",
+      "earned": "获得于 {{date}}"
+    },
+    "statsView": {
+      "title": "我的统计",
+      "totalPoints": "总积分",
+      "currentLevel": "当前等级",
+      "currentStreak": "当前连续",
+      "days": "天",
+      "thisWeek": "本周",
+      "tasksDone": "完成任务",
+      "pointsEarned": "获得积分",
+      "activeDays": "活跃天数",
+      "recentActivity": "近期活动",
+      "noActivity": "暂无活动。完成一些任务吧！"
+    }
+  }
+}

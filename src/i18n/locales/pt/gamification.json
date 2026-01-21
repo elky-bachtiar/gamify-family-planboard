@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} pontos",
+    "value_one": "{{count}} ponto",
+    "earned": "Pontos Ganhos",
+    "total": "Pontos Totais",
+    "weekly": "Pontos Semanais"
+  },
+  "level": {
+    "current": "Nivel {{level}}",
+    "progressTo": "Progresso para Nivel {{level}}",
+    "maxLevel": "Nivel Maximo Alcancado!"
+  },
+  "streak": {
+    "current": "{{count}} dias",
+    "current_one": "{{count}} dia",
+    "dayStreak": "dias seguidos",
+    "keepItUp": "Continue assim!",
+    "streakLost": "Sequencia perdida",
+    "newRecord": "Novo recorde!"
+  },
+  "achievements": {
+    "title": "Conquistas",
+    "unlocked": "{{count}} de {{total}} desbloqueadas",
+    "earned": "Conquistada em {{date}}",
+    "noAchievements": "Nenhuma conquista disponivel ainda",
+    "locked": "Bloqueada",
+    "newlyUnlocked": "Conquista Desbloqueada!"
+  },
+  "leaderboard": {
+    "title": "Ranking da Familia",
+    "noMembers": "Nenhum membro da familia ainda",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Nivel {{level}} - {{points}} pontos"
+  },
+  "stats": {
+    "familyStats": "Estatisticas da Familia",
+    "yourStats": "Suas Estatisticas",
+    "totalTasks": "Total de Tarefas",
+    "completed": "Concluidas",
+    "pending": "Pendentes",
+    "weeklyPoints": "Pontos Semanais",
+    "completionRate": "Taxa de Conclusao"
+  },
+  "rewards": {
+    "title": "Recompensas",
+    "myRewards": "Minhas Recompensas",
+    "overview": "Visao Geral das Recompensas",
+    "redeem": "Resgatar Pontos",
+    "redeemButton": "Resgatar",
+    "pointsToRedeem": "Pontos para Resgatar",
+    "cashValue": "Valor em Dinheiro",
+    "perPoint": "R${{rate}} por ponto",
+    "availablePoints": "Pontos Disponiveis",
+    "redeemableValue": "Valor Resgatavel",
+    "pendingRedemptions": "Resgates Pendentes",
+    "redemptionHistory": "Historico de Resgates",
+    "noRedemptions": "Nenhuma solicitacao de resgate ainda",
+    "requestRedemption": "Solicitar Resgate",
+    "minimumPlaceholder": "Minimo: {{minimum}} pontos",
+    "requesting": "Solicitando...",
+    "needMinimum": "Voce precisa de pelo menos {{minimum}} pontos para solicitar um resgate.",
+    "keepEarning": "Continue ganhando para desbloquear recompensas!",
+    "weeklyGoal": {
+      "title": "Progresso da Meta Semanal",
+      "progress": "{{current}} / {{target}} pontos",
+      "reached": "Meta alcancada! R${{bonus}} de bonus ganho esta semana!",
+      "earnMore": "Ganhe mais {{remaining}} pontos para receber R${{bonus}} de bonus"
+    },
+    "settings": {
+      "title": "Configuracoes de Recompensas",
+      "enableRewards": "Habilitar Recompensas",
+      "enableDescription": "Permitir que membros da familia resgatem pontos por recompensas",
+      "pointsToMoneyRate": "Taxa de Pontos para Dinheiro",
+      "pointsToMoneyRateHint": "Valor por ponto (ex., 0.01 = R$0,01 por ponto)",
+      "minimumRedemption": "Pontos Minimos para Resgate",
+      "minimumRedemptionHint": "Pontos minimos necessarios para solicitar um resgate",
+      "weeklyBonusTarget": "Meta de Bonus Semanal",
+      "weeklyTargetPoints": "Pontos da Meta Semanal",
+      "weeklyTargetPointsHint": "Pontos necessarios para ganhar bonus semanal (0 = desabilitado)",
+      "weeklyBonusAmount": "Valor do Bonus Semanal",
+      "weeklyBonusAmountHint": "Valor do bonus por atingir a meta semanal",
+      "example": "Exemplo: {{points}} pontos = R${{money}}",
+      "weeklyGoalExample": "Meta semanal: Ganhe {{points}} pontos para receber R${{bonus}} de bonus",
+      "savedSuccess": "Configuracoes salvas com sucesso!",
+      "saveFailed": "Falha ao salvar configuracoes",
+      "saving": "Salvando...",
+      "saveButton": "Salvar Configuracoes de Recompensas"
+    },
+    "status": {
+      "pending": "Pendente",
+      "approved": "Aprovado",
+      "rejected": "Rejeitado",
+      "paid": "Pago"
+    },
+    "actions": {
+      "approve": "Aprovar",
+      "reject": "Rejeitar",
+      "markPaid": "Marcar como Pago"
+    },
+    "manager": {
+      "title": "Solicitacoes de Resgate",
+      "pendingApproval": "Aguardando Aprovacao ({{count}})",
+      "awaitingPayment": "Aprovado - Aguardando Pagamento ({{count}})",
+      "toPay": "R${{amount}} a pagar",
+      "processing": "Processando...",
+      "recentHistory": "Historico Recente",
+      "pointsEquals": "{{points}} pontos = R${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Meta Semanal",
+    "progress": "{{current}} / {{target}} pontos",
+    "completed": "Meta Concluida!",
+    "notSet": "Nenhuma meta definida"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% para Nivel {{level}}"
+    },
+    "tabs": {
+      "home": "Inicio",
+      "badges": "Medalhas",
+      "stats": "Estatisticas"
+    },
+    "dailyGreeting": {
+      "welcome": "Bem-vindo de volta!",
+      "dayStreak": "dias seguidos!",
+      "letsGo": "Vamos la!",
+      "tapToContinue": "Toque em qualquer lugar para continuar",
+      "motivation": {
+        "startStreak": "Vamos comecar uma nova sequencia hoje!",
+        "greatStart": "Otimo comeco! Continue assim!",
+        "momentum": "Voce esta ganhando impulso!",
+        "onFire": "Voce esta on fire! Incrivel!",
+        "dedication": "Dedicacao incrivel!",
+        "superstar": "Voce e uma superestrela!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Progresso de Hoje",
+      "done": "{{done}}/{{total}} feitas",
+      "allDone": "Tudo pronto! Otimo trabalho!",
+      "emptyState": {
+        "title": "Pronto para uma aventura?",
+        "subtitle": "Crie uma tarefa para comecar a ganhar pontos e subir de nivel!",
+        "quickIdeas": "Ideias rapidas:",
+        "createOwn": "Criar Minha Propria Tarefa"
+      },
+      "sections": {
+        "myTasks": "Minhas Tarefas ({{count}})",
+        "available": "Disponiveis para Pegar ({{count}})",
+        "waitingApproval": "Aguardando Aprovacao ({{count}})",
+        "waitingForParent": "Aguardando os Pais ({{count}})",
+        "completed": "Concluidas ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "Minhas Tarefas",
+        "familyTasks": "Tarefas da Familia"
+      },
+      "familyTasks": {
+        "noTasks": "Nenhuma tarefa atribuida",
+        "assignedTo": "Atribuida para {{name}}"
+      },
+      "suggestions": {
+        "read": "Ler",
+        "clean": "Limpar",
+        "exercise": "Exercicio",
+        "create": "Criar",
+        "learn": "Aprender",
+        "petCare": "Cuidar do pet"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "Toque para pegar!",
+      "pendingApproval": "Aguardando aprovacao",
+      "waitingForParent": "Aguardando os pais"
+    },
+    "taskModal": {
+      "createTitle": "Crie Sua Tarefa",
+      "whatToDo": "O que voce quer fazer?",
+      "placeholder": "Ex., Ler por 20 minutos",
+      "createButton": "Criar Tarefa",
+      "creating": "Criando...",
+      "sentForApproval": "Tarefa enviada para os pais!",
+      "parentWillReview": "Seus pais vao revisar e aprovar sua tarefa."
+    },
+    "completion": {
+      "title": "Completar Tarefa",
+      "claimTask": "Pegar Esta Tarefa!",
+      "claiming": "Pegando...",
+      "imDone": "Terminei!",
+      "submitting": "Enviando...",
+      "earnPoints": "Ganhe {{points}} pontos!",
+      "alreadyCompleted": "Ja concluida!",
+      "waitingApproval": "Aguardando aprovacao..."
+    },
+    "celebration": {
+      "approved": "Tarefa Aprovada!",
+      "approvedBig": "APROVADA!",
+      "youEarned": "Voce ganhou",
+      "points": "pontos!",
+      "awesome": "Incrivel!",
+      "total": "Total: {{points}} pontos"
+    },
+    "badges": {
+      "title": "Minhas Medalhas",
+      "unlockedCount": "{{unlocked}}/{{total}} desbloqueadas",
+      "noBadges": "Nenhuma medalha ainda",
+      "noBadgesHint": "Complete tarefas para ganhar medalhas!",
+      "earned": "Conquistada em {{date}}"
+    },
+    "statsView": {
+      "title": "Minhas Estatisticas",
+      "totalPoints": "Pontos Totais",
+      "currentLevel": "Nivel Atual",
+      "currentStreak": "Sequencia Atual",
+      "days": "dias",
+      "thisWeek": "Esta Semana",
+      "tasksDone": "Tarefas Feitas",
+      "pointsEarned": "Pontos Ganhos",
+      "activeDays": "Dias Ativos",
+      "recentActivity": "Atividade Recente",
+      "noActivity": "Nenhuma atividade ainda. Complete algumas tarefas!"
+    }
+  }
+}

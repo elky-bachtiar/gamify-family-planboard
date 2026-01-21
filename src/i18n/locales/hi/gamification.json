@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} अंक",
+    "value_one": "{{count}} अंक",
+    "earned": "अर्जित अंक",
+    "total": "कुल अंक",
+    "weekly": "साप्ताहिक अंक"
+  },
+  "level": {
+    "current": "स्तर {{level}}",
+    "progressTo": "स्तर {{level}} की प्रगति",
+    "maxLevel": "अधिकतम स्तर प्राप्त!"
+  },
+  "streak": {
+    "current": "{{count}} दिन",
+    "current_one": "{{count}} दिन",
+    "dayStreak": "दिन की लगातार उपलब्धि",
+    "keepItUp": "जारी रखें!",
+    "streakLost": "लगातार उपलब्धि टूट गई",
+    "newRecord": "नया रिकॉर्ड!"
+  },
+  "achievements": {
+    "title": "उपलब्धियां",
+    "unlocked": "{{total}} में से {{count}} अनलॉक",
+    "earned": "{{date}} को अर्जित",
+    "noAchievements": "अभी तक कोई उपलब्धि उपलब्ध नहीं",
+    "locked": "लॉक",
+    "newlyUnlocked": "उपलब्धि अनलॉक!"
+  },
+  "leaderboard": {
+    "title": "पारिवारिक लीडरबोर्ड",
+    "noMembers": "अभी तक कोई परिवार सदस्य नहीं",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "स्तर {{level}} • {{points}} अंक"
+  },
+  "stats": {
+    "familyStats": "परिवार के आंकड़े",
+    "yourStats": "आपके आंकड़े",
+    "totalTasks": "कुल कार्य",
+    "completed": "पूर्ण",
+    "pending": "लंबित",
+    "weeklyPoints": "साप्ताहिक अंक",
+    "completionRate": "पूर्णता दर"
+  },
+  "rewards": {
+    "title": "इनाम",
+    "myRewards": "मेरे इनाम",
+    "overview": "इनाम अवलोकन",
+    "redeem": "अंक भुनाएं",
+    "redeemButton": "भुनाएं",
+    "pointsToRedeem": "भुनाने के लिए अंक",
+    "cashValue": "नकद मूल्य",
+    "perPoint": "₹{{rate}} प्रति अंक",
+    "availablePoints": "उपलब्ध अंक",
+    "redeemableValue": "भुनाने योग्य मूल्य",
+    "pendingRedemptions": "लंबित भुनाई",
+    "redemptionHistory": "भुनाई इतिहास",
+    "noRedemptions": "अभी तक कोई भुनाई अनुरोध नहीं",
+    "requestRedemption": "भुनाई का अनुरोध करें",
+    "minimumPlaceholder": "न्यूनतम: {{minimum}} अंक",
+    "requesting": "अनुरोध हो रहा है...",
+    "needMinimum": "भुनाई का अनुरोध करने के लिए आपको कम से कम {{minimum}} अंक चाहिए।",
+    "keepEarning": "इनाम अनलॉक करने के लिए कमाते रहें!",
+    "weeklyGoal": {
+      "title": "साप्ताहिक लक्ष्य प्रगति",
+      "progress": "{{current}} / {{target}} अंक",
+      "reached": "लक्ष्य पूरा! इस सप्ताह ₹{{bonus}} बोनस अर्जित!",
+      "earnMore": "₹{{bonus}} बोनस पाने के लिए {{remaining}} और अंक कमाएं"
+    },
+    "settings": {
+      "title": "इनाम सेटिंग्स",
+      "enableRewards": "इनाम सक्षम करें",
+      "enableDescription": "परिवार के सदस्यों को इनाम के लिए अंक भुनाने की अनुमति दें",
+      "pointsToMoneyRate": "अंक से पैसे की दर",
+      "pointsToMoneyRateHint": "प्रति अंक राशि (जैसे, 0.01 = ₹0.01 प्रति अंक)",
+      "minimumRedemption": "भुनाई के लिए न्यूनतम अंक",
+      "minimumRedemptionHint": "भुनाई का अनुरोध करने के लिए आवश्यक न्यूनतम अंक",
+      "weeklyBonusTarget": "साप्ताहिक बोनस लक्ष्य",
+      "weeklyTargetPoints": "साप्ताहिक लक्ष्य अंक",
+      "weeklyTargetPointsHint": "साप्ताहिक बोनस कमाने के लिए आवश्यक अंक (0 = अक्षम)",
+      "weeklyBonusAmount": "साप्ताहिक बोनस राशि",
+      "weeklyBonusAmountHint": "साप्ताहिक लक्ष्य पूरा करने पर बोनस राशि",
+      "example": "उदाहरण: {{points}} अंक = ₹{{money}}",
+      "weeklyGoalExample": "साप्ताहिक लक्ष्य: ₹{{bonus}} बोनस पाने के लिए {{points}} अंक कमाएं",
+      "savedSuccess": "सेटिंग्स सफलतापूर्वक सहेजी गईं!",
+      "saveFailed": "सेटिंग्स सहेजने में विफल",
+      "saving": "सहेज रहे हैं...",
+      "saveButton": "इनाम सेटिंग्स सहेजें"
+    },
+    "status": {
+      "pending": "लंबित",
+      "approved": "स्वीकृत",
+      "rejected": "अस्वीकृत",
+      "paid": "भुगतान हो गया"
+    },
+    "actions": {
+      "approve": "स्वीकृत करें",
+      "reject": "अस्वीकृत करें",
+      "markPaid": "भुगतान के रूप में चिह्नित करें"
+    },
+    "manager": {
+      "title": "भुनाई अनुरोध",
+      "pendingApproval": "अनुमोदन की प्रतीक्षा में ({{count}})",
+      "awaitingPayment": "स्वीकृत - भुगतान की प्रतीक्षा में ({{count}})",
+      "toPay": "₹{{amount}} भुगतान करना है",
+      "processing": "प्रोसेस हो रहा है...",
+      "recentHistory": "हाल का इतिहास",
+      "pointsEquals": "{{points}} अंक = ₹{{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "साप्ताहिक लक्ष्य",
+    "progress": "{{current}} / {{target}} अंक",
+    "completed": "लक्ष्य पूरा!",
+    "notSet": "कोई लक्ष्य सेट नहीं"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "स्तर {{level}} तक {{percent}}%"
+    },
+    "tabs": {
+      "home": "होम",
+      "badges": "बैज",
+      "stats": "आंकड़े"
+    },
+    "dailyGreeting": {
+      "welcome": "वापस स्वागत है!",
+      "dayStreak": "दिन की लगातार उपलब्धि!",
+      "letsGo": "चलिए शुरू करें!",
+      "tapToContinue": "जारी रखने के लिए कहीं भी टैप करें",
+      "motivation": {
+        "startStreak": "आज एक नई लगातार उपलब्धि शुरू करें!",
+        "greatStart": "बढ़िया शुरुआत! जारी रखें!",
+        "momentum": "आप गति बना रहे हैं!",
+        "onFire": "आप जल रहे हैं! शानदार!",
+        "dedication": "अविश्वसनीय समर्पण!",
+        "superstar": "आप एक सुपरस्टार हैं!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "आज की प्रगति",
+      "done": "{{done}}/{{total}} पूर्ण",
+      "allDone": "सब हो गया! बहुत बढ़िया!",
+      "emptyState": {
+        "title": "रोमांच के लिए तैयार हैं?",
+        "subtitle": "अंक कमाने और स्तर बढ़ाने के लिए एक कार्य बनाएं!",
+        "quickIdeas": "त्वरित विचार:",
+        "createOwn": "अपना कार्य बनाएं"
+      },
+      "sections": {
+        "myTasks": "मेरे कार्य ({{count}})",
+        "available": "लेने के लिए उपलब्ध ({{count}})",
+        "waitingApproval": "अनुमोदन की प्रतीक्षा में ({{count}})",
+        "waitingForParent": "माता-पिता की प्रतीक्षा में ({{count}})",
+        "completed": "पूर्ण ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "मेरे कार्य",
+        "familyTasks": "परिवार के कार्य"
+      },
+      "familyTasks": {
+        "noTasks": "कोई कार्य असाइन नहीं",
+        "assignedTo": "{{name}} को असाइन किया गया"
+      },
+      "suggestions": {
+        "read": "पढ़ें",
+        "clean": "साफ करें",
+        "exercise": "व्यायाम",
+        "create": "बनाएं",
+        "learn": "सीखें",
+        "petCare": "पालतू की देखभाल"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "लेने के लिए टैप करें!",
+      "pendingApproval": "अनुमोदन लंबित",
+      "waitingForParent": "माता-पिता की प्रतीक्षा में"
+    },
+    "taskModal": {
+      "createTitle": "अपना कार्य बनाएं",
+      "whatToDo": "आप क्या करना चाहते हैं?",
+      "placeholder": "जैसे, 20 मिनट पढ़ना",
+      "createButton": "कार्य बनाएं",
+      "creating": "बन रहा है...",
+      "sentForApproval": "कार्य माता-पिता को भेजा गया!",
+      "parentWillReview": "आपके माता-पिता आपके कार्य की समीक्षा और अनुमोदन करेंगे।"
+    },
+    "completion": {
+      "title": "कार्य पूरा करें",
+      "claimTask": "यह कार्य लें!",
+      "claiming": "ले रहे हैं...",
+      "imDone": "मैंने कर लिया!",
+      "submitting": "जमा हो रहा है...",
+      "earnPoints": "{{points}} अंक कमाएं!",
+      "alreadyCompleted": "पहले से पूर्ण!",
+      "waitingApproval": "अनुमोदन की प्रतीक्षा में..."
+    },
+    "celebration": {
+      "approved": "कार्य स्वीकृत!",
+      "approvedBig": "स्वीकृत!",
+      "youEarned": "आपने कमाए",
+      "points": "अंक!",
+      "awesome": "शानदार!",
+      "total": "कुल: {{points}} अंक"
+    },
+    "badges": {
+      "title": "मेरे बैज",
+      "unlockedCount": "{{unlocked}}/{{total}} अनलॉक",
+      "noBadges": "अभी तक कोई बैज नहीं",
+      "noBadgesHint": "बैज कमाने के लिए कार्य पूरे करें!",
+      "earned": "{{date}} को अर्जित"
+    },
+    "statsView": {
+      "title": "मेरे आंकड़े",
+      "totalPoints": "कुल अंक",
+      "currentLevel": "वर्तमान स्तर",
+      "currentStreak": "वर्तमान लगातार उपलब्धि",
+      "days": "दिन",
+      "thisWeek": "इस सप्ताह",
+      "tasksDone": "कार्य पूर्ण",
+      "pointsEarned": "अर्जित अंक",
+      "activeDays": "सक्रिय दिन",
+      "recentActivity": "हाल की गतिविधि",
+      "noActivity": "अभी तक कोई गतिविधि नहीं। कुछ कार्य पूरे करें!"
+    }
+  }
+}

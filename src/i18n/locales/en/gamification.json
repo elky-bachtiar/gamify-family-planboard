@@ -222,6 +222,11 @@
       "activeDays": "Active Days",
       "recentActivity": "Recent Activity",
       "noActivity": "No activity yet. Complete some tasks!"
+    },
+    "penalty": {
+      "title": "Points Lost!",
+      "pointsLost": "-{{points}} points",
+      "unknownReason": "Unknown reason"
     }
   }
 }

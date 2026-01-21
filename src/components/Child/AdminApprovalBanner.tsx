@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, XCircle, Clock, Sparkles, Star, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, Sparkles, Star, Trash2, ChevronDown, ChevronUp, Minus, AlertTriangle, Shield } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
 import { getSupabaseClient } from '../../lib/supabase';
-import { approveTask, rejectTask } from '../../lib/gamification';
+import { approveTask, rejectTask, getOverdueWeeklyTasks, awardManualPoints } from '../../lib/gamification';
+import { MissedWeeklyTasksSection } from '../Admin/MissedWeeklyTasksSection';
 import { PRIORITY_CONFIG } from '../../types';
 import type { Task, FamilyMember } from '../../types';
 
@@ -17,16 +18,25 @@ type TaskWithCreator = Task & {
 };
 
 export function AdminApprovalBanner() {
-  const { t } = useTranslation(['admin', 'tasks']);
-  const { family, familyMember, isAdmin } = useAuth();
+  const { t } = useTranslation(['admin', 'tasks', 'common']);
+  const { family, familyMember, isAdmin, refreshAuth } = useAuth();
   const { familyMembers } = useFamily();
   const [pendingTasks, setPendingTasks] = useState<TaskWithCompleter[]>([]);
   const [pendingCreationTasks, setPendingCreationTasks] = useState<TaskWithCreator[]>([]);
+  const [missedWeeklyTasksCount, setMissedWeeklyTasksCount] = useState(0);
   const [processingTaskId, setProcessingTaskId] = useState<string | null>(null);
   const [editedPointValues, setEditedPointValues] = useState<Record<string, number>>({});
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const totalPending = pendingTasks.length + pendingCreationTasks.length;
+  // Point deduction state
+  const [deductMemberId, setDeductMemberId] = useState('');
+  const [deductPoints, setDeductPoints] = useState('');
+  const [deductReason, setDeductReason] = useState('');
+  const [isDeducting, setIsDeducting] = useState(false);
+  const [deductSuccess, setDeductSuccess] = useState(false);
+  const [showDeductConfirm, setShowDeductConfirm] = useState(false);
+
+  const totalPending = pendingTasks.length + pendingCreationTasks.length + missedWeeklyTasksCount;
 
   const loadTasks = async () => {
     if (!family?.id) return;
@@ -76,6 +86,10 @@ export function AdminApprovalBanner() {
       }));
       setPendingTasks(tasksWithCompleters);
     }
+
+    // Load missed weekly tasks count
+    const missedTasks = await getOverdueWeeklyTasks(family.id);
+    setMissedWeeklyTasksCount(missedTasks.length);
   };
 
   useEffect(() => {
@@ -177,8 +191,49 @@ export function AdminApprovalBanner() {
     }
   };
 
-  // Don't render if not admin or no pending items
-  if (!isAdmin || totalPending === 0) {
+  // Point deduction handlers
+  const handleDeductSubmit = () => {
+    const pointValue = parseInt(deductPoints, 10);
+    if (isNaN(pointValue) || pointValue <= 0 || !deductMemberId || !deductReason.trim()) {
+      return;
+    }
+    setShowDeductConfirm(true);
+  };
+
+  const handleDeductConfirm = async () => {
+    if (!familyMember) return;
+
+    setIsDeducting(true);
+    setShowDeductConfirm(false);
+
+    const pointValue = parseInt(deductPoints, 10);
+    const actualPoints = -Math.abs(pointValue);
+
+    const result = await awardManualPoints(
+      deductMemberId,
+      actualPoints,
+      deductReason.trim(),
+      familyMember
+    );
+
+    if (result.success) {
+      setDeductSuccess(true);
+      setDeductMemberId('');
+      setDeductPoints('');
+      setDeductReason('');
+      refreshAuth();
+      setTimeout(() => setDeductSuccess(false), 3000);
+    }
+
+    setIsDeducting(false);
+  };
+
+  // Filter members for deduction (exclude current admin)
+  const deductableMembers = familyMembers.filter(m => m.id !== familyMember?.id);
+  const selectedDeductMember = familyMembers.find(m => m.id === deductMemberId);
+
+  // Don't render if not admin
+  if (!isAdmin) {
     return null;
   }
 
@@ -187,16 +242,18 @@ export function AdminApprovalBanner() {
       {/* Collapsed banner */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl p-3 shadow-md flex items-center justify-between"
+        className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl p-3 shadow-md flex items-center justify-between"
       >
         <div className="flex items-center gap-2">
-          <Clock className="w-5 h-5" />
+          <Shield className="w-5 h-5" />
           <span className="font-medium">
-            {t('admin:approvals.pendingApprovals')}
+            {t('admin:panel.title')}
           </span>
-          <span className="bg-white/20 px-2 py-0.5 rounded-full text-sm font-bold">
-            {totalPending}
-          </span>
+          {totalPending > 0 && (
+            <span className="bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full text-sm font-bold">
+              {totalPending}
+            </span>
+          )}
         </div>
         {isExpanded ? (
           <ChevronUp className="w-5 h-5" />
@@ -336,6 +393,118 @@ export function AdminApprovalBanner() {
               </div>
             </div>
           )}
+
+          {/* Missed Weekly Tasks Section */}
+          {missedWeeklyTasksCount > 0 && (
+            <MissedWeeklyTasksSection onPenaltyApplied={loadTasks} compact />
+          )}
+
+          {/* Point Deduction Section */}
+          <div className="border-t border-gray-200 pt-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Minus className="w-4 h-4 text-red-500" />
+              <h3 className="text-sm font-medium text-gray-700">
+                {t('admin:manualPoints.title')}
+              </h3>
+            </div>
+
+            <div className="space-y-2">
+              {/* Member Select */}
+              <select
+                value={deductMemberId}
+                onChange={(e) => setDeductMemberId(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              >
+                <option value="">{t('admin:manualPoints.selectPlaceholder')}</option>
+                {deductableMembers.map((member) => (
+                  <option key={member.id} value={member.id}>
+                    {member.name} ({member.total_points} {t('common:labels.points')})
+                  </option>
+                ))}
+              </select>
+
+              {/* Points and Reason in row */}
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={deductPoints}
+                  onChange={(e) => setDeductPoints(e.target.value)}
+                  placeholder={t('admin:manualPoints.pointsPlaceholder')}
+                  min="1"
+                  className="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+                <input
+                  type="text"
+                  value={deductReason}
+                  onChange={(e) => setDeductReason(e.target.value)}
+                  placeholder={t('admin:manualPoints.reasonPlaceholder')}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              {/* Success Message */}
+              {deductSuccess && (
+                <div className="flex items-center gap-2 text-green-600 text-xs bg-green-50 p-2 rounded-lg">
+                  <CheckCircle2 className="w-4 h-4" />
+                  {t('admin:manualPoints.success')}
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                onClick={handleDeductSubmit}
+                disabled={isDeducting || !deductMemberId || !deductPoints || !deductReason.trim()}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+              >
+                <Minus className="w-4 h-4" />
+                {isDeducting ? t('admin:manualPoints.submitting') : t('admin:manualPoints.submitButton')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Deduction Confirmation Modal */}
+      {showDeductConfirm && selectedDeductMember && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl max-w-sm w-full p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {t('admin:manualPoints.confirmTitle')}
+              </h3>
+            </div>
+
+            <p className="text-gray-600 mb-4">
+              {t('admin:manualPoints.confirmMessage', {
+                name: selectedDeductMember.name,
+                points: Math.abs(parseInt(deductPoints, 10) || 0)
+              })}
+            </p>
+
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">{t('admin:manualPoints.reasonLabel')}:</span> {deductReason}
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeductConfirm(false)}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              >
+                {t('common:buttons.cancel')}
+              </button>
+              <button
+                onClick={handleDeductConfirm}
+                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+              >
+                {t('admin:manualPoints.confirmButton')}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

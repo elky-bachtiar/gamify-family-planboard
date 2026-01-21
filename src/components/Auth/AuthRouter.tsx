@@ -12,10 +12,19 @@ function getChildLoginCode(): string | null {
   return match ? match[1] : null;
 }
 
-export function AuthRouter() {
+interface AuthRouterProps {
+  initialMode?: 'login' | 'register';
+}
+
+export function AuthRouter({ initialMode = 'login' }: AuthRouterProps) {
   const { user, familyMember, isLoading, isPinUser, signInWithPin } = useAuth();
-  const [showLogin, setShowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(initialMode === 'login');
   const [childLoginCode, setChildLoginCode] = useState<string | null>(null);
+
+  // Update showLogin when initialMode prop changes
+  useEffect(() => {
+    setShowLogin(initialMode === 'login');
+  }, [initialMode]);
 
   useEffect(() => {
     const code = getChildLoginCode();

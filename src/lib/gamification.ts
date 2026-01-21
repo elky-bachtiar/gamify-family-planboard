@@ -275,3 +275,183 @@ export async function updateStreak(memberId: string) {
     console.error('Error updating streak:', error);
   }
 }
+
+/**
+ * Award manual points (positive or negative) to a family member
+ * Used by admins to give bonus points or deduct points for behavior
+ */
+export async function awardManualPoints(
+  memberId: string,
+  points: number,
+  reason: string,
+  _awardedBy: FamilyMember
+): Promise<{ success: boolean; error?: unknown }> {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Get the member to update
+    const { data: member, error: memberError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', memberId)
+      .single();
+
+    if (memberError || !member) {
+      throw memberError || new Error('Member not found');
+    }
+
+    // Format reason with prefix for negative points
+    const formattedReason = points < 0 ? `Straf: ${reason}` : `Bonus: ${reason}`;
+
+    // Add points history entry
+    const { error: pointsError } = await supabase
+      .from('points_history')
+      .insert({
+        member_id: memberId,
+        points: points,
+        reason: formattedReason,
+        family_id: member.family_id,
+      });
+
+    if (pointsError) throw pointsError;
+
+    // Calculate new total points (minimum 0)
+    const newTotalPoints = Math.max(0, member.total_points + points);
+    const newLevel = calculateLevel(newTotalPoints);
+
+    // Update member points and level
+    const { error: updateError } = await supabase
+      .from('family_members')
+      .update({
+        total_points: newTotalPoints,
+        current_level: newLevel,
+      })
+      .eq('id', memberId);
+
+    if (updateError) throw updateError;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error awarding manual points:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Get the start of the current week (Monday 00:00:00)
+ */
+function getWeekStart(): Date {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = now.getDate() - day + (day === 0 ? -6 : 1); // Adjust for Sunday
+  const monday = new Date(now.setDate(diff));
+  monday.setHours(0, 0, 0, 0);
+  return monday;
+}
+
+/**
+ * Get overdue weekly tasks that have not been completed
+ * A weekly task is overdue if: due_date < current week Monday AND status in ('pending', 'pending_approval')
+ */
+export async function getOverdueWeeklyTasks(familyId: string): Promise<Task[]> {
+  try {
+    const supabase = getSupabaseClient();
+    const weekStart = getWeekStart();
+    const weekStartStr = weekStart.toISOString().split('T')[0];
+
+    const { data: tasks, error } = await supabase
+      .from('tasks')
+      .select('*')
+      .eq('family_id', familyId)
+      .eq('is_weekly_task', true)
+      .eq('is_archived', false)
+      .not('assigned_to', 'is', null) // Only tasks that are assigned
+      .lt('due_date', weekStartStr) // Due date is before this week
+      .in('status', ['pending', 'pending_approval']);
+
+    if (error) throw error;
+
+    return tasks || [];
+  } catch (error) {
+    console.error('Error getting overdue weekly tasks:', error);
+    return [];
+  }
+}
+
+/**
+ * Apply penalty for a missed weekly task
+ * Penalty is -50% of the task's point value
+ */
+export async function applyWeeklyTaskPenalty(
+  task: Task,
+  appliedBy: FamilyMember
+): Promise<{ success: boolean; penaltyPoints?: number; error?: unknown }> {
+  try {
+    const supabase = getSupabaseClient();
+
+    if (!task.assigned_to) {
+      throw new Error('Task has no assignee');
+    }
+
+    // Get the assigned member
+    const { data: member, error: memberError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', task.assigned_to)
+      .single();
+
+    if (memberError || !member) {
+      throw memberError || new Error('Member not found');
+    }
+
+    // Calculate penalty (-50% of task points)
+    const penaltyPoints = Math.floor(task.point_value / 2) * -1;
+
+    // Mark task as completed (with penalty applied)
+    const now = new Date().toISOString();
+    const { error: taskError } = await supabase
+      .from('tasks')
+      .update({
+        status: 'completed',
+        completed_at: now,
+        completed_by: task.assigned_to,
+        approved_by: appliedBy.id,
+        approved_at: now,
+      })
+      .eq('id', task.id);
+
+    if (taskError) throw taskError;
+
+    // Add negative points history entry
+    const { error: pointsError } = await supabase
+      .from('points_history')
+      .insert({
+        member_id: task.assigned_to,
+        points: penaltyPoints,
+        reason: `Straf: Weektaak niet voltooid - ${task.title}`,
+        task_id: task.id,
+        family_id: member.family_id,
+      });
+
+    if (pointsError) throw pointsError;
+
+    // Update member points (minimum 0)
+    const newTotalPoints = Math.max(0, member.total_points + penaltyPoints);
+    const newLevel = calculateLevel(newTotalPoints);
+
+    const { error: updateError } = await supabase
+      .from('family_members')
+      .update({
+        total_points: newTotalPoints,
+        current_level: newLevel,
+      })
+      .eq('id', task.assigned_to);
+
+    if (updateError) throw updateError;
+
+    return { success: true, penaltyPoints };
+  } catch (error) {
+    console.error('Error applying weekly task penalty:', error);
+    return { success: false, error };
+  }
+}

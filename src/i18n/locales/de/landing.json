@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert es",
+    "pricing": "Preise",
+    "login": "Anmelden",
+    "getStarted": "Jetzt starten"
+  },
+  "hero": {
+    "headline": "Hausarbeit macht Spaß.",
+    "headlineHighlight": "Wirklich.",
+    "subheadline": "Taskaroo verwandelt Haushaltsaufgaben in ein Spiel, das deine Kinder wirklich spielen wollen. Punkte, Level, Serien und echte Belohnungen.",
+    "cta": "KOSTENLOS STARTEN",
+    "secondaryCta": "So funktioniert es"
+  },
+  "features": {
+    "title": "Alles, was deine Familie braucht",
+    "subtitle": "Von Eltern für Eltern entwickelt. Taskaroo kombiniert psychologisch fundierte Gamification mit praktischem Aufgabenmanagement.",
+    "pointsLevels": {
+      "title": "Punkte & Level",
+      "description": "Verdiene Punkte für jede Aufgabe, steige Level auf und schalte Erfolge frei. Beobachte, wie die Motivation steigt, wenn Kinder ihren nächsten Meilenstein jagen."
+    },
+    "streaks": {
+      "title": "Serien & Kombos",
+      "description": "Baue tägliche Serien für zusätzliche Motivation auf. Kombo-Boni belohnen konsequente Helfer mit bis zu 50% extra Punkten."
+    },
+    "childFriendly": {
+      "title": "Kinderfreundlich",
+      "description": "Kinder melden sich mit einer einfachen PIN an - keine E-Mail nötig. Große Buttons, buntes Design und klare Anweisungen, denen sie folgen können."
+    },
+    "approval": {
+      "title": "Elterliche Genehmigung",
+      "description": "Überprüfe, ob Aufgaben wirklich erledigt sind, bevor Punkte vergeben werden. Du behältst die Kontrolle, während Kinder Verantwortung lernen."
+    },
+    "rewards": {
+      "title": "Echte Belohnungen",
+      "description": "Wandle Punkte in Taschengeld, Bildschirmzeit oder individuelle Belohnungen um. Mache den Zusammenhang zwischen Anstrengung und Ergebnis greifbar."
+    },
+    "leaderboard": {
+      "title": "Familien-Rangliste",
+      "description": "Gesunder Wettbewerb hält alle bei der Sache. Sieh, wer diese Woche führt und feiert die Besten gemeinsam."
+    }
+  },
+  "howItWorks": {
+    "title": "In Minuten startklar",
+    "subtitle": "Keine komplizierte Einrichtung. Keine Lernkurve. Nur Ergebnisse.",
+    "step1": {
+      "title": "Erstelle deine Familie",
+      "description": "Registriere dich und lade Familienmitglieder mit einem einfachen Code ein. Eltern und Kinder treten in Sekunden bei."
+    },
+    "step2": {
+      "title": "Aufgaben hinzufügen",
+      "description": "Erstelle Aufgaben mit Punktwerten und Fälligkeitsdaten. Richte wiederkehrende Aufgaben einmal ein, sie erscheinen automatisch."
+    },
+    "step3": {
+      "title": "Kinder erledigen",
+      "description": "Kinder sehen ein lustiges, spielerisches Dashboard, das nur für sie gestaltet ist. Durch Aufgaben wischen und zum Erledigen tippen."
+    },
+    "step4": {
+      "title": "Genehmigen & Feiern",
+      "description": "Überprüfe erledigte Aufgaben mit einem Tipp. Schau zu, wie Konfetti fliegt und Punkte sich ansammeln!"
+    }
+  },
+  "testimonials": {
+    "title": "Familien lieben Taskaroo",
+    "subtitle": "Schließe dich Tausenden von Familien an, die die Hausarbeit in Spielzeit verwandelt haben.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "Täglich aktive Nutzer",
+      "satisfaction": "4,6/5",
+      "satisfactionLabel": "Elternzufriedenheit",
+      "recommend": "92%",
+      "recommendLabel": "Würden empfehlen"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Endlich etwas, das wirklich funktioniert! Meine Kinder wetteifern jetzt darum, ihre Aufgaben zu erledigen.",
+        "author": "Sarah M.",
+        "role": "Mutter von 3"
+      },
+      "quote2": {
+        "text": "Die Serien-Funktion ist genial. Mein Sohn hat seit zwei Monaten keinen Tag verpasst.",
+        "author": "David K.",
+        "role": "Vater von 2"
+      },
+      "quote3": {
+        "text": "Keine Streitereien mehr darüber, wer dran ist. Alles ist klar und fair.",
+        "author": "Lisa T.",
+        "role": "Mutter von 2"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Einfache, faire Preise",
+    "subtitle": "Starte kostenlos. Upgrade, wenn du bereit bist.",
+    "annually": "Spare 17% mit jährlicher Abrechnung",
+    "perMonth": "/Monat",
+    "mostPopular": "Am beliebtesten",
+    "getStarted": "Jetzt starten",
+    "currentPlan": "Aktueller Plan",
+    "free": {
+      "name": "Kostenlos",
+      "price": "0 EUR",
+      "description": "Perfekt zum Ausprobieren von Taskaroo",
+      "features": {
+        "members": "Bis zu 2 Familienmitglieder",
+        "tasks": "10 aktive Aufgaben",
+        "achievements": "5 Basis-Erfolge",
+        "recurring": "Nur tägliche Wiederholung",
+        "support": "Community-Support"
+      }
+    },
+    "family": {
+      "name": "Familie",
+      "price": "4,99 EUR",
+      "description": "Alles für aktive Familien",
+      "features": {
+        "members": "Unbegrenzte Familienmitglieder",
+        "tasks": "Unbegrenzte Aufgaben",
+        "achievements": "25+ Premium-Erfolge",
+        "recurring": "Alle Wiederholungsmuster",
+        "rewards": "Punkte-zu-Geld-Belohnungen",
+        "support": "E-Mail-Support"
+      }
+    },
+    "familyPro": {
+      "name": "Familie Pro",
+      "price": "9,99 EUR",
+      "description": "Maximale Motivationswerkzeuge",
+      "features": {
+        "members": "Unbegrenzte Familienmitglieder",
+        "tasks": "Unbegrenzte Aufgaben",
+        "achievements": "50+ Premium-Erfolge",
+        "recurring": "Alle Wiederholungsmuster",
+        "rewards": "Punkte-zu-Geld-Belohnungen",
+        "analytics": "Erweiterte Analysen",
+        "support": "Prioritäts-Support"
+      }
+    }
+  },
+  "cta": {
+    "title": "Bereit, Hausarbeit spaßig zu machen?",
+    "subtitle": "Schließe dich heute Tausenden glücklicher Familien an.",
+    "button": "HEUTE KOSTENLOS STARTEN",
+    "note": "Keine Kreditkarte erforderlich"
+  },
+  "footer": {
+    "tagline": "Hausarbeit macht Spaß für Familien überall.",
+    "product": "Produkt",
+    "legal": "Rechtliches",
+    "connect": "Verbinden",
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "howItWorks": "So funktioniert es",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "coppa": "COPPA-Konformität",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. Alle Rechte vorbehalten."
+  }
+}

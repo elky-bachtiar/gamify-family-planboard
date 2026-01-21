@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Recursos",
+    "howItWorks": "Como Funciona",
+    "pricing": "Precos",
+    "login": "Entrar",
+    "getStarted": "Comecar"
+  },
+  "hero": {
+    "headline": "Tarefas Divertidas.",
+    "headlineHighlight": "De Verdade.",
+    "subheadline": "O Taskaroo transforma tarefas domesticas em um jogo que seus filhos realmente querem jogar. Pontos, niveis, sequencias e recompensas reais.",
+    "cta": "COMECAR GRATIS",
+    "secondaryCta": "Veja Como Funciona"
+  },
+  "features": {
+    "title": "Tudo que Sua Familia Precisa",
+    "subtitle": "Criado por pais, para pais. O Taskaroo combina gamificacao baseada em psicologia com gerenciamento pratico de tarefas.",
+    "pointsLevels": {
+      "title": "Pontos e Niveis",
+      "description": "Ganhe pontos por cada tarefa, suba de nivel e desbloqueie conquistas. Veja a motivacao crescer enquanto as criancas perseguem seu proximo marco."
+    },
+    "streaks": {
+      "title": "Sequencias e Combos",
+      "description": "Construa sequencias diarias para motivacao extra. Bonus de combo recompensam ajudantes consistentes com ate 50% de pontos extras."
+    },
+    "childFriendly": {
+      "title": "Amigavel para Criancas",
+      "description": "Criancas entram com um PIN simples - sem necessidade de e-mail. Botoes grandes, design colorido e instrucoes claras que elas podem seguir."
+    },
+    "approval": {
+      "title": "Aprovacao dos Pais",
+      "description": "Verifique se as tarefas estao realmente feitas antes de conceder os pontos. Voce mantem o controle enquanto as criancas aprendem responsabilidade."
+    },
+    "rewards": {
+      "title": "Recompensas Reais",
+      "description": "Converta pontos em mesada, tempo de tela ou recompensas personalizadas. Torne a conexao entre esforco e resultado tangivel."
+    },
+    "leaderboard": {
+      "title": "Ranking Familiar",
+      "description": "Competicao saudavel mantem todos engajados. Veja quem esta liderando esta semana e celebrem juntos os melhores desempenhos."
+    }
+  },
+  "howItWorks": {
+    "title": "Funcionando em Minutos",
+    "subtitle": "Sem configuracao complicada. Sem curva de aprendizado. Apenas resultados.",
+    "step1": {
+      "title": "Crie Sua Familia",
+      "description": "Cadastre-se e convide membros da familia com um codigo simples. Pais e filhos entram em segundos."
+    },
+    "step2": {
+      "title": "Adicione Tarefas",
+      "description": "Crie tarefas com valores em pontos e datas de vencimento. Configure tarefas recorrentes uma vez, elas aparecem automaticamente."
+    },
+    "step3": {
+      "title": "Criancas Completam",
+      "description": "Criancas veem um painel divertido, estilo jogo, feito especialmente para elas. Deslizam pelas tarefas e tocam para completar."
+    },
+    "step4": {
+      "title": "Aprove e Celebre",
+      "description": "Verifique tarefas concluidas com um toque. Veja o confete voar e os pontos se acumularem!"
+    }
+  },
+  "testimonials": {
+    "title": "Familias Amam o Taskaroo",
+    "subtitle": "Junte-se a milhares de familias que transformaram o tempo das tarefas em tempo de diversao.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "Usuarios Ativos Diarios",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "Satisfacao dos Pais",
+      "recommend": "92%",
+      "recommendLabel": "Recomendariam"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Finalmente algo que realmente funciona! Meus filhos correm para terminar as tarefas agora.",
+        "author": "Maria S.",
+        "role": "Mae de 3"
+      },
+      "quote2": {
+        "text": "O recurso de sequencia e genial. Meu filho nao perdeu um dia em dois meses.",
+        "author": "Carlos K.",
+        "role": "Pai de 2"
+      },
+      "quote3": {
+        "text": "Acabaram as discussoes sobre de quem e a vez. Tudo e claro e justo.",
+        "author": "Ana T.",
+        "role": "Mae de 2"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Precos Simples e Justos",
+    "subtitle": "Comece gratis. Faca upgrade quando estiver pronto.",
+    "annually": "Economize 17% com cobranca anual",
+    "perMonth": "/mes",
+    "mostPopular": "Mais Popular",
+    "getStarted": "Comecar",
+    "currentPlan": "Plano Atual",
+    "free": {
+      "name": "Gratis",
+      "price": "R$0",
+      "description": "Perfeito para experimentar o Taskaroo",
+      "features": {
+        "members": "Ate 2 membros da familia",
+        "tasks": "10 tarefas ativas",
+        "achievements": "5 conquistas basicas",
+        "recurring": "Apenas recorrencia diaria",
+        "support": "Suporte da comunidade"
+      }
+    },
+    "family": {
+      "name": "Familia",
+      "price": "R$24,99",
+      "description": "Tudo para familias ativas",
+      "features": {
+        "members": "Membros ilimitados",
+        "tasks": "Tarefas ilimitadas",
+        "achievements": "25+ conquistas premium",
+        "recurring": "Todos os padroes de recorrencia",
+        "rewards": "Recompensas em dinheiro",
+        "support": "Suporte por e-mail"
+      }
+    },
+    "familyPro": {
+      "name": "Familia Pro",
+      "price": "R$49,99",
+      "description": "Ferramentas maximas de motivacao",
+      "features": {
+        "members": "Membros ilimitados",
+        "tasks": "Tarefas ilimitadas",
+        "achievements": "50+ conquistas premium",
+        "recurring": "Todos os padroes de recorrencia",
+        "rewards": "Recompensas em dinheiro",
+        "analytics": "Analises avancadas",
+        "support": "Suporte prioritario"
+      }
+    }
+  },
+  "cta": {
+    "title": "Pronto para Tornar as Tarefas Divertidas?",
+    "subtitle": "Junte-se a milhares de familias felizes hoje.",
+    "button": "COMECAR GRATIS HOJE",
+    "note": "Nao e necessario cartao de credito"
+  },
+  "footer": {
+    "tagline": "Tornando tarefas divertidas para familias em todo lugar.",
+    "product": "Produto",
+    "legal": "Legal",
+    "connect": "Conectar",
+    "features": "Recursos",
+    "pricing": "Precos",
+    "howItWorks": "Como Funciona",
+    "privacy": "Politica de Privacidade",
+    "terms": "Termos de Servico",
+    "coppa": "Conformidade COPPA",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. Todos os direitos reservados."
+  }
+}

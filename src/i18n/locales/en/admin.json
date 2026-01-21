@@ -117,5 +117,36 @@
     "saving": "Saving...",
     "saved": "Palette saved!",
     "saveFailed": "Failed to save"
+  },
+  "manualPoints": {
+    "title": "Deduct Points",
+    "description": "Deduct points from a family member for behavior issues.",
+    "selectMember": "Select Member",
+    "selectPlaceholder": "Choose a family member...",
+    "pointsLabel": "Points to Deduct",
+    "pointsPlaceholder": "Enter number of points",
+    "pointsHint": "Enter a positive number (e.g., 10 will deduct 10 points)",
+    "reasonLabel": "Reason",
+    "reasonPlaceholder": "e.g., Didn't put milk back in fridge",
+    "submitButton": "Deduct Points",
+    "submitting": "Deducting...",
+    "confirmTitle": "Confirm Point Deduction",
+    "confirmMessage": "Are you sure you want to deduct {{points}} points from {{name}}?",
+    "confirmButton": "Deduct Points",
+    "success": "Points deducted successfully!",
+    "errorInvalidPoints": "Please enter a valid number of points",
+    "errorSelectMember": "Please select a family member",
+    "errorEnterReason": "Please enter a reason",
+    "errorFailed": "Failed to deduct points. Please try again."
+  },
+  "missedWeeklyTasks": {
+    "title": "Missed Weekly Tasks",
+    "assignedTo": "Assigned to {{name}}",
+    "originalPoints": "Original: {{points}} points",
+    "applyPenalty": "Apply Penalty",
+    "applying": "Applying...",
+    "confirmTitle": "Apply Weekly Task Penalty",
+    "confirmMessage": "This will deduct {{penalty}} points from {{name}} for not completing this weekly task.",
+    "confirmButton": "Apply Penalty"
   }
 }

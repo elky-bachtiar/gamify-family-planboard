@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "承認待ち",
+    "claim": "担当する",
+    "claiming": "担当中...",
+    "deleteConfirm": "このタスクを削除してもよろしいですか？"
+  },
+  "priority": {
+    "low": "低",
+    "medium": "中",
+    "high": "高"
+  },
+  "status": {
+    "pending": "未完了",
+    "completed": "完了",
+    "pendingApproval": "承認待ち"
+  },
+  "modal": {
+    "createTitle": "新しいタスクを作成",
+    "editTitle": "タスクを編集",
+    "viewTitle": "タスク詳細",
+    "titleLabel": "タスク名",
+    "titlePlaceholder": "タスク名を入力",
+    "descriptionLabel": "説明（任意）",
+    "descriptionPlaceholder": "タスクの詳細を追加",
+    "priorityLabel": "優先度",
+    "pointsLabel": "ポイント",
+    "dueDateLabel": "期限日",
+    "dueTimeLabel": "期限時間",
+    "startTimeLabel": "開始時間（任意）",
+    "startTimePlaceholder": "タスクが表示される時間",
+    "startTimeHint": "設定すると、この時間以降に子どもに表示されます",
+    "assigneeLabel": "担当者",
+    "unassigned": "未割当",
+    "createButton": "タスクを作成",
+    "creating": "作成中...",
+    "updateButton": "タスクを更新",
+    "updating": "更新中...",
+    "pts": "pt",
+    "errors": {
+      "noRecurrenceTasks": "現在の繰り返し設定ではタスクは作成されません",
+      "createFailed": "タスクの作成に失敗しました。もう一度お試しください。"
+    }
+  },
+  "recurrence": {
+    "repeat": "繰り返し",
+    "oneTime": "1回のみ",
+    "daily": "毎日",
+    "weekly": "毎週",
+    "specificDays": "特定の曜日",
+    "selectDays": "曜日を選択",
+    "endDate": "終了日",
+    "willCreate": "<strong>{{count}}</strong>件のタスクが作成されます",
+    "willCreate_other": "<strong>{{count}}</strong>件のタスクが作成されます",
+    "noTasksCreated": "現在の設定ではタスクは作成されません",
+    "weekdays": {
+      "sun": "日",
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土"
+    }
+  },
+  "calendar": {
+    "weeklyView": "週表示",
+    "noTasks": "この日のタスクはありません",
+    "addTask": "タスクを追加",
+    "weeklyTasks": "週間タスク",
+    "weeklyTasksEmpty": "今週の週間タスクはありません"
+  },
+  "weeklyTask": {
+    "label": "週間タスク",
+    "hint": "子どもはこの週の好きな日に完了できます",
+    "badge": "今週"
+  },
+  "filters": {
+    "all": "すべて",
+    "myTasks": "マイタスク",
+    "unassigned": "未割当",
+    "completed": "完了",
+    "pending": "未完了",
+    "pendingApproval": "承認待ち",
+    "status": "ステータス",
+    "assignee": "担当者"
+  },
+  "planboard": {
+    "title": "ファミリープランボード",
+    "today": "今日"
+  },
+  "empty": {
+    "noTasks": "タスクはありません",
+    "noTasksDescription": "タスクを作成して始めましょう！"
+  },
+  "detail": {
+    "editTask": "タスクを編集",
+    "copyTask": "タスクをコピー",
+    "description": "説明",
+    "dueDate": "期限日",
+    "dueTime": "期限時間",
+    "startTime": "開始時間",
+    "timeRange": "表示期間",
+    "priority": "優先度",
+    "points": "ポイント",
+    "pointsValue": "{{count}}ポイント",
+    "assignedTo": "担当者",
+    "unassigned": "未割当",
+    "tagsObjects": "タグ/オブジェクト",
+    "tagsHint": "Enterまたはカンマでタグを追加",
+    "tagsPlaceholder": "例: 食洗機、キッチン",
+    "completedAt": "完了日時",
+    "saveChanges": "変更を保存",
+    "saving": "保存中...",
+    "close": "閉じる"
+  },
+  "recurringEdit": {
+    "title": "繰り返しタスクを編集",
+    "partOfSeries": "「{{title}}」は繰り返しタスクの一部です。変更をどのように適用しますか？",
+    "editSingleTitle": "このタスクのみ保存",
+    "editSingleDescription": "この回のみに変更が適用されます",
+    "editAllFutureTitle": "今後のすべてのタスクを保存",
+    "editAllFutureBadge": "{{count}}件のタスク",
+    "editAllFutureDescription": "今日以降の未完了タスクすべてに変更が適用されます",
+    "updating": "タスクを更新中..."
+  },
+  "recurringReorder": {
+    "title": "繰り返しタスクの並び替え",
+    "partOfSeries": "「{{title}}」は繰り返しタスクの一部です。新しい位置をどのように適用しますか？",
+    "reorderSingleTitle": "このタスクのみ並び替え",
+    "reorderSingleDescription": "この回のみに新しい位置が適用されます",
+    "reorderAllFutureTitle": "今後のすべてのタスクを並び替え",
+    "reorderAllFutureBadge": "{{count}}件のタスク",
+    "reorderAllFutureDescription": "今日以降の未完了タスクすべてに新しい位置が適用されます",
+    "updating": "位置を更新中..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "おはよう",
+      "afternoon": "こんにちは",
+      "evening": "こんばんは"
+    },
+    "todaysTasks": "今日のタスク",
+    "completedToday": "今日の完了",
+    "pointsEarned": "獲得ポイント",
+    "keepGoing": "がんばろう！",
+    "allDone": "全部終わったね！",
+    "createTask": "タスクを作成"
+  },
+  "delete": {
+    "confirmTitle": "タスクを削除",
+    "recurringTask": "繰り返しタスク",
+    "confirmMessage": "「{{title}}」を削除してもよろしいですか？",
+    "recurringMessage": "「{{title}}」は繰り返しタスクの一部です。何を削除しますか？",
+    "futureTasksInfo": "このシリーズには{{count}}件の今後のタスクがあります",
+    "futureTasksInfo_other": "このシリーズには{{count}}件の今後のタスクがあります",
+    "deleteThisOnly": "このタスクのみ削除",
+    "deleteAllFuture": "今後の{{count}}件すべて削除",
+    "deleteTask": "タスクを削除",
+    "deleting": "削除中..."
+  }
+}

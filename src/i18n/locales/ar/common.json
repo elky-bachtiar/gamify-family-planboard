@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "لوحة تخطيط العائلة"
+  },
+  "navigation": {
+    "myTasks": "مهامي",
+    "familyBoard": "لوحة العائلة",
+    "dashboard": "لوحة التحكم",
+    "childMode": "وضع الطفل",
+    "enterChildMode": "التبديل إلى وضع الطفل",
+    "exitChildMode": "الخروج من وضع الطفل"
+  },
+  "buttons": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "submit": "إرسال",
+    "confirm": "تأكيد",
+    "copy": "نسخ",
+    "copyLink": "نسخ الرابط",
+    "copied": "تم النسخ!",
+    "loading": "جارٍ التحميل...",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "add": "إضافة"
+  },
+  "labels": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "description": "الوصف",
+    "status": "الحالة",
+    "priority": "الأولوية",
+    "points": "نقاط",
+    "level": "المستوى",
+    "days": "أيام",
+    "dayStreak": "سلسلة أيام"
+  },
+  "errors": {
+    "generic": "حدث خطأ ما",
+    "required": "هذا الحقل مطلوب",
+    "invalidEmail": "عنوان بريد إلكتروني غير صالح",
+    "networkError": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
+    "unauthorized": "غير مصرح لك بتنفيذ هذا الإجراء"
+  },
+  "empty": {
+    "noData": "لا توجد بيانات متاحة",
+    "noResults": "لم يتم العثور على نتائج"
+  },
+  "time": {
+    "today": "اليوم",
+    "yesterday": "أمس",
+    "tomorrow": "غداً",
+    "thisWeek": "هذا الأسبوع"
+  },
+  "confirmation": {
+    "areYouSure": "هل أنت متأكد؟",
+    "cannotUndo": "لا يمكن التراجع عن هذا الإجراء."
+  },
+  "profile": {
+    "settings": "إعدادات الملف الشخصي",
+    "signOut": "تسجيل الخروج"
+  }
+}

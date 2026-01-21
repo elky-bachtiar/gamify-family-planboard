@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Planificador Familiar"
+  },
+  "navigation": {
+    "myTasks": "Mis Tareas",
+    "familyBoard": "Tablero Familiar",
+    "dashboard": "Panel",
+    "childMode": "Vista de Hijo",
+    "enterChildMode": "Cambiar a Vista de Hijo",
+    "exitChildMode": "Salir de Vista de Hijo"
+  },
+  "buttons": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "back": "Volver",
+    "submit": "Enviar",
+    "confirm": "Confirmar",
+    "copy": "Copiar",
+    "copyLink": "Copiar Enlace",
+    "copied": "Copiado!",
+    "loading": "Cargando...",
+    "create": "Crear",
+    "update": "Actualizar",
+    "add": "Agregar"
+  },
+  "labels": {
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "description": "Descripción",
+    "status": "Estado",
+    "priority": "Prioridad",
+    "points": "puntos",
+    "level": "Nivel",
+    "days": "días",
+    "dayStreak": "días de racha"
+  },
+  "errors": {
+    "generic": "Algo salió mal",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Dirección de correo inválida",
+    "networkError": "Error de red. Por favor, intenta de nuevo.",
+    "unauthorized": "No tienes autorización para realizar esta acción"
+  },
+  "empty": {
+    "noData": "No hay datos disponibles",
+    "noResults": "No se encontraron resultados"
+  },
+  "time": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "tomorrow": "Mañana",
+    "thisWeek": "Esta Semana"
+  },
+  "confirmation": {
+    "areYouSure": "¿Estás seguro?",
+    "cannotUndo": "Esta acción no se puede deshacer."
+  },
+  "profile": {
+    "settings": "Configuración de Perfil",
+    "signOut": "Cerrar Sesión"
+  }
+}

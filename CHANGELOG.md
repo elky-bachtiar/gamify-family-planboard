@@ -5,6 +5,73 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
+## [1.0.0-alpha.3] - 2026-01-21
+
+### Added
+- **Negative Points & Penalty System** - Parents can now deduct points from family members
+  - **Manual Points Deduction** - Admins can deduct points for behavior issues
+    - `src/lib/gamification.ts` - Added `awardManualPoints()` function for positive/negative point adjustments
+    - `src/components/Admin/ManualPointsManager.tsx` - New component with member selection, points input, reason field, and confirmation dialog
+    - Integrated into AdminPanel Members tab below PaletteSelector
+    - Points history entries prefixed with "Straf:" for negative points, "Bonus:" for positive
+    - Points cannot go below 0
+  - **Weekly Task Penalty** - Automatic -50% penalty for missed weekly tasks
+    - `src/lib/gamification.ts` - Added `getOverdueWeeklyTasks()` and `applyWeeklyTaskPenalty()` functions
+    - `src/components/Admin/MissedWeeklyTasksSection.tsx` - New component showing overdue weekly tasks with penalty application
+    - Displays task title, assignee, original points, and calculated penalty amount
+    - "Apply Penalty" button with confirmation dialog
+    - Integrated into TaskApprovalManager (Approvals tab) and AdminApprovalBanner (child mode)
+    - Weekly tasks are overdue when: `due_date < current week Monday` AND status is pending/pending_approval
+  - **Penalty Notification for Children** - Toast notifications when points are deducted
+    - `src/components/Child/Gamification/PenaltyToast.tsx` - Red gradient toast (from-red-600 to-orange-500)
+    - Shows points lost and reason
+    - Auto-closes after 5 seconds with progress bar animation
+    - Unseen penalties tracked via localStorage per member
+    - Multiple penalties shown sequentially
+    - Integrated into ChildDashboard
+
+### Changed
+- **AdminApprovalBanner Redesigned** - Now shows as "Admin Panel" for admins in child mode view
+  - Purple gradient styling (from-purple-600 to-indigo-600) with Shield icon
+  - Always visible for admins (not just when pending items exist)
+  - Pending count badge shown in amber when there are pending items
+  - Added inline "Deduct Points" section with quick deduction form
+  - Includes missed weekly tasks section when applicable
+  - Translations updated for new admin tools
+
+### Translations
+- `src/i18n/locales/en/admin.json` - Added `manualPoints.*` and `missedWeeklyTasks.*` keys
+- `src/i18n/locales/nl/admin.json` - Added Dutch translations for penalty features
+- `src/i18n/locales/en/gamification.json` - Added `child.penalty.*` keys
+- `src/i18n/locales/nl/gamification.json` - Added Dutch penalty notification translations
+
+
+## [1.0.0-alpha.2] - 2026-01-21
+
+### Added
+- **Expanded Multi-Language Support** - Added 14 new languages (16 total)
+  - Chinese (Simplified) - 中文 (zh)
+  - Hindi - हिन्दी (hi)
+  - Spanish - Español (es)
+  - Arabic - العربية (ar)
+  - French - Français (fr)
+  - Bengali - বাংলা (bn)
+  - Portuguese (Brazilian) - Português (pt)
+  - Russian - Русский (ru)
+  - Indonesian - Indonesia (id)
+  - German - Deutsch (de)
+  - Japanese - 日本語 (ja)
+  - Korean - 한국어 (ko)
+  - Thai - ไทย (th)
+  - Turkish - Türkçe (tr)
+  - Translation files for all 6 namespaces per language (common, auth, tasks, gamification, admin, landing)
+  - `src/i18n/locales/{lang}/` - 84 new translation files created
+
+### Changed
+- **LanguageSwitcher** - Updated to show all 16 languages with scrollable dropdown (max-height 320px)
+- **English flag** - Changed from British (🇬🇧) to American (🇺🇸) flag
+
+
 ## [1.0.0-alpha] - 2026-01-20
 
 ### Added

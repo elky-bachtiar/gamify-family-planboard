@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "अनुमोदन की प्रतीक्षा में",
+    "claim": "लें",
+    "claiming": "ले रहे हैं...",
+    "deleteConfirm": "क्या आप वाकई इस कार्य को हटाना चाहते हैं?"
+  },
+  "priority": {
+    "low": "कम",
+    "medium": "मध्यम",
+    "high": "उच्च"
+  },
+  "status": {
+    "pending": "लंबित",
+    "completed": "पूर्ण",
+    "pendingApproval": "अनुमोदन लंबित"
+  },
+  "modal": {
+    "createTitle": "नया कार्य बनाएं",
+    "editTitle": "कार्य संपादित करें",
+    "viewTitle": "कार्य विवरण",
+    "titleLabel": "कार्य शीर्षक",
+    "titlePlaceholder": "कार्य शीर्षक दर्ज करें",
+    "descriptionLabel": "विवरण (वैकल्पिक)",
+    "descriptionPlaceholder": "इस कार्य के बारे में विवरण जोड़ें",
+    "priorityLabel": "प्राथमिकता",
+    "pointsLabel": "अंक",
+    "dueDateLabel": "नियत तारीख",
+    "dueTimeLabel": "नियत समय",
+    "startTimeLabel": "आरंभ समय (वैकल्पिक)",
+    "startTimePlaceholder": "कार्य कब दिखाई देगा",
+    "startTimeHint": "यदि सेट किया गया है, तो कार्य इस समय के बाद ही बच्चों को दिखाई देगा",
+    "assigneeLabel": "किसे सौंपें",
+    "unassigned": "असाइन नहीं किया गया",
+    "createButton": "कार्य बनाएं",
+    "creating": "बन रहा है...",
+    "updateButton": "कार्य अपडेट करें",
+    "updating": "अपडेट हो रहा है...",
+    "pts": "अंक",
+    "errors": {
+      "noRecurrenceTasks": "वर्तमान पुनरावृत्ति सेटिंग्स के साथ कोई कार्य नहीं बनाया जाएगा",
+      "createFailed": "कार्य बनाने में विफल। कृपया पुनः प्रयास करें।"
+    }
+  },
+  "recurrence": {
+    "repeat": "दोहराएं",
+    "oneTime": "एक बार",
+    "daily": "प्रतिदिन",
+    "weekly": "साप्ताहिक",
+    "specificDays": "विशिष्ट दिन",
+    "selectDays": "दिन चुनें",
+    "endDate": "समाप्ति तारीख",
+    "willCreate": "यह <strong>{{count}}</strong> कार्य बनाएगा",
+    "willCreate_other": "यह <strong>{{count}}</strong> कार्य बनाएगा",
+    "noTasksCreated": "वर्तमान सेटिंग्स के साथ कोई कार्य नहीं बनाया जाएगा",
+    "weekdays": {
+      "sun": "रवि",
+      "mon": "सोम",
+      "tue": "मंगल",
+      "wed": "बुध",
+      "thu": "गुरु",
+      "fri": "शुक्र",
+      "sat": "शनि"
+    }
+  },
+  "calendar": {
+    "weeklyView": "साप्ताहिक दृश्य",
+    "noTasks": "इस दिन कोई कार्य नहीं",
+    "addTask": "कार्य जोड़ें",
+    "weeklyTasks": "साप्ताहिक कार्य",
+    "weeklyTasksEmpty": "इस सप्ताह कोई साप्ताहिक कार्य नहीं"
+  },
+  "weeklyTask": {
+    "label": "साप्ताहिक कार्य",
+    "hint": "बच्चा इस सप्ताह किसी भी दिन यह कार्य पूरा कर सकता है",
+    "badge": "इस सप्ताह"
+  },
+  "filters": {
+    "all": "सभी",
+    "myTasks": "मेरे कार्य",
+    "unassigned": "असाइन नहीं",
+    "completed": "पूर्ण",
+    "pending": "लंबित",
+    "pendingApproval": "अनुमोदन लंबित",
+    "status": "स्थिति",
+    "assignee": "असाइनी"
+  },
+  "planboard": {
+    "title": "फैमिली प्लानबोर्ड",
+    "today": "आज"
+  },
+  "empty": {
+    "noTasks": "अभी तक कोई कार्य नहीं",
+    "noTasksDescription": "शुरू करने के लिए एक कार्य बनाएं!"
+  },
+  "detail": {
+    "editTask": "कार्य संपादित करें",
+    "copyTask": "कार्य कॉपी करें",
+    "description": "विवरण",
+    "dueDate": "नियत तारीख",
+    "dueTime": "नियत समय",
+    "startTime": "आरंभ समय",
+    "timeRange": "उपलब्ध",
+    "priority": "प्राथमिकता",
+    "points": "अंक",
+    "pointsValue": "{{count}} अंक",
+    "assignedTo": "किसे सौंपा गया",
+    "unassigned": "असाइन नहीं",
+    "tagsObjects": "टैग/वस्तुएं",
+    "tagsHint": "टैग जोड़ने के लिए Enter या कॉमा दबाएं",
+    "tagsPlaceholder": "जैसे, डिशवॉशर, रसोई",
+    "completedAt": "पूर्ण हुआ",
+    "saveChanges": "परिवर्तन सहेजें",
+    "saving": "सहेज रहे हैं...",
+    "close": "बंद करें"
+  },
+  "recurringEdit": {
+    "title": "पुनरावर्ती कार्य संपादित करें",
+    "partOfSeries": "\"{{title}}\" एक पुनरावर्ती कार्य श्रृंखला का हिस्सा है। आप अपने परिवर्तन कैसे लागू करना चाहते हैं?",
+    "editSingleTitle": "केवल यह कार्य सहेजें",
+    "editSingleDescription": "परिवर्तन केवल इस विशेष घटना पर लागू होंगे",
+    "editAllFutureTitle": "सभी भविष्य के कार्य सहेजें",
+    "editAllFutureBadge": "{{count}} कार्य",
+    "editAllFutureDescription": "परिवर्तन आज से आगे सभी अपूर्ण कार्यों पर लागू होंगे",
+    "updating": "कार्य अपडेट हो रहे हैं..."
+  },
+  "recurringReorder": {
+    "title": "पुनरावर्ती कार्य पुनर्व्यवस्थित करें",
+    "partOfSeries": "\"{{title}}\" एक पुनरावर्ती कार्य श्रृंखला का हिस्सा है। आप नई स्थिति कैसे लागू करना चाहते हैं?",
+    "reorderSingleTitle": "केवल इस कार्य को पुनर्व्यवस्थित करें",
+    "reorderSingleDescription": "नई स्थिति केवल इस विशेष घटना पर लागू होगी",
+    "reorderAllFutureTitle": "सभी भविष्य के कार्य पुनर्व्यवस्थित करें",
+    "reorderAllFutureBadge": "{{count}} कार्य",
+    "reorderAllFutureDescription": "नई स्थिति आज से आगे सभी अपूर्ण कार्यों पर लागू होगी",
+    "updating": "स्थिति अपडेट हो रही है..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "सुप्रभात",
+      "afternoon": "शुभ दोपहर",
+      "evening": "शुभ संध्या"
+    },
+    "todaysTasks": "आज के कार्य",
+    "completedToday": "आज पूर्ण",
+    "pointsEarned": "अर्जित अंक",
+    "keepGoing": "जारी रखें!",
+    "allDone": "सब हो गया!",
+    "createTask": "कार्य बनाएं"
+  },
+  "delete": {
+    "confirmTitle": "कार्य हटाएं",
+    "recurringTask": "पुनरावर्ती कार्य",
+    "confirmMessage": "क्या आप वाकई \"{{title}}\" को हटाना चाहते हैं?",
+    "recurringMessage": "\"{{title}}\" एक पुनरावर्ती कार्य श्रृंखला का हिस्सा है। आप क्या हटाना चाहते हैं?",
+    "futureTasksInfo": "इस श्रृंखला में {{count}} भविष्य का कार्य है",
+    "futureTasksInfo_other": "इस श्रृंखला में {{count}} भविष्य के कार्य हैं",
+    "deleteThisOnly": "केवल यह कार्य हटाएं",
+    "deleteAllFuture": "सभी {{count}} भविष्य के कार्य हटाएं",
+    "deleteTask": "कार्य हटाएं",
+    "deleting": "हटा रहे हैं..."
+  }
+}

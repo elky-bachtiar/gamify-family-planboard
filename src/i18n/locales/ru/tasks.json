@@ -1,0 +1,168 @@
+{
+  "card": {
+    "awaitingApproval": "Ожидает подтверждения",
+    "claim": "Взять",
+    "claiming": "Беру...",
+    "deleteConfirm": "Вы уверены, что хотите удалить это задание?"
+  },
+  "priority": {
+    "low": "Низкий",
+    "medium": "Средний",
+    "high": "Высокий"
+  },
+  "status": {
+    "pending": "В ожидании",
+    "completed": "Выполнено",
+    "pendingApproval": "Ожидает подтверждения"
+  },
+  "modal": {
+    "createTitle": "Создать новое задание",
+    "editTitle": "Редактировать задание",
+    "viewTitle": "Детали задания",
+    "titleLabel": "Название задания",
+    "titlePlaceholder": "Введите название задания",
+    "descriptionLabel": "Описание (необязательно)",
+    "descriptionPlaceholder": "Добавьте подробности о задании",
+    "priorityLabel": "Приоритет",
+    "pointsLabel": "Очки",
+    "dueDateLabel": "Срок выполнения",
+    "dueTimeLabel": "Время выполнения",
+    "startTimeLabel": "Время начала (необязательно)",
+    "startTimePlaceholder": "Когда задание станет видимым",
+    "startTimeHint": "Если указано, задание появится у детей только после этого времени",
+    "assigneeLabel": "Назначить",
+    "unassigned": "Не назначено",
+    "createButton": "Создать задание",
+    "creating": "Создание...",
+    "updateButton": "Обновить задание",
+    "updating": "Обновление...",
+    "pts": "очк.",
+    "errors": {
+      "noRecurrenceTasks": "С текущими настройками повторения задания не будут созданы",
+      "createFailed": "Не удалось создать задание. Пожалуйста, попробуйте снова."
+    }
+  },
+  "recurrence": {
+    "repeat": "Повторение",
+    "oneTime": "Один раз",
+    "daily": "Ежедневно",
+    "weekly": "Еженедельно",
+    "specificDays": "Определённые дни",
+    "selectDays": "Выберите дни",
+    "endDate": "Дата окончания",
+    "willCreate": "Будет создано <strong>{{count}}</strong> задание",
+    "willCreate_one": "Будет создано <strong>{{count}}</strong> задание",
+    "willCreate_few": "Будет создано <strong>{{count}}</strong> задания",
+    "willCreate_many": "Будет создано <strong>{{count}}</strong> заданий",
+    "willCreate_other": "Будет создано <strong>{{count}}</strong> заданий",
+    "noTasksCreated": "С текущими настройками задания не будут созданы",
+    "weekdays": {
+      "sun": "Вс",
+      "mon": "Пн",
+      "tue": "Вт",
+      "wed": "Ср",
+      "thu": "Чт",
+      "fri": "Пт",
+      "sat": "Сб"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Недельный вид",
+    "noTasks": "Нет заданий на этот день",
+    "addTask": "Добавить задание",
+    "weeklyTasks": "Задания на неделю",
+    "weeklyTasksEmpty": "Нет заданий на эту неделю"
+  },
+  "weeklyTask": {
+    "label": "Недельное задание",
+    "hint": "Ребёнок может выполнить это задание в любой день недели",
+    "badge": "На этой неделе"
+  },
+  "filters": {
+    "all": "Все",
+    "myTasks": "Мои задания",
+    "unassigned": "Не назначено",
+    "completed": "Выполнено",
+    "pending": "В ожидании",
+    "pendingApproval": "Ожидает подтверждения",
+    "status": "Статус",
+    "assignee": "Исполнитель"
+  },
+  "planboard": {
+    "title": "Семейный планировщик",
+    "today": "Сегодня"
+  },
+  "empty": {
+    "noTasks": "Пока нет заданий",
+    "noTasksDescription": "Создайте задание, чтобы начать!"
+  },
+  "detail": {
+    "editTask": "Редактировать задание",
+    "copyTask": "Копировать задание",
+    "description": "Описание",
+    "dueDate": "Срок выполнения",
+    "dueTime": "Время выполнения",
+    "startTime": "Время начала",
+    "timeRange": "Доступно",
+    "priority": "Приоритет",
+    "points": "Очки",
+    "pointsValue": "{{count}} очков",
+    "assignedTo": "Назначено",
+    "unassigned": "Не назначено",
+    "tagsObjects": "Теги/Объекты",
+    "tagsHint": "Нажмите Enter или запятую, чтобы добавить тег",
+    "tagsPlaceholder": "например, посудомойка, кухня",
+    "completedAt": "Выполнено",
+    "saveChanges": "Сохранить изменения",
+    "saving": "Сохранение...",
+    "close": "Закрыть"
+  },
+  "recurringEdit": {
+    "title": "Редактировать повторяющееся задание",
+    "partOfSeries": "«{{title}}» является частью серии повторяющихся заданий. Как вы хотите применить изменения?",
+    "editSingleTitle": "Сохранить только это задание",
+    "editSingleDescription": "Изменения применятся только к этому заданию",
+    "editAllFutureTitle": "Сохранить все будущие задания",
+    "editAllFutureBadge": "{{count}} заданий",
+    "editAllFutureDescription": "Изменения применятся ко всем невыполненным заданиям начиная с сегодня",
+    "updating": "Обновление заданий..."
+  },
+  "recurringReorder": {
+    "title": "Изменить порядок повторяющегося задания",
+    "partOfSeries": "«{{title}}» является частью серии повторяющихся заданий. Как вы хотите применить новую позицию?",
+    "reorderSingleTitle": "Изменить порядок только для этого задания",
+    "reorderSingleDescription": "Новая позиция применится только к этому заданию",
+    "reorderAllFutureTitle": "Изменить порядок всех будущих заданий",
+    "reorderAllFutureBadge": "{{count}} заданий",
+    "reorderAllFutureDescription": "Новая позиция применится ко всем невыполненным заданиям начиная с сегодня",
+    "updating": "Обновление позиций..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Доброе утро",
+      "afternoon": "Добрый день",
+      "evening": "Добрый вечер"
+    },
+    "todaysTasks": "Задания на сегодня",
+    "completedToday": "Выполнено сегодня",
+    "pointsEarned": "Заработано очков",
+    "keepGoing": "Продолжай!",
+    "allDone": "Всё готово!",
+    "createTask": "Создать задание"
+  },
+  "delete": {
+    "confirmTitle": "Удалить задание",
+    "recurringTask": "Повторяющееся задание",
+    "confirmMessage": "Вы уверены, что хотите удалить «{{title}}»?",
+    "recurringMessage": "«{{title}}» является частью серии повторяющихся заданий. Что вы хотите удалить?",
+    "futureTasksInfo": "В этой серии {{count}} будущее задание",
+    "futureTasksInfo_one": "В этой серии {{count}} будущее задание",
+    "futureTasksInfo_few": "В этой серии {{count}} будущих задания",
+    "futureTasksInfo_many": "В этой серии {{count}} будущих заданий",
+    "futureTasksInfo_other": "В этой серии {{count}} будущих заданий",
+    "deleteThisOnly": "Удалить только это задание",
+    "deleteAllFuture": "Удалить все {{count}} будущих заданий",
+    "deleteTask": "Удалить задание",
+    "deleting": "Удаление..."
+  }
+}

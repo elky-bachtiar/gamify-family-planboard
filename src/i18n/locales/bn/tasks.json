@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "অনুমোদনের অপেক্ষায়",
+    "claim": "দাবি করুন",
+    "claiming": "দাবি করা হচ্ছে...",
+    "deleteConfirm": "আপনি কি এই কাজটি মুছে ফেলতে চান?"
+  },
+  "priority": {
+    "low": "কম",
+    "medium": "মাঝারি",
+    "high": "উচ্চ"
+  },
+  "status": {
+    "pending": "বাকি আছে",
+    "completed": "সম্পন্ন",
+    "pendingApproval": "অনুমোদনের অপেক্ষায়"
+  },
+  "modal": {
+    "createTitle": "নতুন কাজ তৈরি করুন",
+    "editTitle": "কাজ সম্পাদনা করুন",
+    "viewTitle": "কাজের বিবরণ",
+    "titleLabel": "কাজের শিরোনাম",
+    "titlePlaceholder": "কাজের শিরোনাম লিখুন",
+    "descriptionLabel": "বিবরণ (ঐচ্ছিক)",
+    "descriptionPlaceholder": "এই কাজ সম্পর্কে বিস্তারিত যোগ করুন",
+    "priorityLabel": "অগ্রাধিকার",
+    "pointsLabel": "পয়েন্ট",
+    "dueDateLabel": "শেষ তারিখ",
+    "dueTimeLabel": "শেষ সময়",
+    "startTimeLabel": "শুরুর সময় (ঐচ্ছিক)",
+    "startTimePlaceholder": "কখন কাজটি দেখা যাবে",
+    "startTimeHint": "সেট করা হলে, এই সময়ের পরেই শিশুরা কাজটি দেখতে পাবে",
+    "assigneeLabel": "কাকে দেওয়া হবে",
+    "unassigned": "কাউকে দেওয়া হয়নি",
+    "createButton": "কাজ তৈরি করুন",
+    "creating": "তৈরি হচ্ছে...",
+    "updateButton": "কাজ আপডেট করুন",
+    "updating": "আপডেট হচ্ছে...",
+    "pts": "পয়েন্ট",
+    "errors": {
+      "noRecurrenceTasks": "বর্তমান পুনরাবৃত্তি সেটিংস দিয়ে কোনো কাজ তৈরি হবে না",
+      "createFailed": "কাজ তৈরি করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
+    }
+  },
+  "recurrence": {
+    "repeat": "পুনরাবৃত্তি",
+    "oneTime": "একবার",
+    "daily": "প্রতিদিন",
+    "weekly": "সাপ্তাহিক",
+    "specificDays": "নির্দিষ্ট দিন",
+    "selectDays": "দিন নির্বাচন করুন",
+    "endDate": "শেষ তারিখ",
+    "willCreate": "এটি <strong>{{count}}</strong>টি কাজ তৈরি করবে",
+    "willCreate_other": "এটি <strong>{{count}}</strong>টি কাজ তৈরি করবে",
+    "noTasksCreated": "বর্তমান সেটিংস দিয়ে কোনো কাজ তৈরি হবে না",
+    "weekdays": {
+      "sun": "রবি",
+      "mon": "সোম",
+      "tue": "মঙ্গল",
+      "wed": "বুধ",
+      "thu": "বৃহ",
+      "fri": "শুক্র",
+      "sat": "শনি"
+    }
+  },
+  "calendar": {
+    "weeklyView": "সাপ্তাহিক ভিউ",
+    "noTasks": "এই দিনের জন্য কোনো কাজ নেই",
+    "addTask": "কাজ যোগ করুন",
+    "weeklyTasks": "সাপ্তাহিক কাজ",
+    "weeklyTasksEmpty": "এই সপ্তাহে কোনো সাপ্তাহিক কাজ নেই"
+  },
+  "weeklyTask": {
+    "label": "সাপ্তাহিক কাজ",
+    "hint": "শিশু এই সপ্তাহের যেকোনো দিন এই কাজটি সম্পন্ন করতে পারবে",
+    "badge": "এই সপ্তাহ"
+  },
+  "filters": {
+    "all": "সব",
+    "myTasks": "আমার কাজ",
+    "unassigned": "অনির্ধারিত",
+    "completed": "সম্পন্ন",
+    "pending": "বাকি",
+    "pendingApproval": "অনুমোদনের অপেক্ষায়",
+    "status": "অবস্থা",
+    "assignee": "দায়িত্বপ্রাপ্ত"
+  },
+  "planboard": {
+    "title": "ফ্যামিলি প্ল্যানবোর্ড",
+    "today": "আজ"
+  },
+  "empty": {
+    "noTasks": "এখনো কোনো কাজ নেই",
+    "noTasksDescription": "শুরু করতে একটি কাজ তৈরি করুন!"
+  },
+  "detail": {
+    "editTask": "কাজ সম্পাদনা",
+    "copyTask": "কাজ কপি করুন",
+    "description": "বিবরণ",
+    "dueDate": "শেষ তারিখ",
+    "dueTime": "শেষ সময়",
+    "startTime": "শুরুর সময়",
+    "timeRange": "উপলব্ধ",
+    "priority": "অগ্রাধিকার",
+    "points": "পয়েন্ট",
+    "pointsValue": "{{count}} পয়েন্ট",
+    "assignedTo": "দায়িত্ব দেওয়া হয়েছে",
+    "unassigned": "কাউকে দেওয়া হয়নি",
+    "tagsObjects": "ট্যাগ/অবজেক্ট",
+    "tagsHint": "ট্যাগ যোগ করতে এন্টার বা কমা চাপুন",
+    "tagsPlaceholder": "যেমন: ডিশওয়াশার, রান্নাঘর",
+    "completedAt": "সম্পন্ন হয়েছে",
+    "saveChanges": "পরিবর্তন সংরক্ষণ করুন",
+    "saving": "সংরক্ষণ হচ্ছে...",
+    "close": "বন্ধ"
+  },
+  "recurringEdit": {
+    "title": "পুনরাবৃত্ত কাজ সম্পাদনা",
+    "partOfSeries": "\"{{title}}\" একটি পুনরাবৃত্ত কাজের সিরিজের অংশ। আপনি কিভাবে পরিবর্তন প্রয়োগ করতে চান?",
+    "editSingleTitle": "শুধু এই কাজটি সংরক্ষণ করুন",
+    "editSingleDescription": "পরিবর্তনগুলো শুধুমাত্র এই নির্দিষ্ট ঘটনায় প্রযোজ্য হবে",
+    "editAllFutureTitle": "সব ভবিষ্যত কাজ সংরক্ষণ করুন",
+    "editAllFutureBadge": "{{count}}টি কাজ",
+    "editAllFutureDescription": "আজ থেকে সব অসম্পূর্ণ কাজে পরিবর্তন প্রযোজ্য হবে",
+    "updating": "কাজ আপডেট হচ্ছে..."
+  },
+  "recurringReorder": {
+    "title": "পুনরাবৃত্ত কাজের ক্রম পরিবর্তন",
+    "partOfSeries": "\"{{title}}\" একটি পুনরাবৃত্ত কাজের সিরিজের অংশ। আপনি কিভাবে নতুন অবস্থান প্রয়োগ করতে চান?",
+    "reorderSingleTitle": "শুধু এই কাজের ক্রম পরিবর্তন করুন",
+    "reorderSingleDescription": "নতুন অবস্থান শুধুমাত্র এই নির্দিষ্ট ঘটনায় প্রযোজ্য হবে",
+    "reorderAllFutureTitle": "সব ভবিষ্যত কাজের ক্রম পরিবর্তন করুন",
+    "reorderAllFutureBadge": "{{count}}টি কাজ",
+    "reorderAllFutureDescription": "আজ থেকে সব অসম্পূর্ণ কাজে নতুন অবস্থান প্রযোজ্য হবে",
+    "updating": "অবস্থান আপডেট হচ্ছে..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "সুপ্রভাত",
+      "afternoon": "শুভ দুপুর",
+      "evening": "শুভ সন্ধ্যা"
+    },
+    "todaysTasks": "আজকের কাজ",
+    "completedToday": "আজ সম্পন্ন",
+    "pointsEarned": "অর্জিত পয়েন্ট",
+    "keepGoing": "চালিয়ে যাও!",
+    "allDone": "সব শেষ!",
+    "createTask": "কাজ তৈরি করুন"
+  },
+  "delete": {
+    "confirmTitle": "কাজ মুছুন",
+    "recurringTask": "পুনরাবৃত্ত কাজ",
+    "confirmMessage": "আপনি কি নিশ্চিত \"{{title}}\" মুছে ফেলতে চান?",
+    "recurringMessage": "\"{{title}}\" একটি পুনরাবৃত্ত কাজের সিরিজের অংশ। আপনি কী মুছতে চান?",
+    "futureTasksInfo": "এই সিরিজে {{count}}টি ভবিষ্যত কাজ আছে",
+    "futureTasksInfo_other": "এই সিরিজে {{count}}টি ভবিষ্যত কাজ আছে",
+    "deleteThisOnly": "শুধু এই কাজটি মুছুন",
+    "deleteAllFuture": "সব {{count}}টি ভবিষ্যত কাজ মুছুন",
+    "deleteTask": "কাজ মুছুন",
+    "deleting": "মুছে ফেলা হচ্ছে..."
+  }
+}

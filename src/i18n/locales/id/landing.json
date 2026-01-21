@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Fitur",
+    "howItWorks": "Cara Kerja",
+    "pricing": "Harga",
+    "login": "Masuk",
+    "getStarted": "Mulai Sekarang"
+  },
+  "hero": {
+    "headline": "Jadikan Tugas Rumah Menyenangkan.",
+    "headlineHighlight": "Sungguhan.",
+    "subheadline": "Taskaroo mengubah tugas rumah menjadi permainan yang benar-benar ingin dimainkan anak-anak. Poin, level, streak, dan hadiah nyata.",
+    "cta": "MULAI GRATIS",
+    "secondaryCta": "Lihat Cara Kerjanya"
+  },
+  "features": {
+    "title": "Semua yang Dibutuhkan Keluarga Anda",
+    "subtitle": "Dibuat oleh orang tua, untuk orang tua. Taskaroo menggabungkan gamifikasi berbasis psikologi dengan manajemen tugas praktis.",
+    "pointsLevels": {
+      "title": "Poin & Level",
+      "description": "Dapatkan poin untuk setiap tugas, naik level, dan buka pencapaian. Lihat motivasi melonjak saat anak-anak mengejar pencapaian berikutnya."
+    },
+    "streaks": {
+      "title": "Streak & Kombo",
+      "description": "Bangun streak harian untuk motivasi bonus. Bonus kombo menghargai pembantu yang konsisten dengan hingga 50% poin ekstra."
+    },
+    "childFriendly": {
+      "title": "Ramah Anak",
+      "description": "Anak-anak masuk dengan PIN sederhana - tidak perlu email. Tombol besar, desain penuh warna, dan instruksi jelas yang dapat mereka ikuti."
+    },
+    "approval": {
+      "title": "Persetujuan Orang Tua",
+      "description": "Verifikasi tugas benar-benar selesai sebelum poin diberikan. Anda tetap memegang kendali sementara anak-anak belajar tanggung jawab."
+    },
+    "rewards": {
+      "title": "Hadiah Nyata",
+      "description": "Tukarkan poin menjadi uang saku, waktu bermain, atau hadiah kustom. Buat hubungan antara usaha dan hasil menjadi nyata."
+    },
+    "leaderboard": {
+      "title": "Papan Peringkat Keluarga",
+      "description": "Kompetisi sehat membuat semua orang terlibat. Lihat siapa yang memimpin minggu ini dan rayakan pencapaian bersama."
+    }
+  },
+  "howItWorks": {
+    "title": "Siap dalam Hitungan Menit",
+    "subtitle": "Tanpa pengaturan rumit. Tanpa kurva belajar. Hanya hasil.",
+    "step1": {
+      "title": "Buat Keluarga Anda",
+      "description": "Daftar dan undang anggota keluarga dengan kode sederhana. Orang tua dan anak bergabung dalam hitungan detik."
+    },
+    "step2": {
+      "title": "Tambah Tugas",
+      "description": "Buat tugas dengan nilai poin dan tanggal tenggat. Atur tugas berulang sekali, muncul otomatis."
+    },
+    "step3": {
+      "title": "Anak Menyelesaikan",
+      "description": "Anak-anak melihat dasbor menyenangkan seperti permainan yang dirancang khusus untuk mereka. Geser tugas dan ketuk untuk menyelesaikan."
+    },
+    "step4": {
+      "title": "Setujui & Rayakan",
+      "description": "Verifikasi tugas selesai dengan satu ketukan. Lihat konfeti berterbangan dan poin bertambah!"
+    }
+  },
+  "testimonials": {
+    "title": "Keluarga Menyukai Taskaroo",
+    "subtitle": "Bergabunglah dengan ribuan keluarga yang telah mengubah waktu tugas menjadi waktu menyenangkan.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "Pengguna Aktif Harian",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "Kepuasan Orang Tua",
+      "recommend": "92%",
+      "recommendLabel": "Akan Merekomendasikan"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Akhirnya sesuatu yang benar-benar berhasil! Anak-anak saya sekarang berlomba menyelesaikan tugas mereka.",
+        "author": "Sarah M.",
+        "role": "Ibu dari 3 anak"
+      },
+      "quote2": {
+        "text": "Fitur streak itu jenius. Anak saya tidak melewatkan satu hari pun selama dua bulan.",
+        "author": "David K.",
+        "role": "Ayah dari 2 anak"
+      },
+      "quote3": {
+        "text": "Tidak ada lagi perdebatan tentang giliran siapa. Semuanya jelas dan adil.",
+        "author": "Lisa T.",
+        "role": "Ibu dari 2 anak"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Harga Sederhana dan Adil",
+    "subtitle": "Mulai gratis. Upgrade saat Anda siap.",
+    "annually": "Hemat 17% dengan tagihan tahunan",
+    "perMonth": "/bulan",
+    "mostPopular": "Paling Populer",
+    "getStarted": "Mulai Sekarang",
+    "currentPlan": "Paket Saat Ini",
+    "free": {
+      "name": "Gratis",
+      "price": "Rp0",
+      "description": "Sempurna untuk mencoba Taskaroo",
+      "features": {
+        "members": "Hingga 2 anggota keluarga",
+        "tasks": "10 tugas aktif",
+        "achievements": "5 pencapaian dasar",
+        "recurring": "Hanya pengulangan harian",
+        "support": "Dukungan komunitas"
+      }
+    },
+    "family": {
+      "name": "Keluarga",
+      "price": "Rp49.000",
+      "description": "Semua untuk keluarga aktif",
+      "features": {
+        "members": "Anggota keluarga tak terbatas",
+        "tasks": "Tugas tak terbatas",
+        "achievements": "25+ pencapaian premium",
+        "recurring": "Semua pola pengulangan",
+        "rewards": "Hadiah poin-ke-uang",
+        "support": "Dukungan email"
+      }
+    },
+    "familyPro": {
+      "name": "Keluarga Pro",
+      "price": "Rp99.000",
+      "description": "Alat motivasi maksimal",
+      "features": {
+        "members": "Anggota keluarga tak terbatas",
+        "tasks": "Tugas tak terbatas",
+        "achievements": "50+ pencapaian premium",
+        "recurring": "Semua pola pengulangan",
+        "rewards": "Hadiah poin-ke-uang",
+        "analytics": "Analitik lanjutan",
+        "support": "Dukungan prioritas"
+      }
+    }
+  },
+  "cta": {
+    "title": "Siap Menjadikan Tugas Rumah Menyenangkan?",
+    "subtitle": "Bergabunglah dengan ribuan keluarga bahagia hari ini.",
+    "button": "MULAI GRATIS HARI INI",
+    "note": "Tidak perlu kartu kredit"
+  },
+  "footer": {
+    "tagline": "Menjadikan tugas rumah menyenangkan untuk keluarga di mana saja.",
+    "product": "Produk",
+    "legal": "Legal",
+    "connect": "Hubungi",
+    "features": "Fitur",
+    "pricing": "Harga",
+    "howItWorks": "Cara Kerja",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat Layanan",
+    "coppa": "Kepatuhan COPPA",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. Hak cipta dilindungi."
+  }
+}

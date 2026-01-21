@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} points",
+    "value_one": "{{count}} point",
+    "earned": "Points Gagnés",
+    "total": "Total des Points",
+    "weekly": "Points de la Semaine"
+  },
+  "level": {
+    "current": "Niveau {{level}}",
+    "progressTo": "Progression vers le Niveau {{level}}",
+    "maxLevel": "Niveau Maximum Atteint !"
+  },
+  "streak": {
+    "current": "{{count}} jours",
+    "current_one": "{{count}} jour",
+    "dayStreak": "jours consécutifs",
+    "keepItUp": "Continue comme ça !",
+    "streakLost": "Série perdue",
+    "newRecord": "Nouveau record !"
+  },
+  "achievements": {
+    "title": "Succès",
+    "unlocked": "{{count}} sur {{total}} débloqués",
+    "earned": "Obtenu le {{date}}",
+    "noAchievements": "Aucun succès disponible pour le moment",
+    "locked": "Verrouillé",
+    "newlyUnlocked": "Succès Débloqué !"
+  },
+  "leaderboard": {
+    "title": "Classement Familial",
+    "noMembers": "Aucun membre de la famille pour le moment",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Niveau {{level}} • {{points}} points"
+  },
+  "stats": {
+    "familyStats": "Statistiques Familiales",
+    "yourStats": "Vos Statistiques",
+    "totalTasks": "Total des Tâches",
+    "completed": "Terminées",
+    "pending": "En attente",
+    "weeklyPoints": "Points de la Semaine",
+    "completionRate": "Taux d'Achèvement"
+  },
+  "rewards": {
+    "title": "Récompenses",
+    "myRewards": "Mes Récompenses",
+    "overview": "Aperçu des Récompenses",
+    "redeem": "Échanger des Points",
+    "redeemButton": "Échanger",
+    "pointsToRedeem": "Points à Échanger",
+    "cashValue": "Valeur en Argent",
+    "perPoint": "{{rate}} € par point",
+    "availablePoints": "Points Disponibles",
+    "redeemableValue": "Valeur Échangeable",
+    "pendingRedemptions": "Échanges en Attente",
+    "redemptionHistory": "Historique des Échanges",
+    "noRedemptions": "Aucune demande d'échange pour le moment",
+    "requestRedemption": "Demander un Échange",
+    "minimumPlaceholder": "Minimum : {{minimum}} points",
+    "requesting": "Demande en cours...",
+    "needMinimum": "Vous avez besoin d'au moins {{minimum}} points pour demander un échange.",
+    "keepEarning": "Continuez à gagner pour débloquer des récompenses !",
+    "weeklyGoal": {
+      "title": "Progression de l'Objectif Hebdomadaire",
+      "progress": "{{current}} / {{target}} points",
+      "reached": "Objectif atteint ! Bonus de {{bonus}} € gagné cette semaine !",
+      "earnMore": "Gagnez {{remaining}} points de plus pour obtenir un bonus de {{bonus}} €"
+    },
+    "settings": {
+      "title": "Paramètres des Récompenses",
+      "enableRewards": "Activer les Récompenses",
+      "enableDescription": "Permettre aux membres de la famille d'échanger des points contre des récompenses",
+      "pointsToMoneyRate": "Taux de Conversion Points/Argent",
+      "pointsToMoneyRateHint": "Montant par point (ex : 0.01 = 0,01 € par point)",
+      "minimumRedemption": "Points Minimum pour l'Échange",
+      "minimumRedemptionHint": "Points minimum nécessaires pour demander un échange",
+      "weeklyBonusTarget": "Objectif du Bonus Hebdomadaire",
+      "weeklyTargetPoints": "Points Cibles Hebdomadaires",
+      "weeklyTargetPointsHint": "Points nécessaires pour gagner le bonus hebdomadaire (0 = désactivé)",
+      "weeklyBonusAmount": "Montant du Bonus Hebdomadaire",
+      "weeklyBonusAmountHint": "Montant du bonus pour avoir atteint l'objectif hebdomadaire",
+      "example": "Exemple : {{points}} points = {{money}} €",
+      "weeklyGoalExample": "Objectif hebdomadaire : Gagnez {{points}} points pour obtenir un bonus de {{bonus}} €",
+      "savedSuccess": "Paramètres enregistrés avec succès !",
+      "saveFailed": "Échec de l'enregistrement des paramètres",
+      "saving": "Enregistrement...",
+      "saveButton": "Enregistrer les Paramètres"
+    },
+    "status": {
+      "pending": "En attente",
+      "approved": "Approuvé",
+      "rejected": "Refusé",
+      "paid": "Payé"
+    },
+    "actions": {
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "markPaid": "Marquer comme Payé"
+    },
+    "manager": {
+      "title": "Demandes d'Échange",
+      "pendingApproval": "En Attente d'Approbation ({{count}})",
+      "awaitingPayment": "Approuvées - En Attente de Paiement ({{count}})",
+      "toPay": "{{amount}} € à payer",
+      "processing": "Traitement...",
+      "recentHistory": "Historique Récent",
+      "pointsEquals": "{{points}} points = {{money}} €"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Objectif Hebdomadaire",
+    "progress": "{{current}} / {{target}} points",
+    "completed": "Objectif Atteint !",
+    "notSet": "Aucun objectif défini"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% vers le Niveau {{level}}"
+    },
+    "tabs": {
+      "home": "Accueil",
+      "badges": "Badges",
+      "stats": "Stats"
+    },
+    "dailyGreeting": {
+      "welcome": "Content de te revoir !",
+      "dayStreak": "jours consécutifs !",
+      "letsGo": "C'est parti !",
+      "tapToContinue": "Touche n'importe où pour continuer",
+      "motivation": {
+        "startStreak": "Commençons une nouvelle série aujourd'hui !",
+        "greatStart": "Super début ! Continue comme ça !",
+        "momentum": "Tu prends de l'élan !",
+        "onFire": "Tu es en feu ! Incroyable !",
+        "dedication": "Quelle persévérance !",
+        "superstar": "Tu es une superstar !"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Progression du Jour",
+      "done": "{{done}}/{{total}} terminées",
+      "allDone": "Tout est fait ! Bravo !",
+      "emptyState": {
+        "title": "Prêt pour l'aventure ?",
+        "subtitle": "Crée une tâche pour commencer à gagner des points et monter de niveau !",
+        "quickIdeas": "Idées rapides :",
+        "createOwn": "Créer ma Propre Tâche"
+      },
+      "sections": {
+        "myTasks": "Mes Tâches ({{count}})",
+        "available": "Disponibles à Réclamer ({{count}})",
+        "waitingApproval": "En Attente d'Approbation ({{count}})",
+        "waitingForParent": "En Attente d'un Parent ({{count}})",
+        "completed": "Terminées ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "Mes Tâches",
+        "familyTasks": "Tâches Familiales"
+      },
+      "familyTasks": {
+        "noTasks": "Aucune tâche assignée",
+        "assignedTo": "Assignée à {{name}}"
+      },
+      "suggestions": {
+        "read": "Lire",
+        "clean": "Nettoyer",
+        "exercise": "Faire du sport",
+        "create": "Créer",
+        "learn": "Apprendre",
+        "petCare": "S'occuper de l'animal"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "Touche pour réclamer !",
+      "pendingApproval": "En attente d'approbation",
+      "waitingForParent": "En attente d'un parent"
+    },
+    "taskModal": {
+      "createTitle": "Crée Ta Tâche",
+      "whatToDo": "Qu'est-ce que tu veux faire ?",
+      "placeholder": "Ex : Lire pendant 20 minutes",
+      "createButton": "Créer la Tâche",
+      "creating": "Création...",
+      "sentForApproval": "Tâche envoyée au parent !",
+      "parentWillReview": "Ton parent va examiner et approuver ta tâche."
+    },
+    "completion": {
+      "title": "Terminer la Tâche",
+      "claimTask": "Réclamer Cette Tâche !",
+      "claiming": "Réclamation...",
+      "imDone": "J'ai Terminé !",
+      "submitting": "Envoi...",
+      "earnPoints": "Gagne {{points}} points !",
+      "alreadyCompleted": "Déjà terminée !",
+      "waitingApproval": "En attente d'approbation..."
+    },
+    "celebration": {
+      "approved": "Tâche Approuvée !",
+      "approvedBig": "APPROUVÉE !",
+      "youEarned": "Tu as gagné",
+      "points": "points !",
+      "awesome": "Super !",
+      "total": "Total : {{points}} points"
+    },
+    "badges": {
+      "title": "Mes Badges",
+      "unlockedCount": "{{unlocked}}/{{total}} débloqués",
+      "noBadges": "Pas encore de badges",
+      "noBadgesHint": "Termine des tâches pour gagner des badges !",
+      "earned": "Obtenu le {{date}}"
+    },
+    "statsView": {
+      "title": "Mes Statistiques",
+      "totalPoints": "Total des Points",
+      "currentLevel": "Niveau Actuel",
+      "currentStreak": "Série Actuelle",
+      "days": "jours",
+      "thisWeek": "Cette Semaine",
+      "tasksDone": "Tâches Terminées",
+      "pointsEarned": "Points Gagnés",
+      "activeDays": "Jours Actifs",
+      "recentActivity": "Activité Récente",
+      "noActivity": "Pas encore d'activité. Termine des tâches !"
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "管理面板",
+    "tabs": {
+      "members": "成员",
+      "approvals": "审批",
+      "rewards": "奖励"
+    }
+  },
+  "inviteCode": {
+    "title": "邀请码",
+    "description": "分享此邀请码邀请家庭成员（他们将以普通权限加入）",
+    "copyLink": "复制链接",
+    "copied": "已复制！"
+  },
+  "parentInviteCode": {
+    "title": "家长邀请码",
+    "description": "分享此邀请码邀请其他家长或监护人（具有管理员权限）"
+  },
+  "members": {
+    "title": "家庭成员",
+    "count": "家庭成员 ({{count}})",
+    "addChild": "添加孩子 (PIN)",
+    "admin": "管理员",
+    "pinUser": "PIN用户",
+    "points": "{{count}} 积分",
+    "level": "等级 {{level}}",
+    "editMember": "编辑成员",
+    "deleteMember": "删除成员",
+    "promoteAdmin": "设为管理员",
+    "demoteAdmin": "移除管理员"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "提升为管理员",
+    "demoteTitle": "移除管理员权限",
+    "notAdmin": "不是管理员",
+    "promoteWarningTitle": "授予管理员权限",
+    "promoteWarningMessage": "{{name}} 将能够管理家庭设置、审批任务和管理其他成员。",
+    "demoteWarningTitle": "移除管理员权限",
+    "demoteWarningMessage": "{{name}} 将不再能够管理家庭设置或审批任务。",
+    "lastAdminTitle": "无法移除最后一个管理员",
+    "lastAdminMessage": "每个家庭必须至少有一个管理员。请先将其他成员提升为管理员。",
+    "promoteButton": "设为管理员",
+    "demoteButton": "移除管理员",
+    "promoting": "提升中...",
+    "demoting": "移除中..."
+  },
+  "createChild": {
+    "title": "添加孩子账户",
+    "subtitle": "为孩子创建基于PIN的账户",
+    "nameLabel": "孩子姓名",
+    "namePlaceholder": "输入姓名",
+    "pinLabel": "PIN码",
+    "pinPlaceholder": "输入4位数PIN码",
+    "pinHelp": "孩子将使用此PIN码登录",
+    "colorLabel": "颜色",
+    "createButton": "创建孩子账户",
+    "creating": "创建中...",
+    "success": {
+      "title": "孩子账户创建成功！",
+      "message": "分享此链接给 {{name}} 以访问其仪表板：",
+      "copyLink": "复制登录链接",
+      "pin": "PIN码：{{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "编辑成员",
+    "nameLabel": "姓名",
+    "namePlaceholder": "输入姓名",
+    "colorLabel": "个人资料颜色",
+    "enablePinLogin": "启用PIN登录",
+    "pinLabel": "设置PIN码（4-6位数字）",
+    "newPinLabel": "新PIN码（4-6位数字，留空保持原有）",
+    "pinPlaceholder": "留空保持原有PIN码",
+    "confirmPinLabel": "确认PIN码",
+    "confirmPinPlaceholder": "重新输入PIN码",
+    "pinMismatch": "两次输入的PIN码不一致",
+    "pinTooShort": "PIN码至少需要4位数字",
+    "keepExistingPin": "留空保持原有PIN码",
+    "pinUserWarning": "这是基于PIN的账户。",
+    "saveButton": "保存更改",
+    "saving": "保存中..."
+  },
+  "deleteMember": {
+    "title": "删除成员",
+    "message": "您确定要删除 {{name}} 吗？这将同时删除其所有任务和积分历史。",
+    "warning": "此操作无法撤销。",
+    "warningIntro": "警告：此操作无法撤销。{{name}} 的所有数据将被永久删除，包括：",
+    "warningPoints": "积分和等级进度",
+    "warningAchievements": "获得的成就",
+    "warningTasks": "任务历史",
+    "warningRedemptions": "兑换记录",
+    "pointsAndLevel": "{{points}} 积分 · 等级 {{level}}",
+    "deleteButton": "删除成员",
+    "deleting": "删除中..."
+  },
+  "approvals": {
+    "title": "任务审批",
+    "pendingApprovals": "待审批",
+    "noPending": "没有待审批的任务",
+    "submittedBy": "提交者：{{name}}",
+    "approveButton": "批准",
+    "rejectButton": "拒绝",
+    "approving": "批准中...",
+    "rejecting": "拒绝中...",
+    "newTaskRequests": "新任务请求",
+    "noNewTaskRequests": "没有新的任务请求",
+    "createdBy": "创建者：{{name}}",
+    "points": "积分"
+  },
+  "palette": {
+    "title": "调色板",
+    "description": "为您的家庭选择个人资料颜色的调色板。",
+    "current": "当前：{{name}}",
+    "select": "选择调色板",
+    "saveButton": "保存调色板",
+    "saving": "保存中...",
+    "saved": "调色板已保存！",
+    "saveFailed": "保存失败"
+  }
+}

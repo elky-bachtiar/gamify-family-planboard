@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "Esperando Aprobación",
+    "claim": "Reclamar",
+    "claiming": "Reclamando...",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar esta tarea?"
+  },
+  "priority": {
+    "low": "Baja",
+    "medium": "Media",
+    "high": "Alta"
+  },
+  "status": {
+    "pending": "Pendiente",
+    "completed": "Completada",
+    "pendingApproval": "Pendiente de Aprobación"
+  },
+  "modal": {
+    "createTitle": "Crear Nueva Tarea",
+    "editTitle": "Editar Tarea",
+    "viewTitle": "Detalles de la Tarea",
+    "titleLabel": "Título de la Tarea",
+    "titlePlaceholder": "Ingresa el título de la tarea",
+    "descriptionLabel": "Descripción (Opcional)",
+    "descriptionPlaceholder": "Agrega detalles sobre esta tarea",
+    "priorityLabel": "Prioridad",
+    "pointsLabel": "Puntos",
+    "dueDateLabel": "Fecha de Vencimiento",
+    "dueTimeLabel": "Hora de Vencimiento",
+    "startTimeLabel": "Hora de Inicio (Opcional)",
+    "startTimePlaceholder": "Cuándo la tarea se vuelve visible",
+    "startTimeHint": "Si se establece, la tarea solo aparece para los hijos después de esta hora",
+    "assigneeLabel": "Asignar A",
+    "unassigned": "Sin Asignar",
+    "createButton": "Crear Tarea",
+    "creating": "Creando...",
+    "updateButton": "Actualizar Tarea",
+    "updating": "Actualizando...",
+    "pts": "pts",
+    "errors": {
+      "noRecurrenceTasks": "No se crearían tareas con la configuración de recurrencia actual",
+      "createFailed": "Error al crear la tarea. Por favor, intenta de nuevo."
+    }
+  },
+  "recurrence": {
+    "repeat": "Repetir",
+    "oneTime": "Una vez",
+    "daily": "Diario",
+    "weekly": "Semanal",
+    "specificDays": "Días específicos",
+    "selectDays": "Seleccionar días",
+    "endDate": "Fecha de fin",
+    "willCreate": "Esto creará <strong>{{count}}</strong> tarea",
+    "willCreate_other": "Esto creará <strong>{{count}}</strong> tareas",
+    "noTasksCreated": "No se crearán tareas con la configuración actual",
+    "weekdays": {
+      "sun": "Dom",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sáb"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Vista Semanal",
+    "noTasks": "No hay tareas para este día",
+    "addTask": "Agregar Tarea",
+    "weeklyTasks": "Tareas Semanales",
+    "weeklyTasksEmpty": "No hay tareas semanales esta semana"
+  },
+  "weeklyTask": {
+    "label": "Tarea semanal",
+    "hint": "El hijo puede completar esta tarea cualquier día de esta semana",
+    "badge": "Esta Semana"
+  },
+  "filters": {
+    "all": "Todas",
+    "myTasks": "Mis Tareas",
+    "unassigned": "Sin Asignar",
+    "completed": "Completadas",
+    "pending": "Pendientes",
+    "pendingApproval": "Pendiente de Aprobación",
+    "status": "Estado",
+    "assignee": "Asignado a"
+  },
+  "planboard": {
+    "title": "Planificador Familiar",
+    "today": "Hoy"
+  },
+  "empty": {
+    "noTasks": "Aún no hay tareas",
+    "noTasksDescription": "¡Crea una tarea para comenzar!"
+  },
+  "detail": {
+    "editTask": "Editar tarea",
+    "copyTask": "Copiar tarea",
+    "description": "Descripción",
+    "dueDate": "Fecha de Vencimiento",
+    "dueTime": "Hora de Vencimiento",
+    "startTime": "Hora de Inicio",
+    "timeRange": "Disponible",
+    "priority": "Prioridad",
+    "points": "Puntos",
+    "pointsValue": "{{count}} puntos",
+    "assignedTo": "Asignado A",
+    "unassigned": "Sin Asignar",
+    "tagsObjects": "Etiquetas/Objetos",
+    "tagsHint": "Presiona Enter o coma para agregar una etiqueta",
+    "tagsPlaceholder": "ej., lavavajillas, cocina",
+    "completedAt": "Completada El",
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando...",
+    "close": "Cerrar"
+  },
+  "recurringEdit": {
+    "title": "Editar Tarea Recurrente",
+    "partOfSeries": "\"{{title}}\" es parte de una serie de tareas recurrentes. ¿Cómo quieres aplicar tus cambios?",
+    "editSingleTitle": "Guardar solo esta tarea",
+    "editSingleDescription": "Los cambios solo se aplicarán a esta ocurrencia específica",
+    "editAllFutureTitle": "Guardar todas las tareas futuras",
+    "editAllFutureBadge": "{{count}} tareas",
+    "editAllFutureDescription": "Los cambios se aplicarán a todas las tareas no completadas desde hoy en adelante",
+    "updating": "Actualizando tareas..."
+  },
+  "recurringReorder": {
+    "title": "Reordenar Tarea Recurrente",
+    "partOfSeries": "\"{{title}}\" es parte de una serie de tareas recurrentes. ¿Cómo quieres aplicar la nueva posición?",
+    "reorderSingleTitle": "Reordenar solo esta tarea",
+    "reorderSingleDescription": "La nueva posición solo se aplicará a esta ocurrencia específica",
+    "reorderAllFutureTitle": "Reordenar todas las tareas futuras",
+    "reorderAllFutureBadge": "{{count}} tareas",
+    "reorderAllFutureDescription": "La nueva posición se aplicará a todas las tareas no completadas desde hoy en adelante",
+    "updating": "Actualizando posiciones..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas noches"
+    },
+    "todaysTasks": "Tareas de Hoy",
+    "completedToday": "Completadas Hoy",
+    "pointsEarned": "Puntos Ganados",
+    "keepGoing": "¡Sigue así!",
+    "allDone": "¡Todo listo!",
+    "createTask": "Crear Tarea"
+  },
+  "delete": {
+    "confirmTitle": "Eliminar Tarea",
+    "recurringTask": "Tarea Recurrente",
+    "confirmMessage": "¿Estás seguro de que quieres eliminar \"{{title}}\"?",
+    "recurringMessage": "\"{{title}}\" es parte de una serie de tareas recurrentes. ¿Qué te gustaría eliminar?",
+    "futureTasksInfo": "Esta serie tiene {{count}} tarea futura",
+    "futureTasksInfo_other": "Esta serie tiene {{count}} tareas futuras",
+    "deleteThisOnly": "Eliminar solo esta tarea",
+    "deleteAllFuture": "Eliminar las {{count}} tareas futuras",
+    "deleteTask": "Eliminar Tarea",
+    "deleting": "Eliminando..."
+  }
+}

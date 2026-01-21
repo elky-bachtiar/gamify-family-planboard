@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "แผงควบคุมผู้ดูแล",
+    "tabs": {
+      "members": "สมาชิก",
+      "approvals": "การอนุมัติ",
+      "rewards": "รางวัล"
+    }
+  },
+  "inviteCode": {
+    "title": "รหัสเชิญ",
+    "description": "แชร์รหัสนี้เพื่อเชิญสมาชิกครอบครัว (พวกเขาจะเข้าร่วมโดยไม่มีสิทธิ์ผู้ดูแล)",
+    "copyLink": "คัดลอกลิงก์",
+    "copied": "คัดลอกแล้ว!"
+  },
+  "parentInviteCode": {
+    "title": "รหัสเชิญพ่อแม่",
+    "description": "แชร์รหัสนี้เพื่อเชิญพ่อแม่หรือผู้ปกครองอื่นที่มีสิทธิ์ผู้ดูแล"
+  },
+  "members": {
+    "title": "สมาชิกครอบครัว",
+    "count": "สมาชิกครอบครัว ({{count}})",
+    "addChild": "เพิ่มลูก (PIN)",
+    "admin": "ผู้ดูแล",
+    "pinUser": "ผู้ใช้ PIN",
+    "points": "{{count}} คะแนน",
+    "level": "ระดับ {{level}}",
+    "editMember": "แก้ไขสมาชิก",
+    "deleteMember": "ลบสมาชิก",
+    "promoteAdmin": "ตั้งเป็นผู้ดูแล",
+    "demoteAdmin": "ถอดสิทธิ์ผู้ดูแล"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "เลื่อนขั้นเป็นผู้ดูแล",
+    "demoteTitle": "ถอดสิทธิ์ผู้ดูแล",
+    "notAdmin": "ไม่ใช่ผู้ดูแล",
+    "promoteWarningTitle": "ให้สิทธิ์ผู้ดูแล",
+    "promoteWarningMessage": "{{name}} จะสามารถจัดการการตั้งค่าครอบครัว อนุมัติงาน และจัดการสมาชิกคนอื่นได้",
+    "demoteWarningTitle": "ถอดสิทธิ์ผู้ดูแล",
+    "demoteWarningMessage": "{{name}} จะไม่สามารถจัดการการตั้งค่าครอบครัวหรืออนุมัติงานได้อีกต่อไป",
+    "lastAdminTitle": "ไม่สามารถถอดผู้ดูแลคนสุดท้ายได้",
+    "lastAdminMessage": "ทุกครอบครัวต้องมีผู้ดูแลอย่างน้อยหนึ่งคน กรุณาเลื่อนขั้นสมาชิกคนอื่นเป็นผู้ดูแลก่อน",
+    "promoteButton": "ตั้งเป็นผู้ดูแล",
+    "demoteButton": "ถอดสิทธิ์ผู้ดูแล",
+    "promoting": "กำลังเลื่อนขั้น...",
+    "demoting": "กำลังถอดสิทธิ์..."
+  },
+  "createChild": {
+    "title": "เพิ่มบัญชีลูก",
+    "subtitle": "สร้างบัญชีที่ใช้ PIN สำหรับลูก",
+    "nameLabel": "ชื่อลูก",
+    "namePlaceholder": "กรอกชื่อ",
+    "pinLabel": "รหัส PIN",
+    "pinPlaceholder": "กรอก PIN 4 หลัก",
+    "pinHelp": "PIN นี้จะใช้สำหรับลูกเข้าสู่ระบบ",
+    "colorLabel": "สี",
+    "createButton": "สร้างบัญชีลูก",
+    "creating": "กำลังสร้าง...",
+    "success": {
+      "title": "สร้างบัญชีลูกแล้ว!",
+      "message": "แชร์ลิงก์นี้ให้ {{name}} เพื่อเข้าถึงแดชบอร์ดของพวกเขา:",
+      "copyLink": "คัดลอกลิงก์เข้าสู่ระบบ",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "แก้ไขสมาชิก",
+    "nameLabel": "ชื่อ",
+    "namePlaceholder": "กรอกชื่อ",
+    "colorLabel": "สีโปรไฟล์",
+    "enablePinLogin": "เปิดใช้งานการเข้าสู่ระบบด้วย PIN",
+    "pinLabel": "ตั้ง PIN (4-6 หลัก)",
+    "newPinLabel": "PIN ใหม่ (4-6 หลัก ปล่อยว่างเพื่อใช้ PIN เดิม)",
+    "pinPlaceholder": "ปล่อยว่างเพื่อใช้ PIN เดิม",
+    "confirmPinLabel": "ยืนยัน PIN",
+    "confirmPinPlaceholder": "กรอก PIN อีกครั้ง",
+    "pinMismatch": "PIN ไม่ตรงกัน",
+    "pinTooShort": "PIN ต้องมีอย่างน้อย 4 หลัก",
+    "keepExistingPin": "ปล่อยว่างเพื่อใช้ PIN เดิม",
+    "pinUserWarning": "นี่คือบัญชีที่ใช้ PIN",
+    "saveButton": "บันทึกการเปลี่ยนแปลง",
+    "saving": "กำลังบันทึก..."
+  },
+  "deleteMember": {
+    "title": "ลบสมาชิก",
+    "message": "คุณแน่ใจหรือไม่ว่าต้องการลบ {{name}}? การดำเนินการนี้จะลบงานและประวัติคะแนนทั้งหมดของพวกเขาด้วย",
+    "warning": "การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+    "warningIntro": "คำเตือน: การดำเนินการนี้ไม่สามารถย้อนกลับได้ ข้อมูลทั้งหมดของ {{name}} จะถูกลบอย่างถาวร รวมถึง:",
+    "warningPoints": "คะแนนและความคืบหน้าระดับ",
+    "warningAchievements": "ความสำเร็จที่ได้รับ",
+    "warningTasks": "ประวัติงาน",
+    "warningRedemptions": "บันทึกการแลกรางวัล",
+    "pointsAndLevel": "{{points}} คะแนน · ระดับ {{level}}",
+    "deleteButton": "ลบสมาชิก",
+    "deleting": "กำลังลบ..."
+  },
+  "approvals": {
+    "title": "การอนุมัติงาน",
+    "pendingApprovals": "รอการอนุมัติ",
+    "noPending": "ไม่มีงานรอการอนุมัติ",
+    "submittedBy": "ส่งโดย {{name}}",
+    "approveButton": "อนุมัติ",
+    "rejectButton": "ปฏิเสธ",
+    "approving": "กำลังอนุมัติ...",
+    "rejecting": "กำลังปฏิเสธ...",
+    "newTaskRequests": "คำของานใหม่",
+    "noNewTaskRequests": "ไม่มีคำของานใหม่",
+    "createdBy": "สร้างโดย {{name}}",
+    "points": "คะแนน"
+  },
+  "palette": {
+    "title": "จานสี",
+    "description": "เลือกจานสีสำหรับสีโปรไฟล์ในครอบครัวของคุณ",
+    "current": "ปัจจุบัน: {{name}}",
+    "select": "เลือกจานสี",
+    "saveButton": "บันทึกจานสี",
+    "saving": "กำลังบันทึก...",
+    "saved": "บันทึกจานสีแล้ว!",
+    "saveFailed": "ไม่สามารถบันทึกได้"
+  }
+}

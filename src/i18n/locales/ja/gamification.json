@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}}ポイント",
+    "value_one": "{{count}}ポイント",
+    "earned": "獲得ポイント",
+    "total": "合計ポイント",
+    "weekly": "週間ポイント"
+  },
+  "level": {
+    "current": "レベル{{level}}",
+    "progressTo": "レベル{{level}}まで",
+    "maxLevel": "最高レベル達成！"
+  },
+  "streak": {
+    "current": "{{count}}日",
+    "current_one": "{{count}}日",
+    "dayStreak": "日連続",
+    "keepItUp": "その調子！",
+    "streakLost": "連続記録が途切れました",
+    "newRecord": "新記録！"
+  },
+  "achievements": {
+    "title": "アチーブメント",
+    "unlocked": "{{total}}個中{{count}}個解除",
+    "earned": "{{date}}に獲得",
+    "noAchievements": "まだアチーブメントはありません",
+    "locked": "未解除",
+    "newlyUnlocked": "アチーブメント解除！"
+  },
+  "leaderboard": {
+    "title": "ファミリーランキング",
+    "noMembers": "まだメンバーがいません",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "レベル{{level}} • {{points}}ポイント"
+  },
+  "stats": {
+    "familyStats": "ファミリー統計",
+    "yourStats": "あなたの統計",
+    "totalTasks": "タスク総数",
+    "completed": "完了",
+    "pending": "未完了",
+    "weeklyPoints": "週間ポイント",
+    "completionRate": "完了率"
+  },
+  "rewards": {
+    "title": "ごほうび",
+    "myRewards": "マイごほうび",
+    "overview": "ごほうび概要",
+    "redeem": "ポイント交換",
+    "redeemButton": "交換する",
+    "pointsToRedeem": "交換ポイント",
+    "cashValue": "現金換算",
+    "perPoint": "1ポイント = ¥{{rate}}",
+    "availablePoints": "利用可能ポイント",
+    "redeemableValue": "交換可能額",
+    "pendingRedemptions": "承認待ちの交換",
+    "redemptionHistory": "交換履歴",
+    "noRedemptions": "まだ交換申請はありません",
+    "requestRedemption": "交換を申請",
+    "minimumPlaceholder": "最低: {{minimum}}ポイント",
+    "requesting": "申請中...",
+    "needMinimum": "交換には最低{{minimum}}ポイント必要です。",
+    "keepEarning": "ごほうびを解除するためにポイントを貯めよう！",
+    "weeklyGoal": {
+      "title": "週間目標の進捗",
+      "progress": "{{current}} / {{target}}ポイント",
+      "reached": "目標達成！今週¥{{bonus}}のボーナス獲得！",
+      "earnMore": "あと{{remaining}}ポイントで¥{{bonus}}ボーナス"
+    },
+    "settings": {
+      "title": "ごほうび設定",
+      "enableRewards": "ごほうびを有効化",
+      "enableDescription": "家族メンバーがポイントをごほうびに交換できるようにする",
+      "pointsToMoneyRate": "ポイント換算レート",
+      "pointsToMoneyRateHint": "1ポイントあたりの金額（例: 1 = ¥1/ポイント）",
+      "minimumRedemption": "最低交換ポイント",
+      "minimumRedemptionHint": "交換申請に必要な最低ポイント",
+      "weeklyBonusTarget": "週間ボーナス目標",
+      "weeklyTargetPoints": "週間目標ポイント",
+      "weeklyTargetPointsHint": "週間ボーナスを獲得するのに必要なポイント（0 = 無効）",
+      "weeklyBonusAmount": "週間ボーナス額",
+      "weeklyBonusAmountHint": "週間目標達成時のボーナス額",
+      "example": "例: {{points}}ポイント = ¥{{money}}",
+      "weeklyGoalExample": "週間目標: {{points}}ポイント達成で¥{{bonus}}ボーナス",
+      "savedSuccess": "設定を保存しました！",
+      "saveFailed": "設定の保存に失敗しました",
+      "saving": "保存中...",
+      "saveButton": "ごほうび設定を保存"
+    },
+    "status": {
+      "pending": "承認待ち",
+      "approved": "承認済み",
+      "rejected": "却下",
+      "paid": "支払済み"
+    },
+    "actions": {
+      "approve": "承認",
+      "reject": "却下",
+      "markPaid": "支払済みにする"
+    },
+    "manager": {
+      "title": "交換申請",
+      "pendingApproval": "承認待ち（{{count}}件）",
+      "awaitingPayment": "承認済み - 支払待ち（{{count}}件）",
+      "toPay": "¥{{amount}}を支払い",
+      "processing": "処理中...",
+      "recentHistory": "最近の履歴",
+      "pointsEquals": "{{points}}ポイント = ¥{{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "週間目標",
+    "progress": "{{current}} / {{target}}ポイント",
+    "completed": "目標達成！",
+    "notSet": "目標未設定"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "レベル{{level}}まであと{{percent}}%"
+    },
+    "tabs": {
+      "home": "ホーム",
+      "badges": "バッジ",
+      "stats": "統計"
+    },
+    "dailyGreeting": {
+      "welcome": "おかえり！",
+      "dayStreak": "日連続！",
+      "letsGo": "がんばろう！",
+      "tapToContinue": "タップして続ける",
+      "motivation": {
+        "startStreak": "今日から新しい連続記録を始めよう！",
+        "greatStart": "いいスタートだね！続けよう！",
+        "momentum": "勢いがついてきたね！",
+        "onFire": "絶好調！すごい！",
+        "dedication": "素晴らしい努力だね！",
+        "superstar": "スーパースターだね！"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "今日の進捗",
+      "done": "{{done}}/{{total}}完了",
+      "allDone": "全部終わった！よくできました！",
+      "emptyState": {
+        "title": "冒険の準備はできた？",
+        "subtitle": "タスクを作成してポイントを貯めてレベルアップしよう！",
+        "quickIdeas": "アイデア:",
+        "createOwn": "自分のタスクを作成"
+      },
+      "sections": {
+        "myTasks": "マイタスク（{{count}}件）",
+        "available": "担当できるタスク（{{count}}件）",
+        "waitingApproval": "承認待ち（{{count}}件）",
+        "waitingForParent": "保護者待ち（{{count}}件）",
+        "completed": "完了（{{count}}件）"
+      },
+      "tabs": {
+        "myTasks": "マイタスク",
+        "familyTasks": "家族のタスク"
+      },
+      "familyTasks": {
+        "noTasks": "タスクはありません",
+        "assignedTo": "{{name}}に割当"
+      },
+      "suggestions": {
+        "read": "読書",
+        "clean": "そうじ",
+        "exercise": "運動",
+        "create": "工作",
+        "learn": "勉強",
+        "petCare": "ペットの世話"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "タップして担当！",
+      "pendingApproval": "承認待ち",
+      "waitingForParent": "保護者待ち"
+    },
+    "taskModal": {
+      "createTitle": "タスクを作成",
+      "whatToDo": "何をしたい？",
+      "placeholder": "例: 20分読書する",
+      "createButton": "タスクを作成",
+      "creating": "作成中...",
+      "sentForApproval": "タスクを送信しました！",
+      "parentWillReview": "保護者が確認して承認します。"
+    },
+    "completion": {
+      "title": "タスクを完了",
+      "claimTask": "このタスクを担当する！",
+      "claiming": "担当中...",
+      "imDone": "できた！",
+      "submitting": "送信中...",
+      "earnPoints": "{{points}}ポイントゲット！",
+      "alreadyCompleted": "すでに完了済み！",
+      "waitingApproval": "承認を待っています..."
+    },
+    "celebration": {
+      "approved": "タスク承認！",
+      "approvedBig": "承認！",
+      "youEarned": "獲得",
+      "points": "ポイント！",
+      "awesome": "すごい！",
+      "total": "合計: {{points}}ポイント"
+    },
+    "badges": {
+      "title": "マイバッジ",
+      "unlockedCount": "{{unlocked}}/{{total}}解除",
+      "noBadges": "まだバッジはありません",
+      "noBadgesHint": "タスクを完了してバッジを獲得しよう！",
+      "earned": "{{date}}に獲得"
+    },
+    "statsView": {
+      "title": "マイ統計",
+      "totalPoints": "合計ポイント",
+      "currentLevel": "現在のレベル",
+      "currentStreak": "連続記録",
+      "days": "日",
+      "thisWeek": "今週",
+      "tasksDone": "完了タスク",
+      "pointsEarned": "獲得ポイント",
+      "activeDays": "活動日数",
+      "recentActivity": "最近の活動",
+      "noActivity": "まだ活動がありません。タスクを完了しよう！"
+    }
+  }
+}

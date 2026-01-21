@@ -10,6 +10,7 @@ import { EditMemberModal } from './Admin/EditMemberModal';
 import { DeleteMemberConfirmModal } from './Admin/DeleteMemberConfirmModal';
 import { ToggleAdminModal } from './Admin/ToggleAdminModal';
 import { PaletteSelector } from './Admin/PaletteSelector';
+import { ManualPointsManager } from './Admin/ManualPointsManager';
 import type { FamilyMember } from '../types';
 
 export function AdminPanel() {
@@ -285,6 +286,10 @@ export function AdminPanel() {
 
             <div className="border-t border-gray-200 pt-6 mt-6">
               <PaletteSelector />
+            </div>
+
+            <div className="border-t border-gray-200 pt-6 mt-6">
+              <ManualPointsManager />
             </div>
           </div>
         )}

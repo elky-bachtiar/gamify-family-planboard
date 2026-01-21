@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "รอการอนุมัติ",
+    "claim": "รับงาน",
+    "claiming": "กำลังรับงาน...",
+    "deleteConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบงานนี้?"
+  },
+  "priority": {
+    "low": "ต่ำ",
+    "medium": "ปานกลาง",
+    "high": "สูง"
+  },
+  "status": {
+    "pending": "รอดำเนินการ",
+    "completed": "เสร็จสิ้น",
+    "pendingApproval": "รอการอนุมัติ"
+  },
+  "modal": {
+    "createTitle": "สร้างงานใหม่",
+    "editTitle": "แก้ไขงาน",
+    "viewTitle": "รายละเอียดงาน",
+    "titleLabel": "ชื่องาน",
+    "titlePlaceholder": "กรอกชื่องาน",
+    "descriptionLabel": "รายละเอียด (ไม่บังคับ)",
+    "descriptionPlaceholder": "เพิ่มรายละเอียดเกี่ยวกับงานนี้",
+    "priorityLabel": "ความสำคัญ",
+    "pointsLabel": "คะแนน",
+    "dueDateLabel": "วันครบกำหนด",
+    "dueTimeLabel": "เวลาครบกำหนด",
+    "startTimeLabel": "เวลาเริ่มต้น (ไม่บังคับ)",
+    "startTimePlaceholder": "เวลาที่งานจะปรากฏ",
+    "startTimeHint": "ถ้าตั้งค่า งานจะปรากฏให้เด็กเห็นหลังจากเวลานี้เท่านั้น",
+    "assigneeLabel": "มอบหมายให้",
+    "unassigned": "ไม่ได้มอบหมาย",
+    "createButton": "สร้างงาน",
+    "creating": "กำลังสร้าง...",
+    "updateButton": "อัปเดตงาน",
+    "updating": "กำลังอัปเดต...",
+    "pts": "คะแนน",
+    "errors": {
+      "noRecurrenceTasks": "ไม่มีงานที่จะถูกสร้างด้วยการตั้งค่าการทำซ้ำปัจจุบัน",
+      "createFailed": "ไม่สามารถสร้างงานได้ กรุณาลองใหม่อีกครั้ง"
+    }
+  },
+  "recurrence": {
+    "repeat": "ทำซ้ำ",
+    "oneTime": "ครั้งเดียว",
+    "daily": "ทุกวัน",
+    "weekly": "ทุกสัปดาห์",
+    "specificDays": "วันที่กำหนด",
+    "selectDays": "เลือกวัน",
+    "endDate": "วันสิ้นสุด",
+    "willCreate": "จะสร้าง <strong>{{count}}</strong> งาน",
+    "willCreate_other": "จะสร้าง <strong>{{count}}</strong> งาน",
+    "noTasksCreated": "ไม่มีงานที่จะถูกสร้างด้วยการตั้งค่าปัจจุบัน",
+    "weekdays": {
+      "sun": "อา.",
+      "mon": "จ.",
+      "tue": "อ.",
+      "wed": "พ.",
+      "thu": "พฤ.",
+      "fri": "ศ.",
+      "sat": "ส."
+    }
+  },
+  "calendar": {
+    "weeklyView": "มุมมองรายสัปดาห์",
+    "noTasks": "ไม่มีงานสำหรับวันนี้",
+    "addTask": "เพิ่มงาน",
+    "weeklyTasks": "งานประจำสัปดาห์",
+    "weeklyTasksEmpty": "ไม่มีงานประจำสัปดาห์ในสัปดาห์นี้"
+  },
+  "weeklyTask": {
+    "label": "งานประจำสัปดาห์",
+    "hint": "เด็กสามารถทำงานนี้ได้ในวันใดก็ได้ในสัปดาห์นี้",
+    "badge": "สัปดาห์นี้"
+  },
+  "filters": {
+    "all": "ทั้งหมด",
+    "myTasks": "งานของฉัน",
+    "unassigned": "ไม่ได้มอบหมาย",
+    "completed": "เสร็จสิ้น",
+    "pending": "รอดำเนินการ",
+    "pendingApproval": "รอการอนุมัติ",
+    "status": "สถานะ",
+    "assignee": "ผู้รับผิดชอบ"
+  },
+  "planboard": {
+    "title": "กระดานแผนครอบครัว",
+    "today": "วันนี้"
+  },
+  "empty": {
+    "noTasks": "ยังไม่มีงาน",
+    "noTasksDescription": "สร้างงานเพื่อเริ่มต้น!"
+  },
+  "detail": {
+    "editTask": "แก้ไขงาน",
+    "copyTask": "คัดลอกงาน",
+    "description": "รายละเอียด",
+    "dueDate": "วันครบกำหนด",
+    "dueTime": "เวลาครบกำหนด",
+    "startTime": "เวลาเริ่มต้น",
+    "timeRange": "ช่วงเวลา",
+    "priority": "ความสำคัญ",
+    "points": "คะแนน",
+    "pointsValue": "{{count}} คะแนน",
+    "assignedTo": "มอบหมายให้",
+    "unassigned": "ไม่ได้มอบหมาย",
+    "tagsObjects": "แท็ก/วัตถุ",
+    "tagsHint": "กด Enter หรือจุลภาคเพื่อเพิ่มแท็ก",
+    "tagsPlaceholder": "เช่น เครื่องล้างจาน ห้องครัว",
+    "completedAt": "เสร็จสิ้นเมื่อ",
+    "saveChanges": "บันทึกการเปลี่ยนแปลง",
+    "saving": "กำลังบันทึก...",
+    "close": "ปิด"
+  },
+  "recurringEdit": {
+    "title": "แก้ไขงานที่ทำซ้ำ",
+    "partOfSeries": "\"{{title}}\" เป็นส่วนหนึ่งของชุดงานที่ทำซ้ำ คุณต้องการใช้การเปลี่ยนแปลงอย่างไร?",
+    "editSingleTitle": "บันทึกเฉพาะงานนี้",
+    "editSingleDescription": "การเปลี่ยนแปลงจะมีผลกับงานนี้เท่านั้น",
+    "editAllFutureTitle": "บันทึกงานในอนาคตทั้งหมด",
+    "editAllFutureBadge": "{{count}} งาน",
+    "editAllFutureDescription": "การเปลี่ยนแปลงจะมีผลกับงานที่ยังไม่เสร็จทั้งหมดตั้งแต่วันนี้เป็นต้นไป",
+    "updating": "กำลังอัปเดตงาน..."
+  },
+  "recurringReorder": {
+    "title": "จัดลำดับงานที่ทำซ้ำ",
+    "partOfSeries": "\"{{title}}\" เป็นส่วนหนึ่งของชุดงานที่ทำซ้ำ คุณต้องการใช้ตำแหน่งใหม่อย่างไร?",
+    "reorderSingleTitle": "จัดลำดับเฉพาะงานนี้",
+    "reorderSingleDescription": "ตำแหน่งใหม่จะมีผลกับงานนี้เท่านั้น",
+    "reorderAllFutureTitle": "จัดลำดับงานในอนาคตทั้งหมด",
+    "reorderAllFutureBadge": "{{count}} งาน",
+    "reorderAllFutureDescription": "ตำแหน่งใหม่จะมีผลกับงานที่ยังไม่เสร็จทั้งหมดตั้งแต่วันนี้เป็นต้นไป",
+    "updating": "กำลังอัปเดตตำแหน่ง..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "สวัสดีตอนเช้า",
+      "afternoon": "สวัสดีตอนบ่าย",
+      "evening": "สวัสดีตอนเย็น"
+    },
+    "todaysTasks": "งานวันนี้",
+    "completedToday": "เสร็จวันนี้",
+    "pointsEarned": "คะแนนที่ได้รับ",
+    "keepGoing": "ทำต่อไป!",
+    "allDone": "เสร็จหมดแล้ว!",
+    "createTask": "สร้างงาน"
+  },
+  "delete": {
+    "confirmTitle": "ลบงาน",
+    "recurringTask": "งานที่ทำซ้ำ",
+    "confirmMessage": "คุณแน่ใจหรือไม่ว่าต้องการลบ \"{{title}}\"?",
+    "recurringMessage": "\"{{title}}\" เป็นส่วนหนึ่งของชุดงานที่ทำซ้ำ คุณต้องการลบอะไร?",
+    "futureTasksInfo": "ชุดงานนี้มี {{count}} งานในอนาคต",
+    "futureTasksInfo_other": "ชุดงานนี้มี {{count}} งานในอนาคต",
+    "deleteThisOnly": "ลบเฉพาะงานนี้",
+    "deleteAllFuture": "ลบงานในอนาคตทั้งหมด {{count}} งาน",
+    "deleteTask": "ลบงาน",
+    "deleting": "กำลังลบ..."
+  }
+}

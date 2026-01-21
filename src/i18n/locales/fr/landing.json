@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Fonctionnalités",
+    "howItWorks": "Comment ça marche",
+    "pricing": "Tarifs",
+    "login": "Connexion",
+    "getStarted": "Commencer"
+  },
+  "hero": {
+    "headline": "Rendre les Corvées Amusantes.",
+    "headlineHighlight": "Vraiment.",
+    "subheadline": "Taskaroo transforme les tâches ménagères en un jeu auquel vos enfants veulent vraiment jouer. Points, niveaux, séries et vraies récompenses.",
+    "cta": "COMMENCER GRATUITEMENT",
+    "secondaryCta": "Voir Comment ça Marche"
+  },
+  "features": {
+    "title": "Tout ce dont Votre Famille a Besoin",
+    "subtitle": "Conçu par des parents, pour des parents. Taskaroo combine la gamification basée sur la psychologie avec une gestion pratique des tâches.",
+    "pointsLevels": {
+      "title": "Points et Niveaux",
+      "description": "Gagnez des points pour chaque tâche, montez de niveau et débloquez des succès. Regardez la motivation s'envoler alors que les enfants poursuivent leur prochain objectif."
+    },
+    "streaks": {
+      "title": "Séries et Combos",
+      "description": "Construisez des séries quotidiennes pour une motivation bonus. Les bonus de combo récompensent les aides réguliers avec jusqu'à 50% de points supplémentaires."
+    },
+    "childFriendly": {
+      "title": "Adapté aux Enfants",
+      "description": "Les enfants se connectent avec un simple PIN - pas besoin d'email. Gros boutons, design coloré et instructions claires qu'ils peuvent suivre."
+    },
+    "approval": {
+      "title": "Approbation Parentale",
+      "description": "Vérifiez que les tâches sont vraiment terminées avant que les points ne soient attribués. Vous gardez le contrôle pendant que les enfants apprennent la responsabilité."
+    },
+    "rewards": {
+      "title": "Vraies Récompenses",
+      "description": "Convertissez les points en argent de poche, temps d'écran ou récompenses personnalisées. Rendez tangible le lien entre effort et résultat."
+    },
+    "leaderboard": {
+      "title": "Classement Familial",
+      "description": "Une compétition saine maintient tout le monde engagé. Voyez qui est en tête cette semaine et célébrez ensemble les meilleurs performers."
+    }
+  },
+  "howItWorks": {
+    "title": "Opérationnel en Quelques Minutes",
+    "subtitle": "Pas de configuration compliquée. Pas de courbe d'apprentissage. Juste des résultats.",
+    "step1": {
+      "title": "Créez Votre Famille",
+      "description": "Inscrivez-vous et invitez les membres de la famille avec un simple code. Parents et enfants rejoignent en quelques secondes."
+    },
+    "step2": {
+      "title": "Ajoutez des Tâches",
+      "description": "Créez des corvées avec des valeurs en points et des dates limites. Configurez les tâches récurrentes une fois, elles apparaissent automatiquement."
+    },
+    "step3": {
+      "title": "Les Enfants Accomplissent",
+      "description": "Les enfants voient un tableau de bord amusant et ludique conçu pour eux. Faites défiler les tâches et touchez pour terminer."
+    },
+    "step4": {
+      "title": "Approuvez et Célébrez",
+      "description": "Vérifiez les tâches terminées d'un simple toucher. Regardez les confettis voler et les points s'accumuler !"
+    }
+  },
+  "testimonials": {
+    "title": "Les Familles Adorent Taskaroo",
+    "subtitle": "Rejoignez des milliers de familles qui ont transformé le moment des corvées en moment de plaisir.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "Utilisateurs Actifs Quotidiens",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "Satisfaction des Parents",
+      "recommend": "92%",
+      "recommendLabel": "Recommanderaient"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Enfin quelque chose qui fonctionne vraiment ! Mes enfants se précipitent maintenant pour finir leurs corvées.",
+        "author": "Sophie M.",
+        "role": "Maman de 3 enfants"
+      },
+      "quote2": {
+        "text": "La fonctionnalité de série est géniale. Mon fils n'a pas manqué un jour depuis deux mois.",
+        "author": "David K.",
+        "role": "Papa de 2 enfants"
+      },
+      "quote3": {
+        "text": "Plus de disputes pour savoir à qui c'est le tour. Tout est clair et équitable.",
+        "author": "Lisa T.",
+        "role": "Maman de 2 enfants"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Tarification Simple et Équitable",
+    "subtitle": "Commencez gratuitement. Passez à la version supérieure quand vous êtes prêt.",
+    "annually": "Économisez 17% avec la facturation annuelle",
+    "perMonth": "/mois",
+    "mostPopular": "Le Plus Populaire",
+    "getStarted": "Commencer",
+    "currentPlan": "Forfait Actuel",
+    "free": {
+      "name": "Gratuit",
+      "price": "0 €",
+      "description": "Parfait pour essayer Taskaroo",
+      "features": {
+        "members": "Jusqu'à 2 membres de la famille",
+        "tasks": "10 tâches actives",
+        "achievements": "5 succès de base",
+        "recurring": "Récurrence quotidienne uniquement",
+        "support": "Support communautaire"
+      }
+    },
+    "family": {
+      "name": "Famille",
+      "price": "4,99 €",
+      "description": "Tout pour les familles actives",
+      "features": {
+        "members": "Membres de la famille illimités",
+        "tasks": "Tâches illimitées",
+        "achievements": "25+ succès premium",
+        "recurring": "Tous les modèles de récurrence",
+        "rewards": "Récompenses points-argent",
+        "support": "Support par email"
+      }
+    },
+    "familyPro": {
+      "name": "Famille Pro",
+      "price": "9,99 €",
+      "description": "Outils de motivation maximum",
+      "features": {
+        "members": "Membres de la famille illimités",
+        "tasks": "Tâches illimitées",
+        "achievements": "50+ succès premium",
+        "recurring": "Tous les modèles de récurrence",
+        "rewards": "Récompenses points-argent",
+        "analytics": "Analyses avancées",
+        "support": "Support prioritaire"
+      }
+    }
+  },
+  "cta": {
+    "title": "Prêt à Rendre les Corvées Amusantes ?",
+    "subtitle": "Rejoignez des milliers de familles heureuses dès aujourd'hui.",
+    "button": "COMMENCER GRATUITEMENT",
+    "note": "Aucune carte de crédit requise"
+  },
+  "footer": {
+    "tagline": "Rendre les corvées amusantes pour les familles partout.",
+    "product": "Produit",
+    "legal": "Mentions Légales",
+    "connect": "Nous Suivre",
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "howItWorks": "Comment ça marche",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "coppa": "Conformité COPPA",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. Tous droits réservés."
+  }
+}

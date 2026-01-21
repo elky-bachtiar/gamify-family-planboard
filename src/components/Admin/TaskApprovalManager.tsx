@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
 import { getSupabaseClient } from '../../lib/supabase';
 import { approveTask, rejectTask } from '../../lib/gamification';
+import { MissedWeeklyTasksSection } from './MissedWeeklyTasksSection';
 import { PRIORITY_CONFIG } from '../../types';
 import type { Task, FamilyMember } from '../../types';
 
@@ -353,6 +354,9 @@ export function TaskApprovalManager() {
           </div>
         )}
       </div>
+
+      {/* Missed Weekly Tasks Section */}
+      <MissedWeeklyTasksSection onPenaltyApplied={loadTasks} />
 
       {recentlyApproved.length > 0 && (
         <div>

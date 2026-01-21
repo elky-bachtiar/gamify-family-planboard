@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} نقاط",
+    "value_one": "{{count}} نقطة",
+    "earned": "النقاط المكتسبة",
+    "total": "إجمالي النقاط",
+    "weekly": "النقاط الأسبوعية"
+  },
+  "level": {
+    "current": "المستوى {{level}}",
+    "progressTo": "التقدم نحو المستوى {{level}}",
+    "maxLevel": "تم الوصول للمستوى الأقصى!"
+  },
+  "streak": {
+    "current": "{{count}} أيام",
+    "current_one": "{{count}} يوم",
+    "dayStreak": "سلسلة أيام",
+    "keepItUp": "استمر!",
+    "streakLost": "انقطعت السلسلة",
+    "newRecord": "رقم قياسي جديد!"
+  },
+  "achievements": {
+    "title": "الإنجازات",
+    "unlocked": "{{count}} من {{total}} مفتوحة",
+    "earned": "حصلت عليها {{date}}",
+    "noAchievements": "لا توجد إنجازات متاحة بعد",
+    "locked": "مقفل",
+    "newlyUnlocked": "تم فتح إنجاز!"
+  },
+  "leaderboard": {
+    "title": "لوحة الصدارة العائلية",
+    "noMembers": "لا يوجد أفراد عائلة بعد",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "المستوى {{level}} • {{points}} نقاط"
+  },
+  "stats": {
+    "familyStats": "إحصائيات العائلة",
+    "yourStats": "إحصائياتك",
+    "totalTasks": "إجمالي المهام",
+    "completed": "مكتملة",
+    "pending": "قيد الانتظار",
+    "weeklyPoints": "النقاط الأسبوعية",
+    "completionRate": "معدل الإنجاز"
+  },
+  "rewards": {
+    "title": "المكافآت",
+    "myRewards": "مكافآتي",
+    "overview": "نظرة عامة على المكافآت",
+    "redeem": "استبدال النقاط",
+    "redeemButton": "استبدال",
+    "pointsToRedeem": "النقاط للاستبدال",
+    "cashValue": "القيمة النقدية",
+    "perPoint": "${{rate}} لكل نقطة",
+    "availablePoints": "النقاط المتاحة",
+    "redeemableValue": "القيمة القابلة للاستبدال",
+    "pendingRedemptions": "طلبات الاستبدال المعلقة",
+    "redemptionHistory": "سجل الاستبدال",
+    "noRedemptions": "لا توجد طلبات استبدال بعد",
+    "requestRedemption": "طلب استبدال",
+    "minimumPlaceholder": "الحد الأدنى: {{minimum}} نقطة",
+    "requesting": "جارٍ الطلب...",
+    "needMinimum": "تحتاج {{minimum}} نقطة على الأقل لطلب استبدال.",
+    "keepEarning": "استمر في الكسب لفتح المكافآت!",
+    "weeklyGoal": {
+      "title": "تقدم الهدف الأسبوعي",
+      "progress": "{{current}} / {{target}} نقاط",
+      "reached": "تم تحقيق الهدف! حصلت على مكافأة ${{bonus}} هذا الأسبوع!",
+      "earnMore": "اكسب {{remaining}} نقطة إضافية للحصول على مكافأة ${{bonus}}"
+    },
+    "settings": {
+      "title": "إعدادات المكافآت",
+      "enableRewards": "تفعيل المكافآت",
+      "enableDescription": "السماح لأفراد العائلة باستبدال النقاط بمكافآت",
+      "pointsToMoneyRate": "معدل تحويل النقاط إلى مال",
+      "pointsToMoneyRateHint": "المبلغ لكل نقطة (مثال: 0.01 = $0.01 لكل نقطة)",
+      "minimumRedemption": "الحد الأدنى للاستبدال",
+      "minimumRedemptionHint": "الحد الأدنى من النقاط المطلوبة لطلب استبدال",
+      "weeklyBonusTarget": "هدف المكافأة الأسبوعية",
+      "weeklyTargetPoints": "نقاط الهدف الأسبوعي",
+      "weeklyTargetPointsHint": "النقاط المطلوبة لكسب المكافأة الأسبوعية (0 = معطل)",
+      "weeklyBonusAmount": "مبلغ المكافأة الأسبوعية",
+      "weeklyBonusAmountHint": "مبلغ المكافأة للوصول للهدف الأسبوعي",
+      "example": "مثال: {{points}} نقاط = ${{money}}",
+      "weeklyGoalExample": "الهدف الأسبوعي: اكسب {{points}} نقطة للحصول على مكافأة ${{bonus}}",
+      "savedSuccess": "تم حفظ الإعدادات بنجاح!",
+      "saveFailed": "فشل حفظ الإعدادات",
+      "saving": "جارٍ الحفظ...",
+      "saveButton": "حفظ إعدادات المكافآت"
+    },
+    "status": {
+      "pending": "قيد الانتظار",
+      "approved": "موافق عليه",
+      "rejected": "مرفوض",
+      "paid": "مدفوع"
+    },
+    "actions": {
+      "approve": "موافقة",
+      "reject": "رفض",
+      "markPaid": "تحديد كمدفوع"
+    },
+    "manager": {
+      "title": "طلبات الاستبدال",
+      "pendingApproval": "في انتظار الموافقة ({{count}})",
+      "awaitingPayment": "موافق عليه - في انتظار الدفع ({{count}})",
+      "toPay": "${{amount}} للدفع",
+      "processing": "جارٍ المعالجة...",
+      "recentHistory": "السجل الأخير",
+      "pointsEquals": "{{points}} نقاط = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "الهدف الأسبوعي",
+    "progress": "{{current}} / {{target}} نقاط",
+    "completed": "تم تحقيق الهدف!",
+    "notSet": "لم يتم تحديد هدف"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% نحو المستوى {{level}}"
+    },
+    "tabs": {
+      "home": "الرئيسية",
+      "badges": "الشارات",
+      "stats": "الإحصائيات"
+    },
+    "dailyGreeting": {
+      "welcome": "مرحباً بعودتك!",
+      "dayStreak": "سلسلة أيام!",
+      "letsGo": "هيا بنا!",
+      "tapToContinue": "انقر في أي مكان للمتابعة",
+      "motivation": {
+        "startStreak": "لنبدأ سلسلة جديدة اليوم!",
+        "greatStart": "بداية رائعة! استمر!",
+        "momentum": "أنت تبني زخماً!",
+        "onFire": "أنت متألق! رائع!",
+        "dedication": "تفانٍ لا يصدق!",
+        "superstar": "أنت نجم!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "تقدم اليوم",
+      "done": "{{done}}/{{total}} مكتمل",
+      "allDone": "أنجزت الكل! أحسنت!",
+      "emptyState": {
+        "title": "مستعد لمغامرة؟",
+        "subtitle": "أنشئ مهمة لبدء كسب النقاط والارتقاء بالمستوى!",
+        "quickIdeas": "أفكار سريعة:",
+        "createOwn": "إنشاء مهمتي الخاصة"
+      },
+      "sections": {
+        "myTasks": "مهامي ({{count}})",
+        "available": "متاحة للاستلام ({{count}})",
+        "waitingApproval": "في انتظار الموافقة ({{count}})",
+        "waitingForParent": "في انتظار الوالد ({{count}})",
+        "completed": "مكتملة ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "مهامي",
+        "familyTasks": "مهام العائلة"
+      },
+      "familyTasks": {
+        "noTasks": "لا توجد مهام معيّنة",
+        "assignedTo": "معيّن إلى {{name}}"
+      },
+      "suggestions": {
+        "read": "قراءة",
+        "clean": "تنظيف",
+        "exercise": "رياضة",
+        "create": "إبداع",
+        "learn": "تعلم",
+        "petCare": "رعاية الحيوان"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "انقر للاستلام!",
+      "pendingApproval": "في انتظار الموافقة",
+      "waitingForParent": "في انتظار الوالد"
+    },
+    "taskModal": {
+      "createTitle": "أنشئ مهمتك",
+      "whatToDo": "ماذا تريد أن تفعل؟",
+      "placeholder": "مثال: القراءة لمدة 20 دقيقة",
+      "createButton": "إنشاء المهمة",
+      "creating": "جارٍ الإنشاء...",
+      "sentForApproval": "تم إرسال المهمة للوالد!",
+      "parentWillReview": "سيقوم والدك بمراجعة مهمتك والموافقة عليها."
+    },
+    "completion": {
+      "title": "إكمال المهمة",
+      "claimTask": "استلم هذه المهمة!",
+      "claiming": "جارٍ الاستلام...",
+      "imDone": "انتهيت!",
+      "submitting": "جارٍ الإرسال...",
+      "earnPoints": "اكسب {{points}} نقاط!",
+      "alreadyCompleted": "مكتملة بالفعل!",
+      "waitingApproval": "في انتظار الموافقة..."
+    },
+    "celebration": {
+      "approved": "تمت الموافقة على المهمة!",
+      "approvedBig": "موافق عليه!",
+      "youEarned": "لقد كسبت",
+      "points": "نقاط!",
+      "awesome": "رائع!",
+      "total": "الإجمالي: {{points}} نقاط"
+    },
+    "badges": {
+      "title": "شاراتي",
+      "unlockedCount": "{{unlocked}}/{{total}} مفتوحة",
+      "noBadges": "لا توجد شارات بعد",
+      "noBadgesHint": "أكمل المهام لكسب الشارات!",
+      "earned": "حصلت عليها {{date}}"
+    },
+    "statsView": {
+      "title": "إحصائياتي",
+      "totalPoints": "إجمالي النقاط",
+      "currentLevel": "المستوى الحالي",
+      "currentStreak": "السلسلة الحالية",
+      "days": "أيام",
+      "thisWeek": "هذا الأسبوع",
+      "tasksDone": "المهام المنجزة",
+      "pointsEarned": "النقاط المكتسبة",
+      "activeDays": "الأيام النشطة",
+      "recentActivity": "النشاط الأخير",
+      "noActivity": "لا يوجد نشاط بعد. أكمل بعض المهام!"
+    }
+  }
+}

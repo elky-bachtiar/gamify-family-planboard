@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Papan Keluarga"
+  },
+  "navigation": {
+    "myTasks": "Tugas Saya",
+    "familyBoard": "Papan Keluarga",
+    "dashboard": "Dasbor",
+    "childMode": "Tampilan Anak",
+    "enterChildMode": "Beralih ke Tampilan Anak",
+    "exitChildMode": "Keluar dari Tampilan Anak"
+  },
+  "buttons": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Ubah",
+    "close": "Tutup",
+    "back": "Kembali",
+    "submit": "Kirim",
+    "confirm": "Konfirmasi",
+    "copy": "Salin",
+    "copyLink": "Salin Tautan",
+    "copied": "Tersalin!",
+    "loading": "Memuat...",
+    "create": "Buat",
+    "update": "Perbarui",
+    "add": "Tambah"
+  },
+  "labels": {
+    "name": "Nama",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "description": "Deskripsi",
+    "status": "Status",
+    "priority": "Prioritas",
+    "points": "poin",
+    "level": "Level",
+    "days": "hari",
+    "dayStreak": "hari beruntun"
+  },
+  "errors": {
+    "generic": "Terjadi kesalahan",
+    "required": "Kolom ini wajib diisi",
+    "invalidEmail": "Alamat email tidak valid",
+    "networkError": "Kesalahan jaringan. Silakan coba lagi.",
+    "unauthorized": "Anda tidak memiliki izin untuk melakukan tindakan ini"
+  },
+  "empty": {
+    "noData": "Tidak ada data",
+    "noResults": "Tidak ada hasil ditemukan"
+  },
+  "time": {
+    "today": "Hari Ini",
+    "yesterday": "Kemarin",
+    "tomorrow": "Besok",
+    "thisWeek": "Minggu Ini"
+  },
+  "confirmation": {
+    "areYouSure": "Apakah Anda yakin?",
+    "cannotUndo": "Tindakan ini tidak dapat dibatalkan."
+  },
+  "profile": {
+    "settings": "Pengaturan Profil",
+    "signOut": "Keluar"
+  }
+}

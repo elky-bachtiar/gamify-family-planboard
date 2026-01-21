@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} পয়েন্ট",
+    "value_one": "{{count}} পয়েন্ট",
+    "earned": "অর্জিত পয়েন্ট",
+    "total": "মোট পয়েন্ট",
+    "weekly": "সাপ্তাহিক পয়েন্ট"
+  },
+  "level": {
+    "current": "লেভেল {{level}}",
+    "progressTo": "লেভেল {{level}}-এ অগ্রগতি",
+    "maxLevel": "সর্বোচ্চ লেভেলে পৌঁছেছেন!"
+  },
+  "streak": {
+    "current": "{{count}} দিন",
+    "current_one": "{{count}} দিন",
+    "dayStreak": "দিনের স্ট্রিক",
+    "keepItUp": "চালিয়ে যাও!",
+    "streakLost": "স্ট্রিক হারিয়েছে",
+    "newRecord": "নতুন রেকর্ড!"
+  },
+  "achievements": {
+    "title": "অর্জন",
+    "unlocked": "{{total}}-এর মধ্যে {{count}}টি আনলক",
+    "earned": "{{date}} অর্জিত",
+    "noAchievements": "এখনো কোনো অর্জন নেই",
+    "locked": "লক করা",
+    "newlyUnlocked": "অর্জন আনলক হয়েছে!"
+  },
+  "leaderboard": {
+    "title": "পারিবারিক লিডারবোর্ড",
+    "noMembers": "এখনো কোনো পরিবারের সদস্য নেই",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "লেভেল {{level}} • {{points}} পয়েন্ট"
+  },
+  "stats": {
+    "familyStats": "পারিবারিক পরিসংখ্যান",
+    "yourStats": "আপনার পরিসংখ্যান",
+    "totalTasks": "মোট কাজ",
+    "completed": "সম্পন্ন",
+    "pending": "বাকি",
+    "weeklyPoints": "সাপ্তাহিক পয়েন্ট",
+    "completionRate": "সম্পন্নের হার"
+  },
+  "rewards": {
+    "title": "পুরস্কার",
+    "myRewards": "আমার পুরস্কার",
+    "overview": "পুরস্কার সারসংক্ষেপ",
+    "redeem": "পয়েন্ট রিডিম করুন",
+    "redeemButton": "রিডিম",
+    "pointsToRedeem": "রিডিমের জন্য পয়েন্ট",
+    "cashValue": "নগদ মূল্য",
+    "perPoint": "প্রতি পয়েন্টে ${{rate}}",
+    "availablePoints": "উপলব্ধ পয়েন্ট",
+    "redeemableValue": "রিডিমযোগ্য মূল্য",
+    "pendingRedemptions": "অপেক্ষমাণ রিডেম্পশন",
+    "redemptionHistory": "রিডেম্পশন ইতিহাস",
+    "noRedemptions": "এখনো কোনো রিডেম্পশন অনুরোধ নেই",
+    "requestRedemption": "রিডেম্পশন অনুরোধ করুন",
+    "minimumPlaceholder": "সর্বনিম্ন: {{minimum}} পয়েন্ট",
+    "requesting": "অনুরোধ হচ্ছে...",
+    "needMinimum": "রিডেম্পশন অনুরোধের জন্য কমপক্ষে {{minimum}} পয়েন্ট প্রয়োজন।",
+    "keepEarning": "পুরস্কার আনলক করতে পয়েন্ট অর্জন করতে থাকুন!",
+    "weeklyGoal": {
+      "title": "সাপ্তাহিক লক্ষ্য অগ্রগতি",
+      "progress": "{{current}} / {{target}} পয়েন্ট",
+      "reached": "লক্ষ্য অর্জিত! এই সপ্তাহে ${{bonus}} বোনাস পেয়েছেন!",
+      "earnMore": "${{bonus}} বোনাস পেতে আরো {{remaining}} পয়েন্ট অর্জন করুন"
+    },
+    "settings": {
+      "title": "পুরস্কার সেটিংস",
+      "enableRewards": "পুরস্কার সক্রিয় করুন",
+      "enableDescription": "পরিবারের সদস্যদের পয়েন্ট রিডিম করার অনুমতি দিন",
+      "pointsToMoneyRate": "পয়েন্ট থেকে টাকার হার",
+      "pointsToMoneyRateHint": "প্রতি পয়েন্টের পরিমাণ (যেমন, 0.01 = প্রতি পয়েন্টে $0.01)",
+      "minimumRedemption": "রিডেম্পশনের জন্য সর্বনিম্ন পয়েন্ট",
+      "minimumRedemptionHint": "রিডেম্পশন অনুরোধের জন্য প্রয়োজনীয় সর্বনিম্ন পয়েন্ট",
+      "weeklyBonusTarget": "সাপ্তাহিক বোনাস লক্ষ্য",
+      "weeklyTargetPoints": "সাপ্তাহিক লক্ষ্য পয়েন্ট",
+      "weeklyTargetPointsHint": "সাপ্তাহিক বোনাস পেতে প্রয়োজনীয় পয়েন্ট (0 = নিষ্ক্রিয়)",
+      "weeklyBonusAmount": "সাপ্তাহিক বোনাসের পরিমাণ",
+      "weeklyBonusAmountHint": "সাপ্তাহিক লক্ষ্য অর্জনের বোনাস পরিমাণ",
+      "example": "উদাহরণ: {{points}} পয়েন্ট = ${{money}}",
+      "weeklyGoalExample": "সাপ্তাহিক লক্ষ্য: ${{bonus}} বোনাস পেতে {{points}} পয়েন্ট অর্জন করুন",
+      "savedSuccess": "সেটিংস সফলভাবে সংরক্ষিত হয়েছে!",
+      "saveFailed": "সেটিংস সংরক্ষণ করতে ব্যর্থ হয়েছে",
+      "saving": "সংরক্ষণ হচ্ছে...",
+      "saveButton": "পুরস্কার সেটিংস সংরক্ষণ করুন"
+    },
+    "status": {
+      "pending": "অপেক্ষমাণ",
+      "approved": "অনুমোদিত",
+      "rejected": "প্রত্যাখ্যাত",
+      "paid": "পরিশোধিত"
+    },
+    "actions": {
+      "approve": "অনুমোদন",
+      "reject": "প্রত্যাখ্যান",
+      "markPaid": "পরিশোধিত হিসেবে চিহ্নিত করুন"
+    },
+    "manager": {
+      "title": "রিডেম্পশন অনুরোধ",
+      "pendingApproval": "অনুমোদনের অপেক্ষায় ({{count}})",
+      "awaitingPayment": "অনুমোদিত - পেমেন্টের অপেক্ষায় ({{count}})",
+      "toPay": "${{amount}} পরিশোধ করতে হবে",
+      "processing": "প্রক্রিয়াকরণ হচ্ছে...",
+      "recentHistory": "সাম্প্রতিক ইতিহাস",
+      "pointsEquals": "{{points}} পয়েন্ট = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "সাপ্তাহিক লক্ষ্য",
+    "progress": "{{current}} / {{target}} পয়েন্ট",
+    "completed": "লক্ষ্য সম্পন্ন!",
+    "notSet": "কোনো লক্ষ্য নির্ধারণ করা হয়নি"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "লেভেল {{level}}-এ {{percent}}%"
+    },
+    "tabs": {
+      "home": "হোম",
+      "badges": "ব্যাজ",
+      "stats": "পরিসংখ্যান"
+    },
+    "dailyGreeting": {
+      "welcome": "আবার স্বাগতম!",
+      "dayStreak": "দিনের স্ট্রিক!",
+      "letsGo": "চলো শুরু করি!",
+      "tapToContinue": "চালিয়ে যেতে যেকোনো জায়গায় ট্যাপ করুন",
+      "motivation": {
+        "startStreak": "আজ একটি নতুন স্ট্রিক শুরু করি!",
+        "greatStart": "দুর্দান্ত শুরু! চালিয়ে যাও!",
+        "momentum": "তুমি গতি পাচ্ছো!",
+        "onFire": "তুমি দুর্দান্ত করছো! অসাধারণ!",
+        "dedication": "অবিশ্বাস্য নিষ্ঠা!",
+        "superstar": "তুমি একজন সুপারস্টার!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "আজকের অগ্রগতি",
+      "done": "{{done}}/{{total}} শেষ",
+      "allDone": "সব শেষ! দারুণ কাজ!",
+      "emptyState": {
+        "title": "একটি অ্যাডভেঞ্চারের জন্য প্রস্তুত?",
+        "subtitle": "পয়েন্ট অর্জন করতে এবং লেভেল আপ করতে একটি কাজ তৈরি করুন!",
+        "quickIdeas": "দ্রুত আইডিয়া:",
+        "createOwn": "আমার নিজের কাজ তৈরি করুন"
+      },
+      "sections": {
+        "myTasks": "আমার কাজ ({{count}})",
+        "available": "দাবি করার জন্য উপলব্ধ ({{count}})",
+        "waitingApproval": "অনুমোদনের অপেক্ষায় ({{count}})",
+        "waitingForParent": "অভিভাবকের অপেক্ষায় ({{count}})",
+        "completed": "সম্পন্ন ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "আমার কাজ",
+        "familyTasks": "পারিবারিক কাজ"
+      },
+      "familyTasks": {
+        "noTasks": "কোনো কাজ বরাদ্দ নেই",
+        "assignedTo": "{{name}}-কে দেওয়া হয়েছে"
+      },
+      "suggestions": {
+        "read": "পড়া",
+        "clean": "পরিষ্কার",
+        "exercise": "ব্যায়াম",
+        "create": "তৈরি",
+        "learn": "শেখা",
+        "petCare": "পোষা প্রাণীর যত্ন"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "দাবি করতে ট্যাপ করুন!",
+      "pendingApproval": "অনুমোদনের অপেক্ষায়",
+      "waitingForParent": "অভিভাবকের অপেক্ষায়"
+    },
+    "taskModal": {
+      "createTitle": "তোমার কাজ তৈরি করো",
+      "whatToDo": "তুমি কী করতে চাও?",
+      "placeholder": "যেমন: ২০ মিনিট পড়া",
+      "createButton": "কাজ তৈরি করুন",
+      "creating": "তৈরি হচ্ছে...",
+      "sentForApproval": "কাজটি অভিভাবকের কাছে পাঠানো হয়েছে!",
+      "parentWillReview": "তোমার অভিভাবক পর্যালোচনা করে অনুমোদন দেবেন।"
+    },
+    "completion": {
+      "title": "কাজ সম্পন্ন করুন",
+      "claimTask": "এই কাজটি দাবি করুন!",
+      "claiming": "দাবি করা হচ্ছে...",
+      "imDone": "আমি শেষ করেছি!",
+      "submitting": "জমা হচ্ছে...",
+      "earnPoints": "{{points}} পয়েন্ট অর্জন করুন!",
+      "alreadyCompleted": "ইতিমধ্যে সম্পন্ন!",
+      "waitingApproval": "অনুমোদনের অপেক্ষায়..."
+    },
+    "celebration": {
+      "approved": "কাজ অনুমোদিত!",
+      "approvedBig": "অনুমোদিত!",
+      "youEarned": "তুমি অর্জন করেছো",
+      "points": "পয়েন্ট!",
+      "awesome": "অসাধারণ!",
+      "total": "মোট: {{points}} পয়েন্ট"
+    },
+    "badges": {
+      "title": "আমার ব্যাজ",
+      "unlockedCount": "{{total}}-এর মধ্যে {{unlocked}} আনলক",
+      "noBadges": "এখনো কোনো ব্যাজ নেই",
+      "noBadgesHint": "ব্যাজ অর্জন করতে কাজ সম্পন্ন করুন!",
+      "earned": "{{date}} অর্জিত"
+    },
+    "statsView": {
+      "title": "আমার পরিসংখ্যান",
+      "totalPoints": "মোট পয়েন্ট",
+      "currentLevel": "বর্তমান লেভেল",
+      "currentStreak": "বর্তমান স্ট্রিক",
+      "days": "দিন",
+      "thisWeek": "এই সপ্তাহ",
+      "tasksDone": "সম্পন্ন কাজ",
+      "pointsEarned": "অর্জিত পয়েন্ট",
+      "activeDays": "সক্রিয় দিন",
+      "recentActivity": "সাম্প্রতিক কার্যকলাপ",
+      "noActivity": "এখনো কোনো কার্যকলাপ নেই। কিছু কাজ সম্পন্ন করুন!"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "機能",
+    "howItWorks": "使い方",
+    "pricing": "料金",
+    "login": "ログイン",
+    "getStarted": "今すぐ始める"
+  },
+  "hero": {
+    "headline": "お手伝いを楽しく。",
+    "headlineHighlight": "本当に。",
+    "subheadline": "Taskarooは家事を子どもたちが本当にやりたくなるゲームに変えます。ポイント、レベル、連続記録、そして本物のごほうび。",
+    "cta": "無料で始める",
+    "secondaryCta": "使い方を見る"
+  },
+  "features": {
+    "title": "家族に必要なすべてが揃っています",
+    "subtitle": "親が作った、親のためのアプリ。Taskarooは心理学に基づくゲーミフィケーションと実用的なタスク管理を組み合わせています。",
+    "pointsLevels": {
+      "title": "ポイント＆レベル",
+      "description": "タスクを完了してポイントを獲得、レベルアップしてアチーブメントを解除。次のマイルストーンを目指すことでやる気がアップします。"
+    },
+    "streaks": {
+      "title": "連続記録＆コンボ",
+      "description": "毎日の連続記録でモチベーションをアップ。コンボボーナスで継続的にお手伝いすると最大50%のボーナスポイント。"
+    },
+    "childFriendly": {
+      "title": "子どもに優しい",
+      "description": "子どもはシンプルなPINでログイン - メールアドレス不要。大きなボタン、カラフルなデザイン、わかりやすい説明。"
+    },
+    "approval": {
+      "title": "保護者承認",
+      "description": "ポイント付与前にタスク完了を確認。保護者がコントロールしながら子どもは責任感を学びます。"
+    },
+    "rewards": {
+      "title": "本物のごほうび",
+      "description": "ポイントをお小遣い、ゲーム時間、カスタムごほうびに交換。努力と結果の繋がりを実感できます。"
+    },
+    "leaderboard": {
+      "title": "ファミリーランキング",
+      "description": "健全な競争でみんなが楽しめます。今週のトップを確認して、みんなで一緒にお祝いしましょう。"
+    }
+  },
+  "howItWorks": {
+    "title": "数分で始められます",
+    "subtitle": "複雑な設定なし。学習曲線なし。すぐに結果が出ます。",
+    "step1": {
+      "title": "ファミリーを作成",
+      "description": "登録してシンプルなコードで家族を招待。保護者も子どもも数秒で参加できます。"
+    },
+    "step2": {
+      "title": "タスクを追加",
+      "description": "ポイントと期限を設定してお手伝いを作成。繰り返しタスクを一度設定すれば自動で表示されます。"
+    },
+    "step3": {
+      "title": "子どもが完了",
+      "description": "子どもは専用のゲームのような楽しいダッシュボードを使います。タスクをスワイプしてタップで完了。"
+    },
+    "step4": {
+      "title": "承認＆お祝い",
+      "description": "ワンタップで完了タスクを確認。紙吹雪が舞ってポイントが貯まります！"
+    }
+  },
+  "testimonials": {
+    "title": "家族に大人気",
+    "subtitle": "お手伝いの時間を楽しい時間に変えた多くの家族が利用しています。",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "デイリーアクティブユーザー",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "保護者満足度",
+      "recommend": "92%",
+      "recommendLabel": "おすすめ率"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "ついに効果のあるものが見つかりました！子どもたちがお手伝いを競って終わらせるようになりました。",
+        "author": "サラ M.",
+        "role": "3人の母"
+      },
+      "quote2": {
+        "text": "連続記録機能が天才的です。息子は2ヶ月間一日も休んでいません。",
+        "author": "デビッド K.",
+        "role": "2人の父"
+      },
+      "quote3": {
+        "text": "誰の番かで揉めることがなくなりました。すべてが明確で公平です。",
+        "author": "リサ T.",
+        "role": "2人の母"
+      }
+    }
+  },
+  "pricing": {
+    "title": "シンプルで公正な料金",
+    "subtitle": "無料で始められます。準備ができたらアップグレード。",
+    "annually": "年払いで17%お得",
+    "perMonth": "/月",
+    "mostPopular": "人気プラン",
+    "getStarted": "始める",
+    "currentPlan": "現在のプラン",
+    "free": {
+      "name": "無料",
+      "price": "¥0",
+      "description": "Taskarooを試すのに最適",
+      "features": {
+        "members": "最大2人のファミリーメンバー",
+        "tasks": "10件のアクティブタスク",
+        "achievements": "5つの基本アチーブメント",
+        "recurring": "毎日の繰り返しのみ",
+        "support": "コミュニティサポート"
+      }
+    },
+    "family": {
+      "name": "ファミリー",
+      "price": "¥500",
+      "description": "アクティブな家族のためのすべて",
+      "features": {
+        "members": "無制限のファミリーメンバー",
+        "tasks": "無制限のタスク",
+        "achievements": "25以上のプレミアムアチーブメント",
+        "recurring": "すべての繰り返しパターン",
+        "rewards": "ポイント換金ごほうび",
+        "support": "メールサポート"
+      }
+    },
+    "familyPro": {
+      "name": "ファミリープロ",
+      "price": "¥1,000",
+      "description": "最大限のモチベーションツール",
+      "features": {
+        "members": "無制限のファミリーメンバー",
+        "tasks": "無制限のタスク",
+        "achievements": "50以上のプレミアムアチーブメント",
+        "recurring": "すべての繰り返しパターン",
+        "rewards": "ポイント換金ごほうび",
+        "analytics": "高度な分析",
+        "support": "優先サポート"
+      }
+    }
+  },
+  "cta": {
+    "title": "お手伝いを楽しくする準備はできましたか？",
+    "subtitle": "今日から多くの幸せな家族に加わりましょう。",
+    "button": "今すぐ無料で始める",
+    "note": "クレジットカード不要"
+  },
+  "footer": {
+    "tagline": "世界中の家族のお手伝いを楽しくします。",
+    "product": "プロダクト",
+    "legal": "法的情報",
+    "connect": "つながる",
+    "features": "機能",
+    "pricing": "料金",
+    "howItWorks": "使い方",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "coppa": "COPPA準拠",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. All rights reserved."
+  }
+}

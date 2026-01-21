@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "फैमिली प्लानबोर्ड"
+  },
+  "navigation": {
+    "myTasks": "मेरे कार्य",
+    "familyBoard": "परिवार बोर्ड",
+    "dashboard": "डैशबोर्ड",
+    "childMode": "बच्चों का दृश्य",
+    "enterChildMode": "बच्चों के दृश्य पर जाएं",
+    "exitChildMode": "बच्चों के दृश्य से बाहर निकलें"
+  },
+  "buttons": {
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें",
+    "back": "वापस",
+    "submit": "जमा करें",
+    "confirm": "पुष्टि करें",
+    "copy": "कॉपी करें",
+    "copyLink": "लिंक कॉपी करें",
+    "copied": "कॉपी हो गया!",
+    "loading": "लोड हो रहा है...",
+    "create": "बनाएं",
+    "update": "अपडेट करें",
+    "add": "जोड़ें"
+  },
+  "labels": {
+    "name": "नाम",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "description": "विवरण",
+    "status": "स्थिति",
+    "priority": "प्राथमिकता",
+    "points": "अंक",
+    "level": "स्तर",
+    "days": "दिन",
+    "dayStreak": "दिन की लगातार उपलब्धि"
+  },
+  "errors": {
+    "generic": "कुछ गलत हो गया",
+    "required": "यह फ़ील्ड आवश्यक है",
+    "invalidEmail": "अमान्य ईमेल पता",
+    "networkError": "नेटवर्क त्रुटि। कृपया पुनः प्रयास करें।",
+    "unauthorized": "आप यह कार्य करने के लिए अधिकृत नहीं हैं"
+  },
+  "empty": {
+    "noData": "कोई डेटा उपलब्ध नहीं है",
+    "noResults": "कोई परिणाम नहीं मिला"
+  },
+  "time": {
+    "today": "आज",
+    "yesterday": "कल",
+    "tomorrow": "कल",
+    "thisWeek": "इस सप्ताह"
+  },
+  "confirmation": {
+    "areYouSure": "क्या आप निश्चित हैं?",
+    "cannotUndo": "यह क्रिया पूर्ववत नहीं की जा सकती।"
+  },
+  "profile": {
+    "settings": "प्रोफ़ाइल सेटिंग्स",
+    "signOut": "साइन आउट"
+  }
+}

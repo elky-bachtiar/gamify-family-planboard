@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} poin",
+    "value_one": "{{count}} poin",
+    "earned": "Poin Diperoleh",
+    "total": "Total Poin",
+    "weekly": "Poin Mingguan"
+  },
+  "level": {
+    "current": "Level {{level}}",
+    "progressTo": "Progres ke Level {{level}}",
+    "maxLevel": "Level Maksimum Tercapai!"
+  },
+  "streak": {
+    "current": "{{count}} hari",
+    "current_one": "{{count}} hari",
+    "dayStreak": "hari beruntun",
+    "keepItUp": "Pertahankan!",
+    "streakLost": "Streak hilang",
+    "newRecord": "Rekor baru!"
+  },
+  "achievements": {
+    "title": "Pencapaian",
+    "unlocked": "{{count}} dari {{total}} terbuka",
+    "earned": "Diperoleh {{date}}",
+    "noAchievements": "Belum ada pencapaian",
+    "locked": "Terkunci",
+    "newlyUnlocked": "Pencapaian Terbuka!"
+  },
+  "leaderboard": {
+    "title": "Papan Peringkat Keluarga",
+    "noMembers": "Belum ada anggota keluarga",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Level {{level}} - {{points}} poin"
+  },
+  "stats": {
+    "familyStats": "Statistik Keluarga",
+    "yourStats": "Statistik Anda",
+    "totalTasks": "Total Tugas",
+    "completed": "Selesai",
+    "pending": "Tertunda",
+    "weeklyPoints": "Poin Mingguan",
+    "completionRate": "Tingkat Penyelesaian"
+  },
+  "rewards": {
+    "title": "Hadiah",
+    "myRewards": "Hadiah Saya",
+    "overview": "Ringkasan Hadiah",
+    "redeem": "Tukar Poin",
+    "redeemButton": "Tukar",
+    "pointsToRedeem": "Poin untuk Ditukar",
+    "cashValue": "Nilai Tunai",
+    "perPoint": "Rp{{rate}} per poin",
+    "availablePoints": "Poin Tersedia",
+    "redeemableValue": "Nilai yang Dapat Ditukar",
+    "pendingRedemptions": "Penukaran Tertunda",
+    "redemptionHistory": "Riwayat Penukaran",
+    "noRedemptions": "Belum ada permintaan penukaran",
+    "requestRedemption": "Minta Penukaran",
+    "minimumPlaceholder": "Minimum: {{minimum}} poin",
+    "requesting": "Meminta...",
+    "needMinimum": "Anda membutuhkan minimal {{minimum}} poin untuk meminta penukaran.",
+    "keepEarning": "Terus kumpulkan untuk membuka hadiah!",
+    "weeklyGoal": {
+      "title": "Progres Target Mingguan",
+      "progress": "{{current}} / {{target}} poin",
+      "reached": "Target tercapai! Bonus Rp{{bonus}} diperoleh minggu ini!",
+      "earnMore": "Kumpulkan {{remaining}} poin lagi untuk mendapat bonus Rp{{bonus}}"
+    },
+    "settings": {
+      "title": "Pengaturan Hadiah",
+      "enableRewards": "Aktifkan Hadiah",
+      "enableDescription": "Izinkan anggota keluarga menukar poin dengan hadiah",
+      "pointsToMoneyRate": "Nilai Tukar Poin ke Uang",
+      "pointsToMoneyRateHint": "Jumlah per poin (mis., 100 = Rp100 per poin)",
+      "minimumRedemption": "Poin Minimum untuk Penukaran",
+      "minimumRedemptionHint": "Poin minimum yang diperlukan untuk meminta penukaran",
+      "weeklyBonusTarget": "Target Bonus Mingguan",
+      "weeklyTargetPoints": "Poin Target Mingguan",
+      "weeklyTargetPointsHint": "Poin yang diperlukan untuk mendapat bonus mingguan (0 = nonaktif)",
+      "weeklyBonusAmount": "Jumlah Bonus Mingguan",
+      "weeklyBonusAmountHint": "Jumlah bonus untuk mencapai target mingguan",
+      "example": "Contoh: {{points}} poin = Rp{{money}}",
+      "weeklyGoalExample": "Target mingguan: Kumpulkan {{points}} poin untuk mendapat bonus Rp{{bonus}}",
+      "savedSuccess": "Pengaturan berhasil disimpan!",
+      "saveFailed": "Gagal menyimpan pengaturan",
+      "saving": "Menyimpan...",
+      "saveButton": "Simpan Pengaturan Hadiah"
+    },
+    "status": {
+      "pending": "Tertunda",
+      "approved": "Disetujui",
+      "rejected": "Ditolak",
+      "paid": "Dibayar"
+    },
+    "actions": {
+      "approve": "Setujui",
+      "reject": "Tolak",
+      "markPaid": "Tandai Dibayar"
+    },
+    "manager": {
+      "title": "Permintaan Penukaran",
+      "pendingApproval": "Menunggu Persetujuan ({{count}})",
+      "awaitingPayment": "Disetujui - Menunggu Pembayaran ({{count}})",
+      "toPay": "Rp{{amount}} untuk dibayar",
+      "processing": "Memproses...",
+      "recentHistory": "Riwayat Terbaru",
+      "pointsEquals": "{{points}} poin = Rp{{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Target Mingguan",
+    "progress": "{{current}} / {{target}} poin",
+    "completed": "Target Tercapai!",
+    "notSet": "Belum ada target"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% ke Level {{level}}"
+    },
+    "tabs": {
+      "home": "Beranda",
+      "badges": "Lencana",
+      "stats": "Statistik"
+    },
+    "dailyGreeting": {
+      "welcome": "Selamat datang kembali!",
+      "dayStreak": "hari beruntun!",
+      "letsGo": "Ayo Mulai!",
+      "tapToContinue": "Ketuk di mana saja untuk melanjutkan",
+      "motivation": {
+        "startStreak": "Mari mulai streak baru hari ini!",
+        "greatStart": "Awal yang bagus! Pertahankan!",
+        "momentum": "Kamu membangun momentum!",
+        "onFire": "Kamu luar biasa! Hebat!",
+        "dedication": "Dedikasi yang luar biasa!",
+        "superstar": "Kamu bintang!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Progres Hari Ini",
+      "done": "{{done}}/{{total}} selesai",
+      "allDone": "Selesai semua! Kerja bagus!",
+      "emptyState": {
+        "title": "Siap untuk petualangan?",
+        "subtitle": "Buat tugas untuk mulai mengumpulkan poin dan naik level!",
+        "quickIdeas": "Ide cepat:",
+        "createOwn": "Buat Tugas Sendiri"
+      },
+      "sections": {
+        "myTasks": "Tugas Saya ({{count}})",
+        "available": "Tersedia untuk Diambil ({{count}})",
+        "waitingApproval": "Menunggu Persetujuan ({{count}})",
+        "waitingForParent": "Menunggu Orang Tua ({{count}})",
+        "completed": "Selesai ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "Tugas Saya",
+        "familyTasks": "Tugas Keluarga"
+      },
+      "familyTasks": {
+        "noTasks": "Tidak ada tugas yang ditugaskan",
+        "assignedTo": "Ditugaskan ke {{name}}"
+      },
+      "suggestions": {
+        "read": "Membaca",
+        "clean": "Bersih-bersih",
+        "exercise": "Olahraga",
+        "create": "Berkreasi",
+        "learn": "Belajar",
+        "petCare": "Merawat hewan"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "Ketuk untuk mengambil!",
+      "pendingApproval": "Menunggu persetujuan",
+      "waitingForParent": "Menunggu orang tua"
+    },
+    "taskModal": {
+      "createTitle": "Buat Tugasmu",
+      "whatToDo": "Apa yang ingin kamu lakukan?",
+      "placeholder": "Mis., Membaca selama 20 menit",
+      "createButton": "Buat Tugas",
+      "creating": "Membuat...",
+      "sentForApproval": "Tugas dikirim ke orang tua!",
+      "parentWillReview": "Orang tuamu akan meninjau dan menyetujui tugasmu."
+    },
+    "completion": {
+      "title": "Selesaikan Tugas",
+      "claimTask": "Ambil Tugas Ini!",
+      "claiming": "Mengambil...",
+      "imDone": "Sudah Selesai!",
+      "submitting": "Mengirim...",
+      "earnPoints": "Dapatkan {{points}} poin!",
+      "alreadyCompleted": "Sudah selesai!",
+      "waitingApproval": "Menunggu persetujuan..."
+    },
+    "celebration": {
+      "approved": "Tugas Disetujui!",
+      "approvedBig": "DISETUJUI!",
+      "youEarned": "Kamu mendapat",
+      "points": "poin!",
+      "awesome": "Luar biasa!",
+      "total": "Total: {{points}} poin"
+    },
+    "badges": {
+      "title": "Lencana Saya",
+      "unlockedCount": "{{unlocked}}/{{total}} terbuka",
+      "noBadges": "Belum ada lencana",
+      "noBadgesHint": "Selesaikan tugas untuk mendapat lencana!",
+      "earned": "Diperoleh {{date}}"
+    },
+    "statsView": {
+      "title": "Statistik Saya",
+      "totalPoints": "Total Poin",
+      "currentLevel": "Level Saat Ini",
+      "currentStreak": "Streak Saat Ini",
+      "days": "hari",
+      "thisWeek": "Minggu Ini",
+      "tasksDone": "Tugas Selesai",
+      "pointsEarned": "Poin Diperoleh",
+      "activeDays": "Hari Aktif",
+      "recentActivity": "Aktivitas Terbaru",
+      "noActivity": "Belum ada aktivitas. Selesaikan beberapa tugas!"
+    }
+  }
+}

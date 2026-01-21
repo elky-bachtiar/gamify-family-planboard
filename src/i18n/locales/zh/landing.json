@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "功能",
+    "howItWorks": "使用方法",
+    "pricing": "价格",
+    "login": "登录",
+    "getStarted": "开始使用"
+  },
+  "hero": {
+    "headline": "让家务变有趣。",
+    "headlineHighlight": "真的。",
+    "subheadline": "Taskaroo 将家务变成孩子们真正想玩的游戏。积分、等级、连续记录和真实奖励。",
+    "cta": "免费开始",
+    "secondaryCta": "了解使用方法"
+  },
+  "features": {
+    "title": "您的家庭所需的一切",
+    "subtitle": "由家长打造，为家长服务。Taskaroo 将心理学支持的游戏化与实用的任务管理相结合。",
+    "pointsLevels": {
+      "title": "积分与等级",
+      "description": "每完成一个任务都能赚取积分，升级并解锁成就。看着孩子们追逐下一个里程碑，动力飙升。"
+    },
+    "streaks": {
+      "title": "连续记录与连击",
+      "description": "建立每日连续记录获得额外动力。连击奖励让持续帮忙的孩子最多可获得50%的额外积分。"
+    },
+    "childFriendly": {
+      "title": "儿童友好",
+      "description": "孩子用简单的PIN码登录——无需邮箱。大按钮、多彩设计和清晰的说明，他们能轻松理解。"
+    },
+    "approval": {
+      "title": "家长审批",
+      "description": "在奖励积分之前验证任务是否真正完成。您保持控制权，同时孩子学习责任感。"
+    },
+    "rewards": {
+      "title": "真实奖励",
+      "description": "将积分转换为零花钱、屏幕时间或自定义奖励。让努力与回报之间的联系变得实实在在。"
+    },
+    "leaderboard": {
+      "title": "家庭排行榜",
+      "description": "健康的竞争让每个人都保持参与。看看本周谁领先，一起庆祝表现最好的人。"
+    }
+  },
+  "howItWorks": {
+    "title": "几分钟即可启动运行",
+    "subtitle": "无需复杂设置。无需学习曲线。只有结果。",
+    "step1": {
+      "title": "创建您的家庭",
+      "description": "注册并用简单的邀请码邀请家庭成员。家长和孩子几秒钟就能加入。"
+    },
+    "step2": {
+      "title": "添加任务",
+      "description": "创建带有积分值和截止日期的家务。设置一次重复任务，它们会自动出现。"
+    },
+    "step3": {
+      "title": "孩子完成",
+      "description": "孩子们看到专为他们设计的有趣、游戏化的仪表板。滑动浏览任务，点击完成。"
+    },
+    "step4": {
+      "title": "审批与庆祝",
+      "description": "一键验证已完成的任务。看着彩纸飞舞，积分累加！"
+    }
+  },
+  "testimonials": {
+    "title": "家庭们喜爱 Taskaroo",
+    "subtitle": "加入数千个已将家务时间变成欢乐时光的家庭。",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "日活跃用户",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "家长满意度",
+      "recommend": "92%",
+      "recommendLabel": "愿意推荐"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "终于有个真正有效的东西了！我的孩子们现在争着做家务。",
+        "author": "Sarah M.",
+        "role": "三个孩子的妈妈"
+      },
+      "quote2": {
+        "text": "连续记录功能太棒了。我儿子已经连续两个月没有落下一天。",
+        "author": "David K.",
+        "role": "两个孩子的爸爸"
+      },
+      "quote3": {
+        "text": "不用再为轮到谁争吵了。一切都清晰公平。",
+        "author": "Lisa T.",
+        "role": "两个孩子的妈妈"
+      }
+    }
+  },
+  "pricing": {
+    "title": "简单、公平的定价",
+    "subtitle": "免费开始。准备好了再升级。",
+    "annually": "年付可节省17%",
+    "perMonth": "/月",
+    "mostPopular": "最受欢迎",
+    "getStarted": "开始使用",
+    "currentPlan": "当前方案",
+    "free": {
+      "name": "免费版",
+      "price": "$0",
+      "description": "体验 Taskaroo 的完美选择",
+      "features": {
+        "members": "最多2个家庭成员",
+        "tasks": "10个活跃任务",
+        "achievements": "5个基础成就",
+        "recurring": "仅支持每日重复",
+        "support": "社区支持"
+      }
+    },
+    "family": {
+      "name": "家庭版",
+      "price": "$4.99",
+      "description": "活跃家庭的全部所需",
+      "features": {
+        "members": "无限家庭成员",
+        "tasks": "无限任务",
+        "achievements": "25+高级成就",
+        "recurring": "所有重复模式",
+        "rewards": "积分换现金奖励",
+        "support": "邮件支持"
+      }
+    },
+    "familyPro": {
+      "name": "家庭专业版",
+      "price": "$9.99",
+      "description": "最强激励工具",
+      "features": {
+        "members": "无限家庭成员",
+        "tasks": "无限任务",
+        "achievements": "50+高级成就",
+        "recurring": "所有重复模式",
+        "rewards": "积分换现金奖励",
+        "analytics": "高级分析",
+        "support": "优先支持"
+      }
+    }
+  },
+  "cta": {
+    "title": "准备好让家务变有趣了吗？",
+    "subtitle": "今天就加入数千个幸福的家庭。",
+    "button": "今天免费开始",
+    "note": "无需信用卡"
+  },
+  "footer": {
+    "tagline": "让家务对每个家庭都变得有趣。",
+    "product": "产品",
+    "legal": "法律",
+    "connect": "联系我们",
+    "features": "功能",
+    "pricing": "价格",
+    "howItWorks": "使用方法",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "coppa": "COPPA合规",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. 保留所有权利。"
+  }
+}

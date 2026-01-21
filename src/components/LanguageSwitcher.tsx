@@ -2,8 +2,22 @@ import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
 
 const languages = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'en', label: 'English', flag: '🇺🇸' },
   { code: 'nl', label: 'Nederlands', flag: '🇳🇱' },
+  { code: 'zh', label: '中文', flag: '🇨🇳' },
+  { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'bn', label: 'বাংলা', flag: '🇧🇩' },
+  { code: 'pt', label: 'Português', flag: '🇧🇷' },
+  { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+  { code: 'id', label: 'Indonesia', flag: '🇮🇩' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'ja', label: '日本語', flag: '🇯🇵' },
+  { code: 'ko', label: '한국어', flag: '🇰🇷' },
+  { code: 'th', label: 'ไทย', flag: '🇹🇭' },
+  { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
 ];
 
 export function LanguageSwitcher() {
@@ -25,7 +39,7 @@ export function LanguageSwitcher() {
         <span>{currentLang.flag}</span>
       </button>
 
-      <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[140px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+      <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[140px] max-h-[320px] overflow-y-auto opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
         {languages.map((lang) => (
           <button
             key={lang.code}

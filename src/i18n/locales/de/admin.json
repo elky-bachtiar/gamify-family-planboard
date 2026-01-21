@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "Admin-Bereich",
+    "tabs": {
+      "members": "Mitglieder",
+      "approvals": "Genehmigungen",
+      "rewards": "Belohnungen"
+    }
+  },
+  "inviteCode": {
+    "title": "Einladungscode",
+    "description": "Teile diesen Code, um Familienmitglieder einzuladen (sie treten ohne Admin-Rechte bei)",
+    "copyLink": "Link kopieren",
+    "copied": "Kopiert!"
+  },
+  "parentInviteCode": {
+    "title": "Eltern-Einladungscode",
+    "description": "Teile diesen Code, um einen anderen Elternteil oder Vormund mit Admin-Rechten einzuladen"
+  },
+  "members": {
+    "title": "Familienmitglieder",
+    "count": "Familienmitglieder ({{count}})",
+    "addChild": "Kind hinzufügen (PIN)",
+    "admin": "Admin",
+    "pinUser": "PIN-Benutzer",
+    "points": "{{count}} Punkte",
+    "level": "Level {{level}}",
+    "editMember": "Mitglied bearbeiten",
+    "deleteMember": "Mitglied löschen",
+    "promoteAdmin": "Zum Admin machen",
+    "demoteAdmin": "Admin-Rechte entfernen"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Zum Admin befördern",
+    "demoteTitle": "Admin-Rechte entfernen",
+    "notAdmin": "Kein Admin",
+    "promoteWarningTitle": "Admin-Rechte gewähren",
+    "promoteWarningMessage": "{{name}} wird in der Lage sein, Familieneinstellungen zu verwalten, Aufgaben zu genehmigen und andere Mitglieder zu verwalten.",
+    "demoteWarningTitle": "Admin-Rechte entfernen",
+    "demoteWarningMessage": "{{name}} wird nicht mehr in der Lage sein, Familieneinstellungen zu verwalten oder Aufgaben zu genehmigen.",
+    "lastAdminTitle": "Letzten Admin kann man nicht entfernen",
+    "lastAdminMessage": "Jede Familie muss mindestens einen Admin haben. Befördere zuerst ein anderes Mitglied zum Admin.",
+    "promoteButton": "Zum Admin machen",
+    "demoteButton": "Admin entfernen",
+    "promoting": "Wird befördert...",
+    "demoting": "Wird entfernt..."
+  },
+  "createChild": {
+    "title": "Kinderkonto hinzufügen",
+    "subtitle": "Erstelle ein PIN-basiertes Konto für ein Kind",
+    "nameLabel": "Name des Kindes",
+    "namePlaceholder": "Name eingeben",
+    "pinLabel": "PIN-Code",
+    "pinPlaceholder": "4-stellige PIN eingeben",
+    "pinHelp": "Diese PIN wird vom Kind zum Anmelden verwendet",
+    "colorLabel": "Farbe",
+    "createButton": "Kinderkonto erstellen",
+    "creating": "Wird erstellt...",
+    "success": {
+      "title": "Kinderkonto erstellt!",
+      "message": "Teile diesen Link mit {{name}}, um auf das Dashboard zuzugreifen:",
+      "copyLink": "Anmeldelink kopieren",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Mitglied bearbeiten",
+    "nameLabel": "Name",
+    "namePlaceholder": "Name eingeben",
+    "colorLabel": "Profilfarbe",
+    "enablePinLogin": "PIN-Anmeldung aktivieren",
+    "pinLabel": "PIN setzen (4-6 Ziffern)",
+    "newPinLabel": "Neue PIN (4-6 Ziffern, leer lassen um bestehende zu behalten)",
+    "pinPlaceholder": "Leer lassen um bestehende PIN zu behalten",
+    "confirmPinLabel": "PIN bestätigen",
+    "confirmPinPlaceholder": "PIN erneut eingeben",
+    "pinMismatch": "PINs stimmen nicht überein",
+    "pinTooShort": "PIN muss mindestens 4 Ziffern haben",
+    "keepExistingPin": "Leer lassen um bestehende PIN zu behalten",
+    "pinUserWarning": "Dies ist ein PIN-basiertes Konto.",
+    "saveButton": "Änderungen speichern",
+    "saving": "Wird gespeichert..."
+  },
+  "deleteMember": {
+    "title": "Mitglied löschen",
+    "message": "Bist du sicher, dass du {{name}} löschen möchtest? Dies löscht auch alle Aufgaben und den Punkteverlauf.",
+    "warning": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "warningIntro": "Warnung: Diese Aktion kann nicht rückgängig gemacht werden. Alle Daten von {{name}} werden dauerhaft gelöscht, einschließlich:",
+    "warningPoints": "Punkte und Level-Fortschritt",
+    "warningAchievements": "Verdiente Erfolge",
+    "warningTasks": "Aufgabenverlauf",
+    "warningRedemptions": "Einlösungsdaten",
+    "pointsAndLevel": "{{points}} Punkte - Level {{level}}",
+    "deleteButton": "Mitglied löschen",
+    "deleting": "Wird gelöscht..."
+  },
+  "approvals": {
+    "title": "Aufgabengenehmigungen",
+    "pendingApprovals": "Ausstehende Genehmigungen",
+    "noPending": "Keine Aufgaben warten auf Genehmigung",
+    "submittedBy": "Eingereicht von {{name}}",
+    "approveButton": "Genehmigen",
+    "rejectButton": "Ablehnen",
+    "approving": "Wird genehmigt...",
+    "rejecting": "Wird abgelehnt...",
+    "newTaskRequests": "Neue Aufgabenanfragen",
+    "noNewTaskRequests": "Keine neuen Aufgabenanfragen",
+    "createdBy": "Erstellt von {{name}}",
+    "points": "Punkte"
+  },
+  "palette": {
+    "title": "Farbpalette",
+    "description": "Wähle eine Farbpalette für Profilfarben in deiner Familie.",
+    "current": "Aktuell: {{name}}",
+    "select": "Palette auswählen",
+    "saveButton": "Palette speichern",
+    "saving": "Wird gespeichert...",
+    "saved": "Palette gespeichert!",
+    "saveFailed": "Speichern fehlgeschlagen"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "가족 플랜보드"
+  },
+  "navigation": {
+    "myTasks": "내 할 일",
+    "familyBoard": "가족 보드",
+    "dashboard": "대시보드",
+    "childMode": "아이 모드",
+    "enterChildMode": "아이 모드로 전환",
+    "exitChildMode": "아이 모드 종료"
+  },
+  "buttons": {
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "수정",
+    "close": "닫기",
+    "back": "뒤로",
+    "submit": "제출",
+    "confirm": "확인",
+    "copy": "복사",
+    "copyLink": "링크 복사",
+    "copied": "복사됨!",
+    "loading": "로딩 중...",
+    "create": "만들기",
+    "update": "업데이트",
+    "add": "추가"
+  },
+  "labels": {
+    "name": "이름",
+    "email": "이메일",
+    "password": "비밀번호",
+    "description": "설명",
+    "status": "상태",
+    "priority": "우선순위",
+    "points": "포인트",
+    "level": "레벨",
+    "days": "일",
+    "dayStreak": "일 연속"
+  },
+  "errors": {
+    "generic": "문제가 발생했습니다",
+    "required": "필수 입력 항목입니다",
+    "invalidEmail": "유효하지 않은 이메일 주소입니다",
+    "networkError": "네트워크 오류가 발생했습니다. 다시 시도해 주세요.",
+    "unauthorized": "이 작업을 수행할 권한이 없습니다"
+  },
+  "empty": {
+    "noData": "데이터가 없습니다",
+    "noResults": "결과를 찾을 수 없습니다"
+  },
+  "time": {
+    "today": "오늘",
+    "yesterday": "어제",
+    "tomorrow": "내일",
+    "thisWeek": "이번 주"
+  },
+  "confirmation": {
+    "areYouSure": "확실합니까?",
+    "cannotUndo": "이 작업은 되돌릴 수 없습니다."
+  },
+  "profile": {
+    "settings": "프로필 설정",
+    "signOut": "로그아웃"
+  }
+}

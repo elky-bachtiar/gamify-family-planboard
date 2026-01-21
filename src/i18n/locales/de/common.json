@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Familien-Planboard"
+  },
+  "navigation": {
+    "myTasks": "Meine Aufgaben",
+    "familyBoard": "Familien-Board",
+    "dashboard": "Dashboard",
+    "childMode": "Kinderansicht",
+    "enterChildMode": "Zur Kinderansicht wechseln",
+    "exitChildMode": "Kinderansicht verlassen"
+  },
+  "buttons": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "back": "Zurück",
+    "submit": "Absenden",
+    "confirm": "Bestätigen",
+    "copy": "Kopieren",
+    "copyLink": "Link kopieren",
+    "copied": "Kopiert!",
+    "loading": "Laden...",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "add": "Hinzufügen"
+  },
+  "labels": {
+    "name": "Name",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "description": "Beschreibung",
+    "status": "Status",
+    "priority": "Priorität",
+    "points": "Punkte",
+    "level": "Level",
+    "days": "Tage",
+    "dayStreak": "Tage-Serie"
+  },
+  "errors": {
+    "generic": "Etwas ist schiefgelaufen",
+    "required": "Dieses Feld ist erforderlich",
+    "invalidEmail": "Ungültige E-Mail-Adresse",
+    "networkError": "Netzwerkfehler. Bitte versuche es erneut.",
+    "unauthorized": "Du bist nicht berechtigt, diese Aktion auszuführen"
+  },
+  "empty": {
+    "noData": "Keine Daten verfügbar",
+    "noResults": "Keine Ergebnisse gefunden"
+  },
+  "time": {
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "tomorrow": "Morgen",
+    "thisWeek": "Diese Woche"
+  },
+  "confirmation": {
+    "areYouSure": "Bist du sicher?",
+    "cannotUndo": "Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "profile": {
+    "settings": "Profileinstellungen",
+    "signOut": "Abmelden"
+  }
+}

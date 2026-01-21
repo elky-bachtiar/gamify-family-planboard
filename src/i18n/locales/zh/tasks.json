@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "等待审批",
+    "claim": "领取",
+    "claiming": "领取中...",
+    "deleteConfirm": "您确定要删除此任务吗？"
+  },
+  "priority": {
+    "low": "低",
+    "medium": "中",
+    "high": "高"
+  },
+  "status": {
+    "pending": "待完成",
+    "completed": "已完成",
+    "pendingApproval": "等待审批"
+  },
+  "modal": {
+    "createTitle": "创建新任务",
+    "editTitle": "编辑任务",
+    "viewTitle": "任务详情",
+    "titleLabel": "任务标题",
+    "titlePlaceholder": "输入任务标题",
+    "descriptionLabel": "描述（可选）",
+    "descriptionPlaceholder": "添加任务详情",
+    "priorityLabel": "优先级",
+    "pointsLabel": "积分",
+    "dueDateLabel": "截止日期",
+    "dueTimeLabel": "截止时间",
+    "startTimeLabel": "开始时间（可选）",
+    "startTimePlaceholder": "任务何时对孩子可见",
+    "startTimeHint": "如果设置，任务仅在此时间后对孩子显示",
+    "assigneeLabel": "分配给",
+    "unassigned": "未分配",
+    "createButton": "创建任务",
+    "creating": "创建中...",
+    "updateButton": "更新任务",
+    "updating": "更新中...",
+    "pts": "分",
+    "errors": {
+      "noRecurrenceTasks": "当前重复设置不会创建任何任务",
+      "createFailed": "创建任务失败，请重试。"
+    }
+  },
+  "recurrence": {
+    "repeat": "重复",
+    "oneTime": "一次性",
+    "daily": "每天",
+    "weekly": "每周",
+    "specificDays": "指定日期",
+    "selectDays": "选择日期",
+    "endDate": "结束日期",
+    "willCreate": "这将创建 <strong>{{count}}</strong> 个任务",
+    "willCreate_other": "这将创建 <strong>{{count}}</strong> 个任务",
+    "noTasksCreated": "当前设置不会创建任何任务",
+    "weekdays": {
+      "sun": "周日",
+      "mon": "周一",
+      "tue": "周二",
+      "wed": "周三",
+      "thu": "周四",
+      "fri": "周五",
+      "sat": "周六"
+    }
+  },
+  "calendar": {
+    "weeklyView": "周视图",
+    "noTasks": "今天没有任务",
+    "addTask": "添加任务",
+    "weeklyTasks": "本周任务",
+    "weeklyTasksEmpty": "本周没有周任务"
+  },
+  "weeklyTask": {
+    "label": "周任务",
+    "hint": "孩子可以在本周任意一天完成此任务",
+    "badge": "本周"
+  },
+  "filters": {
+    "all": "全部",
+    "myTasks": "我的任务",
+    "unassigned": "未分配",
+    "completed": "已完成",
+    "pending": "待完成",
+    "pendingApproval": "等待审批",
+    "status": "状态",
+    "assignee": "分配人"
+  },
+  "planboard": {
+    "title": "家庭计划板",
+    "today": "今天"
+  },
+  "empty": {
+    "noTasks": "还没有任务",
+    "noTasksDescription": "创建一个任务开始吧！"
+  },
+  "detail": {
+    "editTask": "编辑任务",
+    "copyTask": "复制任务",
+    "description": "描述",
+    "dueDate": "截止日期",
+    "dueTime": "截止时间",
+    "startTime": "开始时间",
+    "timeRange": "可用时间",
+    "priority": "优先级",
+    "points": "积分",
+    "pointsValue": "{{count}} 积分",
+    "assignedTo": "分配给",
+    "unassigned": "未分配",
+    "tagsObjects": "标签/物品",
+    "tagsHint": "按回车或逗号添加标签",
+    "tagsPlaceholder": "例如：洗碗机、厨房",
+    "completedAt": "完成时间",
+    "saveChanges": "保存更改",
+    "saving": "保存中...",
+    "close": "关闭"
+  },
+  "recurringEdit": {
+    "title": "编辑重复任务",
+    "partOfSeries": "「{{title}}」是重复任务系列的一部分。您想如何应用更改？",
+    "editSingleTitle": "仅保存此任务",
+    "editSingleDescription": "更改仅应用于此特定任务",
+    "editAllFutureTitle": "保存所有未来任务",
+    "editAllFutureBadge": "{{count}} 个任务",
+    "editAllFutureDescription": "更改将应用于从今天起所有未完成的任务",
+    "updating": "正在更新任务..."
+  },
+  "recurringReorder": {
+    "title": "重排重复任务",
+    "partOfSeries": "「{{title}}」是重复任务系列的一部分。您想如何应用新位置？",
+    "reorderSingleTitle": "仅重排此任务",
+    "reorderSingleDescription": "新位置仅应用于此特定任务",
+    "reorderAllFutureTitle": "重排所有未来任务",
+    "reorderAllFutureBadge": "{{count}} 个任务",
+    "reorderAllFutureDescription": "新位置将应用于从今天起所有未完成的任务",
+    "updating": "正在更新位置..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好"
+    },
+    "todaysTasks": "今日任务",
+    "completedToday": "今日已完成",
+    "pointsEarned": "获得积分",
+    "keepGoing": "继续加油！",
+    "allDone": "全部完成！",
+    "createTask": "创建任务"
+  },
+  "delete": {
+    "confirmTitle": "删除任务",
+    "recurringTask": "重复任务",
+    "confirmMessage": "您确定要删除「{{title}}」吗？",
+    "recurringMessage": "「{{title}}」是重复任务系列的一部分。您想删除什么？",
+    "futureTasksInfo": "此系列有 {{count}} 个未来任务",
+    "futureTasksInfo_other": "此系列有 {{count}} 个未来任务",
+    "deleteThisOnly": "仅删除此任务",
+    "deleteAllFuture": "删除所有 {{count}} 个未来任务",
+    "deleteTask": "删除任务",
+    "deleting": "删除中..."
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "Panel de Administrador",
+    "tabs": {
+      "members": "Miembros",
+      "approvals": "Aprobaciones",
+      "rewards": "Recompensas"
+    }
+  },
+  "inviteCode": {
+    "title": "Código de Invitación",
+    "description": "Comparte este código para invitar miembros familiares (se unen sin derechos de administrador)",
+    "copyLink": "Copiar Enlace",
+    "copied": "¡Copiado!"
+  },
+  "parentInviteCode": {
+    "title": "Código de Invitación para Padres",
+    "description": "Comparte este código para invitar a otro padre o tutor con derechos de administrador"
+  },
+  "members": {
+    "title": "Miembros Familiares",
+    "count": "Miembros Familiares ({{count}})",
+    "addChild": "Agregar Hijo (PIN)",
+    "admin": "Administrador",
+    "pinUser": "Usuario PIN",
+    "points": "{{count}} puntos",
+    "level": "Nivel {{level}}",
+    "editMember": "Editar miembro",
+    "deleteMember": "Eliminar miembro",
+    "promoteAdmin": "Hacer administrador",
+    "demoteAdmin": "Quitar administrador"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Promover a Administrador",
+    "demoteTitle": "Quitar Derechos de Administrador",
+    "notAdmin": "No es administrador",
+    "promoteWarningTitle": "Otorgar Derechos de Administrador",
+    "promoteWarningMessage": "{{name}} podrá administrar la configuración familiar, aprobar tareas y administrar otros miembros.",
+    "demoteWarningTitle": "Quitar Derechos de Administrador",
+    "demoteWarningMessage": "{{name}} ya no podrá administrar la configuración familiar ni aprobar tareas.",
+    "lastAdminTitle": "No Se Puede Quitar al Último Administrador",
+    "lastAdminMessage": "Cada familia debe tener al menos un administrador. Primero promueve a otro miembro a administrador.",
+    "promoteButton": "Hacer Administrador",
+    "demoteButton": "Quitar Administrador",
+    "promoting": "Promoviendo...",
+    "demoting": "Quitando..."
+  },
+  "createChild": {
+    "title": "Agregar Cuenta de Hijo",
+    "subtitle": "Crea una cuenta basada en PIN para un hijo",
+    "nameLabel": "Nombre del Hijo",
+    "namePlaceholder": "Ingresa el nombre",
+    "pinLabel": "Código PIN",
+    "pinPlaceholder": "Ingresa PIN de 4 dígitos",
+    "pinHelp": "Este PIN será usado por el hijo para iniciar sesión",
+    "colorLabel": "Color",
+    "createButton": "Crear Cuenta de Hijo",
+    "creating": "Creando...",
+    "success": {
+      "title": "¡Cuenta de Hijo Creada!",
+      "message": "Comparte este enlace con {{name}} para acceder a su panel:",
+      "copyLink": "Copiar Enlace de Acceso",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Editar Miembro",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Ingresa el nombre",
+    "colorLabel": "Color de Perfil",
+    "enablePinLogin": "Habilitar Acceso por PIN",
+    "pinLabel": "Establecer PIN (4-6 dígitos)",
+    "newPinLabel": "Nuevo PIN (4-6 dígitos, dejar vacío para mantener existente)",
+    "pinPlaceholder": "Dejar vacío para mantener PIN existente",
+    "confirmPinLabel": "Confirmar PIN",
+    "confirmPinPlaceholder": "Reingresar PIN",
+    "pinMismatch": "Los PINs no coinciden",
+    "pinTooShort": "El PIN debe tener al menos 4 dígitos",
+    "keepExistingPin": "Dejar vacío para mantener PIN existente",
+    "pinUserWarning": "Esta es una cuenta basada en PIN.",
+    "saveButton": "Guardar Cambios",
+    "saving": "Guardando..."
+  },
+  "deleteMember": {
+    "title": "Eliminar Miembro",
+    "message": "¿Estás seguro de que quieres eliminar a {{name}}? Esto también eliminará todas sus tareas e historial de puntos.",
+    "warning": "Esta acción no se puede deshacer.",
+    "warningIntro": "Advertencia: Esta acción no se puede deshacer. Todos los datos de {{name}} serán eliminados permanentemente, incluyendo:",
+    "warningPoints": "Puntos y progreso de nivel",
+    "warningAchievements": "Logros obtenidos",
+    "warningTasks": "Historial de tareas",
+    "warningRedemptions": "Registros de canjes",
+    "pointsAndLevel": "{{points}} puntos · Nivel {{level}}",
+    "deleteButton": "Eliminar Miembro",
+    "deleting": "Eliminando..."
+  },
+  "approvals": {
+    "title": "Aprobaciones de Tareas",
+    "pendingApprovals": "Aprobaciones Pendientes",
+    "noPending": "No hay tareas esperando aprobación",
+    "submittedBy": "Enviada por {{name}}",
+    "approveButton": "Aprobar",
+    "rejectButton": "Rechazar",
+    "approving": "Aprobando...",
+    "rejecting": "Rechazando...",
+    "newTaskRequests": "Nuevas Solicitudes de Tareas",
+    "noNewTaskRequests": "No hay nuevas solicitudes de tareas",
+    "createdBy": "Creada por {{name}}",
+    "points": "Puntos"
+  },
+  "palette": {
+    "title": "Paleta de Colores",
+    "description": "Elige una paleta de colores para los colores de perfil en tu familia.",
+    "current": "Actual: {{name}}",
+    "select": "Seleccionar Paleta",
+    "saveButton": "Guardar Paleta",
+    "saving": "Guardando...",
+    "saved": "¡Paleta guardada!",
+    "saveFailed": "Error al guardar"
+  }
+}

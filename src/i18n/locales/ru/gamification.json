@@ -1,0 +1,231 @@
+{
+  "points": {
+    "value": "{{count}} очков",
+    "value_one": "{{count}} очко",
+    "value_few": "{{count}} очка",
+    "value_many": "{{count}} очков",
+    "earned": "Заработано очков",
+    "total": "Всего очков",
+    "weekly": "Очков за неделю"
+  },
+  "level": {
+    "current": "Уровень {{level}}",
+    "progressTo": "Прогресс до уровня {{level}}",
+    "maxLevel": "Максимальный уровень достигнут!"
+  },
+  "streak": {
+    "current": "{{count}} дней",
+    "current_one": "{{count}} день",
+    "current_few": "{{count}} дня",
+    "current_many": "{{count}} дней",
+    "dayStreak": "дней подряд",
+    "keepItUp": "Так держать!",
+    "streakLost": "Серия прервана",
+    "newRecord": "Новый рекорд!"
+  },
+  "achievements": {
+    "title": "Достижения",
+    "unlocked": "{{count}} из {{total}} открыто",
+    "earned": "Получено {{date}}",
+    "noAchievements": "Достижений пока нет",
+    "locked": "Заблокировано",
+    "newlyUnlocked": "Достижение разблокировано!"
+  },
+  "leaderboard": {
+    "title": "Семейный рейтинг",
+    "noMembers": "Пока нет членов семьи",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Уровень {{level}} - {{points}} очков"
+  },
+  "stats": {
+    "familyStats": "Статистика семьи",
+    "yourStats": "Ваша статистика",
+    "totalTasks": "Всего заданий",
+    "completed": "Выполнено",
+    "pending": "В ожидании",
+    "weeklyPoints": "Очков за неделю",
+    "completionRate": "Процент выполнения"
+  },
+  "rewards": {
+    "title": "Награды",
+    "myRewards": "Мои награды",
+    "overview": "Обзор наград",
+    "redeem": "Обменять очки",
+    "redeemButton": "Обменять",
+    "pointsToRedeem": "Очков для обмена",
+    "cashValue": "Денежный эквивалент",
+    "perPoint": "${{rate}} за очко",
+    "availablePoints": "Доступно очков",
+    "redeemableValue": "Доступно для обмена",
+    "pendingRedemptions": "Ожидающие запросы",
+    "redemptionHistory": "История обмена",
+    "noRedemptions": "Запросов на обмен пока нет",
+    "requestRedemption": "Запросить обмен",
+    "minimumPlaceholder": "Минимум: {{minimum}} очков",
+    "requesting": "Отправка запроса...",
+    "needMinimum": "Вам нужно минимум {{minimum}} очков для запроса обмена.",
+    "keepEarning": "Продолжайте зарабатывать, чтобы открыть награды!",
+    "weeklyGoal": {
+      "title": "Прогресс недельной цели",
+      "progress": "{{current}} / {{target}} очков",
+      "reached": "Цель достигнута! Бонус ${{bonus}} заработан на этой неделе!",
+      "earnMore": "Заработайте ещё {{remaining}} очков, чтобы получить бонус ${{bonus}}"
+    },
+    "settings": {
+      "title": "Настройки наград",
+      "enableRewards": "Включить награды",
+      "enableDescription": "Разрешить членам семьи обменивать очки на награды",
+      "pointsToMoneyRate": "Курс очков к деньгам",
+      "pointsToMoneyRateHint": "Сумма за одно очко (например, 0.01 = $0.01 за очко)",
+      "minimumRedemption": "Минимум очков для обмена",
+      "minimumRedemptionHint": "Минимальное количество очков для запроса обмена",
+      "weeklyBonusTarget": "Недельный бонус",
+      "weeklyTargetPoints": "Очков для недельной цели",
+      "weeklyTargetPointsHint": "Очков для получения недельного бонуса (0 = отключено)",
+      "weeklyBonusAmount": "Сумма недельного бонуса",
+      "weeklyBonusAmountHint": "Сумма бонуса за достижение недельной цели",
+      "example": "Пример: {{points}} очков = ${{money}}",
+      "weeklyGoalExample": "Недельная цель: Заработайте {{points}} очков, чтобы получить бонус ${{bonus}}",
+      "savedSuccess": "Настройки успешно сохранены!",
+      "saveFailed": "Не удалось сохранить настройки",
+      "saving": "Сохранение...",
+      "saveButton": "Сохранить настройки наград"
+    },
+    "status": {
+      "pending": "В ожидании",
+      "approved": "Одобрено",
+      "rejected": "Отклонено",
+      "paid": "Выплачено"
+    },
+    "actions": {
+      "approve": "Одобрить",
+      "reject": "Отклонить",
+      "markPaid": "Отметить выплаченным"
+    },
+    "manager": {
+      "title": "Запросы на обмен",
+      "pendingApproval": "Ожидают одобрения ({{count}})",
+      "awaitingPayment": "Одобрено - Ожидает выплаты ({{count}})",
+      "toPay": "${{amount}} к выплате",
+      "processing": "Обработка...",
+      "recentHistory": "Недавняя история",
+      "pointsEquals": "{{points}} очков = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Недельная цель",
+    "progress": "{{current}} / {{target}} очков",
+    "completed": "Цель достигнута!",
+    "notSet": "Цель не установлена"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% до уровня {{level}}"
+    },
+    "tabs": {
+      "home": "Главная",
+      "badges": "Значки",
+      "stats": "Статистика"
+    },
+    "dailyGreeting": {
+      "welcome": "С возвращением!",
+      "dayStreak": "дней подряд!",
+      "letsGo": "Вперёд!",
+      "tapToContinue": "Нажмите, чтобы продолжить",
+      "motivation": {
+        "startStreak": "Давай начнём новую серию сегодня!",
+        "greatStart": "Отличное начало! Так держать!",
+        "momentum": "Ты набираешь обороты!",
+        "onFire": "Ты в ударе! Потрясающе!",
+        "dedication": "Невероятная целеустремлённость!",
+        "superstar": "Ты суперзвезда!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Прогресс за сегодня",
+      "done": "{{done}}/{{total}} выполнено",
+      "allDone": "Всё готово! Отлично!",
+      "emptyState": {
+        "title": "Готов к приключениям?",
+        "subtitle": "Создай задание, чтобы начать зарабатывать очки и повышать уровень!",
+        "quickIdeas": "Быстрые идеи:",
+        "createOwn": "Создать своё задание"
+      },
+      "sections": {
+        "myTasks": "Мои задания ({{count}})",
+        "available": "Доступно для выполнения ({{count}})",
+        "waitingApproval": "Ожидает подтверждения ({{count}})",
+        "waitingForParent": "Ожидает родителя ({{count}})",
+        "completed": "Выполнено ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "Мои задания",
+        "familyTasks": "Семейные задания"
+      },
+      "familyTasks": {
+        "noTasks": "Нет назначенных заданий",
+        "assignedTo": "Назначено: {{name}}"
+      },
+      "suggestions": {
+        "read": "Читать",
+        "clean": "Уборка",
+        "exercise": "Упражнения",
+        "create": "Творчество",
+        "learn": "Учёба",
+        "petCare": "Уход за питомцем"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "Нажми, чтобы взять!",
+      "pendingApproval": "Ожидает подтверждения",
+      "waitingForParent": "Ожидает родителя"
+    },
+    "taskModal": {
+      "createTitle": "Создай своё задание",
+      "whatToDo": "Что ты хочешь сделать?",
+      "placeholder": "Например, читать 20 минут",
+      "createButton": "Создать задание",
+      "creating": "Создание...",
+      "sentForApproval": "Задание отправлено родителю!",
+      "parentWillReview": "Родитель проверит и подтвердит твоё задание."
+    },
+    "completion": {
+      "title": "Завершить задание",
+      "claimTask": "Взять это задание!",
+      "claiming": "Беру...",
+      "imDone": "Готово!",
+      "submitting": "Отправка...",
+      "earnPoints": "Заработай {{points}} очков!",
+      "alreadyCompleted": "Уже выполнено!",
+      "waitingApproval": "Ожидание подтверждения..."
+    },
+    "celebration": {
+      "approved": "Задание подтверждено!",
+      "approvedBig": "ПОДТВЕРЖДЕНО!",
+      "youEarned": "Ты заработал",
+      "points": "очков!",
+      "awesome": "Потрясающе!",
+      "total": "Всего: {{points}} очков"
+    },
+    "badges": {
+      "title": "Мои значки",
+      "unlockedCount": "{{unlocked}}/{{total}} открыто",
+      "noBadges": "Значков пока нет",
+      "noBadgesHint": "Выполняй задания, чтобы получить значки!",
+      "earned": "Получено {{date}}"
+    },
+    "statsView": {
+      "title": "Моя статистика",
+      "totalPoints": "Всего очков",
+      "currentLevel": "Текущий уровень",
+      "currentStreak": "Текущая серия",
+      "days": "дней",
+      "thisWeek": "На этой неделе",
+      "tasksDone": "Заданий выполнено",
+      "pointsEarned": "Очков заработано",
+      "activeDays": "Активных дней",
+      "recentActivity": "Недавняя активность",
+      "noActivity": "Пока нет активности. Выполни несколько заданий!"
+    }
+  }
+}

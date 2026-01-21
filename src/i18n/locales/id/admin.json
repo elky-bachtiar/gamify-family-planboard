@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "Panel Admin",
+    "tabs": {
+      "members": "Anggota",
+      "approvals": "Persetujuan",
+      "rewards": "Hadiah"
+    }
+  },
+  "inviteCode": {
+    "title": "Kode Undangan",
+    "description": "Bagikan kode ini untuk mengundang anggota keluarga (mereka bergabung tanpa hak admin)",
+    "copyLink": "Salin Tautan",
+    "copied": "Tersalin!"
+  },
+  "parentInviteCode": {
+    "title": "Kode Undangan Orang Tua",
+    "description": "Bagikan kode ini untuk mengundang orang tua atau wali lain dengan hak admin"
+  },
+  "members": {
+    "title": "Anggota Keluarga",
+    "count": "Anggota Keluarga ({{count}})",
+    "addChild": "Tambah Anak (PIN)",
+    "admin": "Admin",
+    "pinUser": "Pengguna PIN",
+    "points": "{{count}} poin",
+    "level": "Level {{level}}",
+    "editMember": "Ubah anggota",
+    "deleteMember": "Hapus anggota",
+    "promoteAdmin": "Jadikan admin",
+    "demoteAdmin": "Hapus admin"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Promosikan ke Admin",
+    "demoteTitle": "Hapus Hak Admin",
+    "notAdmin": "Bukan admin",
+    "promoteWarningTitle": "Berikan Hak Admin",
+    "promoteWarningMessage": "{{name}} akan dapat mengelola pengaturan keluarga, menyetujui tugas, dan mengelola anggota lain.",
+    "demoteWarningTitle": "Hapus Hak Admin",
+    "demoteWarningMessage": "{{name}} tidak akan lagi dapat mengelola pengaturan keluarga atau menyetujui tugas.",
+    "lastAdminTitle": "Tidak Dapat Menghapus Admin Terakhir",
+    "lastAdminMessage": "Setiap keluarga harus memiliki minimal satu admin. Promosikan anggota lain ke admin terlebih dahulu.",
+    "promoteButton": "Jadikan Admin",
+    "demoteButton": "Hapus Admin",
+    "promoting": "Mempromosikan...",
+    "demoting": "Menghapus..."
+  },
+  "createChild": {
+    "title": "Tambah Akun Anak",
+    "subtitle": "Buat akun berbasis PIN untuk anak",
+    "nameLabel": "Nama Anak",
+    "namePlaceholder": "Masukkan nama",
+    "pinLabel": "Kode PIN",
+    "pinPlaceholder": "Masukkan PIN 4 digit",
+    "pinHelp": "PIN ini akan digunakan anak untuk masuk",
+    "colorLabel": "Warna",
+    "createButton": "Buat Akun Anak",
+    "creating": "Membuat...",
+    "success": {
+      "title": "Akun Anak Dibuat!",
+      "message": "Bagikan tautan ini kepada {{name}} untuk mengakses dasbor mereka:",
+      "copyLink": "Salin Tautan Masuk",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Ubah Anggota",
+    "nameLabel": "Nama",
+    "namePlaceholder": "Masukkan nama",
+    "colorLabel": "Warna Profil",
+    "enablePinLogin": "Aktifkan Login PIN",
+    "pinLabel": "Atur PIN (4-6 digit)",
+    "newPinLabel": "PIN Baru (4-6 digit, kosongkan untuk mempertahankan yang ada)",
+    "pinPlaceholder": "Kosongkan untuk mempertahankan PIN yang ada",
+    "confirmPinLabel": "Konfirmasi PIN",
+    "confirmPinPlaceholder": "Masukkan ulang PIN",
+    "pinMismatch": "PIN tidak cocok",
+    "pinTooShort": "PIN minimal 4 digit",
+    "keepExistingPin": "Kosongkan untuk mempertahankan PIN yang ada",
+    "pinUserWarning": "Ini adalah akun berbasis PIN.",
+    "saveButton": "Simpan Perubahan",
+    "saving": "Menyimpan..."
+  },
+  "deleteMember": {
+    "title": "Hapus Anggota",
+    "message": "Apakah Anda yakin ingin menghapus {{name}}? Ini juga akan menghapus semua tugas dan riwayat poin mereka.",
+    "warning": "Tindakan ini tidak dapat dibatalkan.",
+    "warningIntro": "Peringatan: Tindakan ini tidak dapat dibatalkan. Semua data {{name}} akan dihapus secara permanen, termasuk:",
+    "warningPoints": "Poin dan progres level",
+    "warningAchievements": "Pencapaian yang diperoleh",
+    "warningTasks": "Riwayat tugas",
+    "warningRedemptions": "Catatan penukaran",
+    "pointsAndLevel": "{{points}} poin - Level {{level}}",
+    "deleteButton": "Hapus Anggota",
+    "deleting": "Menghapus..."
+  },
+  "approvals": {
+    "title": "Persetujuan Tugas",
+    "pendingApprovals": "Persetujuan Tertunda",
+    "noPending": "Tidak ada tugas yang menunggu persetujuan",
+    "submittedBy": "Dikirim oleh {{name}}",
+    "approveButton": "Setujui",
+    "rejectButton": "Tolak",
+    "approving": "Menyetujui...",
+    "rejecting": "Menolak...",
+    "newTaskRequests": "Permintaan Tugas Baru",
+    "noNewTaskRequests": "Tidak ada permintaan tugas baru",
+    "createdBy": "Dibuat oleh {{name}}",
+    "points": "Poin"
+  },
+  "palette": {
+    "title": "Palet Warna",
+    "description": "Pilih palet warna untuk warna profil di keluarga Anda.",
+    "current": "Saat ini: {{name}}",
+    "select": "Pilih Palet",
+    "saveButton": "Simpan Palet",
+    "saving": "Menyimpan...",
+    "saved": "Palet tersimpan!",
+    "saveFailed": "Gagal menyimpan"
+  }
+}

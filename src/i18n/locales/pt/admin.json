@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "Painel de Administracao",
+    "tabs": {
+      "members": "Membros",
+      "approvals": "Aprovacoes",
+      "rewards": "Recompensas"
+    }
+  },
+  "inviteCode": {
+    "title": "Codigo de Convite",
+    "description": "Compartilhe este codigo para convidar membros da familia (eles entram sem direitos de administrador)",
+    "copyLink": "Copiar Link",
+    "copied": "Copiado!"
+  },
+  "parentInviteCode": {
+    "title": "Codigo de Convite para Pais",
+    "description": "Compartilhe este codigo para convidar outro pai ou responsavel com direitos de administrador"
+  },
+  "members": {
+    "title": "Membros da Familia",
+    "count": "Membros da Familia ({{count}})",
+    "addChild": "Adicionar Filho(a) (PIN)",
+    "admin": "Admin",
+    "pinUser": "Usuario PIN",
+    "points": "{{count}} pontos",
+    "level": "Nivel {{level}}",
+    "editMember": "Editar membro",
+    "deleteMember": "Excluir membro",
+    "promoteAdmin": "Tornar administrador",
+    "demoteAdmin": "Remover administrador"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Promover a Administrador",
+    "demoteTitle": "Remover Direitos de Administrador",
+    "notAdmin": "Nao e administrador",
+    "promoteWarningTitle": "Conceder Direitos de Administrador",
+    "promoteWarningMessage": "{{name}} podera gerenciar configuracoes da familia, aprovar tarefas e gerenciar outros membros.",
+    "demoteWarningTitle": "Remover Direitos de Administrador",
+    "demoteWarningMessage": "{{name}} nao podera mais gerenciar configuracoes da familia ou aprovar tarefas.",
+    "lastAdminTitle": "Nao e Possivel Remover Ultimo Administrador",
+    "lastAdminMessage": "Toda familia precisa ter pelo menos um administrador. Promova outro membro a administrador primeiro.",
+    "promoteButton": "Tornar Administrador",
+    "demoteButton": "Remover Administrador",
+    "promoting": "Promovendo...",
+    "demoting": "Removendo..."
+  },
+  "createChild": {
+    "title": "Adicionar Conta de Filho(a)",
+    "subtitle": "Criar uma conta baseada em PIN para uma crianca",
+    "nameLabel": "Nome da Crianca",
+    "namePlaceholder": "Digite o nome",
+    "pinLabel": "Codigo PIN",
+    "pinPlaceholder": "Digite um PIN de 4 digitos",
+    "pinHelp": "Este PIN sera usado pela crianca para fazer login",
+    "colorLabel": "Cor",
+    "createButton": "Criar Conta de Filho(a)",
+    "creating": "Criando...",
+    "success": {
+      "title": "Conta de Filho(a) Criada!",
+      "message": "Compartilhe este link com {{name}} para acessar o painel:",
+      "copyLink": "Copiar Link de Login",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Editar Membro",
+    "nameLabel": "Nome",
+    "namePlaceholder": "Digite o nome",
+    "colorLabel": "Cor do Perfil",
+    "enablePinLogin": "Habilitar Login por PIN",
+    "pinLabel": "Definir PIN (4-6 digitos)",
+    "newPinLabel": "Novo PIN (4-6 digitos, deixe em branco para manter o existente)",
+    "pinPlaceholder": "Deixe em branco para manter o PIN existente",
+    "confirmPinLabel": "Confirmar PIN",
+    "confirmPinPlaceholder": "Digite o PIN novamente",
+    "pinMismatch": "Os PINs nao conferem",
+    "pinTooShort": "O PIN deve ter pelo menos 4 digitos",
+    "keepExistingPin": "Deixe em branco para manter o PIN existente",
+    "pinUserWarning": "Esta e uma conta baseada em PIN.",
+    "saveButton": "Salvar Alteracoes",
+    "saving": "Salvando..."
+  },
+  "deleteMember": {
+    "title": "Excluir Membro",
+    "message": "Tem certeza que deseja excluir {{name}}? Isso tambem excluira todas as suas tarefas e historico de pontos.",
+    "warning": "Esta acao nao pode ser desfeita.",
+    "warningIntro": "Aviso: Esta acao nao pode ser desfeita. Todos os dados de {{name}} serao permanentemente excluidos, incluindo:",
+    "warningPoints": "Pontos e progresso de nivel",
+    "warningAchievements": "Conquistas obtidas",
+    "warningTasks": "Historico de tarefas",
+    "warningRedemptions": "Registros de resgate",
+    "pointsAndLevel": "{{points}} pontos - Nivel {{level}}",
+    "deleteButton": "Excluir Membro",
+    "deleting": "Excluindo..."
+  },
+  "approvals": {
+    "title": "Aprovacao de Tarefas",
+    "pendingApprovals": "Aprovacoes Pendentes",
+    "noPending": "Nenhuma tarefa aguardando aprovacao",
+    "submittedBy": "Enviada por {{name}}",
+    "approveButton": "Aprovar",
+    "rejectButton": "Rejeitar",
+    "approving": "Aprovando...",
+    "rejecting": "Rejeitando...",
+    "newTaskRequests": "Novas Solicitacoes de Tarefas",
+    "noNewTaskRequests": "Nenhuma nova solicitacao de tarefa",
+    "createdBy": "Criada por {{name}}",
+    "points": "Pontos"
+  },
+  "palette": {
+    "title": "Paleta de Cores",
+    "description": "Escolha uma paleta de cores para as cores de perfil da sua familia.",
+    "current": "Atual: {{name}}",
+    "select": "Selecionar Paleta",
+    "saveButton": "Salvar Paleta",
+    "saving": "Salvando...",
+    "saved": "Paleta salva!",
+    "saveFailed": "Falha ao salvar"
+  }
+}

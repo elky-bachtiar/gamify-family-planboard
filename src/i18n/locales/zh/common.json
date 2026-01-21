@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "家庭计划板"
+  },
+  "navigation": {
+    "myTasks": "我的任务",
+    "familyBoard": "家庭看板",
+    "dashboard": "仪表板",
+    "childMode": "儿童视图",
+    "enterChildMode": "切换到儿童视图",
+    "exitChildMode": "退出儿童视图"
+  },
+  "buttons": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "back": "返回",
+    "submit": "提交",
+    "confirm": "确认",
+    "copy": "复制",
+    "copyLink": "复制链接",
+    "copied": "已复制！",
+    "loading": "加载中...",
+    "create": "创建",
+    "update": "更新",
+    "add": "添加"
+  },
+  "labels": {
+    "name": "姓名",
+    "email": "电子邮箱",
+    "password": "密码",
+    "description": "描述",
+    "status": "状态",
+    "priority": "优先级",
+    "points": "积分",
+    "level": "等级",
+    "days": "天",
+    "dayStreak": "天连续"
+  },
+  "errors": {
+    "generic": "出了点问题",
+    "required": "此字段为必填项",
+    "invalidEmail": "无效的电子邮箱地址",
+    "networkError": "网络错误，请重试。",
+    "unauthorized": "您无权执行此操作"
+  },
+  "empty": {
+    "noData": "暂无数据",
+    "noResults": "未找到结果"
+  },
+  "time": {
+    "today": "今天",
+    "yesterday": "昨天",
+    "tomorrow": "明天",
+    "thisWeek": "本周"
+  },
+  "confirmation": {
+    "areYouSure": "您确定吗？",
+    "cannotUndo": "此操作无法撤销。"
+  },
+  "profile": {
+    "settings": "个人设置",
+    "signOut": "退出登录"
+  }
+}

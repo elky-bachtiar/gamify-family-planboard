@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "Menunggu Persetujuan",
+    "claim": "Ambil",
+    "claiming": "Mengambil...",
+    "deleteConfirm": "Apakah Anda yakin ingin menghapus tugas ini?"
+  },
+  "priority": {
+    "low": "Rendah",
+    "medium": "Sedang",
+    "high": "Tinggi"
+  },
+  "status": {
+    "pending": "Tertunda",
+    "completed": "Selesai",
+    "pendingApproval": "Menunggu Persetujuan"
+  },
+  "modal": {
+    "createTitle": "Buat Tugas Baru",
+    "editTitle": "Ubah Tugas",
+    "viewTitle": "Detail Tugas",
+    "titleLabel": "Judul Tugas",
+    "titlePlaceholder": "Masukkan judul tugas",
+    "descriptionLabel": "Deskripsi (Opsional)",
+    "descriptionPlaceholder": "Tambahkan detail tentang tugas ini",
+    "priorityLabel": "Prioritas",
+    "pointsLabel": "Poin",
+    "dueDateLabel": "Tanggal Tenggat",
+    "dueTimeLabel": "Waktu Tenggat",
+    "startTimeLabel": "Waktu Mulai (Opsional)",
+    "startTimePlaceholder": "Kapan tugas muncul",
+    "startTimeHint": "Jika diatur, tugas hanya muncul untuk anak setelah waktu ini",
+    "assigneeLabel": "Tugaskan Ke",
+    "unassigned": "Belum Ditugaskan",
+    "createButton": "Buat Tugas",
+    "creating": "Membuat...",
+    "updateButton": "Perbarui Tugas",
+    "updating": "Memperbarui...",
+    "pts": "poin",
+    "errors": {
+      "noRecurrenceTasks": "Tidak ada tugas yang akan dibuat dengan pengaturan pengulangan saat ini",
+      "createFailed": "Gagal membuat tugas. Silakan coba lagi."
+    }
+  },
+  "recurrence": {
+    "repeat": "Ulangi",
+    "oneTime": "Sekali saja",
+    "daily": "Setiap hari",
+    "weekly": "Setiap minggu",
+    "specificDays": "Hari tertentu",
+    "selectDays": "Pilih hari",
+    "endDate": "Tanggal berakhir",
+    "willCreate": "Ini akan membuat <strong>{{count}}</strong> tugas",
+    "willCreate_other": "Ini akan membuat <strong>{{count}}</strong> tugas",
+    "noTasksCreated": "Tidak ada tugas yang akan dibuat dengan pengaturan saat ini",
+    "weekdays": {
+      "sun": "Min",
+      "mon": "Sen",
+      "tue": "Sel",
+      "wed": "Rab",
+      "thu": "Kam",
+      "fri": "Jum",
+      "sat": "Sab"
+    }
+  },
+  "calendar": {
+    "weeklyView": "Tampilan Mingguan",
+    "noTasks": "Tidak ada tugas untuk hari ini",
+    "addTask": "Tambah Tugas",
+    "weeklyTasks": "Tugas Mingguan",
+    "weeklyTasksEmpty": "Tidak ada tugas mingguan minggu ini"
+  },
+  "weeklyTask": {
+    "label": "Tugas mingguan",
+    "hint": "Anak dapat menyelesaikan tugas ini kapan saja minggu ini",
+    "badge": "Minggu Ini"
+  },
+  "filters": {
+    "all": "Semua",
+    "myTasks": "Tugas Saya",
+    "unassigned": "Belum Ditugaskan",
+    "completed": "Selesai",
+    "pending": "Tertunda",
+    "pendingApproval": "Menunggu Persetujuan",
+    "status": "Status",
+    "assignee": "Ditugaskan Ke"
+  },
+  "planboard": {
+    "title": "Papan Keluarga",
+    "today": "Hari Ini"
+  },
+  "empty": {
+    "noTasks": "Belum ada tugas",
+    "noTasksDescription": "Buat tugas untuk memulai!"
+  },
+  "detail": {
+    "editTask": "Ubah tugas",
+    "copyTask": "Salin tugas",
+    "description": "Deskripsi",
+    "dueDate": "Tanggal Tenggat",
+    "dueTime": "Waktu Tenggat",
+    "startTime": "Waktu Mulai",
+    "timeRange": "Tersedia",
+    "priority": "Prioritas",
+    "points": "Poin",
+    "pointsValue": "{{count}} poin",
+    "assignedTo": "Ditugaskan Ke",
+    "unassigned": "Belum Ditugaskan",
+    "tagsObjects": "Tag/Objek",
+    "tagsHint": "Tekan Enter atau koma untuk menambah tag",
+    "tagsPlaceholder": "mis., mesin cuci piring, dapur",
+    "completedAt": "Selesai Pada",
+    "saveChanges": "Simpan Perubahan",
+    "saving": "Menyimpan...",
+    "close": "Tutup"
+  },
+  "recurringEdit": {
+    "title": "Ubah Tugas Berulang",
+    "partOfSeries": "\"{{title}}\" adalah bagian dari rangkaian tugas berulang. Bagaimana Anda ingin menerapkan perubahan?",
+    "editSingleTitle": "Simpan tugas ini saja",
+    "editSingleDescription": "Perubahan hanya berlaku untuk kejadian khusus ini",
+    "editAllFutureTitle": "Simpan semua tugas mendatang",
+    "editAllFutureBadge": "{{count}} tugas",
+    "editAllFutureDescription": "Perubahan akan berlaku untuk semua tugas yang belum selesai mulai hari ini",
+    "updating": "Memperbarui tugas..."
+  },
+  "recurringReorder": {
+    "title": "Urutkan Ulang Tugas Berulang",
+    "partOfSeries": "\"{{title}}\" adalah bagian dari rangkaian tugas berulang. Bagaimana Anda ingin menerapkan posisi baru?",
+    "reorderSingleTitle": "Urutkan ulang tugas ini saja",
+    "reorderSingleDescription": "Posisi baru hanya berlaku untuk kejadian khusus ini",
+    "reorderAllFutureTitle": "Urutkan ulang semua tugas mendatang",
+    "reorderAllFutureBadge": "{{count}} tugas",
+    "reorderAllFutureDescription": "Posisi baru akan berlaku untuk semua tugas yang belum selesai mulai hari ini",
+    "updating": "Memperbarui posisi..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "Selamat pagi",
+      "afternoon": "Selamat siang",
+      "evening": "Selamat malam"
+    },
+    "todaysTasks": "Tugas Hari Ini",
+    "completedToday": "Selesai Hari Ini",
+    "pointsEarned": "Poin Diperoleh",
+    "keepGoing": "Terus semangat!",
+    "allDone": "Selesai semua!",
+    "createTask": "Buat Tugas"
+  },
+  "delete": {
+    "confirmTitle": "Hapus Tugas",
+    "recurringTask": "Tugas Berulang",
+    "confirmMessage": "Apakah Anda yakin ingin menghapus \"{{title}}\"?",
+    "recurringMessage": "\"{{title}}\" adalah bagian dari rangkaian tugas berulang. Apa yang ingin Anda hapus?",
+    "futureTasksInfo": "Rangkaian ini memiliki {{count}} tugas mendatang",
+    "futureTasksInfo_other": "Rangkaian ini memiliki {{count}} tugas mendatang",
+    "deleteThisOnly": "Hapus tugas ini saja",
+    "deleteAllFuture": "Hapus semua {{count}} tugas mendatang",
+    "deleteTask": "Hapus Tugas",
+    "deleting": "Menghapus..."
+  }
+}

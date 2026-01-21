@@ -11,12 +11,15 @@ import { ChildCreateTaskModal } from './ChildCreateTaskModal';
 import { DailyGreeting } from './DailyGreeting';
 import { PointsAnimation } from './Gamification/PointsAnimation';
 import { ApprovalCelebration } from './Gamification/ApprovalCelebration';
+import { PenaltyToast } from './Gamification/PenaltyToast';
 import { ChildBadgesView } from './Views/ChildBadgesView';
 import { ChildStatsView } from './Views/ChildStatsView';
-import type { TaskWithMember, Task } from '../../types';
+import type { TaskWithMember, Task, PointsHistory } from '../../types';
 
 // Session storage key for greeting shown today
 const GREETING_SHOWN_KEY = 'child_greeting_shown';
+// LocalStorage key prefix for last seen penalty ID
+const LAST_SEEN_PENALTY_KEY = 'child_last_seen_penalty_';
 
 export function ChildDashboard() {
   const { currentMember } = useFamily();
@@ -33,6 +36,10 @@ export function ChildDashboard() {
   const [pendingPoints, setPendingPoints] = useState(0);
   const [approvedTask, setApprovedTask] = useState<Task | null>(null);
 
+  // Penalty notification states
+  const [pendingPenalties, setPendingPenalties] = useState<PointsHistory[]>([]);
+  const [currentPenalty, setCurrentPenalty] = useState<PointsHistory | null>(null);
+
   // Check if we should show greeting (once per session)
   useEffect(() => {
     const today = new Date().toDateString();
@@ -43,6 +50,44 @@ export function ChildDashboard() {
       sessionStorage.setItem(GREETING_SHOWN_KEY, today);
     }
   }, [currentMember]);
+
+  // Check for unseen penalties on mount
+  useEffect(() => {
+    if (!currentMember) return;
+
+    const checkForPenalties = async () => {
+      const supabase = getSupabaseClient();
+      const lastSeenKey = LAST_SEEN_PENALTY_KEY + currentMember.id;
+      const lastSeenId = localStorage.getItem(lastSeenKey);
+
+      // Query for negative points history entries
+      let query = supabase
+        .from('points_history')
+        .select('*')
+        .eq('member_id', currentMember.id)
+        .lt('points', 0)
+        .order('created_at', { ascending: true });
+
+      // If we have a last seen ID, only get entries after that
+      if (lastSeenId) {
+        query = query.gt('id', lastSeenId);
+      }
+
+      const { data: penalties, error } = await query;
+
+      if (error) {
+        console.error('Error checking for penalties:', error);
+        return;
+      }
+
+      if (penalties && penalties.length > 0) {
+        setPendingPenalties(penalties);
+        setCurrentPenalty(penalties[0]);
+      }
+    };
+
+    checkForPenalties();
+  }, [currentMember?.id]);
 
   const handleDismissGreeting = useCallback(() => {
     setShowGreeting(false);
@@ -112,6 +157,27 @@ export function ChildDashboard() {
   const handleApprovalCelebrationClose = () => {
     setApprovedTask(null);
   };
+
+  const handlePenaltyClose = useCallback(() => {
+    if (!currentMember || !currentPenalty) return;
+
+    // Mark this penalty as seen
+    const lastSeenKey = LAST_SEEN_PENALTY_KEY + currentMember.id;
+    localStorage.setItem(lastSeenKey, currentPenalty.id);
+
+    // Remove the current penalty from pending
+    const remaining = pendingPenalties.filter(p => p.id !== currentPenalty.id);
+    setPendingPenalties(remaining);
+
+    // Show next penalty if any
+    if (remaining.length > 0) {
+      setTimeout(() => {
+        setCurrentPenalty(remaining[0]);
+      }, 500);
+    } else {
+      setCurrentPenalty(null);
+    }
+  }, [currentMember, currentPenalty, pendingPenalties]);
 
   const handleCreateTask = useCallback((defaultTitle?: string) => {
     setCreateTaskDefaultTitle(defaultTitle);
@@ -189,6 +255,14 @@ export function ChildDashboard() {
       {/* Daily greeting overlay */}
       {showGreeting && (
         <DailyGreeting onDismiss={handleDismissGreeting} />
+      )}
+
+      {/* Penalty notification toast */}
+      {currentPenalty && (
+        <PenaltyToast
+          penalty={currentPenalty}
+          onClose={handlePenaltyClose}
+        />
       )}
 
       {/* Create task modal */}

@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "لوحة الإدارة",
+    "tabs": {
+      "members": "الأعضاء",
+      "approvals": "الموافقات",
+      "rewards": "المكافآت"
+    }
+  },
+  "inviteCode": {
+    "title": "رمز الدعوة",
+    "description": "شارك هذا الرمز لدعوة أفراد العائلة (ينضمون بدون صلاحيات المسؤول)",
+    "copyLink": "نسخ الرابط",
+    "copied": "تم النسخ!"
+  },
+  "parentInviteCode": {
+    "title": "رمز دعوة الوالدين",
+    "description": "شارك هذا الرمز لدعوة والد أو وصي آخر بصلاحيات المسؤول"
+  },
+  "members": {
+    "title": "أفراد العائلة",
+    "count": "أفراد العائلة ({{count}})",
+    "addChild": "إضافة طفل (رقم سري)",
+    "admin": "مسؤول",
+    "pinUser": "مستخدم بالرقم السري",
+    "points": "{{count}} نقاط",
+    "level": "المستوى {{level}}",
+    "editMember": "تعديل العضو",
+    "deleteMember": "حذف العضو",
+    "promoteAdmin": "ترقية إلى مسؤول",
+    "demoteAdmin": "إزالة صلاحيات المسؤول"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "ترقية إلى مسؤول",
+    "demoteTitle": "إزالة صلاحيات المسؤول",
+    "notAdmin": "ليس مسؤولاً",
+    "promoteWarningTitle": "منح صلاحيات المسؤول",
+    "promoteWarningMessage": "سيتمكن {{name}} من إدارة إعدادات العائلة، والموافقة على المهام، وإدارة الأعضاء الآخرين.",
+    "demoteWarningTitle": "إزالة صلاحيات المسؤول",
+    "demoteWarningMessage": "لن يتمكن {{name}} بعد الآن من إدارة إعدادات العائلة أو الموافقة على المهام.",
+    "lastAdminTitle": "لا يمكن إزالة المسؤول الأخير",
+    "lastAdminMessage": "يجب أن يكون لكل عائلة مسؤول واحد على الأقل. قم بترقية عضو آخر إلى مسؤول أولاً.",
+    "promoteButton": "ترقية إلى مسؤول",
+    "demoteButton": "إزالة الصلاحيات",
+    "promoting": "جارٍ الترقية...",
+    "demoting": "جارٍ الإزالة..."
+  },
+  "createChild": {
+    "title": "إضافة حساب طفل",
+    "subtitle": "إنشاء حساب برقم سري للطفل",
+    "nameLabel": "اسم الطفل",
+    "namePlaceholder": "أدخل الاسم",
+    "pinLabel": "الرقم السري",
+    "pinPlaceholder": "أدخل رقم سري من 4 أرقام",
+    "pinHelp": "سيستخدم الطفل هذا الرقم السري لتسجيل الدخول",
+    "colorLabel": "اللون",
+    "createButton": "إنشاء حساب الطفل",
+    "creating": "جارٍ الإنشاء...",
+    "success": {
+      "title": "تم إنشاء حساب الطفل!",
+      "message": "شارك هذا الرابط مع {{name}} للوصول إلى لوحة التحكم الخاصة به:",
+      "copyLink": "نسخ رابط تسجيل الدخول",
+      "pin": "الرقم السري: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "تعديل العضو",
+    "nameLabel": "الاسم",
+    "namePlaceholder": "أدخل الاسم",
+    "colorLabel": "لون الملف الشخصي",
+    "enablePinLogin": "تفعيل تسجيل الدخول بالرقم السري",
+    "pinLabel": "تعيين الرقم السري (4-6 أرقام)",
+    "newPinLabel": "رقم سري جديد (4-6 أرقام، اتركه فارغاً للاحتفاظ بالحالي)",
+    "pinPlaceholder": "اتركه فارغاً للاحتفاظ بالرقم السري الحالي",
+    "confirmPinLabel": "تأكيد الرقم السري",
+    "confirmPinPlaceholder": "أعد إدخال الرقم السري",
+    "pinMismatch": "الرقمان السريان غير متطابقين",
+    "pinTooShort": "يجب أن يكون الرقم السري 4 أرقام على الأقل",
+    "keepExistingPin": "اتركه فارغاً للاحتفاظ بالرقم السري الحالي",
+    "pinUserWarning": "هذا حساب برقم سري.",
+    "saveButton": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ..."
+  },
+  "deleteMember": {
+    "title": "حذف العضو",
+    "message": "هل أنت متأكد أنك تريد حذف {{name}}؟ سيؤدي هذا أيضاً إلى حذف جميع مهامه وسجل نقاطه.",
+    "warning": "لا يمكن التراجع عن هذا الإجراء.",
+    "warningIntro": "تحذير: لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع بيانات {{name}} بشكل دائم، بما في ذلك:",
+    "warningPoints": "النقاط والتقدم في المستويات",
+    "warningAchievements": "الإنجازات المكتسبة",
+    "warningTasks": "سجل المهام",
+    "warningRedemptions": "سجلات الاستبدال",
+    "pointsAndLevel": "{{points}} نقاط · المستوى {{level}}",
+    "deleteButton": "حذف العضو",
+    "deleting": "جارٍ الحذف..."
+  },
+  "approvals": {
+    "title": "موافقات المهام",
+    "pendingApprovals": "الموافقات المعلقة",
+    "noPending": "لا توجد مهام في انتظار الموافقة",
+    "submittedBy": "أرسلها {{name}}",
+    "approveButton": "موافقة",
+    "rejectButton": "رفض",
+    "approving": "جارٍ الموافقة...",
+    "rejecting": "جارٍ الرفض...",
+    "newTaskRequests": "طلبات مهام جديدة",
+    "noNewTaskRequests": "لا توجد طلبات مهام جديدة",
+    "createdBy": "أنشأها {{name}}",
+    "points": "النقاط"
+  },
+  "palette": {
+    "title": "لوحة الألوان",
+    "description": "اختر لوحة ألوان لألوان الملفات الشخصية في عائلتك.",
+    "current": "الحالية: {{name}}",
+    "select": "اختر اللوحة",
+    "saveButton": "حفظ اللوحة",
+    "saving": "جارٍ الحفظ...",
+    "saved": "تم حفظ اللوحة!",
+    "saveFailed": "فشل الحفظ"
+  }
+}

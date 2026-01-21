@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "Panneau d'Administration",
+    "tabs": {
+      "members": "Membres",
+      "approvals": "Approbations",
+      "rewards": "Récompenses"
+    }
+  },
+  "inviteCode": {
+    "title": "Code d'Invitation",
+    "description": "Partagez ce code pour inviter des membres de la famille (ils rejoignent sans droits d'administrateur)",
+    "copyLink": "Copier le Lien",
+    "copied": "Copié !"
+  },
+  "parentInviteCode": {
+    "title": "Code d'Invitation Parent",
+    "description": "Partagez ce code pour inviter un autre parent ou tuteur avec des droits d'administrateur"
+  },
+  "members": {
+    "title": "Membres de la Famille",
+    "count": "Membres de la Famille ({{count}})",
+    "addChild": "Ajouter un Enfant (PIN)",
+    "admin": "Admin",
+    "pinUser": "Utilisateur PIN",
+    "points": "{{count}} points",
+    "level": "Niveau {{level}}",
+    "editMember": "Modifier le membre",
+    "deleteMember": "Supprimer le membre",
+    "promoteAdmin": "Promouvoir administrateur",
+    "demoteAdmin": "Retirer les droits d'administrateur"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Promouvoir Administrateur",
+    "demoteTitle": "Retirer les Droits d'Administrateur",
+    "notAdmin": "N'est pas administrateur",
+    "promoteWarningTitle": "Accorder les Droits d'Administrateur",
+    "promoteWarningMessage": "{{name}} pourra gérer les paramètres familiaux, approuver les tâches et gérer les autres membres.",
+    "demoteWarningTitle": "Retirer les Droits d'Administrateur",
+    "demoteWarningMessage": "{{name}} ne pourra plus gérer les paramètres familiaux ni approuver les tâches.",
+    "lastAdminTitle": "Impossible de Retirer le Dernier Administrateur",
+    "lastAdminMessage": "Chaque famille doit avoir au moins un administrateur. Promouvez d'abord un autre membre.",
+    "promoteButton": "Promouvoir Administrateur",
+    "demoteButton": "Retirer Administrateur",
+    "promoting": "Promotion...",
+    "demoting": "Retrait..."
+  },
+  "createChild": {
+    "title": "Ajouter un Compte Enfant",
+    "subtitle": "Créer un compte avec PIN pour un enfant",
+    "nameLabel": "Nom de l'Enfant",
+    "namePlaceholder": "Entrez le nom",
+    "pinLabel": "Code PIN",
+    "pinPlaceholder": "Entrez un PIN à 4 chiffres",
+    "pinHelp": "Ce PIN sera utilisé par l'enfant pour se connecter",
+    "colorLabel": "Couleur",
+    "createButton": "Créer le Compte Enfant",
+    "creating": "Création...",
+    "success": {
+      "title": "Compte Enfant Créé !",
+      "message": "Partagez ce lien avec {{name}} pour accéder à son tableau de bord :",
+      "copyLink": "Copier le Lien de Connexion",
+      "pin": "PIN : {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Modifier le Membre",
+    "nameLabel": "Nom",
+    "namePlaceholder": "Entrez le nom",
+    "colorLabel": "Couleur du Profil",
+    "enablePinLogin": "Activer la Connexion par PIN",
+    "pinLabel": "Définir le PIN (4-6 chiffres)",
+    "newPinLabel": "Nouveau PIN (4-6 chiffres, laisser vide pour conserver l'existant)",
+    "pinPlaceholder": "Laisser vide pour conserver le PIN existant",
+    "confirmPinLabel": "Confirmer le PIN",
+    "confirmPinPlaceholder": "Ressaisir le PIN",
+    "pinMismatch": "Les PIN ne correspondent pas",
+    "pinTooShort": "Le PIN doit contenir au moins 4 chiffres",
+    "keepExistingPin": "Laisser vide pour conserver le PIN existant",
+    "pinUserWarning": "Ceci est un compte basé sur PIN.",
+    "saveButton": "Enregistrer les Modifications",
+    "saving": "Enregistrement..."
+  },
+  "deleteMember": {
+    "title": "Supprimer le Membre",
+    "message": "Êtes-vous sûr de vouloir supprimer {{name}} ? Cela supprimera également toutes ses tâches et son historique de points.",
+    "warning": "Cette action est irréversible.",
+    "warningIntro": "Attention : Cette action est irréversible. Toutes les données de {{name}} seront définitivement supprimées, y compris :",
+    "warningPoints": "Points et progression de niveau",
+    "warningAchievements": "Succès obtenus",
+    "warningTasks": "Historique des tâches",
+    "warningRedemptions": "Historique des échanges",
+    "pointsAndLevel": "{{points}} points · Niveau {{level}}",
+    "deleteButton": "Supprimer le Membre",
+    "deleting": "Suppression..."
+  },
+  "approvals": {
+    "title": "Approbations des Tâches",
+    "pendingApprovals": "Approbations en Attente",
+    "noPending": "Aucune tâche en attente d'approbation",
+    "submittedBy": "Soumis par {{name}}",
+    "approveButton": "Approuver",
+    "rejectButton": "Refuser",
+    "approving": "Approbation...",
+    "rejecting": "Refus...",
+    "newTaskRequests": "Nouvelles Demandes de Tâches",
+    "noNewTaskRequests": "Aucune nouvelle demande de tâche",
+    "createdBy": "Créé par {{name}}",
+    "points": "Points"
+  },
+  "palette": {
+    "title": "Palette de Couleurs",
+    "description": "Choisissez une palette de couleurs pour les profils de votre famille.",
+    "current": "Actuelle : {{name}}",
+    "select": "Sélectionner la Palette",
+    "saveButton": "Enregistrer la Palette",
+    "saving": "Enregistrement...",
+    "saved": "Palette enregistrée !",
+    "saveFailed": "Échec de l'enregistrement"
+  }
+}

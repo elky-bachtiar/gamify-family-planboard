@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "في انتظار الموافقة",
+    "claim": "استلام",
+    "claiming": "جارٍ الاستلام...",
+    "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذه المهمة؟"
+  },
+  "priority": {
+    "low": "منخفضة",
+    "medium": "متوسطة",
+    "high": "عالية"
+  },
+  "status": {
+    "pending": "قيد الانتظار",
+    "completed": "مكتملة",
+    "pendingApproval": "في انتظار الموافقة"
+  },
+  "modal": {
+    "createTitle": "إنشاء مهمة جديدة",
+    "editTitle": "تعديل المهمة",
+    "viewTitle": "تفاصيل المهمة",
+    "titleLabel": "عنوان المهمة",
+    "titlePlaceholder": "أدخل عنوان المهمة",
+    "descriptionLabel": "الوصف (اختياري)",
+    "descriptionPlaceholder": "أضف تفاصيل حول هذه المهمة",
+    "priorityLabel": "الأولوية",
+    "pointsLabel": "النقاط",
+    "dueDateLabel": "تاريخ الاستحقاق",
+    "dueTimeLabel": "وقت الاستحقاق",
+    "startTimeLabel": "وقت البدء (اختياري)",
+    "startTimePlaceholder": "متى تصبح المهمة مرئية",
+    "startTimeHint": "إذا تم تحديده، تظهر المهمة للأطفال فقط بعد هذا الوقت",
+    "assigneeLabel": "تعيين إلى",
+    "unassigned": "غير معيّن",
+    "createButton": "إنشاء المهمة",
+    "creating": "جارٍ الإنشاء...",
+    "updateButton": "تحديث المهمة",
+    "updating": "جارٍ التحديث...",
+    "pts": "نقطة",
+    "errors": {
+      "noRecurrenceTasks": "لن يتم إنشاء أي مهام بإعدادات التكرار الحالية",
+      "createFailed": "فشل إنشاء المهمة. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "recurrence": {
+    "repeat": "تكرار",
+    "oneTime": "مرة واحدة",
+    "daily": "يومي",
+    "weekly": "أسبوعي",
+    "specificDays": "أيام محددة",
+    "selectDays": "اختر الأيام",
+    "endDate": "تاريخ الانتهاء",
+    "willCreate": "سيتم إنشاء <strong>{{count}}</strong> مهمة",
+    "willCreate_other": "سيتم إنشاء <strong>{{count}}</strong> مهام",
+    "noTasksCreated": "لن يتم إنشاء أي مهام بالإعدادات الحالية",
+    "weekdays": {
+      "sun": "أحد",
+      "mon": "إثنين",
+      "tue": "ثلاثاء",
+      "wed": "أربعاء",
+      "thu": "خميس",
+      "fri": "جمعة",
+      "sat": "سبت"
+    }
+  },
+  "calendar": {
+    "weeklyView": "العرض الأسبوعي",
+    "noTasks": "لا توجد مهام لهذا اليوم",
+    "addTask": "إضافة مهمة",
+    "weeklyTasks": "المهام الأسبوعية",
+    "weeklyTasksEmpty": "لا توجد مهام أسبوعية هذا الأسبوع"
+  },
+  "weeklyTask": {
+    "label": "مهمة أسبوعية",
+    "hint": "يمكن للطفل إكمال هذه المهمة في أي يوم من هذا الأسبوع",
+    "badge": "هذا الأسبوع"
+  },
+  "filters": {
+    "all": "الكل",
+    "myTasks": "مهامي",
+    "unassigned": "غير معيّنة",
+    "completed": "مكتملة",
+    "pending": "قيد الانتظار",
+    "pendingApproval": "في انتظار الموافقة",
+    "status": "الحالة",
+    "assignee": "المكلّف"
+  },
+  "planboard": {
+    "title": "لوحة تخطيط العائلة",
+    "today": "اليوم"
+  },
+  "empty": {
+    "noTasks": "لا توجد مهام بعد",
+    "noTasksDescription": "أنشئ مهمة للبدء!"
+  },
+  "detail": {
+    "editTask": "تعديل المهمة",
+    "copyTask": "نسخ المهمة",
+    "description": "الوصف",
+    "dueDate": "تاريخ الاستحقاق",
+    "dueTime": "وقت الاستحقاق",
+    "startTime": "وقت البدء",
+    "timeRange": "متاح",
+    "priority": "الأولوية",
+    "points": "النقاط",
+    "pointsValue": "{{count}} نقاط",
+    "assignedTo": "معيّن إلى",
+    "unassigned": "غير معيّن",
+    "tagsObjects": "العلامات/الأشياء",
+    "tagsHint": "اضغط Enter أو الفاصلة لإضافة علامة",
+    "tagsPlaceholder": "مثال: غسالة الصحون، المطبخ",
+    "completedAt": "اكتمل في",
+    "saveChanges": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ...",
+    "close": "إغلاق"
+  },
+  "recurringEdit": {
+    "title": "تعديل مهمة متكررة",
+    "partOfSeries": "\"{{title}}\" جزء من سلسلة مهام متكررة. كيف تريد تطبيق تغييراتك؟",
+    "editSingleTitle": "حفظ هذه المهمة فقط",
+    "editSingleDescription": "ستُطبّق التغييرات على هذا الحدوث فقط",
+    "editAllFutureTitle": "حفظ جميع المهام المستقبلية",
+    "editAllFutureBadge": "{{count}} مهام",
+    "editAllFutureDescription": "ستُطبّق التغييرات على جميع المهام غير المكتملة من اليوم فصاعداً",
+    "updating": "جارٍ تحديث المهام..."
+  },
+  "recurringReorder": {
+    "title": "إعادة ترتيب مهمة متكررة",
+    "partOfSeries": "\"{{title}}\" جزء من سلسلة مهام متكررة. كيف تريد تطبيق الموضع الجديد؟",
+    "reorderSingleTitle": "إعادة ترتيب هذه المهمة فقط",
+    "reorderSingleDescription": "سيُطبّق الموضع الجديد على هذا الحدوث فقط",
+    "reorderAllFutureTitle": "إعادة ترتيب جميع المهام المستقبلية",
+    "reorderAllFutureBadge": "{{count}} مهام",
+    "reorderAllFutureDescription": "سيُطبّق الموضع الجديد على جميع المهام غير المكتملة من اليوم فصاعداً",
+    "updating": "جارٍ تحديث المواضع..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "صباح الخير",
+      "afternoon": "مساء الخير",
+      "evening": "مساء الخير"
+    },
+    "todaysTasks": "مهام اليوم",
+    "completedToday": "المكتملة اليوم",
+    "pointsEarned": "النقاط المكتسبة",
+    "keepGoing": "استمر!",
+    "allDone": "أحسنت!",
+    "createTask": "إنشاء مهمة"
+  },
+  "delete": {
+    "confirmTitle": "حذف المهمة",
+    "recurringTask": "مهمة متكررة",
+    "confirmMessage": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟",
+    "recurringMessage": "\"{{title}}\" جزء من سلسلة مهام متكررة. ماذا تريد أن تحذف؟",
+    "futureTasksInfo": "هذه السلسلة لديها {{count}} مهمة مستقبلية",
+    "futureTasksInfo_other": "هذه السلسلة لديها {{count}} مهام مستقبلية",
+    "deleteThisOnly": "حذف هذه المهمة فقط",
+    "deleteAllFuture": "حذف جميع المهام المستقبلية ({{count}})",
+    "deleteTask": "حذف المهمة",
+    "deleting": "جارٍ الحذف..."
+  }
+}

@@ -222,6 +222,11 @@
       "activeDays": "Actieve dagen",
       "recentActivity": "Recente activiteit",
       "noActivity": "Nog geen activiteit. Voltooi wat taken!"
+    },
+    "penalty": {
+      "title": "Punten Verloren!",
+      "pointsLost": "-{{points}} punten",
+      "unknownReason": "Onbekende reden"
     }
   }
 }

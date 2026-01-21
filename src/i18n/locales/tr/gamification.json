@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} puan",
+    "value_one": "{{count}} puan",
+    "earned": "Kazanılan Puan",
+    "total": "Toplam Puan",
+    "weekly": "Haftalık Puan"
+  },
+  "level": {
+    "current": "Seviye {{level}}",
+    "progressTo": "Seviye {{level}}'e ilerleme",
+    "maxLevel": "Maksimum Seviyeye Ulaşıldı!"
+  },
+  "streak": {
+    "current": "{{count}} gün",
+    "current_one": "{{count}} gün",
+    "dayStreak": "günlük seri",
+    "keepItUp": "Böyle devam et!",
+    "streakLost": "Seri kaybedildi",
+    "newRecord": "Yeni rekor!"
+  },
+  "achievements": {
+    "title": "Başarılar",
+    "unlocked": "{{total}} başarıdan {{count}} tanesi açıldı",
+    "earned": "{{date}} tarihinde kazanıldı",
+    "noAchievements": "Henüz başarı bulunmuyor",
+    "locked": "Kilitli",
+    "newlyUnlocked": "Başarı Kazanıldı!"
+  },
+  "leaderboard": {
+    "title": "Aile Sıralaması",
+    "noMembers": "Henüz aile üyesi yok",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "Seviye {{level}} - {{points}} puan"
+  },
+  "stats": {
+    "familyStats": "Aile İstatistikleri",
+    "yourStats": "İstatistikleriniz",
+    "totalTasks": "Toplam Görev",
+    "completed": "Tamamlanan",
+    "pending": "Bekleyen",
+    "weeklyPoints": "Haftalık Puan",
+    "completionRate": "Tamamlanma Oranı"
+  },
+  "rewards": {
+    "title": "Ödüller",
+    "myRewards": "Ödüllerim",
+    "overview": "Ödüllere Genel Bakış",
+    "redeem": "Puan Kullan",
+    "redeemButton": "Kullan",
+    "pointsToRedeem": "Kullanılacak Puan",
+    "cashValue": "Nakit Değeri",
+    "perPoint": "Puan başına {{rate}} TL",
+    "availablePoints": "Mevcut Puan",
+    "redeemableValue": "Kullanılabilir Değer",
+    "pendingRedemptions": "Bekleyen Kullanımlar",
+    "redemptionHistory": "Kullanım Geçmişi",
+    "noRedemptions": "Henüz kullanım talebi yok",
+    "requestRedemption": "Kullanım Talep Et",
+    "minimumPlaceholder": "Minimum: {{minimum}} puan",
+    "requesting": "Talep ediliyor...",
+    "needMinimum": "Kullanım talep etmek için en az {{minimum}} puana ihtiyacınız var.",
+    "keepEarning": "Ödülleri açmak için kazanmaya devam edin!",
+    "weeklyGoal": {
+      "title": "Haftalık Hedef İlerlemesi",
+      "progress": "{{current}} / {{target}} puan",
+      "reached": "Hedefe ulaşıldı! Bu hafta {{bonus}} TL bonus kazanıldı!",
+      "earnMore": "{{bonus}} TL bonus almak için {{remaining}} puan daha kazanın"
+    },
+    "settings": {
+      "title": "Ödül Ayarları",
+      "enableRewards": "Ödülleri Etkinleştir",
+      "enableDescription": "Aile üyelerinin puanlarını ödüller için kullanmasına izin ver",
+      "pointsToMoneyRate": "Puan-Para Oranı",
+      "pointsToMoneyRateHint": "Puan başına miktar (örn. 0.10 = puan başına 0.10 TL)",
+      "minimumRedemption": "Minimum Kullanım Puanı",
+      "minimumRedemptionHint": "Kullanım talep etmek için gereken minimum puan",
+      "weeklyBonusTarget": "Haftalık Bonus Hedefi",
+      "weeklyTargetPoints": "Haftalık Hedef Puanı",
+      "weeklyTargetPointsHint": "Haftalık bonus kazanmak için gereken puan (0 = devre dışı)",
+      "weeklyBonusAmount": "Haftalık Bonus Miktarı",
+      "weeklyBonusAmountHint": "Haftalık hedefe ulaşınca kazanılacak bonus miktarı",
+      "example": "Örnek: {{points}} puan = {{money}} TL",
+      "weeklyGoalExample": "Haftalık hedef: {{bonus}} TL bonus almak için {{points}} puan kazanın",
+      "savedSuccess": "Ayarlar başarıyla kaydedildi!",
+      "saveFailed": "Ayarlar kaydedilemedi",
+      "saving": "Kaydediliyor...",
+      "saveButton": "Ödül Ayarlarını Kaydet"
+    },
+    "status": {
+      "pending": "Beklemede",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "paid": "Ödendi"
+    },
+    "actions": {
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "markPaid": "Ödendi Olarak İşaretle"
+    },
+    "manager": {
+      "title": "Kullanım Talepleri",
+      "pendingApproval": "Onay Bekleyen ({{count}})",
+      "awaitingPayment": "Onaylandı - Ödeme Bekliyor ({{count}})",
+      "toPay": "Ödenecek: {{amount}} TL",
+      "processing": "İşleniyor...",
+      "recentHistory": "Son Geçmiş",
+      "pointsEquals": "{{points}} puan = {{money}} TL"
+    }
+  },
+  "weeklyGoal": {
+    "title": "Haftalık Hedef",
+    "progress": "{{current}} / {{target}} puan",
+    "completed": "Hedef Tamamlandı!",
+    "notSet": "Hedef belirlenmedi"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "Seviye {{level}}'e %{{percent}}"
+    },
+    "tabs": {
+      "home": "Ana Sayfa",
+      "badges": "Rozetler",
+      "stats": "İstatistikler"
+    },
+    "dailyGreeting": {
+      "welcome": "Tekrar hoş geldin!",
+      "dayStreak": "günlük seri!",
+      "letsGo": "Hadi Başlayalım!",
+      "tapToContinue": "Devam etmek için dokun",
+      "motivation": {
+        "startStreak": "Bugün yeni bir seri başlatalım!",
+        "greatStart": "Harika başlangıç! Böyle devam et!",
+        "momentum": "İvme kazanıyorsun!",
+        "onFire": "Ateş gibisin! Muhteşem!",
+        "dedication": "İnanılmaz adanmışlık!",
+        "superstar": "Sen bir süperstarısın!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "Bugünün İlerlemesi",
+      "done": "{{done}}/{{total}} tamamlandı",
+      "allDone": "Hepsi bitti! Harika iş!",
+      "emptyState": {
+        "title": "Maceraya hazır mısın?",
+        "subtitle": "Puan kazanmak ve seviye atlamak için bir görev oluştur!",
+        "quickIdeas": "Hızlı fikirler:",
+        "createOwn": "Kendi Görevimi Oluştur"
+      },
+      "sections": {
+        "myTasks": "Görevlerim ({{count}})",
+        "available": "Üstlenebilecekler ({{count}})",
+        "waitingApproval": "Onay Bekleyen ({{count}})",
+        "waitingForParent": "Ebeveyn Bekliyor ({{count}})",
+        "completed": "Tamamlanan ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "Görevlerim",
+        "familyTasks": "Aile Görevleri"
+      },
+      "familyTasks": {
+        "noTasks": "Atanmış görev yok",
+        "assignedTo": "{{name}} kişisine atandı"
+      },
+      "suggestions": {
+        "read": "Okuma",
+        "clean": "Temizlik",
+        "exercise": "Egzersiz",
+        "create": "Yaratıcılık",
+        "learn": "Öğrenme",
+        "petCare": "Evcil hayvan bakımı"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "Üstlenmek için dokun!",
+      "pendingApproval": "Onay bekliyor",
+      "waitingForParent": "Ebeveyn bekliyor"
+    },
+    "taskModal": {
+      "createTitle": "Görevini Oluştur",
+      "whatToDo": "Ne yapmak istiyorsun?",
+      "placeholder": "Örn. 20 dakika kitap oku",
+      "createButton": "Görev Oluştur",
+      "creating": "Oluşturuluyor...",
+      "sentForApproval": "Görev ebeveyne gönderildi!",
+      "parentWillReview": "Ebeveynin görevini inceleyip onaylayacak."
+    },
+    "completion": {
+      "title": "Görevi Tamamla",
+      "claimTask": "Bu Görevi Üstlen!",
+      "claiming": "Üstleniliyor...",
+      "imDone": "Bitirdim!",
+      "submitting": "Gönderiliyor...",
+      "earnPoints": "{{points}} puan kazan!",
+      "alreadyCompleted": "Zaten tamamlandı!",
+      "waitingApproval": "Onay bekleniyor..."
+    },
+    "celebration": {
+      "approved": "Görev Onaylandı!",
+      "approvedBig": "ONAYLANDI!",
+      "youEarned": "Kazandın",
+      "points": "puan!",
+      "awesome": "Harika!",
+      "total": "Toplam: {{points}} puan"
+    },
+    "badges": {
+      "title": "Rozetlerim",
+      "unlockedCount": "{{unlocked}}/{{total}} açıldı",
+      "noBadges": "Henüz rozet yok",
+      "noBadgesHint": "Rozet kazanmak için görevleri tamamla!",
+      "earned": "{{date}} tarihinde kazanıldı"
+    },
+    "statsView": {
+      "title": "İstatistiklerim",
+      "totalPoints": "Toplam Puan",
+      "currentLevel": "Mevcut Seviye",
+      "currentStreak": "Mevcut Seri",
+      "days": "gün",
+      "thisWeek": "Bu Hafta",
+      "tasksDone": "Tamamlanan Görev",
+      "pointsEarned": "Kazanılan Puan",
+      "activeDays": "Aktif Günler",
+      "recentActivity": "Son Aktivite",
+      "noActivity": "Henüz aktivite yok. Bazı görevleri tamamla!"
+    }
+  }
+}

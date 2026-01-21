@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} 포인트",
+    "value_one": "{{count}} 포인트",
+    "earned": "획득한 포인트",
+    "total": "총 포인트",
+    "weekly": "주간 포인트"
+  },
+  "level": {
+    "current": "레벨 {{level}}",
+    "progressTo": "레벨 {{level}}까지 진행도",
+    "maxLevel": "최고 레벨 달성!"
+  },
+  "streak": {
+    "current": "{{count}}일",
+    "current_one": "{{count}}일",
+    "dayStreak": "연속 일수",
+    "keepItUp": "계속 화이팅!",
+    "streakLost": "연속 기록 끊김",
+    "newRecord": "새 기록!"
+  },
+  "achievements": {
+    "title": "업적",
+    "unlocked": "{{total}}개 중 {{count}}개 달성",
+    "earned": "{{date}}에 획득",
+    "noAchievements": "아직 업적이 없습니다",
+    "locked": "잠김",
+    "newlyUnlocked": "업적 달성!"
+  },
+  "leaderboard": {
+    "title": "가족 순위표",
+    "noMembers": "아직 가족 구성원이 없습니다",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "레벨 {{level}} • {{points}} 포인트"
+  },
+  "stats": {
+    "familyStats": "가족 통계",
+    "yourStats": "내 통계",
+    "totalTasks": "전체 할 일",
+    "completed": "완료됨",
+    "pending": "대기 중",
+    "weeklyPoints": "주간 포인트",
+    "completionRate": "완료율"
+  },
+  "rewards": {
+    "title": "보상",
+    "myRewards": "내 보상",
+    "overview": "보상 개요",
+    "redeem": "포인트 교환",
+    "redeemButton": "교환",
+    "pointsToRedeem": "교환할 포인트",
+    "cashValue": "현금 가치",
+    "perPoint": "포인트당 ${{rate}}",
+    "availablePoints": "사용 가능한 포인트",
+    "redeemableValue": "교환 가능 금액",
+    "pendingRedemptions": "대기 중인 교환",
+    "redemptionHistory": "교환 내역",
+    "noRedemptions": "아직 교환 요청이 없습니다",
+    "requestRedemption": "교환 요청",
+    "minimumPlaceholder": "최소: {{minimum}} 포인트",
+    "requesting": "요청 중...",
+    "needMinimum": "교환을 요청하려면 최소 {{minimum}} 포인트가 필요합니다.",
+    "keepEarning": "보상을 받으려면 계속 포인트를 모으세요!",
+    "weeklyGoal": {
+      "title": "주간 목표 진행도",
+      "progress": "{{current}} / {{target}} 포인트",
+      "reached": "목표 달성! 이번 주 ${{bonus}} 보너스 획득!",
+      "earnMore": "{{remaining}} 포인트 더 모으면 ${{bonus}} 보너스"
+    },
+    "settings": {
+      "title": "보상 설정",
+      "enableRewards": "보상 활성화",
+      "enableDescription": "가족 구성원이 포인트를 보상으로 교환할 수 있도록 허용",
+      "pointsToMoneyRate": "포인트-현금 환율",
+      "pointsToMoneyRateHint": "포인트당 금액 (예: 0.01 = 포인트당 $0.01)",
+      "minimumRedemption": "최소 교환 포인트",
+      "minimumRedemptionHint": "교환 요청에 필요한 최소 포인트",
+      "weeklyBonusTarget": "주간 보너스 목표",
+      "weeklyTargetPoints": "주간 목표 포인트",
+      "weeklyTargetPointsHint": "주간 보너스를 받기 위해 필요한 포인트 (0 = 비활성화)",
+      "weeklyBonusAmount": "주간 보너스 금액",
+      "weeklyBonusAmountHint": "주간 목표 달성 시 보너스 금액",
+      "example": "예시: {{points}} 포인트 = ${{money}}",
+      "weeklyGoalExample": "주간 목표: {{points}} 포인트를 모으면 ${{bonus}} 보너스",
+      "savedSuccess": "설정이 저장되었습니다!",
+      "saveFailed": "설정 저장에 실패했습니다",
+      "saving": "저장 중...",
+      "saveButton": "보상 설정 저장"
+    },
+    "status": {
+      "pending": "대기 중",
+      "approved": "승인됨",
+      "rejected": "거절됨",
+      "paid": "지급됨"
+    },
+    "actions": {
+      "approve": "승인",
+      "reject": "거절",
+      "markPaid": "지급 완료 표시"
+    },
+    "manager": {
+      "title": "교환 요청",
+      "pendingApproval": "승인 대기 중 ({{count}})",
+      "awaitingPayment": "승인됨 - 지급 대기 중 ({{count}})",
+      "toPay": "지급할 금액: ${{amount}}",
+      "processing": "처리 중...",
+      "recentHistory": "최근 내역",
+      "pointsEquals": "{{points}} 포인트 = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "주간 목표",
+    "progress": "{{current}} / {{target}} 포인트",
+    "completed": "목표 달성!",
+    "notSet": "목표가 설정되지 않음"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "레벨 {{level}}까지 {{percent}}%"
+    },
+    "tabs": {
+      "home": "홈",
+      "badges": "배지",
+      "stats": "통계"
+    },
+    "dailyGreeting": {
+      "welcome": "다시 오신 것을 환영해요!",
+      "dayStreak": "일 연속!",
+      "letsGo": "시작해요!",
+      "tapToContinue": "아무 곳이나 탭하여 계속하세요",
+      "motivation": {
+        "startStreak": "오늘부터 새로운 연속 기록을 시작해요!",
+        "greatStart": "좋은 시작이에요! 계속 화이팅!",
+        "momentum": "탄력이 붙고 있어요!",
+        "onFire": "불타고 있어요! 대단해요!",
+        "dedication": "놀라운 노력이에요!",
+        "superstar": "슈퍼스타예요!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "오늘의 진행도",
+      "done": "{{done}}/{{total}} 완료",
+      "allDone": "다 끝났어요! 잘했어요!",
+      "emptyState": {
+        "title": "모험을 시작할 준비가 됐나요?",
+        "subtitle": "할 일을 만들어 포인트를 모으고 레벨업하세요!",
+        "quickIdeas": "빠른 아이디어:",
+        "createOwn": "내 할 일 만들기"
+      },
+      "sections": {
+        "myTasks": "내 할 일 ({{count}})",
+        "available": "가져갈 수 있는 할 일 ({{count}})",
+        "waitingApproval": "승인 대기 중 ({{count}})",
+        "waitingForParent": "부모님 승인 대기 ({{count}})",
+        "completed": "완료됨 ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "내 할 일",
+        "familyTasks": "가족 할 일"
+      },
+      "familyTasks": {
+        "noTasks": "배정된 할 일 없음",
+        "assignedTo": "{{name}}에게 배정됨"
+      },
+      "suggestions": {
+        "read": "읽기",
+        "clean": "청소",
+        "exercise": "운동",
+        "create": "만들기",
+        "learn": "배우기",
+        "petCare": "반려동물 돌보기"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "탭해서 가져가세요!",
+      "pendingApproval": "승인 대기 중",
+      "waitingForParent": "부모님 승인 대기 중"
+    },
+    "taskModal": {
+      "createTitle": "내 할 일 만들기",
+      "whatToDo": "무엇을 하고 싶나요?",
+      "placeholder": "예: 20분 동안 책 읽기",
+      "createButton": "할 일 만들기",
+      "creating": "만드는 중...",
+      "sentForApproval": "부모님께 할 일을 보냈어요!",
+      "parentWillReview": "부모님이 할 일을 검토하고 승인해 주실 거예요."
+    },
+    "completion": {
+      "title": "할 일 완료",
+      "claimTask": "이 할 일 가져가기!",
+      "claiming": "가져가는 중...",
+      "imDone": "다 했어요!",
+      "submitting": "제출 중...",
+      "earnPoints": "{{points}} 포인트 획득!",
+      "alreadyCompleted": "이미 완료됨!",
+      "waitingApproval": "승인 대기 중..."
+    },
+    "celebration": {
+      "approved": "할 일 승인됨!",
+      "approvedBig": "승인됨!",
+      "youEarned": "획득한 포인트",
+      "points": "포인트!",
+      "awesome": "대단해요!",
+      "total": "총: {{points}} 포인트"
+    },
+    "badges": {
+      "title": "내 배지",
+      "unlockedCount": "{{unlocked}}/{{total}} 달성",
+      "noBadges": "아직 배지가 없어요",
+      "noBadgesHint": "할 일을 완료해서 배지를 받으세요!",
+      "earned": "{{date}}에 획득"
+    },
+    "statsView": {
+      "title": "내 통계",
+      "totalPoints": "총 포인트",
+      "currentLevel": "현재 레벨",
+      "currentStreak": "현재 연속",
+      "days": "일",
+      "thisWeek": "이번 주",
+      "tasksDone": "완료한 할 일",
+      "pointsEarned": "획득한 포인트",
+      "activeDays": "활동 일수",
+      "recentActivity": "최근 활동",
+      "noActivity": "아직 활동이 없어요. 할 일을 완료해 보세요!"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "login": "Log In",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "headline": "Make Chores Fun.",
+    "headlineHighlight": "Seriously.",
+    "subheadline": "Taskaroo turns household tasks into a game your kids actually want to play. Points, levels, streaks, and real rewards.",
+    "cta": "GET STARTED FREE",
+    "secondaryCta": "See How It Works"
+  },
+  "features": {
+    "title": "Everything Your Family Needs",
+    "subtitle": "Built by parents, for parents. Taskaroo combines psychology-backed gamification with practical task management.",
+    "pointsLevels": {
+      "title": "Points & Levels",
+      "description": "Earn points for every task, level up, and unlock achievements. Watch motivation soar as kids chase their next milestone."
+    },
+    "streaks": {
+      "title": "Streaks & Combos",
+      "description": "Build daily streaks for bonus motivation. Combo bonuses reward consistent helpers with up to 50% extra points."
+    },
+    "childFriendly": {
+      "title": "Child-Friendly",
+      "description": "Kids log in with a simple PIN - no email needed. Big buttons, colorful design, and clear instructions they can follow."
+    },
+    "approval": {
+      "title": "Parent Approval",
+      "description": "Verify tasks are truly done before points are awarded. You stay in control while kids learn accountability."
+    },
+    "rewards": {
+      "title": "Real Rewards",
+      "description": "Convert points to allowance, screen time, or custom rewards. Make the connection between effort and outcome tangible."
+    },
+    "leaderboard": {
+      "title": "Family Leaderboard",
+      "description": "Healthy competition keeps everyone engaged. See who's leading this week and celebrate top performers together."
+    }
+  },
+  "howItWorks": {
+    "title": "Up and Running in Minutes",
+    "subtitle": "No complicated setup. No learning curve. Just results.",
+    "step1": {
+      "title": "Create Your Family",
+      "description": "Sign up and invite family members with a simple code. Parents and kids join in seconds."
+    },
+    "step2": {
+      "title": "Add Tasks",
+      "description": "Create chores with point values and due dates. Set up recurring tasks once, they appear automatically."
+    },
+    "step3": {
+      "title": "Kids Complete",
+      "description": "Children see a fun, game-like dashboard designed just for them. Swipe through tasks and tap to complete."
+    },
+    "step4": {
+      "title": "Approve & Celebrate",
+      "description": "Verify completed tasks with one tap. Watch confetti fly and points add up!"
+    }
+  },
+  "testimonials": {
+    "title": "Families Love Taskaroo",
+    "subtitle": "Join thousands of families who've transformed chore time into fun time.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "Daily Active Users",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "Parent Satisfaction",
+      "recommend": "92%",
+      "recommendLabel": "Would Recommend"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Finally something that actually works! My kids race to finish their chores now.",
+        "author": "Sarah M.",
+        "role": "Mom of 3"
+      },
+      "quote2": {
+        "text": "The streak feature is genius. My son hasn't missed a day in two months.",
+        "author": "David K.",
+        "role": "Dad of 2"
+      },
+      "quote3": {
+        "text": "No more arguments about whose turn it is. Everything is clear and fair.",
+        "author": "Lisa T.",
+        "role": "Mom of 2"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Simple, Fair Pricing",
+    "subtitle": "Start free. Upgrade when you're ready.",
+    "annually": "Save 17% with annual billing",
+    "perMonth": "/month",
+    "mostPopular": "Most Popular",
+    "getStarted": "Get Started",
+    "currentPlan": "Current Plan",
+    "free": {
+      "name": "Free",
+      "price": "$0",
+      "description": "Perfect for trying Taskaroo",
+      "features": {
+        "members": "Up to 2 family members",
+        "tasks": "10 active tasks",
+        "achievements": "5 basic achievements",
+        "recurring": "Daily recurring only",
+        "support": "Community support"
+      }
+    },
+    "family": {
+      "name": "Family",
+      "price": "$4.99",
+      "description": "Everything for active families",
+      "features": {
+        "members": "Unlimited family members",
+        "tasks": "Unlimited tasks",
+        "achievements": "25+ premium achievements",
+        "recurring": "All recurring patterns",
+        "rewards": "Points-to-cash rewards",
+        "support": "Email support"
+      }
+    },
+    "familyPro": {
+      "name": "Family Pro",
+      "price": "$9.99",
+      "description": "Maximum motivation tools",
+      "features": {
+        "members": "Unlimited family members",
+        "tasks": "Unlimited tasks",
+        "achievements": "50+ premium achievements",
+        "recurring": "All recurring patterns",
+        "rewards": "Points-to-cash rewards",
+        "analytics": "Advanced analytics",
+        "support": "Priority support"
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to Make Chores Fun?",
+    "subtitle": "Join thousands of happy families today.",
+    "button": "START FREE TODAY",
+    "note": "No credit card required"
+  },
+  "footer": {
+    "tagline": "Making chores fun for families everywhere.",
+    "product": "Product",
+    "legal": "Legal",
+    "connect": "Connect",
+    "features": "Features",
+    "pricing": "Pricing",
+    "howItWorks": "How It Works",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "coppa": "COPPA Compliance",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. All rights reserved."
+  }
+}

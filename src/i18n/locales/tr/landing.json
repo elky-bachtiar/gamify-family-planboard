@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Ozellikler",
+    "howItWorks": "Nasil Calisir",
+    "pricing": "Fiyatlandirma",
+    "login": "Giris Yap",
+    "getStarted": "Basla"
+  },
+  "hero": {
+    "headline": "Ev Islerini Eglenceli Hale Getirin.",
+    "headlineHighlight": "Cidden.",
+    "subheadline": "Taskaroo, ev islerini cocuklarinizin gercekten oynamak isteyecegi bir oyuna donusturur. Puanlar, seviyeler, seriler ve gercek oduller.",
+    "cta": "UCRETSIZ BASLA",
+    "secondaryCta": "Nasil Calistigini Gor"
+  },
+  "features": {
+    "title": "Ailenizin Ihtiyaci Olan Her Sey",
+    "subtitle": "Ebeveynler tarafindan, ebeveynler icin tasarlandi. Taskaroo, psikoloji destekli oyunlastirmayi pratik gorev yonetimiyle birlestiriyor.",
+    "pointsLevels": {
+      "title": "Puanlar ve Seviyeler",
+      "description": "Her gorev icin puan kazanin, seviye atlayin ve basarilar acin. Cocuklar bir sonraki kilometre tasini kovalarken motivasyonun arttisini izleyin."
+    },
+    "streaks": {
+      "title": "Seriler ve Kombolar",
+      "description": "Ekstra motivasyon icin gunluk seriler olusturun. Kombo bonuslari, duzenliligi %50'ye kadar ekstra puanla odullendirir."
+    },
+    "childFriendly": {
+      "title": "Cocuk Dostu",
+      "description": "Cocuklar basit bir PIN ile giris yapar - e-posta gerekmez. Buyuk dugmeler, renkli tasarim ve takip edebilecekleri acik talimatlar."
+    },
+    "approval": {
+      "title": "Ebeveyn Onayi",
+      "description": "Puanlar verilmeden once gorevlerin gercekten yapildigini dogrulayin. Cocuklar sorumluluk ogrenirken siz kontrolde kalin."
+    },
+    "rewards": {
+      "title": "Gercek Oduller",
+      "description": "Puanlari harliga, ekran suresine veya ozel odullere donusturun. Caba ile sonuc arasindaki baglantini somut hale getirin."
+    },
+    "leaderboard": {
+      "title": "Aile Siralamasi",
+      "description": "Saglikli rekabet herkesi ilgili tutar. Bu hafta kimin onde oldugunu gorun ve en basariliari birlikte kutlayin."
+    }
+  },
+  "howItWorks": {
+    "title": "Dakikalar Icinde Hazisiniz",
+    "subtitle": "Karmasik kurulum yok. Ogrenme egrisi yok. Sadece sonuclar.",
+    "step1": {
+      "title": "Ailenizi Olusturun",
+      "description": "Kayit olun ve basit bir kodla aile uyelerini davet edin. Ebeveynler ve cocuklar saniyeler icinde katilir."
+    },
+    "step2": {
+      "title": "Gorevleri Ekleyin",
+      "description": "Puan degerleri ve bitis tarihleriyle ev isleri olusturun. Tekrarlayan gorevleri bir kez ayarlayin, otomatik olarak gorunurler."
+    },
+    "step3": {
+      "title": "Cocuklar Tamamlar",
+      "description": "Cocuklar sadece onlar icin tasarlanmis eglenceli, oyun gibi bir kontrol paneli gorur. Gorevleri kaydirin ve tamamlamak icin dokunun."
+    },
+    "step4": {
+      "title": "Onayla ve Kutla",
+      "description": "Tamamlanan gorevleri tek dokunusla dogrulayin. Konfetilerin ucusunu ve puanlarin biriktikini izleyin!"
+    }
+  },
+  "testimonials": {
+    "title": "Aileler Taskaroo'yu Seviyor",
+    "subtitle": "Ev isi zamanini eglence zamanina donusturen binlerce aileye katilin.",
+    "stats": {
+      "dailyActive": "%78",
+      "dailyActiveLabel": "Gunluk Aktif Kullanicilar",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "Ebeveyn Memnuniyeti",
+      "recommend": "%92",
+      "recommendLabel": "Tavsiye Eder"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Sonunda ise yarayan bir sey! Cocuklarim artik ev islerini bitirmek icin yarisiyor.",
+        "author": "Ayse K.",
+        "role": "3 Cocuk Annesi"
+      },
+      "quote2": {
+        "text": "Seri ozelligi dahice. Oglum iki aydir tek gun bile kacirmadi.",
+        "author": "Mehmet Y.",
+        "role": "2 Cocuk Babasi"
+      },
+      "quote3": {
+        "text": "Artik kimin sirasi oldugu konusunda tartisma yok. Her sey acik ve adil.",
+        "author": "Zeynep T.",
+        "role": "2 Cocuk Annesi"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Basit, Adil Fiyatlandirma",
+    "subtitle": "Ucretsiz baslyin. Hazir oldugunuzda yukseltin.",
+    "annually": "Yillik faturalandirmayla %17 tasarruf edin",
+    "perMonth": "/ay",
+    "mostPopular": "En Populer",
+    "getStarted": "Basla",
+    "currentPlan": "Mevcut Plan",
+    "free": {
+      "name": "Ucretsiz",
+      "price": "0 TL",
+      "description": "Taskaroo'yu denemek icin mukemmel",
+      "features": {
+        "members": "2 aile uyesine kadar",
+        "tasks": "10 aktif gorev",
+        "achievements": "5 temel basari",
+        "recurring": "Sadece gunluk tekrar",
+        "support": "Topluluk destegi"
+      }
+    },
+    "family": {
+      "name": "Aile",
+      "price": "49.99 TL",
+      "description": "Aktif aileler icin her sey",
+      "features": {
+        "members": "Sinirsiz aile uyesi",
+        "tasks": "Sinirsiz gorev",
+        "achievements": "25+ premium basari",
+        "recurring": "Tum tekrar kaliplari",
+        "rewards": "Puan-nakit odulleri",
+        "support": "E-posta destegi"
+      }
+    },
+    "familyPro": {
+      "name": "Aile Pro",
+      "price": "99.99 TL",
+      "description": "Maksimum motivasyon araclari",
+      "features": {
+        "members": "Sinirsiz aile uyesi",
+        "tasks": "Sinirsiz gorev",
+        "achievements": "50+ premium basari",
+        "recurring": "Tum tekrar kaliplari",
+        "rewards": "Puan-nakit odulleri",
+        "analytics": "Gelismis analizler",
+        "support": "Oncelikli destek"
+      }
+    }
+  },
+  "cta": {
+    "title": "Ev Islerini Eglenceli Hale Getirmeye Hazir misiniz?",
+    "subtitle": "Bugun binlerce mutlu aileye katilin.",
+    "button": "BUGUN UCRETSIZ BASLA",
+    "note": "Kredi karti gerekmez"
+  },
+  "footer": {
+    "tagline": "Her yerde aileler icin ev islerini eglenceli hale getiriyoruz.",
+    "product": "Urun",
+    "legal": "Yasal",
+    "connect": "Baglanti",
+    "features": "Ozellikler",
+    "pricing": "Fiyatlandirma",
+    "howItWorks": "Nasil Calisir",
+    "privacy": "Gizlilik Politikasi",
+    "terms": "Kullanim Kosullari",
+    "coppa": "COPPA Uyumlulugu",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. Tum haklari saklidir."
+  }
+}

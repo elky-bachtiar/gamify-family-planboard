@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "Yönetici Paneli",
+    "tabs": {
+      "members": "Üyeler",
+      "approvals": "Onaylar",
+      "rewards": "Ödüller"
+    }
+  },
+  "inviteCode": {
+    "title": "Davet Kodu",
+    "description": "Aile üyelerini davet etmek için bu kodu paylaşın (yönetici hakları olmadan katılırlar)",
+    "copyLink": "Bağlantıyı Kopyala",
+    "copied": "Kopyalandı!"
+  },
+  "parentInviteCode": {
+    "title": "Ebeveyn Davet Kodu",
+    "description": "Yönetici haklarıyla başka bir ebeveyn veya veli davet etmek için bu kodu paylaşın"
+  },
+  "members": {
+    "title": "Aile Üyeleri",
+    "count": "Aile Üyeleri ({{count}})",
+    "addChild": "Çocuk Ekle (PIN)",
+    "admin": "Yönetici",
+    "pinUser": "PIN Kullanıcısı",
+    "points": "{{count}} puan",
+    "level": "Seviye {{level}}",
+    "editMember": "Üyeyi düzenle",
+    "deleteMember": "Üyeyi sil",
+    "promoteAdmin": "Yönetici yap",
+    "demoteAdmin": "Yöneticiliği kaldır"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "Yönetici Yap",
+    "demoteTitle": "Yönetici Haklarını Kaldır",
+    "notAdmin": "Yönetici değil",
+    "promoteWarningTitle": "Yönetici Hakları Ver",
+    "promoteWarningMessage": "{{name}} aile ayarlarını yönetebilecek, görevleri onaylayabilecek ve diğer üyeleri yönetebilecek.",
+    "demoteWarningTitle": "Yönetici Haklarını Kaldır",
+    "demoteWarningMessage": "{{name}} artık aile ayarlarını yönetemeyecek veya görevleri onaylayamayacak.",
+    "lastAdminTitle": "Son Yönetici Kaldırılamaz",
+    "lastAdminMessage": "Her ailenin en az bir yöneticisi olmalıdır. Önce başka bir üyeyi yönetici yapın.",
+    "promoteButton": "Yönetici Yap",
+    "demoteButton": "Yöneticiliği Kaldır",
+    "promoting": "Yükseltiliyor...",
+    "demoting": "Kaldırılıyor..."
+  },
+  "createChild": {
+    "title": "Çocuk Hesabı Ekle",
+    "subtitle": "Çocuk için PIN tabanlı hesap oluşturun",
+    "nameLabel": "Çocuğun Adı",
+    "namePlaceholder": "Adı girin",
+    "pinLabel": "PIN Kodu",
+    "pinPlaceholder": "4 haneli PIN girin",
+    "pinHelp": "Çocuk giriş yapmak için bu PIN'i kullanacak",
+    "colorLabel": "Renk",
+    "createButton": "Çocuk Hesabı Oluştur",
+    "creating": "Oluşturuluyor...",
+    "success": {
+      "title": "Çocuk Hesabı Oluşturuldu!",
+      "message": "Paneline erişmesi için bu bağlantıyı {{name}} ile paylaşın:",
+      "copyLink": "Giriş Bağlantısını Kopyala",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "Üyeyi Düzenle",
+    "nameLabel": "Ad",
+    "namePlaceholder": "Adı girin",
+    "colorLabel": "Profil Rengi",
+    "enablePinLogin": "PIN Girişini Etkinleştir",
+    "pinLabel": "PIN Belirle (4-6 hane)",
+    "newPinLabel": "Yeni PIN (4-6 hane, mevcut PIN'i korumak için boş bırakın)",
+    "pinPlaceholder": "Mevcut PIN'i korumak için boş bırakın",
+    "confirmPinLabel": "PIN'i Onayla",
+    "confirmPinPlaceholder": "PIN'i tekrar girin",
+    "pinMismatch": "PIN'ler eşleşmiyor",
+    "pinTooShort": "PIN en az 4 hane olmalıdır",
+    "keepExistingPin": "Mevcut PIN'i korumak için boş bırakın",
+    "pinUserWarning": "Bu bir PIN tabanlı hesaptır.",
+    "saveButton": "Değişiklikleri Kaydet",
+    "saving": "Kaydediliyor..."
+  },
+  "deleteMember": {
+    "title": "Üyeyi Sil",
+    "message": "{{name}} adlı üyeyi silmek istediğinizden emin misiniz? Bu işlem tüm görevlerini ve puan geçmişini de silecektir.",
+    "warning": "Bu işlem geri alınamaz.",
+    "warningIntro": "Uyarı: Bu işlem geri alınamaz. {{name}} adlı üyenin tüm verileri kalıcı olarak silinecektir:",
+    "warningPoints": "Puanlar ve seviye ilerlemesi",
+    "warningAchievements": "Kazanılan başarılar",
+    "warningTasks": "Görev geçmişi",
+    "warningRedemptions": "Kullanım kayıtları",
+    "pointsAndLevel": "{{points}} puan - Seviye {{level}}",
+    "deleteButton": "Üyeyi Sil",
+    "deleting": "Siliniyor..."
+  },
+  "approvals": {
+    "title": "Görev Onayları",
+    "pendingApprovals": "Bekleyen Onaylar",
+    "noPending": "Onay bekleyen görev yok",
+    "submittedBy": "{{name}} tarafından gönderildi",
+    "approveButton": "Onayla",
+    "rejectButton": "Reddet",
+    "approving": "Onaylanıyor...",
+    "rejecting": "Reddediliyor...",
+    "newTaskRequests": "Yeni Görev Talepleri",
+    "noNewTaskRequests": "Yeni görev talebi yok",
+    "createdBy": "{{name}} tarafından oluşturuldu",
+    "points": "Puan"
+  },
+  "palette": {
+    "title": "Renk Paleti",
+    "description": "Aileniz için profil renkleri paleti seçin.",
+    "current": "Mevcut: {{name}}",
+    "select": "Palet Seç",
+    "saveButton": "Paleti Kaydet",
+    "saving": "Kaydediliyor...",
+    "saved": "Palet kaydedildi!",
+    "saveFailed": "Kaydetme başarısız"
+  }
+}

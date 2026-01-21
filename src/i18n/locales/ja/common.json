@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "ファミリープランボード"
+  },
+  "navigation": {
+    "myTasks": "マイタスク",
+    "familyBoard": "ファミリーボード",
+    "dashboard": "ダッシュボード",
+    "childMode": "子ども表示",
+    "enterChildMode": "子ども表示に切替",
+    "exitChildMode": "子ども表示を終了"
+  },
+  "buttons": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる",
+    "back": "戻る",
+    "submit": "送信",
+    "confirm": "確認",
+    "copy": "コピー",
+    "copyLink": "リンクをコピー",
+    "copied": "コピーしました！",
+    "loading": "読み込み中...",
+    "create": "作成",
+    "update": "更新",
+    "add": "追加"
+  },
+  "labels": {
+    "name": "名前",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "description": "説明",
+    "status": "ステータス",
+    "priority": "優先度",
+    "points": "ポイント",
+    "level": "レベル",
+    "days": "日",
+    "dayStreak": "日連続"
+  },
+  "errors": {
+    "generic": "エラーが発生しました",
+    "required": "この項目は必須です",
+    "invalidEmail": "無効なメールアドレスです",
+    "networkError": "ネットワークエラーです。もう一度お試しください。",
+    "unauthorized": "この操作を行う権限がありません"
+  },
+  "empty": {
+    "noData": "データがありません",
+    "noResults": "結果が見つかりません"
+  },
+  "time": {
+    "today": "今日",
+    "yesterday": "昨日",
+    "tomorrow": "明日",
+    "thisWeek": "今週"
+  },
+  "confirmation": {
+    "areYouSure": "よろしいですか？",
+    "cannotUndo": "この操作は取り消せません。"
+  },
+  "profile": {
+    "settings": "プロフィール設定",
+    "signOut": "ログアウト"
+  }
+}

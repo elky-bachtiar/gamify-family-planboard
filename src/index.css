@@ -160,6 +160,31 @@
       transform: translateY(-12px) rotate(5deg);
     }
   }
+
+  /* Scroll reveal animation for landing page */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .scroll-reveal.visible {
+    animation: scrollReveal 0.6s ease-out forwards;
+  }
+
+  @keyframes scrollReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Gradient text for landing page hero */
+  .gradient-text {
+    background: linear-gradient(135deg, #35D461, #37B6F6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 body {

@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "Functies",
+    "howItWorks": "Hoe het werkt",
+    "pricing": "Prijzen",
+    "login": "Inloggen",
+    "getStarted": "Aan de slag"
+  },
+  "hero": {
+    "headline": "Maak klusjes leuk.",
+    "headlineHighlight": "Echt waar.",
+    "subheadline": "Taskaroo verandert huishoudelijke taken in een spel dat je kinderen echt willen spelen. Punten, levels, reeksen en echte beloningen.",
+    "cta": "GRATIS BEGINNEN",
+    "secondaryCta": "Bekijk hoe het werkt"
+  },
+  "features": {
+    "title": "Alles wat je gezin nodig heeft",
+    "subtitle": "Gebouwd door ouders, voor ouders. Taskaroo combineert psychologisch onderbouwde gamificatie met praktisch taakbeheer.",
+    "pointsLevels": {
+      "title": "Punten & Levels",
+      "description": "Verdien punten voor elke taak, level omhoog en ontgrendel prestaties. Zie de motivatie stijgen terwijl kinderen hun volgende mijlpaal najagen."
+    },
+    "streaks": {
+      "title": "Reeksen & Combo's",
+      "description": "Bouw dagelijkse reeksen op voor extra motivatie. Combo-bonussen belonen consistente helpers met tot 50% extra punten."
+    },
+    "childFriendly": {
+      "title": "Kindvriendelijk",
+      "description": "Kinderen loggen in met een simpele PIN - geen e-mail nodig. Grote knoppen, kleurrijk ontwerp en duidelijke instructies."
+    },
+    "approval": {
+      "title": "Ouder Goedkeuring",
+      "description": "Controleer of taken echt af zijn voordat punten worden toegekend. Jij houdt de controle terwijl kinderen verantwoordelijkheid leren."
+    },
+    "rewards": {
+      "title": "Echte Beloningen",
+      "description": "Wissel punten in voor zakgeld, schermtijd of aangepaste beloningen. Maak de connectie tussen inspanning en resultaat tastbaar."
+    },
+    "leaderboard": {
+      "title": "Gezins Scorebord",
+      "description": "Gezonde competitie houdt iedereen betrokken. Zie wie deze week leidt en vier toppresteerders samen."
+    }
+  },
+  "howItWorks": {
+    "title": "Binnen minuten aan de slag",
+    "subtitle": "Geen ingewikkelde setup. Geen leercurve. Gewoon resultaat.",
+    "step1": {
+      "title": "Maak je gezin aan",
+      "description": "Meld je aan en nodig gezinsleden uit met een simpele code. Ouders en kinderen doen in seconden mee."
+    },
+    "step2": {
+      "title": "Voeg taken toe",
+      "description": "Maak klusjes met puntwaarden en deadlines. Stel terugkerende taken eenmalig in, ze verschijnen automatisch."
+    },
+    "step3": {
+      "title": "Kinderen voltooien",
+      "description": "Kinderen zien een leuk, game-achtig dashboard speciaal voor hen ontworpen. Veeg door taken en tik om te voltooien."
+    },
+    "step4": {
+      "title": "Keur goed & vier",
+      "description": "Controleer voltooide taken met een tik. Zie confetti vliegen en punten optellen!"
+    }
+  },
+  "testimonials": {
+    "title": "Gezinnen houden van Taskaroo",
+    "subtitle": "Sluit je aan bij duizenden gezinnen die klusjestijd hebben veranderd in leuke tijd.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "Dagelijks actieve gebruikers",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "Ouder tevredenheid",
+      "recommend": "92%",
+      "recommendLabel": "Zou aanbevelen"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "Eindelijk iets dat echt werkt! Mijn kinderen racen nu om hun klusjes af te maken.",
+        "author": "Sarah M.",
+        "role": "Moeder van 3"
+      },
+      "quote2": {
+        "text": "De reeksen functie is geniaal. Mijn zoon heeft twee maanden geen dag gemist.",
+        "author": "David K.",
+        "role": "Vader van 2"
+      },
+      "quote3": {
+        "text": "Geen ruzies meer over wiens beurt het is. Alles is duidelijk en eerlijk.",
+        "author": "Lisa T.",
+        "role": "Moeder van 2"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Simpele, eerlijke prijzen",
+    "subtitle": "Begin gratis. Upgrade wanneer je klaar bent.",
+    "annually": "Bespaar 17% met jaarlijkse facturering",
+    "perMonth": "/maand",
+    "mostPopular": "Meest populair",
+    "getStarted": "Aan de slag",
+    "currentPlan": "Huidig plan",
+    "free": {
+      "name": "Gratis",
+      "price": "€0",
+      "description": "Perfect om Taskaroo te proberen",
+      "features": {
+        "members": "Tot 2 gezinsleden",
+        "tasks": "10 actieve taken",
+        "achievements": "5 basis prestaties",
+        "recurring": "Alleen dagelijks terugkerend",
+        "support": "Community ondersteuning"
+      }
+    },
+    "family": {
+      "name": "Gezin",
+      "price": "€4,99",
+      "description": "Alles voor actieve gezinnen",
+      "features": {
+        "members": "Onbeperkt gezinsleden",
+        "tasks": "Onbeperkt taken",
+        "achievements": "25+ premium prestaties",
+        "recurring": "Alle terugkerende patronen",
+        "rewards": "Punten-naar-geld beloningen",
+        "support": "E-mail ondersteuning"
+      }
+    },
+    "familyPro": {
+      "name": "Gezin Pro",
+      "price": "€9,99",
+      "description": "Maximale motivatie tools",
+      "features": {
+        "members": "Onbeperkt gezinsleden",
+        "tasks": "Onbeperkt taken",
+        "achievements": "50+ premium prestaties",
+        "recurring": "Alle terugkerende patronen",
+        "rewards": "Punten-naar-geld beloningen",
+        "analytics": "Geavanceerde analyses",
+        "support": "Prioriteit ondersteuning"
+      }
+    }
+  },
+  "cta": {
+    "title": "Klaar om klusjes leuk te maken?",
+    "subtitle": "Sluit je vandaag aan bij duizenden blije gezinnen.",
+    "button": "BEGIN VANDAAG GRATIS",
+    "note": "Geen creditcard nodig"
+  },
+  "footer": {
+    "tagline": "Klusjes leuk maken voor gezinnen overal.",
+    "product": "Product",
+    "legal": "Juridisch",
+    "connect": "Contact",
+    "features": "Functies",
+    "pricing": "Prijzen",
+    "howItWorks": "Hoe het werkt",
+    "privacy": "Privacybeleid",
+    "terms": "Gebruiksvoorwaarden",
+    "coppa": "COPPA Naleving",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. Alle rechten voorbehouden."
+  }
+}

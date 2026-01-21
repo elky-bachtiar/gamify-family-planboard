@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Quadro Familiar"
+  },
+  "navigation": {
+    "myTasks": "Minhas Tarefas",
+    "familyBoard": "Quadro Familiar",
+    "dashboard": "Painel",
+    "childMode": "Modo Crianca",
+    "enterChildMode": "Mudar para Modo Crianca",
+    "exitChildMode": "Sair do Modo Crianca"
+  },
+  "buttons": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "close": "Fechar",
+    "back": "Voltar",
+    "submit": "Enviar",
+    "confirm": "Confirmar",
+    "copy": "Copiar",
+    "copyLink": "Copiar Link",
+    "copied": "Copiado!",
+    "loading": "Carregando...",
+    "create": "Criar",
+    "update": "Atualizar",
+    "add": "Adicionar"
+  },
+  "labels": {
+    "name": "Nome",
+    "email": "E-mail",
+    "password": "Senha",
+    "description": "Descricao",
+    "status": "Status",
+    "priority": "Prioridade",
+    "points": "pontos",
+    "level": "Nivel",
+    "days": "dias",
+    "dayStreak": "dias seguidos"
+  },
+  "errors": {
+    "generic": "Algo deu errado",
+    "required": "Este campo e obrigatorio",
+    "invalidEmail": "Endereco de e-mail invalido",
+    "networkError": "Erro de rede. Por favor, tente novamente.",
+    "unauthorized": "Voce nao esta autorizado a realizar esta acao"
+  },
+  "empty": {
+    "noData": "Nenhum dado disponivel",
+    "noResults": "Nenhum resultado encontrado"
+  },
+  "time": {
+    "today": "Hoje",
+    "yesterday": "Ontem",
+    "tomorrow": "Amanha",
+    "thisWeek": "Esta Semana"
+  },
+  "confirmation": {
+    "areYouSure": "Tem certeza?",
+    "cannotUndo": "Esta acao nao pode ser desfeita."
+  },
+  "profile": {
+    "settings": "Configuracoes do Perfil",
+    "signOut": "Sair"
+  }
+}

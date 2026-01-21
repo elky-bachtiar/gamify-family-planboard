@@ -117,5 +117,36 @@
     "saving": "Opslaan...",
     "saved": "Palet opgeslagen!",
     "saveFailed": "Opslaan mislukt"
+  },
+  "manualPoints": {
+    "title": "Punten Aftrekken",
+    "description": "Trek punten af van een familielid voor gedragsproblemen.",
+    "selectMember": "Selecteer Lid",
+    "selectPlaceholder": "Kies een familielid...",
+    "pointsLabel": "Af te trekken Punten",
+    "pointsPlaceholder": "Voer aantal punten in",
+    "pointsHint": "Voer een positief getal in (bijv. 10 trekt 10 punten af)",
+    "reasonLabel": "Reden",
+    "reasonPlaceholder": "bijv. Melkpak niet teruggelegd in koelkast",
+    "submitButton": "Punten Aftrekken",
+    "submitting": "Aftrekken...",
+    "confirmTitle": "Bevestig Puntenaftrek",
+    "confirmMessage": "Weet je zeker dat je {{points}} punten wilt aftrekken van {{name}}?",
+    "confirmButton": "Punten Aftrekken",
+    "success": "Punten succesvol afgetrokken!",
+    "errorInvalidPoints": "Voer een geldig aantal punten in",
+    "errorSelectMember": "Selecteer een familielid",
+    "errorEnterReason": "Voer een reden in",
+    "errorFailed": "Punten aftrekken mislukt. Probeer het opnieuw."
+  },
+  "missedWeeklyTasks": {
+    "title": "Gemiste Weektaken",
+    "assignedTo": "Toegewezen aan {{name}}",
+    "originalPoints": "Origineel: {{points}} punten",
+    "applyPenalty": "Straf Toepassen",
+    "applying": "Toepassen...",
+    "confirmTitle": "Weektaak Straf Toepassen",
+    "confirmMessage": "Dit zal {{penalty}} punten aftrekken van {{name}} voor het niet voltooien van deze weektaak.",
+    "confirmButton": "Straf Toepassen"
   }
 }

@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "features": "기능",
+    "howItWorks": "이용 방법",
+    "pricing": "요금제",
+    "login": "로그인",
+    "getStarted": "시작하기"
+  },
+  "hero": {
+    "headline": "집안일을 재미있게.",
+    "headlineHighlight": "진심이에요.",
+    "subheadline": "Taskaroo는 집안일을 아이들이 정말 하고 싶어하는 게임으로 바꿔줍니다. 포인트, 레벨, 연속 기록, 그리고 실제 보상까지.",
+    "cta": "무료로 시작하기",
+    "secondaryCta": "이용 방법 보기"
+  },
+  "features": {
+    "title": "가족에게 필요한 모든 것",
+    "subtitle": "부모가 부모를 위해 만들었습니다. Taskaroo는 심리학에 기반한 게이미피케이션과 실용적인 할 일 관리를 결합합니다.",
+    "pointsLevels": {
+      "title": "포인트 & 레벨",
+      "description": "모든 할 일에서 포인트를 획득하고, 레벨업하고, 업적을 달성하세요. 아이들이 다음 목표를 향해 달려가는 모습을 지켜보세요."
+    },
+    "streaks": {
+      "title": "연속 기록 & 콤보",
+      "description": "매일 연속으로 보너스 동기부여를 쌓으세요. 콤보 보너스는 꾸준한 도우미에게 최대 50% 추가 포인트를 제공합니다."
+    },
+    "childFriendly": {
+      "title": "어린이 친화적",
+      "description": "아이들은 간단한 PIN으로 로그인합니다 - 이메일 필요 없음. 큰 버튼, 화려한 디자인, 따라하기 쉬운 명확한 안내."
+    },
+    "approval": {
+      "title": "부모 승인",
+      "description": "포인트가 지급되기 전에 할 일이 제대로 완료되었는지 확인하세요. 아이들이 책임감을 배우는 동안 부모가 관리합니다."
+    },
+    "rewards": {
+      "title": "실제 보상",
+      "description": "포인트를 용돈, 스크린 타임 또는 맞춤 보상으로 교환하세요. 노력과 결과 사이의 연결을 실감나게 만드세요."
+    },
+    "leaderboard": {
+      "title": "가족 순위표",
+      "description": "건전한 경쟁이 모두를 참여하게 합니다. 이번 주 누가 앞서는지 보고 함께 최고 성과자를 축하하세요."
+    }
+  },
+  "howItWorks": {
+    "title": "몇 분 만에 시작하세요",
+    "subtitle": "복잡한 설정 없음. 배우는 과정 없음. 결과만 있습니다.",
+    "step1": {
+      "title": "가족 만들기",
+      "description": "가입하고 간단한 코드로 가족 구성원을 초대하세요. 부모와 아이 모두 몇 초 만에 참여할 수 있습니다."
+    },
+    "step2": {
+      "title": "할 일 추가",
+      "description": "포인트 값과 마감일이 있는 집안일을 만드세요. 반복 할 일을 한 번 설정하면 자동으로 나타납니다."
+    },
+    "step3": {
+      "title": "아이들이 완료",
+      "description": "아이들은 자신만을 위해 디자인된 재미있고 게임 같은 대시보드를 봅니다. 할 일을 스와이프하고 탭해서 완료하세요."
+    },
+    "step4": {
+      "title": "승인 & 축하",
+      "description": "한 번의 탭으로 완료된 할 일을 확인하세요. 색종이가 날리고 포인트가 쌓이는 것을 지켜보세요!"
+    }
+  },
+  "testimonials": {
+    "title": "가족들이 Taskaroo를 사랑합니다",
+    "subtitle": "집안일 시간을 즐거운 시간으로 바꾼 수천 가족과 함께하세요.",
+    "stats": {
+      "dailyActive": "78%",
+      "dailyActiveLabel": "일일 활성 사용자",
+      "satisfaction": "4.6/5",
+      "satisfactionLabel": "부모 만족도",
+      "recommend": "92%",
+      "recommendLabel": "추천 의향"
+    },
+    "quotes": {
+      "quote1": {
+        "text": "드디어 진짜 효과가 있는 걸 찾았어요! 우리 아이들이 이제 집안일을 먼저 하려고 달려들어요.",
+        "author": "Sarah M.",
+        "role": "세 아이의 엄마"
+      },
+      "quote2": {
+        "text": "연속 기록 기능이 천재적이에요. 우리 아들이 두 달 동안 하루도 빠지지 않았어요.",
+        "author": "David K.",
+        "role": "두 아이의 아빠"
+      },
+      "quote3": {
+        "text": "누구 차례인지 더 이상 싸우지 않아요. 모든 게 명확하고 공평해요.",
+        "author": "Lisa T.",
+        "role": "두 아이의 엄마"
+      }
+    }
+  },
+  "pricing": {
+    "title": "간단하고 공정한 요금",
+    "subtitle": "무료로 시작하세요. 준비되면 업그레이드하세요.",
+    "annually": "연간 결제 시 17% 절약",
+    "perMonth": "/월",
+    "mostPopular": "가장 인기",
+    "getStarted": "시작하기",
+    "currentPlan": "현재 플랜",
+    "free": {
+      "name": "무료",
+      "price": "$0",
+      "description": "Taskaroo를 체험하기에 완벽",
+      "features": {
+        "members": "최대 2명의 가족 구성원",
+        "tasks": "10개의 활성 할 일",
+        "achievements": "5개의 기본 업적",
+        "recurring": "일간 반복만 가능",
+        "support": "커뮤니티 지원"
+      }
+    },
+    "family": {
+      "name": "패밀리",
+      "price": "$4.99",
+      "description": "활발한 가족을 위한 모든 것",
+      "features": {
+        "members": "무제한 가족 구성원",
+        "tasks": "무제한 할 일",
+        "achievements": "25개 이상의 프리미엄 업적",
+        "recurring": "모든 반복 패턴",
+        "rewards": "포인트-현금 보상",
+        "support": "이메일 지원"
+      }
+    },
+    "familyPro": {
+      "name": "패밀리 프로",
+      "price": "$9.99",
+      "description": "최대의 동기부여 도구",
+      "features": {
+        "members": "무제한 가족 구성원",
+        "tasks": "무제한 할 일",
+        "achievements": "50개 이상의 프리미엄 업적",
+        "recurring": "모든 반복 패턴",
+        "rewards": "포인트-현금 보상",
+        "analytics": "고급 분석",
+        "support": "우선 지원"
+      }
+    }
+  },
+  "cta": {
+    "title": "집안일을 재미있게 만들 준비가 되셨나요?",
+    "subtitle": "오늘 수천 행복한 가족과 함께하세요.",
+    "button": "오늘 무료로 시작",
+    "note": "신용카드 필요 없음"
+  },
+  "footer": {
+    "tagline": "전 세계 가족에게 집안일을 재미있게 만들어 드립니다.",
+    "product": "제품",
+    "legal": "법적 고지",
+    "connect": "연결",
+    "features": "기능",
+    "pricing": "요금제",
+    "howItWorks": "이용 방법",
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관",
+    "coppa": "COPPA 준수",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "copyright": "Taskaroo. All rights reserved."
+  }
+}

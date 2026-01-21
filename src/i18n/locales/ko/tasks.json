@@ -1,0 +1,162 @@
+{
+  "card": {
+    "awaitingApproval": "승인 대기 중",
+    "claim": "가져가기",
+    "claiming": "가져가는 중...",
+    "deleteConfirm": "이 할 일을 삭제하시겠습니까?"
+  },
+  "priority": {
+    "low": "낮음",
+    "medium": "보통",
+    "high": "높음"
+  },
+  "status": {
+    "pending": "대기 중",
+    "completed": "완료됨",
+    "pendingApproval": "승인 대기 중"
+  },
+  "modal": {
+    "createTitle": "새 할 일 만들기",
+    "editTitle": "할 일 수정",
+    "viewTitle": "할 일 상세",
+    "titleLabel": "할 일 제목",
+    "titlePlaceholder": "할 일 제목을 입력하세요",
+    "descriptionLabel": "설명 (선택사항)",
+    "descriptionPlaceholder": "이 할 일에 대한 세부 정보를 추가하세요",
+    "priorityLabel": "우선순위",
+    "pointsLabel": "포인트",
+    "dueDateLabel": "마감일",
+    "dueTimeLabel": "마감 시간",
+    "startTimeLabel": "시작 시간 (선택사항)",
+    "startTimePlaceholder": "할 일이 표시되는 시간",
+    "startTimeHint": "설정하면 이 시간 이후에만 아이들에게 표시됩니다",
+    "assigneeLabel": "담당자",
+    "unassigned": "미배정",
+    "createButton": "할 일 만들기",
+    "creating": "만드는 중...",
+    "updateButton": "할 일 수정",
+    "updating": "수정 중...",
+    "pts": "점",
+    "errors": {
+      "noRecurrenceTasks": "현재 반복 설정으로는 할 일이 생성되지 않습니다",
+      "createFailed": "할 일 생성에 실패했습니다. 다시 시도해 주세요."
+    }
+  },
+  "recurrence": {
+    "repeat": "반복",
+    "oneTime": "한 번만",
+    "daily": "매일",
+    "weekly": "매주",
+    "specificDays": "특정 요일",
+    "selectDays": "요일 선택",
+    "endDate": "종료일",
+    "willCreate": "<strong>{{count}}</strong>개의 할 일이 생성됩니다",
+    "willCreate_other": "<strong>{{count}}</strong>개의 할 일이 생성됩니다",
+    "noTasksCreated": "현재 설정으로는 할 일이 생성되지 않습니다",
+    "weekdays": {
+      "sun": "일",
+      "mon": "월",
+      "tue": "화",
+      "wed": "수",
+      "thu": "목",
+      "fri": "금",
+      "sat": "토"
+    }
+  },
+  "calendar": {
+    "weeklyView": "주간 보기",
+    "noTasks": "이 날에 할 일이 없습니다",
+    "addTask": "할 일 추가",
+    "weeklyTasks": "주간 할 일",
+    "weeklyTasksEmpty": "이번 주 주간 할 일이 없습니다"
+  },
+  "weeklyTask": {
+    "label": "주간 할 일",
+    "hint": "아이가 이번 주 중 아무 날이나 이 할 일을 완료할 수 있습니다",
+    "badge": "이번 주"
+  },
+  "filters": {
+    "all": "전체",
+    "myTasks": "내 할 일",
+    "unassigned": "미배정",
+    "completed": "완료됨",
+    "pending": "대기 중",
+    "pendingApproval": "승인 대기 중",
+    "status": "상태",
+    "assignee": "담당자"
+  },
+  "planboard": {
+    "title": "가족 플랜보드",
+    "today": "오늘"
+  },
+  "empty": {
+    "noTasks": "아직 할 일이 없습니다",
+    "noTasksDescription": "할 일을 만들어 시작하세요!"
+  },
+  "detail": {
+    "editTask": "할 일 수정",
+    "copyTask": "할 일 복사",
+    "description": "설명",
+    "dueDate": "마감일",
+    "dueTime": "마감 시간",
+    "startTime": "시작 시간",
+    "timeRange": "가능 시간",
+    "priority": "우선순위",
+    "points": "포인트",
+    "pointsValue": "{{count}} 포인트",
+    "assignedTo": "담당자",
+    "unassigned": "미배정",
+    "tagsObjects": "태그/항목",
+    "tagsHint": "Enter 또는 쉼표를 눌러 태그를 추가하세요",
+    "tagsPlaceholder": "예: 식기세척기, 주방",
+    "completedAt": "완료 시간",
+    "saveChanges": "변경 사항 저장",
+    "saving": "저장 중...",
+    "close": "닫기"
+  },
+  "recurringEdit": {
+    "title": "반복 할 일 수정",
+    "partOfSeries": "「{{title}}」은(는) 반복 할 일 시리즈의 일부입니다. 변경 사항을 어떻게 적용하시겠습니까?",
+    "editSingleTitle": "이 할 일만 저장",
+    "editSingleDescription": "변경 사항은 이 특정 항목에만 적용됩니다",
+    "editAllFutureTitle": "모든 미래 할 일 저장",
+    "editAllFutureBadge": "{{count}}개 할 일",
+    "editAllFutureDescription": "변경 사항은 오늘부터 모든 미완료 할 일에 적용됩니다",
+    "updating": "할 일 업데이트 중..."
+  },
+  "recurringReorder": {
+    "title": "반복 할 일 순서 변경",
+    "partOfSeries": "「{{title}}」은(는) 반복 할 일 시리즈의 일부입니다. 새 위치를 어떻게 적용하시겠습니까?",
+    "reorderSingleTitle": "이 할 일만 순서 변경",
+    "reorderSingleDescription": "새 위치는 이 특정 항목에만 적용됩니다",
+    "reorderAllFutureTitle": "모든 미래 할 일 순서 변경",
+    "reorderAllFutureBadge": "{{count}}개 할 일",
+    "reorderAllFutureDescription": "새 위치는 오늘부터 모든 미완료 할 일에 적용됩니다",
+    "updating": "위치 업데이트 중..."
+  },
+  "child": {
+    "greeting": {
+      "morning": "좋은 아침이에요",
+      "afternoon": "좋은 오후예요",
+      "evening": "좋은 저녁이에요"
+    },
+    "todaysTasks": "오늘의 할 일",
+    "completedToday": "오늘 완료",
+    "pointsEarned": "획득한 포인트",
+    "keepGoing": "계속 화이팅!",
+    "allDone": "다 끝났어요!",
+    "createTask": "할 일 만들기"
+  },
+  "delete": {
+    "confirmTitle": "할 일 삭제",
+    "recurringTask": "반복 할 일",
+    "confirmMessage": "「{{title}}」을(를) 삭제하시겠습니까?",
+    "recurringMessage": "「{{title}}」은(는) 반복 할 일 시리즈의 일부입니다. 무엇을 삭제하시겠습니까?",
+    "futureTasksInfo": "이 시리즈에는 {{count}}개의 미래 할 일이 있습니다",
+    "futureTasksInfo_other": "이 시리즈에는 {{count}}개의 미래 할 일이 있습니다",
+    "deleteThisOnly": "이 할 일만 삭제",
+    "deleteAllFuture": "모든 {{count}}개 미래 할 일 삭제",
+    "deleteTask": "할 일 삭제",
+    "deleting": "삭제 중..."
+  }
+}

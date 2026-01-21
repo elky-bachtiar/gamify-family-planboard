@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "กระดานแผนครอบครัว"
+  },
+  "navigation": {
+    "myTasks": "งานของฉัน",
+    "familyBoard": "บอร์ดครอบครัว",
+    "dashboard": "แดชบอร์ด",
+    "childMode": "มุมมองเด็ก",
+    "enterChildMode": "สลับเป็นมุมมองเด็ก",
+    "exitChildMode": "ออกจากมุมมองเด็ก"
+  },
+  "buttons": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "close": "ปิด",
+    "back": "กลับ",
+    "submit": "ส่ง",
+    "confirm": "ยืนยัน",
+    "copy": "คัดลอก",
+    "copyLink": "คัดลอกลิงก์",
+    "copied": "คัดลอกแล้ว!",
+    "loading": "กำลังโหลด...",
+    "create": "สร้าง",
+    "update": "อัปเดต",
+    "add": "เพิ่ม"
+  },
+  "labels": {
+    "name": "ชื่อ",
+    "email": "อีเมล",
+    "password": "รหัสผ่าน",
+    "description": "รายละเอียด",
+    "status": "สถานะ",
+    "priority": "ความสำคัญ",
+    "points": "คะแนน",
+    "level": "ระดับ",
+    "days": "วัน",
+    "dayStreak": "วันติดต่อกัน"
+  },
+  "errors": {
+    "generic": "เกิดข้อผิดพลาด",
+    "required": "จำเป็นต้องกรอกข้อมูลนี้",
+    "invalidEmail": "อีเมลไม่ถูกต้อง",
+    "networkError": "เกิดข้อผิดพลาดของเครือข่าย กรุณาลองใหม่อีกครั้ง",
+    "unauthorized": "คุณไม่มีสิทธิ์ดำเนินการนี้"
+  },
+  "empty": {
+    "noData": "ไม่มีข้อมูล",
+    "noResults": "ไม่พบผลลัพธ์"
+  },
+  "time": {
+    "today": "วันนี้",
+    "yesterday": "เมื่อวาน",
+    "tomorrow": "พรุ่งนี้",
+    "thisWeek": "สัปดาห์นี้"
+  },
+  "confirmation": {
+    "areYouSure": "คุณแน่ใจหรือไม่?",
+    "cannotUndo": "การดำเนินการนี้ไม่สามารถย้อนกลับได้"
+  },
+  "profile": {
+    "settings": "ตั้งค่าโปรไฟล์",
+    "signOut": "ออกจากระบบ"
+  }
+}

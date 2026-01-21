@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Aile Planlaması"
+  },
+  "navigation": {
+    "myTasks": "Görevlerim",
+    "familyBoard": "Aile Panosu",
+    "dashboard": "Kontrol Paneli",
+    "childMode": "Çocuk Görünümü",
+    "enterChildMode": "Çocuk Görünümüne Geç",
+    "exitChildMode": "Çocuk Görünümünden Çık"
+  },
+  "buttons": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "back": "Geri",
+    "submit": "Gönder",
+    "confirm": "Onayla",
+    "copy": "Kopyala",
+    "copyLink": "Bağlantıyı Kopyala",
+    "copied": "Kopyalandı!",
+    "loading": "Yükleniyor...",
+    "create": "Oluştur",
+    "update": "Güncelle",
+    "add": "Ekle"
+  },
+  "labels": {
+    "name": "Ad",
+    "email": "E-posta",
+    "password": "Şifre",
+    "description": "Açıklama",
+    "status": "Durum",
+    "priority": "Öncelik",
+    "points": "puan",
+    "level": "Seviye",
+    "days": "gün",
+    "dayStreak": "günlük seri"
+  },
+  "errors": {
+    "generic": "Bir şeyler ters gitti",
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçersiz e-posta adresi",
+    "networkError": "Ağ hatası. Lütfen tekrar deneyin.",
+    "unauthorized": "Bu işlemi yapmaya yetkiniz yok"
+  },
+  "empty": {
+    "noData": "Veri bulunamadı",
+    "noResults": "Sonuç bulunamadı"
+  },
+  "time": {
+    "today": "Bugün",
+    "yesterday": "Dün",
+    "tomorrow": "Yarın",
+    "thisWeek": "Bu Hafta"
+  },
+  "confirmation": {
+    "areYouSure": "Emin misiniz?",
+    "cannotUndo": "Bu işlem geri alınamaz."
+  },
+  "profile": {
+    "settings": "Profil Ayarları",
+    "signOut": "Çıkış Yap"
+  }
+}

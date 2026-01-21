@@ -1,0 +1,121 @@
+{
+  "panel": {
+    "title": "管理パネル",
+    "tabs": {
+      "members": "メンバー",
+      "approvals": "承認",
+      "rewards": "ごほうび"
+    }
+  },
+  "inviteCode": {
+    "title": "招待コード",
+    "description": "このコードを共有してファミリーメンバーを招待（管理者権限なしで参加）",
+    "copyLink": "リンクをコピー",
+    "copied": "コピーしました！"
+  },
+  "parentInviteCode": {
+    "title": "保護者招待コード",
+    "description": "このコードを共有して別の保護者を管理者権限で招待"
+  },
+  "members": {
+    "title": "ファミリーメンバー",
+    "count": "ファミリーメンバー（{{count}}人）",
+    "addChild": "子どもを追加（PIN）",
+    "admin": "管理者",
+    "pinUser": "PINユーザー",
+    "points": "{{count}}ポイント",
+    "level": "レベル{{level}}",
+    "editMember": "メンバーを編集",
+    "deleteMember": "メンバーを削除",
+    "promoteAdmin": "管理者にする",
+    "demoteAdmin": "管理者を解除"
+  },
+  "toggleAdmin": {
+    "promoteTitle": "管理者に昇格",
+    "demoteTitle": "管理者権限を削除",
+    "notAdmin": "管理者ではありません",
+    "promoteWarningTitle": "管理者権限を付与",
+    "promoteWarningMessage": "{{name}}はファミリー設定の管理、タスクの承認、他のメンバーの管理ができるようになります。",
+    "demoteWarningTitle": "管理者権限を削除",
+    "demoteWarningMessage": "{{name}}はファミリー設定の管理やタスクの承認ができなくなります。",
+    "lastAdminTitle": "最後の管理者は削除できません",
+    "lastAdminMessage": "ファミリーには少なくとも1人の管理者が必要です。先に別のメンバーを管理者に昇格してください。",
+    "promoteButton": "管理者にする",
+    "demoteButton": "管理者を解除",
+    "promoting": "昇格中...",
+    "demoting": "解除中..."
+  },
+  "createChild": {
+    "title": "子どもアカウントを追加",
+    "subtitle": "PINベースの子どもアカウントを作成",
+    "nameLabel": "子どもの名前",
+    "namePlaceholder": "名前を入力",
+    "pinLabel": "PINコード",
+    "pinPlaceholder": "4桁のPINを入力",
+    "pinHelp": "このPINで子どもがログインします",
+    "colorLabel": "色",
+    "createButton": "子どもアカウントを作成",
+    "creating": "作成中...",
+    "success": {
+      "title": "子どもアカウントを作成しました！",
+      "message": "このリンクを{{name}}に共有してダッシュボードにアクセスしてもらいましょう:",
+      "copyLink": "ログインリンクをコピー",
+      "pin": "PIN: {{pin}}"
+    }
+  },
+  "editMember": {
+    "title": "メンバーを編集",
+    "nameLabel": "名前",
+    "namePlaceholder": "名前を入力",
+    "colorLabel": "プロフィールカラー",
+    "enablePinLogin": "PINログインを有効化",
+    "pinLabel": "PINを設定（4〜6桁）",
+    "newPinLabel": "新しいPIN（4〜6桁、変更しない場合は空欄）",
+    "pinPlaceholder": "既存のPINを維持する場合は空欄",
+    "confirmPinLabel": "PIN確認",
+    "confirmPinPlaceholder": "PINを再入力",
+    "pinMismatch": "PINが一致しません",
+    "pinTooShort": "PINは4桁以上必要です",
+    "keepExistingPin": "既存のPINを維持する場合は空欄",
+    "pinUserWarning": "これはPINベースのアカウントです。",
+    "saveButton": "変更を保存",
+    "saving": "保存中..."
+  },
+  "deleteMember": {
+    "title": "メンバーを削除",
+    "message": "{{name}}を削除してもよろしいですか？すべてのタスクとポイント履歴も削除されます。",
+    "warning": "この操作は取り消せません。",
+    "warningIntro": "警告: この操作は取り消せません。{{name}}のすべてのデータが完全に削除されます:",
+    "warningPoints": "ポイントとレベル進捗",
+    "warningAchievements": "獲得したアチーブメント",
+    "warningTasks": "タスク履歴",
+    "warningRedemptions": "交換記録",
+    "pointsAndLevel": "{{points}}ポイント・レベル{{level}}",
+    "deleteButton": "メンバーを削除",
+    "deleting": "削除中..."
+  },
+  "approvals": {
+    "title": "タスク承認",
+    "pendingApprovals": "承認待ち",
+    "noPending": "承認待ちのタスクはありません",
+    "submittedBy": "{{name}}が送信",
+    "approveButton": "承認",
+    "rejectButton": "却下",
+    "approving": "承認中...",
+    "rejecting": "却下中...",
+    "newTaskRequests": "新規タスク申請",
+    "noNewTaskRequests": "新規タスク申請はありません",
+    "createdBy": "{{name}}が作成",
+    "points": "ポイント"
+  },
+  "palette": {
+    "title": "カラーパレット",
+    "description": "ファミリーのプロフィールカラーのパレットを選択してください。",
+    "current": "現在: {{name}}",
+    "select": "パレットを選択",
+    "saveButton": "パレットを保存",
+    "saving": "保存中...",
+    "saved": "パレットを保存しました！",
+    "saveFailed": "保存に失敗しました"
+  }
+}

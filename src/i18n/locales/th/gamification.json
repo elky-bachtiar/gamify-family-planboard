@@ -1,0 +1,227 @@
+{
+  "points": {
+    "value": "{{count}} คะแนน",
+    "value_one": "{{count}} คะแนน",
+    "earned": "คะแนนที่ได้รับ",
+    "total": "คะแนนรวม",
+    "weekly": "คะแนนรายสัปดาห์"
+  },
+  "level": {
+    "current": "ระดับ {{level}}",
+    "progressTo": "ความคืบหน้าสู่ระดับ {{level}}",
+    "maxLevel": "ถึงระดับสูงสุดแล้ว!"
+  },
+  "streak": {
+    "current": "{{count}} วัน",
+    "current_one": "{{count}} วัน",
+    "dayStreak": "วันติดต่อกัน",
+    "keepItUp": "ทำต่อไป!",
+    "streakLost": "สูญเสียสถิติติดต่อกัน",
+    "newRecord": "สถิติใหม่!"
+  },
+  "achievements": {
+    "title": "ความสำเร็จ",
+    "unlocked": "ปลดล็อก {{count}} จาก {{total}}",
+    "earned": "ได้รับเมื่อ {{date}}",
+    "noAchievements": "ยังไม่มีความสำเร็จ",
+    "locked": "ล็อกอยู่",
+    "newlyUnlocked": "ปลดล็อกความสำเร็จ!"
+  },
+  "leaderboard": {
+    "title": "อันดับครอบครัว",
+    "noMembers": "ยังไม่มีสมาชิกในครอบครัว",
+    "rank": "#{{rank}}",
+    "levelAndPoints": "ระดับ {{level}} • {{points}} คะแนน"
+  },
+  "stats": {
+    "familyStats": "สถิติครอบครัว",
+    "yourStats": "สถิติของคุณ",
+    "totalTasks": "งานทั้งหมด",
+    "completed": "เสร็จสิ้น",
+    "pending": "รอดำเนินการ",
+    "weeklyPoints": "คะแนนรายสัปดาห์",
+    "completionRate": "อัตราการเสร็จสิ้น"
+  },
+  "rewards": {
+    "title": "รางวัล",
+    "myRewards": "รางวัลของฉัน",
+    "overview": "ภาพรวมรางวัล",
+    "redeem": "แลกคะแนน",
+    "redeemButton": "แลก",
+    "pointsToRedeem": "คะแนนที่จะแลก",
+    "cashValue": "มูลค่าเงินสด",
+    "perPoint": "${{rate}} ต่อคะแนน",
+    "availablePoints": "คะแนนที่มี",
+    "redeemableValue": "มูลค่าที่แลกได้",
+    "pendingRedemptions": "รอการแลก",
+    "redemptionHistory": "ประวัติการแลก",
+    "noRedemptions": "ยังไม่มีคำขอแลกรางวัล",
+    "requestRedemption": "ขอแลกรางวัล",
+    "minimumPlaceholder": "ขั้นต่ำ: {{minimum}} คะแนน",
+    "requesting": "กำลังขอ...",
+    "needMinimum": "คุณต้องมีอย่างน้อย {{minimum}} คะแนนเพื่อขอแลกรางวัล",
+    "keepEarning": "เก็บสะสมคะแนนต่อไปเพื่อปลดล็อกรางวัล!",
+    "weeklyGoal": {
+      "title": "ความคืบหน้าเป้าหมายรายสัปดาห์",
+      "progress": "{{current}} / {{target}} คะแนน",
+      "reached": "บรรลุเป้าหมาย! รับโบนัส ${{bonus}} สัปดาห์นี้!",
+      "earnMore": "หาเพิ่มอีก {{remaining}} คะแนนเพื่อรับโบนัส ${{bonus}}"
+    },
+    "settings": {
+      "title": "ตั้งค่ารางวัล",
+      "enableRewards": "เปิดใช้งานรางวัล",
+      "enableDescription": "อนุญาตให้สมาชิกครอบครัวแลกคะแนนเป็นรางวัล",
+      "pointsToMoneyRate": "อัตราแปลงคะแนนเป็นเงิน",
+      "pointsToMoneyRateHint": "จำนวนเงินต่อคะแนน (เช่น 0.01 = $0.01 ต่อคะแนน)",
+      "minimumRedemption": "คะแนนขั้นต่ำสำหรับการแลก",
+      "minimumRedemptionHint": "คะแนนขั้นต่ำที่ต้องมีเพื่อขอแลกรางวัล",
+      "weeklyBonusTarget": "เป้าหมายโบนัสรายสัปดาห์",
+      "weeklyTargetPoints": "คะแนนเป้าหมายรายสัปดาห์",
+      "weeklyTargetPointsHint": "คะแนนที่ต้องการเพื่อรับโบนัสรายสัปดาห์ (0 = ปิดใช้งาน)",
+      "weeklyBonusAmount": "จำนวนโบนัสรายสัปดาห์",
+      "weeklyBonusAmountHint": "จำนวนโบนัสสำหรับการบรรลุเป้าหมายรายสัปดาห์",
+      "example": "ตัวอย่าง: {{points}} คะแนน = ${{money}}",
+      "weeklyGoalExample": "เป้าหมายรายสัปดาห์: หา {{points}} คะแนนเพื่อรับโบนัส ${{bonus}}",
+      "savedSuccess": "บันทึกการตั้งค่าเรียบร้อยแล้ว!",
+      "saveFailed": "ไม่สามารถบันทึกการตั้งค่าได้",
+      "saving": "กำลังบันทึก...",
+      "saveButton": "บันทึกการตั้งค่ารางวัล"
+    },
+    "status": {
+      "pending": "รอดำเนินการ",
+      "approved": "อนุมัติแล้ว",
+      "rejected": "ถูกปฏิเสธ",
+      "paid": "จ่ายแล้ว"
+    },
+    "actions": {
+      "approve": "อนุมัติ",
+      "reject": "ปฏิเสธ",
+      "markPaid": "ทำเครื่องหมายว่าจ่ายแล้ว"
+    },
+    "manager": {
+      "title": "คำขอแลกรางวัล",
+      "pendingApproval": "รอการอนุมัติ ({{count}})",
+      "awaitingPayment": "อนุมัติแล้ว - รอการจ่ายเงิน ({{count}})",
+      "toPay": "${{amount}} ที่ต้องจ่าย",
+      "processing": "กำลังดำเนินการ...",
+      "recentHistory": "ประวัติล่าสุด",
+      "pointsEquals": "{{points}} คะแนน = ${{money}}"
+    }
+  },
+  "weeklyGoal": {
+    "title": "เป้าหมายรายสัปดาห์",
+    "progress": "{{current}} / {{target}} คะแนน",
+    "completed": "บรรลุเป้าหมายแล้ว!",
+    "notSet": "ไม่ได้ตั้งเป้าหมาย"
+  },
+  "child": {
+    "header": {
+      "percentToLevel": "{{percent}}% สู่ระดับ {{level}}"
+    },
+    "tabs": {
+      "home": "หน้าแรก",
+      "badges": "เหรียญรางวัล",
+      "stats": "สถิติ"
+    },
+    "dailyGreeting": {
+      "welcome": "ยินดีต้อนรับกลับมา!",
+      "dayStreak": "วันติดต่อกัน!",
+      "letsGo": "ไปกันเลย!",
+      "tapToContinue": "แตะที่ใดก็ได้เพื่อดำเนินการต่อ",
+      "motivation": {
+        "startStreak": "มาเริ่มสถิติใหม่วันนี้กันเถอะ!",
+        "greatStart": "เริ่มต้นได้ดีมาก! ทำต่อไป!",
+        "momentum": "คุณกำลังสร้างแรงผลักดัน!",
+        "onFire": "คุณเก่งมาก! สุดยอด!",
+        "dedication": "ความทุ่มเทที่ยอดเยี่ยม!",
+        "superstar": "คุณคือซูเปอร์สตาร์!"
+      }
+    },
+    "taskList": {
+      "todaysProgress": "ความคืบหน้าวันนี้",
+      "done": "{{done}}/{{total}} เสร็จ",
+      "allDone": "เสร็จหมดแล้ว! เก่งมาก!",
+      "emptyState": {
+        "title": "พร้อมสำหรับการผจญภัยหรือยัง?",
+        "subtitle": "สร้างงานเพื่อเริ่มหาคะแนนและเลื่อนระดับ!",
+        "quickIdeas": "ไอเดียด่วน:",
+        "createOwn": "สร้างงานของฉันเอง"
+      },
+      "sections": {
+        "myTasks": "งานของฉัน ({{count}})",
+        "available": "พร้อมรับงาน ({{count}})",
+        "waitingApproval": "รอการอนุมัติ ({{count}})",
+        "waitingForParent": "รอพ่อแม่ ({{count}})",
+        "completed": "เสร็จสิ้น ({{count}})"
+      },
+      "tabs": {
+        "myTasks": "งานของฉัน",
+        "familyTasks": "งานครอบครัว"
+      },
+      "familyTasks": {
+        "noTasks": "ไม่มีงานที่มอบหมาย",
+        "assignedTo": "มอบหมายให้ {{name}}"
+      },
+      "suggestions": {
+        "read": "อ่านหนังสือ",
+        "clean": "ทำความสะอาด",
+        "exercise": "ออกกำลังกาย",
+        "create": "สร้างสรรค์",
+        "learn": "เรียนรู้",
+        "petCare": "ดูแลสัตว์เลี้ยง"
+      }
+    },
+    "taskCard": {
+      "tapToClaim": "แตะเพื่อรับงาน!",
+      "pendingApproval": "รอการอนุมัติ",
+      "waitingForParent": "รอพ่อแม่"
+    },
+    "taskModal": {
+      "createTitle": "สร้างงานของคุณ",
+      "whatToDo": "คุณอยากทำอะไร?",
+      "placeholder": "เช่น อ่านหนังสือ 20 นาที",
+      "createButton": "สร้างงาน",
+      "creating": "กำลังสร้าง...",
+      "sentForApproval": "ส่งงานให้พ่อแม่แล้ว!",
+      "parentWillReview": "พ่อแม่จะตรวจสอบและอนุมัติงานของคุณ"
+    },
+    "completion": {
+      "title": "ทำงานเสร็จ",
+      "claimTask": "รับงานนี้!",
+      "claiming": "กำลังรับงาน...",
+      "imDone": "ฉันเสร็จแล้ว!",
+      "submitting": "กำลังส่ง...",
+      "earnPoints": "รับ {{points}} คะแนน!",
+      "alreadyCompleted": "เสร็จสิ้นแล้ว!",
+      "waitingApproval": "รอการอนุมัติ..."
+    },
+    "celebration": {
+      "approved": "อนุมัติงานแล้ว!",
+      "approvedBig": "อนุมัติ!",
+      "youEarned": "คุณได้รับ",
+      "points": "คะแนน!",
+      "awesome": "สุดยอด!",
+      "total": "รวม: {{points}} คะแนน"
+    },
+    "badges": {
+      "title": "เหรียญรางวัลของฉัน",
+      "unlockedCount": "{{unlocked}}/{{total}} ปลดล็อก",
+      "noBadges": "ยังไม่มีเหรียญรางวัล",
+      "noBadgesHint": "ทำงานให้เสร็จเพื่อรับเหรียญรางวัล!",
+      "earned": "ได้รับเมื่อ {{date}}"
+    },
+    "statsView": {
+      "title": "สถิติของฉัน",
+      "totalPoints": "คะแนนรวม",
+      "currentLevel": "ระดับปัจจุบัน",
+      "currentStreak": "สถิติติดต่อกันปัจจุบัน",
+      "days": "วัน",
+      "thisWeek": "สัปดาห์นี้",
+      "tasksDone": "งานที่เสร็จ",
+      "pointsEarned": "คะแนนที่ได้รับ",
+      "activeDays": "วันที่ใช้งาน",
+      "recentActivity": "กิจกรรมล่าสุด",
+      "noActivity": "ยังไม่มีกิจกรรม ทำงานบ้างสิ!"
+    }
+  }
+}

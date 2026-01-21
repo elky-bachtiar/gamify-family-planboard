@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Tableau de Bord Familial"
+  },
+  "navigation": {
+    "myTasks": "Mes Tâches",
+    "familyBoard": "Tableau Familial",
+    "dashboard": "Tableau de Bord",
+    "childMode": "Mode Enfant",
+    "enterChildMode": "Passer en Mode Enfant",
+    "exitChildMode": "Quitter le Mode Enfant"
+  },
+  "buttons": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "back": "Retour",
+    "submit": "Envoyer",
+    "confirm": "Confirmer",
+    "copy": "Copier",
+    "copyLink": "Copier le Lien",
+    "copied": "Copié !",
+    "loading": "Chargement...",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "add": "Ajouter"
+  },
+  "labels": {
+    "name": "Nom",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "description": "Description",
+    "status": "Statut",
+    "priority": "Priorité",
+    "points": "points",
+    "level": "Niveau",
+    "days": "jours",
+    "dayStreak": "jours consécutifs"
+  },
+  "errors": {
+    "generic": "Une erreur s'est produite",
+    "required": "Ce champ est obligatoire",
+    "invalidEmail": "Adresse e-mail invalide",
+    "networkError": "Erreur réseau. Veuillez réessayer.",
+    "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action"
+  },
+  "empty": {
+    "noData": "Aucune donnée disponible",
+    "noResults": "Aucun résultat trouvé"
+  },
+  "time": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "tomorrow": "Demain",
+    "thisWeek": "Cette Semaine"
+  },
+  "confirmation": {
+    "areYouSure": "Êtes-vous sûr ?",
+    "cannotUndo": "Cette action est irréversible."
+  },
+  "profile": {
+    "settings": "Paramètres du Profil",
+    "signOut": "Se Déconnecter"
+  }
+}
