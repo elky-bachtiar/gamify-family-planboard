@@ -2,9 +2,9 @@
   # Create Avatar Storage Bucket
 
   1. Storage
-    - Create 'avatars' bucket for profile pictures
-    - Configure bucket to be private (requires authentication)
-    - Set up RLS policies for secure access
+    - Create 'avatars-public' bucket for profile pictures
+    - Configure bucket to be public (no authentication needed to view)
+    - Set up RLS policies for upload/update/delete operations
 
   2. Security
     - Users can upload their own avatar
@@ -20,13 +20,13 @@
 -- Create the avatars storage bucket if it doesn't exist
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 VALUES (
-  'avatars',
-  'avatars',
-  false,
+  'avatars-public',
+  'avatars-public',
+  true, -- Public bucket so getPublicUrl() works
   2097152, -- 2MB limit
   ARRAY['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
 )
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (id) DO UPDATE SET public = true;
 
 -- Drop existing policies if they exist
 DROP POLICY IF EXISTS "Users can upload their own avatar" ON storage.objects;
@@ -40,7 +40,7 @@ ON storage.objects
 FOR INSERT
 TO authenticated
 WITH CHECK (
-  bucket_id = 'avatars' 
+  bucket_id = 'avatars-public' 
   AND auth.uid()::text = (storage.foldername(storage.objects.name))[1]
 );
 
@@ -50,7 +50,7 @@ ON storage.objects
 FOR SELECT
 TO authenticated
 USING (
-  bucket_id = 'avatars'
+  bucket_id = 'avatars-public'
   AND (
     -- User can view their own avatar
     auth.uid()::text = (storage.foldername(storage.objects.name))[1]
@@ -80,11 +80,11 @@ ON storage.objects
 FOR UPDATE
 TO authenticated
 USING (
-  bucket_id = 'avatars'
+  bucket_id = 'avatars-public'
   AND auth.uid()::text = (storage.foldername(storage.objects.name))[1]
 )
 WITH CHECK (
-  bucket_id = 'avatars'
+  bucket_id = 'avatars-public'
   AND auth.uid()::text = (storage.foldername(storage.objects.name))[1]
 );
 
@@ -94,6 +94,6 @@ ON storage.objects
 FOR DELETE
 TO authenticated
 USING (
-  bucket_id = 'avatars'
+  bucket_id = 'avatars-public'
   AND auth.uid()::text = (storage.foldername(storage.objects.name))[1]
 );

@@ -66,12 +66,12 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
       // Delete old avatar if exists
       if (familyMember.avatar_url) {
         const oldPath = familyMember.avatar_url.split('/').slice(-2).join('/');
-        await supabase.storage.from('avatars').remove([oldPath]);
+        await supabase.storage.from('avatars-public').remove([oldPath]);
       }
 
       // Upload new avatar
       const { error: uploadError } = await supabase.storage
-        .from('avatars')
+        .from('avatars-public')
         .upload(fileName, selectedFile, {
           cacheControl: '3600',
           upsert: true,
@@ -79,12 +79,12 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
       if (uploadError) throw uploadError;
 
-      // Get public URL
+      // Get public URL with cache-busting timestamp
       const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
+        .from('avatars-public')
         .getPublicUrl(fileName);
 
-      return publicUrl;
+      return `${publicUrl}?t=${Date.now()}`;
     } catch (error) {
       console.error('Error uploading avatar:', error);
       alert(t('common:profile.uploadFailed', 'Failed to upload avatar'));
@@ -107,7 +107,7 @@ export function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
       } else if (previewUrl === null && familyMember.avatar_url) {
         // User removed avatar
         const oldPath = familyMember.avatar_url.split('/').slice(-2).join('/');
-        await supabase.storage.from('avatars').remove([oldPath]);
+        await supabase.storage.from('avatars-public').remove([oldPath]);
         avatarUrl = null;
       }
 

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, RefreshCw, Plus, Sparkles, CalendarDays } from 'lucide-react';
+import { Calendar, RefreshCw, Plus, Sparkles, CalendarDays, Users } from 'lucide-react';
 import { getSupabaseClient } from '../../lib/supabase';
 import { useFamily } from '../../contexts/FamilyContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { useView } from '../../contexts/ViewContext';
 import { ChildTaskCard } from './ChildTaskCard';
 import type { TaskWithMember } from '../../types';
 
@@ -22,13 +23,21 @@ interface TodayTaskListProps {
   onCreateTask?: (defaultTitle?: string) => void;
 }
 
+type TabType = 'myTasks' | 'familyTasks';
+
 export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps) {
   const { t, i18n } = useTranslation('gamification');
-  const { currentMember } = useFamily();
-  const { family } = useAuth();
+  const { currentMember, familyMembers } = useFamily();
+  const { family, isAdmin } = useAuth();
+  const { isChildMode } = useView();
   const [tasks, setTasks] = useState<TaskWithMember[]>([]);
+  const [familyTasks, setFamilyTasks] = useState<TaskWithMember[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>('myTasks');
+
+  // Show tabs only for admins in child-mode
+  const showTabs = isAdmin && isChildMode;
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -44,11 +53,15 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
 
   const weekSunday = getWeekSunday();
 
-  const fetchTasks = async (showRefresh = false) => {
+  const fetchTasks = async (showRefresh = false, alsoFetchFamily = false) => {
     if (!currentMember || !family) return;
 
     if (showRefresh) setIsRefreshing(true);
     else setIsLoading(true);
+
+    if (alsoFetchFamily && showTabs) {
+      fetchFamilyTasks();
+    }
 
     try {
       const supabase = getSupabaseClient();
@@ -81,8 +94,41 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
     }
   };
 
+  // Fetch tasks assigned to other family members (for admin view)
+  const fetchFamilyTasks = async () => {
+    if (!currentMember || !family || !showTabs) return;
+
+    try {
+      const supabase = getSupabaseClient();
+
+      // Fetch all tasks for today that are assigned to other family members
+      const { data, error } = await supabase
+        .from('tasks')
+        .select('*, family_members!assigned_to(*)')
+        .eq('family_id', family.id)
+        .eq('is_archived', false)
+        .not('assigned_to', 'is', null)
+        .neq('assigned_to', currentMember.id)
+        .or(
+          // Today's tasks (non-weekly)
+          `and(due_date.eq.${today},is_weekly_task.eq.false),` +
+          // Weekly tasks for the current week
+          `and(is_weekly_task.eq.true,due_date.eq.${weekSunday})`
+        )
+        .order('due_datetime', { ascending: true, nullsFirst: false });
+
+      if (error) throw error;
+      setFamilyTasks(data || []);
+    } catch (error) {
+      console.error('Error fetching family tasks:', error);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
+    if (showTabs) {
+      fetchFamilyTasks();
+    }
 
     // Subscribe to task changes for the family
     const supabase = getSupabaseClient();
@@ -98,6 +144,9 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
         },
         () => {
           fetchTasks();
+          if (showTabs) {
+            fetchFamilyTasks();
+          }
         }
       )
       .subscribe();
@@ -161,6 +210,23 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
   const doneTasks = myTasks.filter(t => t.status === 'completed').length;
   const progressPercent = totalTasks > 0 ? (doneTasks / totalTasks) * 100 : 0;
 
+  // Group family tasks by family member
+  const familyTasksByMember = familyTasks.reduce((acc, task) => {
+    const memberId = task.assigned_to;
+    if (!memberId) return acc;
+    if (!acc[memberId]) {
+      acc[memberId] = [];
+    }
+    acc[memberId].push(task);
+    return acc;
+  }, {} as Record<string, TaskWithMember[]>);
+
+  // Get family member name by ID
+  const getMemberName = (memberId: string): string => {
+    const member = familyMembers.find(m => m.id === memberId);
+    return member?.name || 'Unknown';
+  };
+
   // Format today's date
   const formatDate = () => {
     return new Date().toLocaleDateString(i18n.language, {
@@ -187,7 +253,7 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
           <span className="font-medium text-gray-700">{formatDate()}</span>
         </div>
         <button
-          onClick={() => fetchTasks(true)}
+          onClick={() => fetchTasks(true, true)}
           disabled={isRefreshing}
           className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
         >
@@ -195,30 +261,61 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
         </button>
       </div>
 
-      {/* Progress summary */}
-      <div className="bg-white rounded-xl p-4 mb-6 shadow-sm border border-gray-100">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-600">{t('child.taskList.todaysProgress')}</span>
-          <span className="text-sm font-bold text-gray-900">{t('child.taskList.done', { done: doneTasks, total: totalTasks })}</span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all duration-500 ${
-              progressPercent === 100
-                ? 'bg-gradient-to-r from-green-400 to-green-500'
-                : 'bg-gradient-to-r from-blue-400 to-blue-500'
+      {/* Tab navigation for admins in child mode */}
+      {showTabs && (
+        <div className="flex gap-2 mb-4 bg-gray-100 rounded-lg p-1">
+          <button
+            onClick={() => setActiveTab('myTasks')}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'myTasks'
+                ? 'bg-white text-blue-600 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
             }`}
-            style={{ width: `${progressPercent}%` }}
-          />
+          >
+            <Calendar className="w-4 h-4" />
+            {t('child.taskList.tabs.myTasks')}
+          </button>
+          <button
+            onClick={() => setActiveTab('familyTasks')}
+            className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'familyTasks'
+                ? 'bg-white text-purple-600 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            {t('child.taskList.tabs.familyTasks')}
+          </button>
         </div>
-        {progressPercent === 100 && totalTasks > 0 && (
-          <p className="text-center text-green-600 font-medium mt-2 text-sm">
-            {t('child.taskList.allDone')}
-          </p>
-        )}
-      </div>
+      )}
 
-      {/* Task lists */}
+      {/* My Tasks Tab Content */}
+      {activeTab === 'myTasks' && (
+        <>
+          {/* Progress summary */}
+          <div className="bg-white rounded-xl p-4 mb-6 shadow-sm border border-gray-100">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-gray-600">{t('child.taskList.todaysProgress')}</span>
+              <span className="text-sm font-bold text-gray-900">{t('child.taskList.done', { done: doneTasks, total: totalTasks })}</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all duration-500 ${
+                  progressPercent === 100
+                    ? 'bg-gradient-to-r from-green-400 to-green-500'
+                    : 'bg-gradient-to-r from-blue-400 to-blue-500'
+                }`}
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+            {progressPercent === 100 && totalTasks > 0 && (
+              <p className="text-center text-green-600 font-medium mt-2 text-sm">
+                {t('child.taskList.allDone')}
+              </p>
+            )}
+          </div>
+
+          {/* Task lists */}
       {tasks.length === 0 ? (
         <div className="text-center py-8 px-4">
           {/* Animated floating star */}
@@ -374,6 +471,55 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
                 ))}
               </div>
             </div>
+          )}
+        </div>
+      )}
+        </>
+      )}
+
+      {/* Family Tasks Tab Content */}
+      {activeTab === 'familyTasks' && showTabs && (
+        <div className="space-y-6">
+          {Object.keys(familyTasksByMember).length === 0 ? (
+            <div className="text-center py-8 px-4">
+              <div className="text-5xl mb-4">👨‍👩‍👧‍👦</div>
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                {t('child.taskList.familyTasks.noTasks')}
+              </h3>
+            </div>
+          ) : (
+            Object.entries(familyTasksByMember).map(([memberId, memberTasks]) => {
+              const memberName = getMemberName(memberId);
+              const pendingTasks = memberTasks.filter(t => t.status === 'pending');
+              const pendingApproval = memberTasks.filter(t => t.status === 'pending_approval');
+              const completed = memberTasks.filter(t => t.status === 'completed');
+
+              return (
+                <div key={memberId} className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center">
+                      <span className="text-purple-700 font-semibold text-sm">
+                        {memberName.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-semibold text-purple-700 uppercase tracking-wide">
+                      {memberName}
+                    </h3>
+                  </div>
+                  <div className="space-y-3">
+                    {pendingTasks.map(task => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                    ))}
+                    {pendingApproval.map(task => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                    ))}
+                    {completed.map(task => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })
           )}
         </div>
       )}

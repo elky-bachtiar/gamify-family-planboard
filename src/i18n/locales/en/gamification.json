@@ -154,6 +154,14 @@
         "waitingForParent": "Waiting for Parent ({{count}})",
         "completed": "Completed ({{count}})"
       },
+      "tabs": {
+        "myTasks": "My Tasks",
+        "familyTasks": "Family Tasks"
+      },
+      "familyTasks": {
+        "noTasks": "No tasks assigned",
+        "assignedTo": "Assigned to {{name}}"
+      },
       "suggestions": {
         "read": "Read",
         "clean": "Clean",

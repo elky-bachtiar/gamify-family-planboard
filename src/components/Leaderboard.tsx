@@ -71,12 +71,20 @@ export function Leaderboard() {
               {getRankIcon(index)}
             </div>
 
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
-              style={{ backgroundColor: member.color }}
-            >
-              {member.name[0].toUpperCase()}
-            </div>
+            {member.avatar_url ? (
+              <img
+                src={member.avatar_url}
+                alt={member.name}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+            ) : (
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                style={{ backgroundColor: member.color }}
+              >
+                {member.name[0].toUpperCase()}
+              </div>
+            )}
 
             <div className="flex-1">
               <div className="font-semibold text-gray-900">{member.name}</div>

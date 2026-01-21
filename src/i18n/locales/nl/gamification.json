@@ -154,6 +154,14 @@
         "waitingForParent": "Wacht op ouder ({{count}})",
         "completed": "Voltooid ({{count}})"
       },
+      "tabs": {
+        "myTasks": "Mijn Taken",
+        "familyTasks": "Familie Taken"
+      },
+      "familyTasks": {
+        "noTasks": "Geen taken toegewezen",
+        "assignedTo": "Toegewezen aan {{name}}"
+      },
       "suggestions": {
         "read": "Lezen",
         "clean": "Opruimen",
