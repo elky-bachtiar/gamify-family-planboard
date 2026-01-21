@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Copy, Check, Users, Shield, DollarSign, UserPlus, Link, CheckCircle2, Pencil, Trash2, Crown } from 'lucide-react';
+import { Copy, Check, Users, Shield, DollarSign, UserPlus, Link, CheckCircle2, Pencil, Trash2, Crown, Package } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
 import { RewardSettings, RedemptionManager } from './Rewards';
@@ -11,6 +11,7 @@ import { DeleteMemberConfirmModal } from './Admin/DeleteMemberConfirmModal';
 import { ToggleAdminModal } from './Admin/ToggleAdminModal';
 import { PaletteSelector } from './Admin/PaletteSelector';
 import { ManualPointsManager } from './Admin/ManualPointsManager';
+import { ObjectsManager } from './Admin/ObjectsManager';
 import type { FamilyMember } from '../types';
 
 export function AdminPanel() {
@@ -21,7 +22,7 @@ export function AdminPanel() {
   const [copiedParent, setCopiedParent] = useState(false);
   const [copiedMemberId, setCopiedMemberId] = useState<string | null>(null);
   const [isCreateChildOpen, setIsCreateChildOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'members' | 'approvals' | 'rewards'>('members');
+  const [activeTab, setActiveTab] = useState<'members' | 'approvals' | 'rewards' | 'objects'>('members');
   const [editingMember, setEditingMember] = useState<FamilyMember | null>(null);
   const [deletingMember, setDeletingMember] = useState<FamilyMember | null>(null);
   const [togglingAdminMember, setTogglingAdminMember] = useState<FamilyMember | null>(null);
@@ -106,6 +107,17 @@ export function AdminPanel() {
           >
             <DollarSign className="w-4 h-4 inline-block mr-1" />
             {t('admin:panel.tabs.rewards')}
+          </button>
+          <button
+            onClick={() => setActiveTab('objects')}
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'objects'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <Package className="w-4 h-4 inline-block mr-1" />
+            {t('admin:panel.tabs.objects')}
           </button>
         </div>
       </div>
@@ -305,6 +317,10 @@ export function AdminPanel() {
               <RedemptionManager />
             </div>
           </div>
+        )}
+
+        {activeTab === 'objects' && (
+          <ObjectsManager />
         )}
       </div>
 

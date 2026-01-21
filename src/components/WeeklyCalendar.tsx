@@ -18,7 +18,7 @@ import {
 import { getSupabaseClient } from '../lib/supabase';
 import { useFamily } from '../contexts/FamilyContext';
 import { useAuth } from '../contexts/AuthContext';
-import type { TaskWithMember } from '../types';
+import type { TaskWithMember, FamilyObject } from '../types';
 import { SortableTaskCard } from './SortableTaskCard';
 import { ReorderRecurringTaskDialog } from './ReorderRecurringTaskDialog';
 import { TaskModal, type TaskInitialValues } from './TaskModal';
@@ -42,6 +42,7 @@ export function WeeklyCalendar() {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [copyTaskInitialValues, setCopyTaskInitialValues] = useState<TaskInitialValues | undefined>(undefined);
+  const [familyObjects, setFamilyObjects] = useState<FamilyObject[]>([]);
 
   // Drag and drop state
   const [reorderDialogTask, setReorderDialogTask] = useState<TaskWithMember | null>(null);
@@ -65,6 +66,23 @@ export function WeeklyCalendar() {
     const day = d.getDay();
     const diff = d.getDate() - day;
     return new Date(d.setDate(diff));
+  }
+
+  function getISOWeekNumber(date: Date): number {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    // Set to nearest Thursday: current date + 4 - current day number (make Sunday = 7)
+    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+    // Get first day of year
+    const yearStart = new Date(d.getFullYear(), 0, 1);
+    // Calculate full weeks to nearest Thursday
+    const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+    return weekNo;
+  }
+
+  function isCurrentWeek(weekStart: Date): boolean {
+    const todayWeekStart = getWeekStart(new Date());
+    return weekStart.toDateString() === todayWeekStart.toDateString();
   }
 
   function getWeekDays(startDate: Date): Date[] {
@@ -120,8 +138,33 @@ export function WeeklyCalendar() {
     setTasks(data as TaskWithMember[]);
   };
 
+  const loadFamilyObjects = async () => {
+    if (!family) return;
+
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase
+      .from('family_objects')
+      .select('*')
+      .eq('family_id', family.id)
+      .order('name');
+
+    if (error) {
+      console.error('Error loading family objects:', error);
+      return;
+    }
+
+    setFamilyObjects(data || []);
+  };
+
+  // Get image URL for a tag/object name
+  const getObjectImage = (tagName: string): string | null => {
+    const obj = familyObjects.find(o => o.name.toLowerCase() === tagName.toLowerCase());
+    return obj?.image_url || null;
+  };
+
   useEffect(() => {
     loadTasks();
+    loadFamilyObjects();
 
     const supabase = getSupabaseClient();
     const subscription = supabase
@@ -312,7 +355,9 @@ export function WeeklyCalendar() {
               onClick={today}
               className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              {t('common:time.today')}
+              {isCurrentWeek(currentWeekStart)
+                ? t('common:time.today')
+                : t('common:time.weekNumber', { week: getISOWeekNumber(currentWeekStart) })}
             </button>
             <button
               onClick={nextWeek}
@@ -330,19 +375,29 @@ export function WeeklyCalendar() {
               <Tag className="w-4 h-4" />
               {t('tasks:calendar.filterByTag', 'Filter:')}
             </span>
-            {allTags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                  selectedTags.includes(tag)
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
+            {allTags.map(tag => {
+              const imageUrl = getObjectImage(tag);
+              return (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={`px-2 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                    selectedTags.includes(tag)
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {imageUrl && (
+                    <img
+                      src={imageUrl}
+                      alt={tag}
+                      className="w-4 h-4 rounded object-cover"
+                    />
+                  )}
+                  {tag}
+                </button>
+              );
+            })}
             {selectedTags.length > 0 && (
               <button
                 onClick={clearTagFilter}

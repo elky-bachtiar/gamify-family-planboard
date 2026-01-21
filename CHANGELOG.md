@@ -5,6 +5,38 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
+## [1.0.0-alpha.5] - 2026-01-21
+
+### Added
+- **Week Number Display** - Calendar header now shows "Week X" when viewing past/future weeks
+  - `src/components/WeeklyCalendar.tsx` - Added `getISOWeekNumber()` and `isCurrentWeek()` helper functions
+  - Shows "Today" / "Vandaag" when viewing current week, "Week X" otherwise
+  - Translation keys added: `common.time.weekNumber`
+
+- **Objects/Tags with Pictures** - Admin feature to manage objects with images for task filtering
+  - **Database**
+    - `supabase/migrations/20260121110000_add_family_objects.sql` - New `family_objects` table with RLS policies
+    - `family-objects` Supabase Storage bucket for images
+    - `src/lib/database.types.ts` - Added `family_objects` table type
+    - `src/types/index.ts` - Added `FamilyObject` type export
+  - **Admin Interface**
+    - `src/components/Admin/ObjectsManager.tsx` - CRUD component for managing objects
+      - Create, edit, delete objects with names and pictures
+      - Image upload with preview (max 2MB)
+      - Grid display of all family objects
+    - `src/components/AdminPanel.tsx` - Added "Objects" tab with Package icon
+  - **Filter Bar Enhancement**
+    - `src/components/WeeklyCalendar.tsx` - Filter bar now shows object images next to tag names
+      - Fetches family objects on load
+      - Displays small thumbnail (16x16) for tags that match an object name
+
+### Translations
+- `src/i18n/locales/en/common.json` - Added `time.weekNumber` key
+- `src/i18n/locales/nl/common.json` - Added `time.weekNumber` key (Dutch)
+- `src/i18n/locales/en/admin.json` - Added `panel.tabs.objects` and `objects.*` keys
+- `src/i18n/locales/nl/admin.json` - Added Dutch translations for objects feature
+
+
 ## [1.0.0-alpha.4] - 2026-01-21
 
 ### Added

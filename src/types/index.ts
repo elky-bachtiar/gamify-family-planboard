@@ -11,6 +11,7 @@ export type ManualPointsAward = Database['public']['Tables']['manual_points_awar
 export type RewardRedemption = Database['public']['Tables']['reward_redemptions']['Row'];
 export type TaskHistory = Database['public']['Tables']['task_history']['Row'];
 export type WeeklyEarnings = Database['public']['Tables']['weekly_earnings']['Row'];
+export type FamilyObject = Database['public']['Tables']['family_objects']['Row'];
 
 export type TaskWithMember = Task & {
   family_members: FamilyMember | null;

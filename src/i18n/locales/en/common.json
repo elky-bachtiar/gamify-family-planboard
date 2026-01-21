@@ -54,7 +54,8 @@
     "today": "Today",
     "yesterday": "Yesterday",
     "tomorrow": "Tomorrow",
-    "thisWeek": "This Week"
+    "thisWeek": "This Week",
+    "weekNumber": "Week {{week}}"
   },
   "confirmation": {
     "areYouSure": "Are you sure?",

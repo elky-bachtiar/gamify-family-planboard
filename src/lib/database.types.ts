@@ -460,6 +460,32 @@ export interface Database {
           updated_at?: string
         }
       }
+      family_objects: {
+        Row: {
+          id: string
+          family_id: string
+          name: string
+          image_url: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          family_id: string
+          name: string
+          image_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          family_id?: string
+          name?: string
+          image_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }

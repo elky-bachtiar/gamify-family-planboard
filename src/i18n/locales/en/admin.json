@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Members",
       "approvals": "Approvals",
-      "rewards": "Rewards"
+      "rewards": "Rewards",
+      "objects": "Objects"
     }
   },
   "inviteCode": {
@@ -148,5 +149,19 @@
     "confirmTitle": "Apply Weekly Task Penalty",
     "confirmMessage": "This will deduct {{penalty}} points from {{name}} for not completing this weekly task.",
     "confirmButton": "Apply Penalty"
+  },
+  "objects": {
+    "title": "Objects / Tags",
+    "description": "Manage objects with pictures that can be used as task tags. Images will appear in the filter bar.",
+    "add": "Add Object",
+    "empty": "No objects yet. Add objects to use as tags with pictures.",
+    "createTitle": "Create Object",
+    "editTitle": "Edit Object",
+    "deleteTitle": "Delete Object",
+    "deleteMessage": "Are you sure you want to delete \"{{name}}\"? This will not affect existing task tags.",
+    "nameLabel": "Object Name",
+    "namePlaceholder": "e.g., Dishwasher, Laundry, Garden",
+    "uploadImage": "Upload image",
+    "removeImage": "Remove image"
   }
 }

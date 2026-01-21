@@ -4,7 +4,8 @@
     "tabs": {
       "members": "Leden",
       "approvals": "Goedkeuringen",
-      "rewards": "Beloningen"
+      "rewards": "Beloningen",
+      "objects": "Objecten"
     }
   },
   "inviteCode": {
@@ -148,5 +149,19 @@
     "confirmTitle": "Weektaak Straf Toepassen",
     "confirmMessage": "Dit zal {{penalty}} punten aftrekken van {{name}} voor het niet voltooien van deze weektaak.",
     "confirmButton": "Straf Toepassen"
+  },
+  "objects": {
+    "title": "Objecten / Tags",
+    "description": "Beheer objecten met afbeeldingen die als taaktags kunnen worden gebruikt. Afbeeldingen verschijnen in de filterbalk.",
+    "add": "Object Toevoegen",
+    "empty": "Nog geen objecten. Voeg objecten toe om als tags met afbeeldingen te gebruiken.",
+    "createTitle": "Object Aanmaken",
+    "editTitle": "Object Bewerken",
+    "deleteTitle": "Object Verwijderen",
+    "deleteMessage": "Weet je zeker dat je \"{{name}}\" wilt verwijderen? Dit heeft geen invloed op bestaande taaktags.",
+    "nameLabel": "Objectnaam",
+    "namePlaceholder": "bijv. Vaatwasser, Wasgoed, Tuin",
+    "uploadImage": "Afbeelding uploaden",
+    "removeImage": "Afbeelding verwijderen"
   }
 }
