@@ -12,6 +12,7 @@ interface RecurrenceSelectorProps {
   endDate: string;
   onEndDateChange: (date: string) => void;
   startDate: Date;
+  isWeeklyTask?: boolean;
 }
 
 const PATTERN_KEYS: { value: RecurrencePattern; key: string }[] = [
@@ -31,8 +32,14 @@ export function RecurrenceSelector({
   endDate,
   onEndDateChange,
   startDate,
+  isWeeklyTask = false,
 }: RecurrenceSelectorProps) {
   const { t } = useTranslation('tasks');
+
+  // For weekly tasks, only show "one-time" and "weekly" options
+  const availablePatterns = isWeeklyTask
+    ? PATTERN_KEYS.filter(p => p.value === null || p.value === 'weekly')
+    : PATTERN_KEYS;
 
   const instanceCount = useMemo(() => {
     if (!pattern || !endDate) return 0;
@@ -75,7 +82,7 @@ export function RecurrenceSelector({
           {t('recurrence.repeat')}
         </label>
         <div className="flex flex-wrap gap-2">
-          {PATTERN_KEYS.map(({ value, key }) => (
+          {availablePatterns.map(({ value, key }) => (
             <button
               key={key}
               type="button"
