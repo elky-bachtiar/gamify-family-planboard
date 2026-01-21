@@ -5,6 +5,33 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
+## [1.0.0-alpha.4] - 2026-01-21
+
+### Added
+- **Child Profile Picture Upload** - Children can now upload and manage their own profile pictures
+  - `src/components/Child/ChildProfileModal.tsx` - New mobile-friendly profile modal for children
+    - Photo upload with camera button overlay
+    - Photo removal with trash button
+    - Preview before saving
+    - File validation (image types only, max 2MB)
+    - Stats display (level, points, streak)
+    - Level progress bar with points to next level
+    - Sign out button
+  - `src/components/Child/ChildHeader.tsx` - Avatar now clickable with camera indicator
+    - Blue camera icon badge on avatar
+    - Hover/focus states for accessibility
+    - `onAvatarClick` prop for opening profile modal
+  - `src/components/Child/ChildDashboard.tsx` - Integrated ChildProfileModal
+    - Profile modal state management
+    - Passed `onAvatarClick` handler to ChildHeader
+
+### Translations
+- `src/i18n/locales/en/common.json` - Added `profile.myProfile`, `profile.tapToEdit`, `profile.savePhoto`, and other profile-related keys
+- `src/i18n/locales/nl/common.json` - Added Dutch translations for child profile features
+- `src/i18n/locales/en/gamification.json` - Added `level.toNextLevel` key
+- `src/i18n/locales/nl/gamification.json` - Added Dutch translation for level progress
+
+
 ## [1.0.0-alpha.3] - 2026-01-21
 
 ### Added

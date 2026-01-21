@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { Star, Flame, Trophy, LogOut } from 'lucide-react';
+import { Star, Flame, Trophy, LogOut, Camera } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
 import { getPointsForNextLevel } from '../../types';
 
-export function ChildHeader() {
+interface ChildHeaderProps {
+  onAvatarClick?: () => void;
+}
+
+export function ChildHeader({ onAvatarClick }: ChildHeaderProps) {
   const { t } = useTranslation(['gamification', 'tasks', 'common']);
   const { signOut } = useAuth();
   const { currentMember } = useFamily();
@@ -27,21 +31,31 @@ export function ChildHeader() {
         {/* Top row: Avatar, greeting, stats */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Avatar */}
-            {currentMember.avatar_url ? (
-              <img
-                src={currentMember.avatar_url}
-                alt={currentMember.name}
-                className="w-12 h-12 rounded-full object-cover shadow-md"
-              />
-            ) : (
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md"
-                style={{ backgroundColor: currentMember.color }}
-              >
-                {currentMember.name.charAt(0).toUpperCase()}
+            {/* Avatar - clickable for profile */}
+            <button
+              onClick={onAvatarClick}
+              className="relative group focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-full"
+              title={t('common:profile.tapToEdit', 'Tap to edit profile')}
+            >
+              {currentMember.avatar_url ? (
+                <img
+                  src={currentMember.avatar_url}
+                  alt={currentMember.name}
+                  className="w-12 h-12 rounded-full object-cover shadow-md group-hover:ring-2 group-hover:ring-blue-400 transition-all"
+                />
+              ) : (
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md group-hover:ring-2 group-hover:ring-blue-400 transition-all"
+                  style={{ backgroundColor: currentMember.color }}
+                >
+                  {currentMember.name.charAt(0).toUpperCase()}
+                </div>
+              )}
+              {/* Camera indicator */}
+              <div className="absolute -bottom-0.5 -right-0.5 p-1 bg-blue-500 rounded-full shadow-sm">
+                <Camera className="w-3 h-3 text-white" />
               </div>
-            )}
+            </button>
 
             {/* Greeting */}
             <div>

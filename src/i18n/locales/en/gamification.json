@@ -9,7 +9,8 @@
   "level": {
     "current": "Level {{level}}",
     "progressTo": "Progress to Level {{level}}",
-    "maxLevel": "Max Level Reached!"
+    "maxLevel": "Max Level Reached!",
+    "toNextLevel": "to next level"
   },
   "streak": {
     "current": "{{count}} days",

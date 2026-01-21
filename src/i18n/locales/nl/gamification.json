@@ -9,7 +9,8 @@
   "level": {
     "current": "Niveau {{level}}",
     "progressTo": "Voortgang naar niveau {{level}}",
-    "maxLevel": "Maximaal niveau bereikt!"
+    "maxLevel": "Maximaal niveau bereikt!",
+    "toNextLevel": "naar volgend niveau"
   },
   "streak": {
     "current": "{{count}} dagen",

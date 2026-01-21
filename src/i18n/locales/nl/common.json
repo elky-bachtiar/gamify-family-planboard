@@ -62,6 +62,15 @@
   },
   "profile": {
     "settings": "Profielinstellingen",
-    "signOut": "Uitloggen"
+    "signOut": "Uitloggen",
+    "myProfile": "Mijn Profiel",
+    "tapToEdit": "Tik om profiel te bewerken",
+    "savePhoto": "Foto Opslaan",
+    "changeAvatar": "Avatar wijzigen",
+    "removeAvatar": "Avatar verwijderen",
+    "invalidFileType": "Selecteer een afbeeldingsbestand",
+    "fileTooLarge": "Bestandsgrootte moet kleiner zijn dan 2MB",
+    "uploadFailed": "Avatar uploaden mislukt",
+    "newAvatarSelected": "Nieuwe avatar geselecteerd"
   }
 }

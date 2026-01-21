@@ -8,6 +8,7 @@ import { TodayTaskList } from './TodayTaskList';
 import { AdminApprovalBanner } from './AdminApprovalBanner';
 import { TaskCompletionModal } from './TaskCompletionModal';
 import { ChildCreateTaskModal } from './ChildCreateTaskModal';
+import { ChildProfileModal } from './ChildProfileModal';
 import { DailyGreeting } from './DailyGreeting';
 import { PointsAnimation } from './Gamification/PointsAnimation';
 import { ApprovalCelebration } from './Gamification/ApprovalCelebration';
@@ -28,6 +29,7 @@ export function ChildDashboard() {
   const [selectedTask, setSelectedTask] = useState<TaskWithMember | null>(null);
   const [showGreeting, setShowGreeting] = useState(false);
   const [showCreateTask, setShowCreateTask] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [createTaskDefaultTitle, setCreateTaskDefaultTitle] = useState<string | undefined>();
   const [taskListKey, setTaskListKey] = useState(0); // For refreshing task list
 
@@ -197,7 +199,7 @@ export function ChildDashboard() {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <ChildHeader />
+      <ChildHeader onAvatarClick={() => setShowProfileModal(true)} />
 
       {/* Admin Approval Banner - only shows for admins when there are pending items */}
       <AdminApprovalBanner />
@@ -274,6 +276,12 @@ export function ChildDashboard() {
         }}
         onTaskCreated={handleTaskCreated}
         defaultTitle={createTaskDefaultTitle}
+      />
+
+      {/* Profile modal */}
+      <ChildProfileModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
       />
     </div>
   );
