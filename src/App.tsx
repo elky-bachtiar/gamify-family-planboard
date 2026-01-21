@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { FamilyProvider } from './contexts/FamilyContext';
 import { ViewProvider, useView } from './contexts/ViewContext';
+import { AchievementNotificationProvider } from './contexts/AchievementNotificationContext';
 import { AuthRouter } from './components/Auth/AuthRouter';
 import { LandingPage } from './components/Landing';
 import { Header } from './components/Header';
@@ -172,7 +173,9 @@ function App() {
     <AuthProvider>
       <FamilyProvider>
         <ViewProvider>
-          <AppRouter />
+          <AchievementNotificationProvider>
+            <AppRouter />
+          </AchievementNotificationProvider>
         </ViewProvider>
       </FamilyProvider>
     </AuthProvider>

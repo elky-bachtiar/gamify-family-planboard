@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trophy, X } from 'lucide-react';
 import type { Achievement } from '../../../types';
 
@@ -13,6 +14,7 @@ export function AchievementToast({
   onClose,
   autoCloseDelay = 5000
 }: AchievementToastProps) {
+  const { t } = useTranslation('gamification');
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export function AchievementToast({
           <div className="flex items-center gap-2">
             <Trophy className="w-4 h-4" />
             <span className="text-sm font-semibold uppercase tracking-wide">
-              Achievement Unlocked!
+              {t('achievements.newlyUnlocked')}
             </span>
           </div>
           <button

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CheckCircle2, XCircle, Clock, Star, RefreshCw, Sparkles, Trash2 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
+import { useAchievementNotification } from '../../contexts/AchievementNotificationContext';
 import { getSupabaseClient } from '../../lib/supabase';
 import { approveTask, rejectTask } from '../../lib/gamification';
 import { MissedWeeklyTasksSection } from './MissedWeeklyTasksSection';
@@ -21,6 +22,7 @@ export function TaskApprovalManager() {
   const { t } = useTranslation(['admin', 'tasks', 'gamification']);
   const { family, familyMember } = useAuth();
   const { familyMembers } = useFamily();
+  const { showAchievements } = useAchievementNotification();
   const [pendingTasks, setPendingTasks] = useState<TaskWithCompleter[]>([]);
   const [pendingCreationTasks, setPendingCreationTasks] = useState<TaskWithCreator[]>([]);
   const [recentlyApproved, setRecentlyApproved] = useState<TaskWithCompleter[]>([]);
@@ -134,6 +136,10 @@ export function TaskApprovalManager() {
     const result = await approveTask(task, familyMember);
     if (result.success) {
       loadTasks();
+      // Show achievement notifications if any were earned
+      if (result.newAchievements && result.newAchievements.length > 0) {
+        showAchievements(result.newAchievements);
+      }
     }
     setProcessingTaskId(null);
   };

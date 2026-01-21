@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { CheckCircle2, XCircle, Clock, Sparkles, Star, Trash2, ChevronDown, ChevronUp, Minus, AlertTriangle, Shield } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
+import { useAchievementNotification } from '../../contexts/AchievementNotificationContext';
 import { getSupabaseClient } from '../../lib/supabase';
 import { approveTask, rejectTask, getOverdueWeeklyTasks, awardManualPoints } from '../../lib/gamification';
 import { MissedWeeklyTasksSection } from '../Admin/MissedWeeklyTasksSection';
@@ -21,6 +22,7 @@ export function AdminApprovalBanner() {
   const { t } = useTranslation(['admin', 'tasks', 'common']);
   const { family, familyMember, isAdmin, refreshAuth } = useAuth();
   const { familyMembers } = useFamily();
+  const { showAchievements } = useAchievementNotification();
   const [pendingTasks, setPendingTasks] = useState<TaskWithCompleter[]>([]);
   const [pendingCreationTasks, setPendingCreationTasks] = useState<TaskWithCreator[]>([]);
   const [missedWeeklyTasksCount, setMissedWeeklyTasksCount] = useState(0);
@@ -128,6 +130,10 @@ export function AdminApprovalBanner() {
     const result = await approveTask(task, familyMember);
     if (result.success) {
       loadTasks();
+      // Show achievement notifications if any were earned
+      if (result.newAchievements && result.newAchievements.length > 0) {
+        showAchievements(result.newAchievements);
+      }
     }
     setProcessingTaskId(null);
   };

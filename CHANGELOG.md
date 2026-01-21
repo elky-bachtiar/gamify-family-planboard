@@ -5,6 +5,36 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
+## [1.0.0-alpha.6] - 2026-01-21
+
+### Added
+- **Perfect Week Achievement Implementation** - The "Perfect Week" achievement now works correctly
+  - `src/lib/gamification.ts` - Added `checkPerfectWeek()` function that checks if all assigned tasks for the current week are completed
+  - Requires at least 3 completed tasks in the week to qualify
+  - Added `perfect_week` case to the achievement condition switch statement
+  - Achievement checking now properly evaluates all 5 condition types
+
+- **Achievement Notification System** - Children now see notifications when they earn achievements
+  - `src/contexts/AchievementNotificationContext.tsx` - New context for managing achievement notifications
+    - `showAchievements()` function to queue achievements for display
+    - Queued notifications shown one at a time
+  - `src/lib/gamification.ts` - `checkAndAwardAchievements()` now returns newly awarded achievements
+    - `NewlyAwardedAchievement` interface exported for type safety
+    - `approveTask()` and `completeTask()` return `newAchievements` array
+  - `src/components/Admin/TaskApprovalManager.tsx` - Shows achievement toast when approving tasks
+  - `src/components/Child/AdminApprovalBanner.tsx` - Shows achievement toast when approving tasks
+  - `src/App.tsx` - Wrapped app with `AchievementNotificationProvider`
+  - `src/components/Child/Gamification/AchievementToast.tsx` - Now actually used for notifications (was previously unused)
+
+### Changed
+- **Admin Panel Visual Improvements** - Improved layout and styling of the Admin Panel
+  - Purple gradient header with icon
+  - Tabs positioned below title with underline-style active indicator
+  - Invite code sections in side-by-side cards with gradient backgrounds
+  - Family members displayed in cards with avatar initials
+  - Better visual hierarchy and spacing throughout
+
+
 ## [1.0.0-alpha.5] - 2026-01-21
 
 ### Added

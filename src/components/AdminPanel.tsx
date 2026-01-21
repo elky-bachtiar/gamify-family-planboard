@@ -68,55 +68,60 @@ export function AdminPanel() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="flex items-center justify-between p-6 border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <Shield className="w-5 h-5 text-purple-500" />
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      {/* Header */}
+      <div className="p-5 pb-0 bg-gradient-to-r from-gray-50 to-white">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="p-2 bg-purple-100 rounded-xl">
+            <Shield className="w-5 h-5 text-purple-600" />
+          </div>
           <h2 className="text-xl font-bold text-gray-900">{t('admin:panel.title')}</h2>
         </div>
-        <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
+
+        {/* Tab Navigation - Below Title */}
+        <div className="flex gap-1 border-b border-gray-200 -mx-5 px-5">
           <button
             onClick={() => setActiveTab('members')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
               activeTab === 'members'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-purple-600 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            <Users className="w-4 h-4 inline-block mr-1" />
+            <Users className="w-4 h-4" />
             {t('admin:panel.tabs.members')}
           </button>
           <button
             onClick={() => setActiveTab('approvals')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
               activeTab === 'approvals'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-purple-600 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            <CheckCircle2 className="w-4 h-4 inline-block mr-1" />
+            <CheckCircle2 className="w-4 h-4" />
             {t('admin:panel.tabs.approvals')}
           </button>
           <button
             onClick={() => setActiveTab('rewards')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
               activeTab === 'rewards'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-purple-600 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            <DollarSign className="w-4 h-4 inline-block mr-1" />
+            <DollarSign className="w-4 h-4" />
             {t('admin:panel.tabs.rewards')}
           </button>
           <button
             onClick={() => setActiveTab('objects')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
               activeTab === 'objects'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'border-purple-600 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            <Package className="w-4 h-4 inline-block mr-1" />
+            <Package className="w-4 h-4" />
             {t('admin:panel.tabs.objects')}
           </button>
         </div>
@@ -125,20 +130,27 @@ export function AdminPanel() {
       <div className="p-6">
         {activeTab === 'members' && (
           <div className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-2">{t('admin:inviteCode.title')}</h3>
-                <p className="text-xs text-gray-500 mb-2">{t('admin:inviteCode.description')}</p>
+            {/* Invite Codes Section */}
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Regular Invite Code Card */}
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-5 border border-blue-100">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-1.5 bg-blue-100 rounded-lg">
+                    <Users className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-800">{t('admin:inviteCode.title')}</h3>
+                </div>
+                <p className="text-sm text-gray-600 mb-4">{t('admin:inviteCode.description')}</p>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 px-3 py-2 bg-gray-100 rounded-lg text-sm font-mono text-gray-800 truncate">
+                  <code className="flex-1 px-4 py-2.5 bg-white rounded-lg text-sm font-mono text-gray-800 border border-blue-200 shadow-sm">
                     {family.invite_code}
                   </code>
                   <button
                     onClick={handleCopyInvite}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all shadow-sm ${
                       copied
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
                     }`}
                   >
                     {copied ? (
@@ -156,23 +168,26 @@ export function AdminPanel() {
                 </div>
               </div>
 
+              {/* Parent Invite Code Card */}
               {parentInviteLink && (
-                <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-2">
-                    <Crown className="w-4 h-4 inline-block mr-1 text-yellow-500" />
-                    {t('admin:parentInviteCode.title')}
-                  </h3>
-                  <p className="text-xs text-gray-500 mb-2">{t('admin:parentInviteCode.description')}</p>
+                <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-5 border border-amber-100">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="p-1.5 bg-amber-100 rounded-lg">
+                      <Crown className="w-4 h-4 text-amber-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-800">{t('admin:parentInviteCode.title')}</h3>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-4">{t('admin:parentInviteCode.description')}</p>
                   <div className="flex items-center gap-2">
-                    <code className="flex-1 px-3 py-2 bg-yellow-50 rounded-lg text-sm font-mono text-gray-800 truncate">
+                    <code className="flex-1 px-4 py-2.5 bg-white rounded-lg text-sm font-mono text-gray-800 border border-amber-200 shadow-sm">
                       {family.parent_invite_code}
                     </code>
                     <button
                       onClick={handleCopyParentInvite}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all shadow-sm ${
                         copiedParent
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                          ? 'bg-green-500 text-white'
+                          : 'bg-amber-500 text-white hover:bg-amber-600'
                       }`}
                     >
                       {copiedParent ? (
@@ -192,82 +207,91 @@ export function AdminPanel() {
               )}
             </div>
 
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-gray-500" />
-                  <h3 className="text-sm font-medium text-gray-700">
+            {/* Family Members Section */}
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-1.5 bg-purple-100 rounded-lg">
+                    <Users className="w-4 h-4 text-purple-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-800">
                     {t('admin:members.count', { count: familyMembers.length })}
                   </h3>
                 </div>
                 <button
                   onClick={() => setIsCreateChildOpen(true)}
-                  className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                  className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all shadow-sm text-sm font-medium"
                 >
                   <UserPlus className="w-4 h-4" />
                   {t('admin:members.addChild')}
                 </button>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {familyMembers.map((member) => (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    className="flex items-center justify-between p-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
                   >
                     <div className="flex items-center gap-3">
+                      {/* Avatar */}
                       <div
-                        className="w-3 h-3 rounded-full"
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm"
                         style={{ backgroundColor: member.color }}
-                      />
-                      <span className="font-medium text-gray-900">{member.name}</span>
-                      {member.is_admin && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700">
-                          {t('admin:members.admin')}
-                        </span>
-                      )}
-                      {member.is_pin_user && (
-                        <>
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700">
-                            {t('admin:members.pinUser')}
-                          </span>
-                          {member.child_invite_code && (
-                            <button
-                              onClick={() => handleCopyPinLink(member.id, member.child_invite_code!)}
-                              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium transition-colors ${
-                                copiedMemberId === member.id
-                                  ? 'bg-green-100 text-green-700'
-                                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                              }`}
-                            >
-                              {copiedMemberId === member.id ? (
-                                <>
-                                  <Check className="w-3 h-3" />
-                                  {t('common:buttons.copied')}
-                                </>
-                              ) : (
-                                <>
-                                  <Link className="w-3 h-3" />
-                                  {t('common:buttons.copyLink')}
-                                </>
-                              )}
-                            </button>
-                          )}
-                        </>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="text-sm text-gray-600">
-                        <span className="font-semibold">{member.total_points}</span> {t('common:labels.points')}
-                        <span className="mx-2">|</span>
-                        {t('common:labels.level')} <span className="font-semibold">{member.current_level}</span>
+                      >
+                        {member.name.charAt(0).toUpperCase()}
                       </div>
-                      <div className="flex items-center gap-1">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-gray-900">{member.name}</span>
+                          {member.is_admin && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
+                              <Crown className="w-3 h-3" />
+                              {t('admin:members.admin')}
+                            </span>
+                          )}
+                          {member.is_pin_user && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                              PIN
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
+                          <span><span className="font-medium text-gray-700">{member.total_points}</span> {t('common:labels.points')}</span>
+                          <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                          <span>{t('common:labels.level')} <span className="font-medium text-gray-700">{member.current_level}</span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {member.is_pin_user && member.child_invite_code && (
+                        <button
+                          onClick={() => handleCopyPinLink(member.id, member.child_invite_code!)}
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                            copiedMemberId === member.id
+                              ? 'bg-green-100 text-green-700'
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
+                        >
+                          {copiedMemberId === member.id ? (
+                            <>
+                              <Check className="w-3.5 h-3.5" />
+                              {t('common:buttons.copied')}
+                            </>
+                          ) : (
+                            <>
+                              <Link className="w-3.5 h-3.5" />
+                              {t('common:buttons.copyLink')}
+                            </>
+                          )}
+                        </button>
+                      )}
+                      <div className="flex items-center gap-1 ml-2">
                         <button
                           onClick={() => setTogglingAdminMember(member)}
-                          className={`p-1.5 rounded transition-colors ${
+                          className={`p-2 rounded-lg transition-all ${
                             member.is_admin
-                              ? 'text-yellow-500 hover:text-yellow-600 hover:bg-yellow-50'
-                              : 'text-gray-400 hover:text-yellow-500 hover:bg-yellow-50'
+                              ? 'text-amber-500 bg-amber-50 hover:bg-amber-100'
+                              : 'text-gray-400 hover:text-amber-500 hover:bg-amber-50'
                           }`}
                           title={member.is_admin ? t('admin:members.demoteAdmin') : t('admin:members.promoteAdmin')}
                         >
@@ -275,7 +299,7 @@ export function AdminPanel() {
                         </button>
                         <button
                           onClick={() => setEditingMember(member)}
-                          className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
                           title={t('admin:members.editMember')}
                         >
                           <Pencil className="w-4 h-4" />
@@ -283,7 +307,7 @@ export function AdminPanel() {
                         {!member.is_admin && (
                           <button
                             onClick={() => setDeletingMember(member)}
-                            className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                             title={t('admin:members.deleteMember')}
                           >
                             <Trash2 className="w-4 h-4" />
@@ -296,11 +320,13 @@ export function AdminPanel() {
               </div>
             </div>
 
-            <div className="border-t border-gray-200 pt-6 mt-6">
+            {/* Palette Selector Section */}
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
               <PaletteSelector />
             </div>
 
-            <div className="border-t border-gray-200 pt-6 mt-6">
+            {/* Manual Points Section */}
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
               <ManualPointsManager />
             </div>
           </div>
@@ -311,9 +337,11 @@ export function AdminPanel() {
         )}
 
         {activeTab === 'rewards' && (
-          <div className="space-y-8">
-            <RewardSettings onSave={refreshAuth} />
-            <div className="border-t border-gray-200 pt-6">
+          <div className="space-y-6">
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
+              <RewardSettings onSave={refreshAuth} />
+            </div>
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
               <RedemptionManager />
             </div>
           </div>

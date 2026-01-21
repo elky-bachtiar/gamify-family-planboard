@@ -47,7 +47,8 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
 
       if (memberError) throw memberError;
 
-      await checkAndAwardAchievements(member.id);
+      const newAchievements = await checkAndAwardAchievements(member.id);
+      return { success: true, newAchievements };
     } else {
       // Non-admin completing task: requires approval
       const { error: taskError } = await supabase
@@ -125,9 +126,9 @@ export async function approveTask(task: Task, approver: FamilyMember) {
 
     if (memberError) throw memberError;
 
-    await checkAndAwardAchievements(completer.id);
+    const newAchievements = await checkAndAwardAchievements(completer.id);
 
-    return { success: true };
+    return { success: true, newAchievements };
   } catch (error) {
     console.error('Error approving task:', error);
     return { success: false, error };
@@ -156,7 +157,16 @@ export async function rejectTask(task: Task) {
   }
 }
 
-export async function checkAndAwardAchievements(memberId: string) {
+export interface NewlyAwardedAchievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+}
+
+export async function checkAndAwardAchievements(memberId: string): Promise<NewlyAwardedAchievement[]> {
+  const newlyAwarded: NewlyAwardedAchievement[] = [];
+
   try {
     const supabase = getSupabaseClient();
     const { data: member } = await supabase
@@ -165,7 +175,7 @@ export async function checkAndAwardAchievements(memberId: string) {
       .eq('id', memberId)
       .single();
 
-    if (!member) return;
+    if (!member) return newlyAwarded;
 
     const { data: completedTasks } = await supabase
       .from('tasks')
@@ -189,6 +199,9 @@ export async function checkAndAwardAchievements(memberId: string) {
 
     const earnedIds = new Set(earnedAchievements?.map(a => a.achievement_id) || []);
 
+    // Check for Perfect Week achievement
+    const hasPerfectWeek = await checkPerfectWeek(memberId, member.family_id);
+
     for (const achievement of achievements || []) {
       if (earnedIds.has(achievement.id)) continue;
 
@@ -207,6 +220,9 @@ export async function checkAndAwardAchievements(memberId: string) {
         case 'streak_days':
           shouldAward = member.current_streak >= achievement.condition_value;
           break;
+        case 'perfect_week':
+          shouldAward = hasPerfectWeek;
+          break;
       }
 
       if (shouldAward) {
@@ -216,10 +232,71 @@ export async function checkAndAwardAchievements(memberId: string) {
             member_id: memberId,
             achievement_id: achievement.id,
           });
+
+        // Add to newly awarded list for notifications
+        newlyAwarded.push({
+          id: achievement.id,
+          name: achievement.name,
+          description: achievement.description,
+          icon: achievement.icon,
+        });
       }
     }
   } catch (error) {
     console.error('Error checking achievements:', error);
+  }
+
+  return newlyAwarded;
+}
+
+/**
+ * Check if a member has completed all their tasks for the current week
+ * Perfect Week = All assigned tasks for this week are completed
+ */
+async function checkPerfectWeek(memberId: string, familyId: string): Promise<boolean> {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Get the start and end of the current week (Monday to Sunday)
+    const now = new Date();
+    const day = now.getDay();
+    const diffToMonday = now.getDate() - day + (day === 0 ? -6 : 1);
+    const monday = new Date(now);
+    monday.setDate(diffToMonday);
+    monday.setHours(0, 0, 0, 0);
+
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    sunday.setHours(23, 59, 59, 999);
+
+    const mondayStr = monday.toISOString().split('T')[0];
+    const sundayStr = sunday.toISOString().split('T')[0];
+
+    // Get all tasks assigned to this member for this week
+    const { data: weekTasks, error } = await supabase
+      .from('tasks')
+      .select('id, status')
+      .eq('family_id', familyId)
+      .eq('assigned_to', memberId)
+      .eq('is_archived', false)
+      .gte('due_date', mondayStr)
+      .lte('due_date', sundayStr);
+
+    if (error) throw error;
+
+    // If no tasks this week, no perfect week
+    if (!weekTasks || weekTasks.length === 0) return false;
+
+    // Check if ALL tasks are completed
+    const allCompleted = weekTasks.every(task => task.status === 'completed');
+
+    // Need at least 3 tasks completed for Perfect Week to be meaningful
+    const completedCount = weekTasks.filter(t => t.status === 'completed').length;
+
+    return allCompleted && completedCount >= 3;
+  } catch (error) {
+    console.error('Error checking perfect week:', error);
+    return false;
   }
 }
 
