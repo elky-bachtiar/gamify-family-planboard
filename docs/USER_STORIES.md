@@ -1,0 +1,914 @@
+# User Stories - Taskaroo Family Task Management
+
+This document contains comprehensive user stories for the Taskaroo iOS app implementation. The app is a gamified family task management system with separate interfaces for parents (admins) and children.
+
+---
+
+## User Types
+
+| User Type | Description | Authentication |
+|-----------|-------------|----------------|
+| **Parent/Admin** | Adult family members with full management capabilities | Email/password via Supabase Auth |
+| **Child** | Younger family members with limited, gamified interface | 4-6 digit PIN code |
+
+---
+
+## Epic 1: Authentication & Onboarding
+
+### 1.1 Parent Registration
+**As a** parent
+**I want to** create an account with email and password
+**So that** I can set up and manage my family's tasks
+
+**Acceptance Criteria:**
+- Email validation required
+- Password minimum 6 characters
+- Successful registration creates Supabase auth user
+- After registration, user is directed to family setup
+
+### 1.2 Parent Login
+**As a** registered parent
+**I want to** log in with my email and password
+**So that** I can access my family dashboard
+
+**Acceptance Criteria:**
+- Email and password fields
+- "Forgot password" functionality
+- Error handling for invalid credentials
+- Redirect to dashboard on success
+
+### 1.2.1 OAuth Login (Google/Apple)
+**As a** parent
+**I want to** sign in with my Google or Apple account
+**So that** I can log in without remembering another password
+
+**Acceptance Criteria:**
+- Google sign-in button with branded styling
+- Apple sign-in button with branded styling (black background)
+- OAuth flow redirects to provider, then returns to app
+- On first login, creates new account automatically
+- Links to existing account if email matches
+- Shows loading spinner during OAuth process
+- Error handling for OAuth failures
+
+### 1.3 Child PIN Login
+**As a** child
+**I want to** log in using my unique invite code and PIN
+**So that** I can access my tasks without needing an email
+
+**Acceptance Criteria:**
+- Enter 8-character invite code (e.g., `ABC12345`)
+- Enter 4-6 digit PIN
+- PIN is validated against SHA-256 hash
+- On success, load child-specific dashboard
+- Show error for invalid code or PIN
+
+### 1.4 Create New Family
+**As a** new parent
+**I want to** create a new family group
+**So that** I can start managing tasks for my household
+
+**Acceptance Criteria:**
+- Enter family name
+- System generates unique invite codes:
+  - `invite_code` for children/members
+  - `parent_invite_code` for other parents
+- Creator becomes family admin automatically
+- Redirect to dashboard after creation
+
+### 1.5 Join Existing Family (Member)
+**As a** new user
+**I want to** join an existing family using an invite code
+**So that** I can participate in the family's task system
+
+**Acceptance Criteria:**
+- Enter family invite code
+- Enter display name and choose color
+- Join as non-admin member by default
+- If using `parent_invite_code`, join as admin
+
+### 1.6 Sign Out
+**As a** logged-in user
+**I want to** sign out of the app
+**So that** I can protect my account on shared devices
+
+**Acceptance Criteria:**
+- Clear local session/tokens
+- Return to login screen
+- For PIN users, only clear PIN session (not family data)
+
+---
+
+## Epic 2: Family Management (Admin Only)
+
+### 2.1 Create Child Account
+**As a** parent/admin
+**I want to** create a child account with a PIN
+**So that** my child can log in without needing an email
+
+**Acceptance Criteria:**
+- Enter child's name
+- Set 4-6 digit PIN
+- Choose display color from family palette
+- System generates unique `child_invite_code`
+- Child account created with `is_pin_user: true`
+- Show invite code for child to use
+
+### 2.2 View Family Members
+**As a** parent/admin
+**I want to** see all family members
+**So that** I can manage the household
+
+**Acceptance Criteria:**
+- List all family members with:
+  - Name and avatar
+  - Role (parent/child)
+  - Points total and level
+  - Admin badge if applicable
+- Sort by name or points
+
+### 2.3 Edit Family Member
+**As a** parent/admin
+**I want to** edit a family member's profile
+**So that** I can update their information
+
+**Acceptance Criteria:**
+- Edit name
+- Change display color
+- Set birthdate (for birthday points feature)
+- Cannot edit own admin status
+
+### 2.4 Reset Child PIN
+**As a** parent/admin
+**I want to** reset a child's PIN
+**So that** they can regain access if they forget it
+
+**Acceptance Criteria:**
+- Select child member
+- Enter new 4-6 digit PIN
+- Confirm new PIN
+- Old PIN immediately invalidated
+- New PIN hash stored
+
+### 2.5 Delete Family Member
+**As a** parent/admin
+**I want to** remove a family member
+**So that** I can manage who has access
+
+**Acceptance Criteria:**
+- Confirmation dialog required
+- Cannot delete last admin
+- Member's tasks become unassigned
+- Points history preserved for audit
+
+### 2.6 Promote/Demote Admin
+**As a** parent/admin
+**I want to** grant or revoke admin privileges
+**So that** I can share management responsibilities
+
+**Acceptance Criteria:**
+- Toggle admin status on non-PIN members
+- Cannot demote the last admin
+- Promoting changes role to "parent" automatically
+- Confirmation required for demotion
+
+### 2.7 View Invite Codes
+**As a** parent/admin
+**I want to** see and share family invite codes
+**So that** I can add new members
+
+**Acceptance Criteria:**
+- Display member invite code
+- Display parent invite code (for adding admins)
+- Copy to clipboard functionality
+- Share via system share sheet
+
+### 2.8 Set Family Default Language
+**As a** parent/admin
+**I want to** set the family's default language
+**So that** new members start with the right language
+
+**Acceptance Criteria:**
+- Select from available languages (en, nl, zh)
+- Stored in `families.default_language`
+- Applied to new members on join
+
+### 2.9 Select Color Palette
+**As a** parent/admin
+**I want to** choose a color palette for the family
+**So that** the app has a cohesive look
+
+**Acceptance Criteria:**
+- Choose from palettes: default, soft-pastels, vintage, retro, neon, high-contrast, monochrome
+- Preview colors before selecting
+- Applied to all member color pickers
+
+---
+
+## Epic 3: Task Management
+
+### 3.1 Create Task (Admin)
+**As a** parent/admin
+**I want to** create tasks for family members
+**So that** chores and activities are tracked
+
+**Acceptance Criteria:**
+- Required fields:
+  - Title
+  - Point value (1-100, default varies by priority)
+  - Priority (low/medium/high)
+- Optional fields:
+  - Description
+  - Due date
+  - Due time (creates `due_datetime`)
+  - Assigned member (or leave unassigned for anyone to claim)
+  - Associated items/tags (e.g., "kitchen", "homework")
+  - Recurrence pattern
+  - Start datetime (when task becomes visible)
+  - Is weekly task (can complete any day that week)
+- Tasks created by admin are immediately `pending`
+
+### 3.2 Create Task (Child)
+**As a** child
+**I want to** suggest new tasks
+**So that** I can propose helpful activities
+
+**Acceptance Criteria:**
+- Title required
+- Point value fixed at 5 points (enforced server-side)
+- Priority defaults to medium
+- Task created with `status: pending_approval`
+- Task assigned to creating child
+- Parent must approve before it becomes active
+
+### 3.3 View Tasks
+**As a** family member
+**I want to** see tasks relevant to me
+**So that** I know what needs to be done
+
+**Acceptance Criteria:**
+- **Admin view:** All family tasks with filters
+- **Child view:** Only tasks where:
+  - `assigned_to` = my ID, OR
+  - `assigned_to` is NULL (claimable)
+- Filter by status, date, assignee, priority
+- Sort by due date, priority, or creation date
+
+### 3.4 Edit Task (Admin)
+**As a** parent/admin
+**I want to** modify existing tasks
+**So that** I can update requirements
+
+**Acceptance Criteria:**
+- Edit all task fields
+- Cannot edit completed tasks (archive instead)
+- Changes reflected immediately
+
+### 3.5 Delete Task (Admin)
+**As a** parent/admin
+**I want to** remove tasks
+**So that** outdated items don't clutter the list
+
+**Acceptance Criteria:**
+- Confirmation required
+- Completed tasks are archived to `task_history` instead
+- Recurring tasks: option to delete single instance or entire series
+
+### 3.6 Claim Unassigned Task (Child)
+**As a** child
+**I want to** claim an unassigned task
+**So that** I can earn points for extra work
+
+**Acceptance Criteria:**
+- Tasks with `assigned_to: null` show "Claim" button
+- Claiming sets `assigned_to` to child's ID
+- Task immediately assigned, no approval needed for claiming
+- First-come-first-served
+
+### 3.7 Recurring Tasks
+**As a** parent/admin
+**I want to** create recurring tasks
+**So that** regular chores don't need manual recreation
+
+**Acceptance Criteria:**
+- Recurrence patterns:
+  - `one_time` - Single occurrence (default)
+  - `daily` - Every day
+  - `weekly` - Same day each week
+  - `specific_days` - Select which days (Mon, Wed, Fri, etc.)
+- System generates instances based on pattern
+- Each instance is independent (completing one doesn't affect others)
+- Instances linked via `recurring_task_group_id`
+
+### 3.8 Reorder Tasks
+**As a** family member
+**I want to** reorder my tasks via drag-and-drop
+**So that** I can prioritize what I work on
+
+**Acceptance Criteria:**
+- Drag handle on task cards
+- Reorder updates `sort_order` field
+- Uses fractional indexing for efficiency
+- Order persists across sessions
+
+### 3.9 Task Calendar View
+**As a** family member
+**I want to** see tasks on a calendar
+**So that** I can plan my week
+
+**Acceptance Criteria:**
+- Monthly calendar view
+- Tasks shown on their due dates
+- Color-coded by assignee
+- Tap date to see day's tasks
+- Navigate between months
+
+---
+
+## Epic 4: Task Completion & Approval
+
+### 4.1 Complete Task (Child)
+**As a** child
+**I want to** mark a task as done
+**So that** I can earn points
+
+**Acceptance Criteria:**
+- "I'm Done!" button on task card/modal
+- Task status changes to `pending_approval`
+- `completed_by` set to child's ID
+- Task shows "Waiting for Approval" state
+- Points NOT awarded yet
+
+### 4.2 Complete Task (Admin)
+**As a** parent/admin
+**I want to** complete tasks immediately
+**So that** I don't need to approve my own work
+
+**Acceptance Criteria:**
+- Admin completion bypasses approval
+- Status goes directly to `completed`
+- Points awarded immediately
+- Combo bonus applied if applicable
+
+### 4.3 Approve Task (Admin)
+**As a** parent/admin
+**I want to** approve a child's completed task
+**So that** they receive their points
+
+**Acceptance Criteria:**
+- View list of tasks with `pending_approval` status
+- "Approve" button on each task
+- On approval:
+  - Status → `completed`
+  - Points added to child's total
+  - `approved_by` and `approved_at` set
+  - Combo bonus applied
+  - Streak updated
+  - Achievement check triggered
+- Show celebration animation to child
+
+### 4.4 Reject Task (Admin)
+**As a** parent/admin
+**I want to** reject an incomplete task
+**So that** the child can redo it properly
+
+**Acceptance Criteria:**
+- "Reject" button with required reason field
+- On rejection:
+  - Status → `pending`
+  - `completed_by` cleared
+  - `rejection_reason` stored
+  - `rejected_at` and `rejected_by` set
+  - No points awarded
+- Child sees rejection reason when viewing task
+
+### 4.5 View Pending Approvals (Admin)
+**As a** parent/admin
+**I want to** see all tasks awaiting approval
+**So that** I can review them efficiently
+
+**Acceptance Criteria:**
+- Badge count on admin panel/header
+- List tasks with `pending_approval` status
+- Show who completed it and when
+- Quick approve/reject actions
+
+### 4.6 View Rejection Reason (Child)
+**As a** child
+**I want to** see why my task was rejected
+**So that** I can do it correctly
+
+**Acceptance Criteria:**
+- Rejected tasks show warning indicator
+- Tap to see rejection reason
+- Clear explanation of what needs improvement
+- Task is back to `pending` status for retry
+
+---
+
+## Epic 5: Gamification & Points
+
+### 5.1 Earn Points
+**As a** family member
+**I want to** earn points for completing tasks
+**So that** I feel rewarded for my efforts
+
+**Acceptance Criteria:**
+- Points based on task `point_value`
+- Priority affects default points:
+  - Low: 5 points
+  - Medium: 10 points
+  - High: 20 points
+- Points added after approval (child) or completion (admin)
+- Running total shown in header/profile
+
+### 5.2 Combo Bonus
+**As a** family member
+**I want to** earn bonus points for consecutive completions
+**So that** I'm motivated to do more tasks
+
+**Acceptance Criteria:**
+- Each task in a combo adds +10% bonus (capped at +50%)
+- Combo resets at midnight
+- Visual indicator shows current combo multiplier
+- Bonus calculated: `points * (1 + 0.1 * comboCount)`
+
+### 5.3 Level Up
+**As a** family member
+**I want to** level up as I earn points
+**So that** I feel a sense of progression
+
+**Acceptance Criteria:**
+- Levels 1-50 with increasing thresholds:
+  - Level 1: 0 points
+  - Level 2: 100 points
+  - Level 5: 500 points
+  - Level 10: 2,000 points
+  - Level 20: 10,000 points
+  - Level 50: 100,000 points
+- Level-up animation/celebration
+- Level badge displayed on profile
+
+### 5.4 Maintain Streak
+**As a** family member
+**I want to** build a streak of daily task completions
+**So that** I stay motivated over time
+
+**Acceptance Criteria:**
+- Streak increments when completing a task on a new day
+- Streak resets if no task completed for 24+ hours
+- Visual fire icon with streak count
+- Streak milestones unlock achievements
+
+### 5.5 View Points History
+**As a** family member
+**I want to** see my points history
+**So that** I can track my progress
+
+**Acceptance Criteria:**
+- List of all point transactions
+- Each entry shows:
+  - Amount (+/-)
+  - Reason (task completion, achievement, manual award, birthday bonus)
+  - Date/time
+  - Related task title if applicable
+- Filter by type, date range
+- Running total after each transaction
+
+### 5.6 Manual Points Award (Admin)
+**As a** parent/admin
+**I want to** manually award or deduct points
+**So that** I can reward good behavior or address issues
+
+**Acceptance Criteria:**
+- Select family member
+- Enter point amount (positive or negative)
+- Enter reason (required)
+- For deductions:
+  - Use `deduct-points` Edge Function
+  - Prevent negative total (cap at 0)
+  - Show previous and new totals
+- Transaction logged in `points_history`
+
+### 5.7 Birthday Points
+**As a** a family member with a birthday
+**I want to** receive bonus points on my birthday
+**So that** I feel celebrated
+
+**Acceptance Criteria:**
+- Admin sets birthdate in member profile
+- On birthday, admin can trigger bonus points
+- Uses `award-birthday-points` Edge Function
+- Configurable bonus amount (default: 100 points)
+- Special birthday badge/animation
+
+---
+
+## Epic 6: Achievements & Badges
+
+### 6.1 Unlock Achievements
+**As a** family member
+**I want to** unlock achievements for milestones
+**So that** I have goals to work toward
+
+**Acceptance Criteria:**
+- Achievement types:
+  - `first_task` - Complete your first task
+  - `tasks_count` - Complete X total tasks (10, 50, 100, etc.)
+  - `points_total` - Earn X total points
+  - `streak_days` - Maintain X day streak (7, 30, etc.)
+  - `perfect_week` - Complete all tasks in a week
+- Toast notification when achievement unlocked
+- Points bonus awarded with achievement
+
+### 6.2 View Achievements
+**As a** family member
+**I want to** see all available achievements
+**So that** I know what I can earn
+
+**Acceptance Criteria:**
+- Gallery view of all achievements
+- Shows earned vs locked status
+- Earned: Full color with unlock date
+- Locked: Grayed out with requirements
+- Progress indicator for incremental achievements
+- Icon and title for each achievement
+
+### 6.3 Achievement Notifications
+**As a** family member
+**I want to** be notified when I unlock an achievement
+**So that** I can celebrate my accomplishment
+
+**Acceptance Criteria:**
+- Toast notification slides in
+- Shows achievement icon, name, points earned
+- Sound effect (optional, respects device settings)
+- Tap to view achievement details
+- Auto-dismiss after 5 seconds
+
+---
+
+## Epic 7: Rewards & Redemptions
+
+### 7.1 Request Reward Redemption (Child)
+**As a** child
+**I want to** redeem my points for rewards
+**So that** I can get something tangible for my efforts
+
+**Acceptance Criteria:**
+- View available point balance
+- Enter redemption amount
+- Conversion rate: configurable (e.g., 100 points = €1)
+- Submit redemption request
+- Status shows as `pending`
+- Cannot request more points than available
+
+### 7.2 Approve Redemption (Admin)
+**As a** parent/admin
+**I want to** approve or reject redemption requests
+**So that** I control when rewards are given
+
+**Acceptance Criteria:**
+- View pending redemption requests
+- See who requested, amount, equivalent value
+- Approve: Deduct points, mark as `approved`
+- Reject: No point change, mark as `rejected`, enter reason
+- Notification to child of decision
+
+### 7.3 View Redemption History
+**As a** family member
+**I want to** see my redemption history
+**So that** I can track my rewards
+
+**Acceptance Criteria:**
+- List all redemptions with status
+- Shows: date, points, value, status
+- Filter by status (pending/approved/rejected)
+
+### 7.4 Configure Reward Settings (Admin)
+**As a** parent/admin
+**I want to** configure reward settings
+**So that** I control the reward system
+
+**Acceptance Criteria:**
+- Enable/disable reward redemptions
+- Set conversion rate (points to currency)
+- Set minimum redemption amount
+- Settings stored in `families` table
+
+---
+
+## Epic 8: Messaging
+
+### 8.1 Send Message
+**As a** family member
+**I want to** send messages to other family members
+**So that** we can communicate within the app
+
+**Acceptance Criteria:**
+- Select recipient (single member or "Everyone")
+- Enter message content
+- Optional: Attach to specific task
+- Send creates record in `messages` table
+- Recipient notification (in-app)
+
+### 8.2 View Inbox
+**As a** family member
+**I want to** see messages sent to me
+**So that** I can stay informed
+
+**Acceptance Criteria:**
+- List messages where `recipient_id` = me OR `recipient_id` is null (broadcast)
+- Show sender, preview, timestamp
+- Unread indicator for new messages
+- Sort by date, newest first
+
+### 8.3 Read Message
+**As a** family member
+**I want to** read a message
+**So that** I can see the full content
+
+**Acceptance Criteria:**
+- Tap message to view full content
+- Marks as read (`read_at` timestamp)
+- Shows related task if applicable
+- Option to reply
+
+### 8.4 Unread Badge
+**As a** family member
+**I want to** see how many unread messages I have
+**So that** I don't miss important communications
+
+**Acceptance Criteria:**
+- Badge count on Messages tab
+- Badge in header/tab bar
+- Updates in real-time via Supabase subscription
+- Count = messages where `read_at` is null
+
+---
+
+## Epic 9: Calendar & Export
+
+### 9.1 Calendar View
+**As a** family member
+**I want to** see tasks on a calendar
+**So that** I can visualize my schedule
+
+**Acceptance Criteria:**
+- Month view with task indicators
+- Week view with time slots
+- Day view with task list
+- Color-coded by assignee or priority
+- Navigate between periods
+
+### 9.2 Export to Calendar (ICS)
+**As a** family member
+**I want to** export tasks to my calendar app
+**So that** I can see them alongside other events
+
+**Acceptance Criteria:**
+- "Export to Calendar" button on task
+- Generates .ics file with:
+  - Event title = task title
+  - Description includes: description, assignee, points
+  - Due date/time
+  - Reminder (default: 1 hour before)
+- Bulk export: "Export all my tasks"
+- Compatible with Apple Calendar, Google Calendar, Outlook
+
+### 9.3 Today View
+**As a** family member
+**I want to** see today's tasks prominently
+**So that** I know what to focus on
+
+**Acceptance Criteria:**
+- Dedicated "Today" section
+- Shows tasks due today or overdue
+- Shows unassigned tasks available to claim
+- Quick complete action
+- Progress indicator (X of Y done)
+
+### 9.4 Week View
+**As a** family member
+**I want to** see this week's tasks
+**So that** I can plan ahead
+
+**Acceptance Criteria:**
+- Week number displayed
+- Tasks grouped by day
+- Weekly tasks shown separately (can do any day)
+- Weekly goal progress indicator
+
+---
+
+## Epic 10: Profile & Settings
+
+### 10.1 View Profile
+**As a** family member
+**I want to** see my profile
+**So that** I can check my progress
+
+**Acceptance Criteria:**
+- Display: name, avatar, color
+- Points total and level
+- Current streak
+- Achievement count
+- Weekly goal progress
+
+### 10.2 Edit Profile (Child)
+**As a** child
+**I want to** update my profile
+**So that** I can personalize my account
+
+**Acceptance Criteria:**
+- Change display name
+- Upload/change avatar photo
+- Avatar stored in Supabase Storage (`avatars` bucket)
+- Cannot change PIN (admin only)
+
+### 10.3 Change Language
+**As a** family member
+**I want to** change the app language
+**So that** I can use it in my preferred language
+
+**Acceptance Criteria:**
+- Language selector in settings
+- Available: English, Dutch, Chinese
+- Persists across sessions
+- Immediate UI update
+
+### 10.4 Weekly Goal
+**As a** family member
+**I want to** set a weekly task goal
+**So that** I have a target to work toward
+
+**Acceptance Criteria:**
+- Set target number of tasks per week
+- Progress bar shows completion
+- Resets each week (Monday)
+- Completing goal can trigger achievement
+
+---
+
+## Epic 11: Leaderboard & Stats
+
+### 11.1 Family Leaderboard
+**As a** family member
+**I want to** see how I rank against others
+**So that** I'm motivated by friendly competition
+
+**Acceptance Criteria:**
+- Rank members by points (weekly or all-time)
+- Show: rank, name, avatar, points
+- Highlight current user's position
+- Crown icon for #1
+
+### 11.2 Personal Statistics
+**As a** family member
+**I want to** see my statistics
+**So that** I can track my improvement
+
+**Acceptance Criteria:**
+- Tasks completed (today/week/all-time)
+- Points earned (today/week/all-time)
+- Current streak vs best streak
+- Tasks by priority breakdown
+- Completion rate (completed vs assigned)
+
+### 11.3 Family Statistics (Admin)
+**As a** parent/admin
+**I want to** see family-wide statistics
+**So that** I can monitor overall progress
+
+**Acceptance Criteria:**
+- Total tasks created/completed
+- Points awarded
+- Active members
+- Most completed tasks (by member)
+- Task completion trends (chart)
+
+---
+
+## Epic 12: Data & Privacy (Admin)
+
+### 12.1 Export Family Data (GDPR)
+**As a** parent/admin
+**I want to** export all family data
+**So that** I comply with data portability requirements
+
+**Acceptance Criteria:**
+- "Export Data" button in settings
+- Calls `export-family-data` Edge Function
+- Downloads JSON file containing:
+  - Family info
+  - All members
+  - All tasks and history
+  - Points history
+  - Achievements
+  - Messages
+  - Redemptions
+- Include metadata (export date, version)
+
+### 12.2 Activity Log (Admin)
+**As a** parent/admin
+**I want to** see an activity log
+**So that** I can monitor family activity
+
+**Acceptance Criteria:**
+- Log entries for:
+  - Task created/edited/deleted
+  - Task completed/approved/rejected
+  - Member added/removed
+  - Points awarded/deducted
+  - Settings changed
+- Shows: who, what, when
+- Filter by member, action type, date
+
+### 12.3 Disable Member Account (Admin)
+**As a** parent/admin
+**I want to** temporarily disable a member
+**So that** I can restrict access without deleting
+
+**Acceptance Criteria:**
+- "Disable" option on member
+- Sets `is_disabled: true`
+- Disabled member cannot log in
+- Tasks remain assigned
+- Points preserved
+- Can re-enable later
+
+---
+
+## API Reference
+
+### Edge Functions
+
+| Function | Method | Auth | Description |
+|----------|--------|------|-------------|
+| `create-child` | POST | Admin | Create child with PIN |
+| `pin-login` | POST | Public | Authenticate with PIN |
+| `join-family` | POST | User | Join family via invite code |
+| `join-family-as-parent` | POST | User | Join family as admin |
+| `toggle-admin` | POST | Admin | Promote/demote admin |
+| `deduct-points` | POST | Admin | Deduct points from member |
+| `award-birthday-points` | POST | Admin | Award birthday bonus |
+| `reset-child-pin` | POST | Admin | Reset child's PIN |
+| `disable-member` | POST | Admin | Enable/disable member |
+| `export-family-data` | GET | Admin | Export all family data |
+| `regenerate-invite-code` | POST | Admin | Generate new invite codes |
+
+### Supabase Tables
+
+| Table | Description |
+|-------|-------------|
+| `families` | Family groups with settings |
+| `family_members` | Users and children |
+| `tasks` | All tasks with status |
+| `task_history` | Archived completed tasks |
+| `achievements` | Achievement definitions |
+| `user_achievements` | Earned achievements |
+| `points_history` | Point transaction log |
+| `weekly_goals` | Weekly targets |
+| `reward_redemptions` | Reward requests |
+| `messages` | In-app messages |
+| `audit_logs` | Activity log |
+
+---
+
+## Technical Notes for iOS Implementation
+
+### Authentication Flow
+1. Check for stored session/tokens
+2. If parent: Use Supabase Auth SDK
+3. If child: Call `pin-login` Edge Function, store returned member data
+
+### Real-time Updates
+- Subscribe to Supabase realtime channels for:
+  - `tasks` table (family_id filter)
+  - `messages` table (recipient filter)
+  - `family_members` table (family_id filter)
+
+### Offline Considerations
+- Cache current user's tasks locally
+- Queue task completions when offline
+- Sync when connection restored
+- Show clear offline indicator
+
+### Security
+- All RLS policies enforce family isolation
+- Children cannot see other children's assigned tasks
+- Only admins can access admin functions
+- PINs are SHA-256 hashed, never stored plain
+
+### Color Palette
+Use family's selected palette for UI theming:
+- `default`: Standard blue/green/red
+- `soft-pastels`: Muted pastel colors
+- `vintage`: Warm earth tones
+- `neon`: Bright vibrant colors
+
+### Localization
+- Support en, nl, zh locales
+- Use i18n framework (NSLocalizedString or similar)
+- Date/number formatting per locale
+- Translation keys match web app namespaces

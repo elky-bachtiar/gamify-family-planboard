@@ -1,0 +1,31 @@
+# Run secret scan if gitleaks is available
+if command -v gitleaks &> /dev/null; then
+  echo "Running secret scan..."
+  gitleaks detect --source . --verbose --redact
+  if [ $? -ne 0 ]; then
+    echo "Secrets detected! Push blocked."
+    exit 1
+  fi
+  echo "No secrets found."
+else
+  echo "Warning: gitleaks not installed, skipping secret scan"
+  echo "Install with: brew install gitleaks (macOS) or see https://github.com/gitleaks/gitleaks"
+fi
+
+# Run typecheck
+echo "Running typecheck..."
+npm run typecheck
+if [ $? -ne 0 ]; then
+  echo "TypeScript errors found! Push blocked."
+  exit 1
+fi
+
+# Run tests
+echo "Running tests..."
+npm run test:ci
+if [ $? -ne 0 ]; then
+  echo "Tests failed! Push blocked."
+  exit 1
+fi
+
+echo "All checks passed!"

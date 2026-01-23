@@ -1,0 +1,21 @@
+{
+  "inbox": "消息",
+  "compose": "新建",
+  "newMessage": "新消息",
+  "noMessages": "暂无消息",
+  "unknownSender": "未知",
+  "backToInbox": "返回",
+  "reply": "回复",
+  "delete": "删除",
+  "replyTo": "回复 {{name}}",
+  "originalMessage": "原始消息",
+  "to": "收件人",
+  "selectRecipient": "选择收件人...",
+  "everyone": "所有人",
+  "message": "消息",
+  "messagePlaceholder": "在此输入消息...",
+  "send": "发送",
+  "sending": "发送中...",
+  "errorFillFields": "请填写所有字段",
+  "errorSending": "消息发送失败，请重试。"
+}
