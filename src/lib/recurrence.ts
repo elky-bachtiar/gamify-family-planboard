@@ -23,6 +23,7 @@ export interface TaskTemplate {
   created_by?: string | null;
   family_id?: string | null;
   associated_items?: string[];
+  associated_object_ids?: string[] | null;
 }
 
 const MAX_INSTANCES = 365;
@@ -146,10 +147,7 @@ export function generateRecurringTaskInstances(
 /**
  * Get human-readable description of recurrence pattern
  */
-export function getRecurrenceDescription(
-  pattern: RecurrencePattern,
-  days?: number[]
-): string {
+export function getRecurrenceDescription(pattern: RecurrencePattern, days?: number[]): string {
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   switch (pattern) {
@@ -157,10 +155,11 @@ export function getRecurrenceDescription(
       return 'Every day';
     case 'weekly':
       return 'Every week';
-    case 'specific_days':
+    case 'specific_days': {
       if (!days || days.length === 0) return 'No days selected';
-      const selectedDays = days.sort((a, b) => a - b).map(d => dayNames[d]);
+      const selectedDays = days.sort((a, b) => a - b).map((d) => dayNames[d]);
       return `Every ${selectedDays.join(', ')}`;
+    }
     default:
       return 'One time';
   }

@@ -1,6 +1,20 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Copy, Check, Users, Shield, DollarSign, UserPlus, Link, CheckCircle2, Pencil, Trash2, Crown, Package } from 'lucide-react';
+import {
+  Copy,
+  Check,
+  Users,
+  Shield,
+  DollarSign,
+  UserPlus,
+  Link,
+  CheckCircle2,
+  Pencil,
+  Trash2,
+  Crown,
+  Package,
+  MessageSquare,
+} from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
 import { RewardSettings, RedemptionManager } from './Rewards';
@@ -12,6 +26,7 @@ import { ToggleAdminModal } from './Admin/ToggleAdminModal';
 import { PaletteSelector } from './Admin/PaletteSelector';
 import { ManualPointsManager } from './Admin/ManualPointsManager';
 import { ObjectsManager } from './Admin/ObjectsManager';
+import { DisputeReviewManager } from './Admin/DisputeReviewManager';
 import type { FamilyMember } from '../types';
 
 export function AdminPanel() {
@@ -22,7 +37,9 @@ export function AdminPanel() {
   const [copiedParent, setCopiedParent] = useState(false);
   const [copiedMemberId, setCopiedMemberId] = useState<string | null>(null);
   const [isCreateChildOpen, setIsCreateChildOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'members' | 'approvals' | 'rewards' | 'objects'>('members');
+  const [activeTab, setActiveTab] = useState<
+    'members' | 'approvals' | 'rewards' | 'objects' | 'disputes'
+  >('members');
   const [editingMember, setEditingMember] = useState<FamilyMember | null>(null);
   const [deletingMember, setDeletingMember] = useState<FamilyMember | null>(null);
   const [togglingAdminMember, setTogglingAdminMember] = useState<FamilyMember | null>(null);
@@ -33,7 +50,7 @@ export function AdminPanel() {
   const parentInviteLink = family.parent_invite_code
     ? `${window.location.origin}/join-parent/${family.parent_invite_code}`
     : null;
-  const adminCount = familyMembers.filter(m => m.is_admin).length;
+  const adminCount = familyMembers.filter((m) => m.is_admin).length;
 
   const handleCopyInvite = async () => {
     try {
@@ -124,6 +141,17 @@ export function AdminPanel() {
             <Package className="w-4 h-4" />
             {t('admin:panel.tabs.objects')}
           </button>
+          <button
+            onClick={() => setActiveTab('disputes')}
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
+              activeTab === 'disputes'
+                ? 'border-purple-600 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <MessageSquare className="w-4 h-4" />
+            {t('admin:panel.tabs.disputes', 'Disputes')}
+          </button>
         </div>
       </div>
 
@@ -175,9 +203,13 @@ export function AdminPanel() {
                     <div className="p-1.5 bg-amber-100 rounded-lg">
                       <Crown className="w-4 h-4 text-amber-600" />
                     </div>
-                    <h3 className="font-semibold text-gray-800">{t('admin:parentInviteCode.title')}</h3>
+                    <h3 className="font-semibold text-gray-800">
+                      {t('admin:parentInviteCode.title')}
+                    </h3>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{t('admin:parentInviteCode.description')}</p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {t('admin:parentInviteCode.description')}
+                  </p>
                   <div className="flex items-center gap-2">
                     <code className="flex-1 px-4 py-2.5 bg-white rounded-lg text-sm font-mono text-gray-800 border border-amber-200 shadow-sm">
                       {family.parent_invite_code}
@@ -236,7 +268,7 @@ export function AdminPanel() {
                       {/* Avatar */}
                       <div
                         className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm"
-                        style={{ backgroundColor: member.color }}
+                        style={{ backgroundColor: member.color ?? '#3b82f6' }}
                       >
                         {member.name.charAt(0).toUpperCase()}
                       </div>
@@ -256,9 +288,17 @@ export function AdminPanel() {
                           )}
                         </div>
                         <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
-                          <span><span className="font-medium text-gray-700">{member.total_points}</span> {t('common:labels.points')}</span>
+                          <span>
+                            <span className="font-medium text-gray-700">{member.total_points}</span>{' '}
+                            {t('common:labels.points')}
+                          </span>
                           <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                          <span>{t('common:labels.level')} <span className="font-medium text-gray-700">{member.current_level}</span></span>
+                          <span>
+                            {t('common:labels.level')}{' '}
+                            <span className="font-medium text-gray-700">
+                              {member.current_level}
+                            </span>
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -293,7 +333,11 @@ export function AdminPanel() {
                               ? 'text-amber-500 bg-amber-50 hover:bg-amber-100'
                               : 'text-gray-400 hover:text-amber-500 hover:bg-amber-50'
                           }`}
-                          title={member.is_admin ? t('admin:members.demoteAdmin') : t('admin:members.promoteAdmin')}
+                          title={
+                            member.is_admin
+                              ? t('admin:members.demoteAdmin')
+                              : t('admin:members.promoteAdmin')
+                          }
                         >
                           <Crown className="w-4 h-4" />
                         </button>
@@ -332,9 +376,7 @@ export function AdminPanel() {
           </div>
         )}
 
-        {activeTab === 'approvals' && (
-          <TaskApprovalManager />
-        )}
+        {activeTab === 'approvals' && <TaskApprovalManager />}
 
         {activeTab === 'rewards' && (
           <div className="space-y-6">
@@ -347,15 +389,12 @@ export function AdminPanel() {
           </div>
         )}
 
-        {activeTab === 'objects' && (
-          <ObjectsManager />
-        )}
+        {activeTab === 'objects' && <ObjectsManager />}
+
+        {activeTab === 'disputes' && <DisputeReviewManager />}
       </div>
 
-      <CreateChildModal
-        isOpen={isCreateChildOpen}
-        onClose={() => setIsCreateChildOpen(false)}
-      />
+      <CreateChildModal isOpen={isCreateChildOpen} onClose={() => setIsCreateChildOpen(false)} />
 
       <EditMemberModal
         isOpen={!!editingMember}

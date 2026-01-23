@@ -66,7 +66,7 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
     try {
       const supabase = getSupabaseClient();
 
-      // Fetch tasks for today OR overdue unassigned pending tasks from previous days
+      // Fetch tasks for today OR overdue assigned tasks from previous days
       // OR weekly tasks for the current week
       // Use explicit foreign key hint to avoid ambiguity
       const { data, error } = await supabase
@@ -77,10 +77,10 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
         .or(
           // Today's tasks (assigned to child or unassigned, non-weekly)
           `and(due_date.eq.${today},is_weekly_task.eq.false,or(assigned_to.eq.${currentMember.id},assigned_to.is.null)),` +
-          // Overdue unassigned pending tasks from previous days (non-weekly)
-          `and(due_date.lt.${today},assigned_to.is.null,status.eq.pending,is_weekly_task.eq.false),` +
-          // Weekly tasks for the current week (assigned to child or unassigned)
-          `and(is_weekly_task.eq.true,due_date.eq.${weekSunday},or(assigned_to.eq.${currentMember.id},assigned_to.is.null))`
+            // Overdue ASSIGNED pending tasks from previous days (non-weekly) - for "My Tasks"
+            `and(due_date.lt.${today},assigned_to.eq.${currentMember.id},status.in.(pending,pending_approval),is_weekly_task.eq.false),` +
+            // Weekly tasks for the current week (assigned to child or unassigned)
+            `and(is_weekly_task.eq.true,due_date.eq.${weekSunday},or(assigned_to.eq.${currentMember.id},assigned_to.is.null))`
         )
         .order('due_datetime', { ascending: true, nullsFirst: false });
 
@@ -112,8 +112,8 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
         .or(
           // Today's tasks (non-weekly)
           `and(due_date.eq.${today},is_weekly_task.eq.false),` +
-          // Weekly tasks for the current week
-          `and(is_weekly_task.eq.true,due_date.eq.${weekSunday})`
+            // Weekly tasks for the current week
+            `and(is_weekly_task.eq.true,due_date.eq.${weekSunday})`
         )
         .order('due_datetime', { ascending: true, nullsFirst: false });
 
@@ -158,25 +158,43 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
 
   // Separate tasks by status and assignment
   // Only show tasks that are creation_approved (or where creation_approved is undefined for backward compat)
-  const approvedTasks = tasks.filter(t => t.creation_approved !== false);
+  const approvedTasks = tasks.filter((t) => t.creation_approved !== false);
 
   // Separate weekly tasks from daily tasks
-  const weeklyTasks = approvedTasks.filter(t => t.is_weekly_task);
-  const dailyApprovedTasks = approvedTasks.filter(t => !t.is_weekly_task);
+  const weeklyTasks = approvedTasks.filter((t) => t.is_weekly_task);
+  const dailyApprovedTasks = approvedTasks.filter((t) => !t.is_weekly_task);
 
   // Weekly tasks - separate by status
-  const pendingWeeklyTasks = weeklyTasks.filter(t => t.status === 'pending' || t.status === 'pending_approval');
-  const completedWeeklyTasks = weeklyTasks.filter(t => t.status === 'completed');
+  const pendingWeeklyTasks = weeklyTasks.filter(
+    (t) => t.status === 'pending' || t.status === 'pending_approval'
+  );
+  const completedWeeklyTasks = weeklyTasks.filter((t) => t.status === 'completed');
 
-  const myPendingTasks = dailyApprovedTasks.filter(t => t.status === 'pending' && t.assigned_to === currentMember?.id);
+  // My pending tasks for TODAY only
+  const myPendingTasksToday = dailyApprovedTasks.filter(
+    (t) => t.status === 'pending' && t.assigned_to === currentMember?.id && t.due_date === today
+  );
 
-  // Filter available (unassigned) tasks:
+  // Overdue tasks assigned to me from previous days
+  const myOverdueTasks = dailyApprovedTasks.filter(
+    (t) =>
+      (t.status === 'pending' || t.status === 'pending_approval') &&
+      t.assigned_to === currentMember?.id &&
+      t.due_date !== null &&
+      t.due_date < today
+  );
+
+  // Filter available (unassigned) tasks - ONLY TODAY's tasks:
+  // - Only show tasks due today
   // - Hide tasks that haven't reached their start_datetime yet
   // - Hide tasks that are past their due_datetime + 1 hour
   const now = new Date();
   const oneHourMs = 60 * 60 * 1000;
-  const availableTasks = dailyApprovedTasks.filter(t => {
+  const availableTasks = dailyApprovedTasks.filter((t) => {
     if (t.status !== 'pending' || t.assigned_to !== null) return false;
+
+    // Only show TODAY's unassigned tasks
+    if (t.due_date !== today) return false;
 
     // If task has a start_datetime, only show if current time >= start time
     if (t.start_datetime) {
@@ -196,34 +214,37 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
     return true;
   });
 
-  const pendingApprovalTasks = dailyApprovedTasks.filter(t => t.status === 'pending_approval');
-  const completedTasks = dailyApprovedTasks.filter(t => t.status === 'completed');
+  const pendingApprovalTasks = dailyApprovedTasks.filter((t) => t.status === 'pending_approval');
+  const completedTasks = dailyApprovedTasks.filter((t) => t.status === 'completed');
 
   // Tasks created by child that are waiting for parent approval
   const pendingCreationTasks = tasks.filter(
-    t => t.creation_approved === false && t.created_by === currentMember?.id
+    (t) => t.creation_approved === false && t.created_by === currentMember?.id
   );
 
   // Progress only counts tasks assigned to the child
-  const myTasks = tasks.filter(t => t.assigned_to === currentMember?.id);
+  const myTasks = tasks.filter((t) => t.assigned_to === currentMember?.id);
   const totalTasks = myTasks.length;
-  const doneTasks = myTasks.filter(t => t.status === 'completed').length;
+  const doneTasks = myTasks.filter((t) => t.status === 'completed').length;
   const progressPercent = totalTasks > 0 ? (doneTasks / totalTasks) * 100 : 0;
 
   // Group family tasks by family member
-  const familyTasksByMember = familyTasks.reduce((acc, task) => {
-    const memberId = task.assigned_to;
-    if (!memberId) return acc;
-    if (!acc[memberId]) {
-      acc[memberId] = [];
-    }
-    acc[memberId].push(task);
-    return acc;
-  }, {} as Record<string, TaskWithMember[]>);
+  const familyTasksByMember = familyTasks.reduce(
+    (acc, task) => {
+      const memberId = task.assigned_to;
+      if (!memberId) return acc;
+      if (!acc[memberId]) {
+        acc[memberId] = [];
+      }
+      acc[memberId].push(task);
+      return acc;
+    },
+    {} as Record<string, TaskWithMember[]>
+  );
 
   // Get family member name by ID
   const getMemberName = (memberId: string): string => {
-    const member = familyMembers.find(m => m.id === memberId);
+    const member = familyMembers.find((m) => m.id === memberId);
     return member?.name || 'Unknown';
   };
 
@@ -295,8 +316,12 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
           {/* Progress summary */}
           <div className="bg-white rounded-xl p-4 mb-6 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">{t('child.taskList.todaysProgress')}</span>
-              <span className="text-sm font-bold text-gray-900">{t('child.taskList.done', { done: doneTasks, total: totalTasks })}</span>
+              <span className="text-sm font-medium text-gray-600">
+                {t('child.taskList.todaysProgress')}
+              </span>
+              <span className="text-sm font-bold text-gray-900">
+                {t('child.taskList.done', { done: doneTasks, total: totalTasks })}
+              </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
               <div
@@ -316,164 +341,169 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
           </div>
 
           {/* Task lists */}
-      {tasks.length === 0 ? (
-        <div className="text-center py-8 px-4">
-          {/* Animated floating star */}
-          <div className="text-7xl mb-6 animate-float inline-block">
-            🌟
-          </div>
+          {tasks.length === 0 ? (
+            <div className="text-center py-8 px-4">
+              {/* Animated floating star */}
+              <div className="text-7xl mb-6 animate-float inline-block">🌟</div>
 
-          {/* Fun heading */}
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">
-            {t('child.taskList.emptyState.title')}
-          </h3>
+              {/* Fun heading */}
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                {t('child.taskList.emptyState.title')}
+              </h3>
 
-          {/* Encouraging text */}
-          <p className="text-gray-600 mb-6">
-            {t('child.taskList.emptyState.subtitle')}
-          </p>
+              {/* Encouraging text */}
+              <p className="text-gray-600 mb-6">{t('child.taskList.emptyState.subtitle')}</p>
 
-          {/* Quick task suggestions */}
-          {onCreateTask && (
-            <>
-              <p className="text-sm text-gray-500 mb-3 font-medium">{t('child.taskList.emptyState.quickIdeas')}</p>
-              <div className="flex flex-wrap justify-center gap-2 mb-6">
-                {quickTaskSuggestionKeys.map(suggestion => (
-                  <button
-                    key={suggestion.key}
-                    onClick={() => onCreateTask(suggestion.defaultTitle)}
-                    className="px-4 py-2 bg-white border-2 border-gray-200 rounded-full
+              {/* Quick task suggestions */}
+              {onCreateTask && (
+                <>
+                  <p className="text-sm text-gray-500 mb-3 font-medium">
+                    {t('child.taskList.emptyState.quickIdeas')}
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 mb-6">
+                    {quickTaskSuggestionKeys.map((suggestion) => (
+                      <button
+                        key={suggestion.key}
+                        onClick={() => onCreateTask(suggestion.defaultTitle)}
+                        className="px-4 py-2 bg-white border-2 border-gray-200 rounded-full
                       text-sm font-medium text-gray-700 hover:border-blue-400 hover:bg-blue-50
                       hover:text-blue-700 transition-all active:scale-95 shadow-sm"
-                  >
-                    {suggestion.emoji} {t(`child.taskList.suggestions.${suggestion.key}`)}
-                  </button>
-                ))}
-              </div>
+                      >
+                        {suggestion.emoji} {t(`child.taskList.suggestions.${suggestion.key}`)}
+                      </button>
+                    ))}
+                  </div>
 
-              {/* Main CTA button */}
-              <button
-                onClick={() => onCreateTask()}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500
+                  {/* Main CTA button */}
+                  <button
+                    onClick={() => onCreateTask()}
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500
                   text-white px-6 py-3 rounded-xl font-bold text-lg shadow-lg
                   hover:shadow-xl hover:from-blue-600 hover:to-purple-600
                   active:scale-95 transition-all"
-              >
-                <Sparkles className="w-5 h-5" />
-                {t('child.taskList.emptyState.createOwn')}
-              </button>
-            </>
-          )}
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {/* Pending creation tasks (waiting for parent) */}
-          {pendingCreationTasks.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-3">
-                {t('child.taskList.sections.waitingForParent', { count: pendingCreationTasks.length })}
-              </h3>
-              <div className="space-y-3">
-                {pendingCreationTasks.map(task => (
-                  <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isPendingCreation />
-                ))}
-              </div>
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    {t('child.taskList.emptyState.createOwn')}
+                  </button>
+                </>
+              )}
             </div>
-          )}
+          ) : (
+            <div className="space-y-6">
+              {/* Pending creation tasks (waiting for parent) */}
+              {pendingCreationTasks.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-3">
+                    {t('child.taskList.sections.waitingForParent', {
+                      count: pendingCreationTasks.length,
+                    })}
+                  </h3>
+                  <div className="space-y-3">
+                    {pendingCreationTasks.map((task) => (
+                      <ChildTaskCard
+                        key={task.id}
+                        task={task}
+                        onClick={onTaskClick}
+                        isPendingCreation
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-          {/* Weekly Tasks Section */}
-          {weeklyTasks.length > 0 && (
-            <div className="bg-purple-50 border border-dashed border-purple-200 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <CalendarDays className="w-4 h-4 text-purple-600" />
-                <h3 className="text-sm font-semibold text-purple-700 uppercase tracking-wide">
-                  {t('tasks:calendar.weeklyTasks')}
-                </h3>
-              </div>
-              <div className="space-y-3">
-                {pendingWeeklyTasks.map(task => (
-                  <ChildTaskCard
-                    key={task.id}
-                    task={task}
-                    onClick={onTaskClick}
-                    isWeeklyTask
-                  />
-                ))}
-                {completedWeeklyTasks.map(task => (
-                  <ChildTaskCard
-                    key={task.id}
-                    task={task}
-                    onClick={onTaskClick}
-                    isWeeklyTask
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+              {/* Weekly Tasks Section */}
+              {weeklyTasks.length > 0 && (
+                <div className="bg-purple-50 border border-dashed border-purple-200 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CalendarDays className="w-4 h-4 text-purple-600" />
+                    <h3 className="text-sm font-semibold text-purple-700 uppercase tracking-wide">
+                      {t('tasks:calendar.weeklyTasks')}
+                    </h3>
+                  </div>
+                  <div className="space-y-3">
+                    {pendingWeeklyTasks.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isWeeklyTask />
+                    ))}
+                    {completedWeeklyTasks.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isWeeklyTask />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-          {/* My pending tasks */}
-          {myPendingTasks.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-                {t('child.taskList.sections.myTasks', { count: myPendingTasks.length })}
-              </h3>
-              <div className="space-y-3">
-                {myPendingTasks.map(task => (
-                  <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
-                ))}
-              </div>
-            </div>
-          )}
+              {/* Overdue tasks assigned to me */}
+              {myOverdueTasks.length > 0 && (
+                <div className="bg-orange-50 border border-dashed border-orange-200 rounded-xl p-4">
+                  <h3 className="text-sm font-semibold text-orange-600 uppercase tracking-wide mb-3">
+                    {t('child.taskList.sections.overdue', { count: myOverdueTasks.length })}
+                  </h3>
+                  <div className="space-y-3">
+                    {myOverdueTasks.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isOverdue />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-          {/* Available tasks to claim */}
-          {availableTasks.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-3">
-                {t('child.taskList.sections.available', { count: availableTasks.length })}
-              </h3>
-              <div className="space-y-3">
-                {availableTasks.map(task => (
-                  <ChildTaskCard
-                    key={task.id}
-                    task={task}
-                    onClick={onTaskClick}
-                    isClaimable
-                    isOverdue={task.due_date !== null && task.due_date < today}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+              {/* My pending tasks (today only) */}
+              {myPendingTasksToday.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+                    {t('child.taskList.sections.myTasks', { count: myPendingTasksToday.length })}
+                  </h3>
+                  <div className="space-y-3">
+                    {myPendingTasksToday.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-          {/* Pending approval */}
-          {pendingApprovalTasks.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-yellow-600 uppercase tracking-wide mb-3">
-                {t('child.taskList.sections.waitingApproval', { count: pendingApprovalTasks.length })}
-              </h3>
-              <div className="space-y-3">
-                {pendingApprovalTasks.map(task => (
-                  <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
-                ))}
-              </div>
-            </div>
-          )}
+              {/* Available tasks to claim (today only) */}
+              {availableTasks.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-3">
+                    {t('child.taskList.sections.available', { count: availableTasks.length })}
+                  </h3>
+                  <div className="space-y-3">
+                    {availableTasks.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} isClaimable />
+                    ))}
+                  </div>
+                </div>
+              )}
 
-          {/* Completed tasks */}
-          {completedTasks.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-green-600 uppercase tracking-wide mb-3">
-                {t('child.taskList.sections.completed', { count: completedTasks.length })}
-              </h3>
-              <div className="space-y-3">
-                {completedTasks.map(task => (
-                  <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
-                ))}
-              </div>
+              {/* Pending approval */}
+              {pendingApprovalTasks.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-yellow-600 uppercase tracking-wide mb-3">
+                    {t('child.taskList.sections.waitingApproval', {
+                      count: pendingApprovalTasks.length,
+                    })}
+                  </h3>
+                  <div className="space-y-3">
+                    {pendingApprovalTasks.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Completed tasks */}
+              {completedTasks.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-green-600 uppercase tracking-wide mb-3">
+                    {t('child.taskList.sections.completed', { count: completedTasks.length })}
+                  </h3>
+                  <div className="space-y-3">
+                    {completedTasks.map((task) => (
+                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
-        </div>
-      )}
         </>
       )}
 
@@ -490,12 +520,15 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
           ) : (
             Object.entries(familyTasksByMember).map(([memberId, memberTasks]) => {
               const memberName = getMemberName(memberId);
-              const pendingTasks = memberTasks.filter(t => t.status === 'pending');
-              const pendingApproval = memberTasks.filter(t => t.status === 'pending_approval');
-              const completed = memberTasks.filter(t => t.status === 'completed');
+              const pendingTasks = memberTasks.filter((t) => t.status === 'pending');
+              const pendingApproval = memberTasks.filter((t) => t.status === 'pending_approval');
+              const completed = memberTasks.filter((t) => t.status === 'completed');
 
               return (
-                <div key={memberId} className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                <div
+                  key={memberId}
+                  className="bg-purple-50 border border-purple-200 rounded-xl p-4"
+                >
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center">
                       <span className="text-purple-700 font-semibold text-sm">
@@ -507,13 +540,13 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
                     </h3>
                   </div>
                   <div className="space-y-3">
-                    {pendingTasks.map(task => (
+                    {pendingTasks.map((task) => (
                       <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
                     ))}
-                    {pendingApproval.map(task => (
+                    {pendingApproval.map((task) => (
                       <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
                     ))}
-                    {completed.map(task => (
+                    {completed.map((task) => (
                       <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
                     ))}
                   </div>

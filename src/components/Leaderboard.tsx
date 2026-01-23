@@ -47,7 +47,11 @@ export function Leaderboard() {
     if (index === 0) return <Crown className="w-6 h-6 text-yellow-500" />;
     if (index === 1) return <Medal className="w-6 h-6 text-gray-400" />;
     if (index === 2) return <Medal className="w-6 h-6 text-amber-600" />;
-    return <span className="text-lg font-bold text-gray-400">{t('leaderboard.rank', { rank: index + 1 })}</span>;
+    return (
+      <span className="text-lg font-bold text-gray-400">
+        {t('leaderboard.rank', { rank: index + 1 })}
+      </span>
+    );
   };
 
   return (
@@ -62,14 +66,10 @@ export function Leaderboard() {
           <div
             key={member.id}
             className={`flex items-center gap-4 p-4 rounded-lg border-2 transition-all ${
-              index === 0
-                ? 'bg-yellow-50 border-yellow-200'
-                : 'bg-gray-50 border-gray-200'
+              index === 0 ? 'bg-yellow-50 border-yellow-200' : 'bg-gray-50 border-gray-200'
             }`}
           >
-            <div className="flex items-center justify-center w-10">
-              {getRankIcon(index)}
-            </div>
+            <div className="flex items-center justify-center w-10">{getRankIcon(index)}</div>
 
             {member.avatar_url ? (
               <img
@@ -80,7 +80,7 @@ export function Leaderboard() {
             ) : (
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
-                style={{ backgroundColor: member.color }}
+                style={{ backgroundColor: member.color ?? '#3b82f6' }}
               >
                 {member.name[0].toUpperCase()}
               </div>
@@ -89,11 +89,14 @@ export function Leaderboard() {
             <div className="flex-1">
               <div className="font-semibold text-gray-900">{member.name}</div>
               <div className="text-sm text-gray-600">
-                {t('leaderboard.levelAndPoints', { level: member.current_level, points: member.total_points })}
+                {t('leaderboard.levelAndPoints', {
+                  level: member.current_level,
+                  points: member.total_points,
+                })}
               </div>
             </div>
 
-            {member.current_streak > 0 && (
+            {(member.current_streak ?? 0) > 0 && (
               <div className="text-right">
                 <div className="text-2xl font-bold text-orange-500">{member.current_streak}</div>
                 <div className="text-xs text-gray-500">{t('streak.dayStreak')}</div>
@@ -103,9 +106,7 @@ export function Leaderboard() {
         ))}
 
         {members.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
-            {t('leaderboard.noMembers')}
-          </div>
+          <div className="text-center py-8 text-gray-500">{t('leaderboard.noMembers')}</div>
         )}
       </div>
     </div>

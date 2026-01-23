@@ -1,6 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Calendar, Clock, Star, User, AlertCircle, CheckCircle2, Pencil, Save, Tag, Trash2, Copy } from 'lucide-react';
+import {
+  X,
+  Calendar,
+  Clock,
+  Star,
+  User,
+  AlertCircle,
+  CheckCircle2,
+  Pencil,
+  Save,
+  Tag,
+  Trash2,
+  Copy,
+} from 'lucide-react';
 import { PRIORITY_CONFIG } from '../types';
 import type { TaskWithMember } from '../types';
 import { useAuth } from '../contexts/AuthContext';
@@ -20,7 +33,13 @@ interface TaskDetailModalProps {
   onCopyTask?: (initialValues: TaskInitialValues, defaultDate: string) => void;
 }
 
-export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTask }: TaskDetailModalProps) {
+export function TaskDetailModal({
+  isOpen,
+  onClose,
+  task,
+  onTaskUpdated,
+  onCopyTask,
+}: TaskDetailModalProps) {
   const { t, i18n } = useTranslation(['tasks', 'common']);
   const { isAdmin } = useAuth();
   const { familyMembers } = useFamily();
@@ -60,10 +79,14 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
       setEditDescription(task.description || '');
       setEditDueDate(task.due_date);
       // Extract time directly from ISO string to avoid timezone issues
-      setEditDueTime(task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00');
-      setEditStartTime(task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : '');
+      setEditDueTime(
+        task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00'
+      );
+      setEditStartTime(
+        task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : ''
+      );
       setEditAssignedTo(task.assigned_to || '');
-      setEditPriority(task.priority);
+      setEditPriority((task.priority ?? 'medium') as 'low' | 'medium' | 'high');
       setEditAssociatedItems(task.associated_items || []);
     }
   }, [task, isEditing]);
@@ -77,7 +100,8 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
   if (!isOpen || !task) return null;
 
-  const priorityConfig = PRIORITY_CONFIG[task.priority];
+  const priorityConfig =
+    PRIORITY_CONFIG[(task.priority ?? 'medium') as keyof typeof PRIORITY_CONFIG];
   const isCompleted = task.status === 'completed';
   const assignee = task.family_members;
   const canEdit = isAdmin && !isCompleted && task.status !== 'pending_approval';
@@ -254,10 +278,14 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
     setEditDescription(task.description || '');
     setEditDueDate(task.due_date);
     // Extract time directly from ISO string to avoid timezone issues
-    setEditDueTime(task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00');
-    setEditStartTime(task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : '');
+    setEditDueTime(
+      task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00'
+    );
+    setEditStartTime(
+      task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : ''
+    );
     setEditAssignedTo(task.assigned_to || '');
-    setEditPriority(task.priority);
+    setEditPriority((task.priority ?? 'medium') as 'low' | 'medium' | 'high');
     setEditAssociatedItems(task.associated_items || []);
     setIsEditing(true);
   };
@@ -279,10 +307,14 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
       title: task.title,
       description: task.description || '',
       assignedTo: task.assigned_to || '',
-      priority: task.priority,
+      priority: (task.priority ?? 'medium') as 'low' | 'medium' | 'high',
       // Extract time directly from ISO string to avoid timezone issues
-      dueTime: task.due_datetime ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00' : '12:00',
-      startTime: task.start_datetime ? task.start_datetime.split('T')[1]?.substring(0, 5) || '' : '',
+      dueTime: task.due_datetime
+        ? task.due_datetime.split('T')[1]?.substring(0, 5) || '12:00'
+        : '12:00',
+      startTime: task.start_datetime
+        ? task.start_datetime.split('T')[1]?.substring(0, 5) || ''
+        : '',
       associatedItems: task.associated_items || [],
     };
 
@@ -344,7 +376,10 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
             </div>
 
             <div>
-              <label htmlFor="editDescription" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="editDescription"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 {t('tasks:modal.descriptionLabel')}
               </label>
               <textarea
@@ -358,7 +393,10 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
             </div>
 
             <div>
-              <label htmlFor="editAssignedTo" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="editAssignedTo"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 {t('tasks:modal.assigneeLabel')}
               </label>
               <select
@@ -378,7 +416,10 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label htmlFor="editDueDate" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="editDueDate"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   {t('tasks:modal.dueDateLabel')}
                 </label>
                 <input
@@ -391,7 +432,10 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
                 />
               </div>
               <div>
-                <label htmlFor="editDueTime" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="editDueTime"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   {t('tasks:modal.dueTimeLabel')}
                 </label>
                 <input
@@ -406,7 +450,10 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
             </div>
 
             <div>
-              <label htmlFor="editStartTime" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="editStartTime"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 {t('tasks:modal.startTimeLabel')}
               </label>
               <input
@@ -416,9 +463,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
                 onChange={(e) => setEditStartTime(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
-              <p className="mt-1 text-xs text-gray-500">
-                {t('tasks:modal.startTimeHint')}
-              </p>
+              <p className="mt-1 text-xs text-gray-500">{t('tasks:modal.startTimeHint')}</p>
             </div>
 
             <div>
@@ -439,8 +484,12 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="text-sm font-medium text-gray-900">{t(`tasks:priority.${p}`)}</div>
-                      <div className="text-xs text-gray-600">{config.points} {t('tasks:modal.pts')}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {t(`tasks:priority.${p}`)}
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        {config.points} {t('tasks:modal.pts')}
+                      </div>
                     </button>
                   );
                 })}
@@ -456,9 +505,7 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
                 onTagsChange={setEditAssociatedItems}
                 placeholder={t('tasks:detail.tagsPlaceholder')}
               />
-              <p className="mt-1 text-xs text-gray-500">
-                {t('tasks:detail.tagsHint')}
-              </p>
+              <p className="mt-1 text-xs text-gray-500">{t('tasks:detail.tagsHint')}</p>
             </div>
           </div>
         ) : (
@@ -467,12 +514,17 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
             <div>
               <div className="flex items-start gap-3">
                 {isCompleted ? (
-                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" />
+                  <CheckCircle2
+                    className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                  />
                 ) : (
                   <AlertCircle className="w-6 h-6 text-gray-400 flex-shrink-0 mt-0.5" />
                 )}
                 <div>
-                  <h3 className={`text-lg font-semibold ${isCompleted ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+                  <h3
+                    className={`text-lg font-semibold ${isCompleted ? 'line-through text-gray-500' : 'text-gray-900'}`}
+                  >
                     {task.title}
                   </h3>
                   {isCompleted && (
@@ -486,14 +538,18 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
             {task.description && (
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.description')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.description')}
+                </label>
                 <p className="text-gray-700">{task.description}</p>
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.dueDate')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.dueDate')}
+                </label>
                 <div className="flex items-center gap-2 text-gray-700">
                   <Calendar className="w-4 h-4 text-gray-400" />
                   <span>{formatDate(task.due_date)}</span>
@@ -501,7 +557,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
               </div>
               {task.due_datetime && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.dueTime')}</label>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">
+                    {t('tasks:detail.dueTime')}
+                  </label>
                   <div className="flex items-center gap-2 text-gray-700">
                     <Clock className="w-4 h-4 text-gray-400" />
                     <span>{formatTime(task.due_datetime)}</span>
@@ -512,7 +570,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
             {task.start_datetime && (
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.startTime')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.startTime')}
+                </label>
                 <div className="flex items-center gap-2 text-gray-700">
                   <Clock className="w-4 h-4 text-gray-400" />
                   <span>{formatTime(task.start_datetime)}</span>
@@ -522,7 +582,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.priority')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.priority')}
+                </label>
                 <span
                   className={`inline-flex items-center px-3 py-1 rounded text-sm font-medium text-white ${priorityConfig.color}`}
                 >
@@ -530,21 +592,27 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
                 </span>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.points')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.points')}
+                </label>
                 <div className="flex items-center gap-2 text-amber-600">
                   <Star className="w-4 h-4" fill="currentColor" />
-                  <span className="font-semibold">{t('tasks:detail.pointsValue', { count: task.point_value })}</span>
+                  <span className="font-semibold">
+                    {t('tasks:detail.pointsValue', { count: task.point_value ?? 0 })}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.assignedTo')}</label>
+              <label className="block text-sm font-medium text-gray-500 mb-1">
+                {t('tasks:detail.assignedTo')}
+              </label>
               {assignee ? (
                 <div className="flex items-center gap-2">
                   <div
                     className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                    style={{ backgroundColor: assignee.color }}
+                    style={{ backgroundColor: assignee.color ?? '#3b82f6' }}
                   >
                     {assignee.name.charAt(0).toUpperCase()}
                   </div>
@@ -560,7 +628,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
             {task.associated_items && task.associated_items.length > 0 && (
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.tagsObjects')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.tagsObjects')}
+                </label>
                 <div className="flex flex-wrap gap-2">
                   {task.associated_items.map((item) => (
                     <span
@@ -577,7 +647,9 @@ export function TaskDetailModal({ isOpen, onClose, task, onTaskUpdated, onCopyTa
 
             {task.completed_at && (
               <div>
-                <label className="block text-sm font-medium text-gray-500 mb-1">{t('tasks:detail.completedAt')}</label>
+                <label className="block text-sm font-medium text-gray-500 mb-1">
+                  {t('tasks:detail.completedAt')}
+                </label>
                 <p className="text-gray-700 text-sm">
                   {new Date(task.completed_at).toLocaleString(i18n.language)}
                 </p>

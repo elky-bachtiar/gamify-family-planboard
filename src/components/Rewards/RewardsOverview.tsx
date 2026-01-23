@@ -72,7 +72,7 @@ export function RewardsOverview() {
   };
 
   const handleRequestRedemption = async () => {
-    if (!currentMember || !family || requestedAmount < family.minimum_redemption) return;
+    if (!currentMember || !family || requestedAmount < (family.minimum_redemption ?? 0)) return;
 
     setIsRequesting(true);
     try {
@@ -103,11 +103,13 @@ export function RewardsOverview() {
   const minimumRedemption = family.minimum_redemption || 0;
   const weeklyTargetPoints = family.weekly_target_points || 0;
   const weeklyTargetBonus = family.weekly_target_bonus || 0;
-  const totalMoney = currentMember.total_points * pointToMoneyRate;
-  const weeklyProgress = weeklyTargetPoints > 0 ? Math.min((weeklyPoints / weeklyTargetPoints) * 100, 100) : 0;
+  const memberPoints = currentMember.total_points ?? 0;
+  const totalMoney = memberPoints * pointToMoneyRate;
+  const weeklyProgress =
+    weeklyTargetPoints > 0 ? Math.min((weeklyPoints / weeklyTargetPoints) * 100, 100) : 0;
   const reachedWeeklyGoal = weeklyTargetPoints > 0 && weeklyPoints >= weeklyTargetPoints;
 
-  const maxRedeemablePoints = currentMember.total_points;
+  const maxRedeemablePoints = memberPoints;
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
@@ -132,7 +134,9 @@ export function RewardsOverview() {
           </div>
           <div className="text-3xl font-bold text-gray-900">${totalMoney.toFixed(2)}</div>
           {pointToMoneyRate > 0 && (
-            <div className="text-xs text-gray-500 mt-1">{t('rewards.perPoint', { rate: pointToMoneyRate })}</div>
+            <div className="text-xs text-gray-500 mt-1">
+              {t('rewards.perPoint', { rate: pointToMoneyRate })}
+            </div>
           )}
         </div>
       </div>
@@ -142,10 +146,15 @@ export function RewardsOverview() {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5 text-purple-500" />
-              <span className="text-sm font-medium text-gray-700">{t('rewards.weeklyGoal.title')}</span>
+              <span className="text-sm font-medium text-gray-700">
+                {t('rewards.weeklyGoal.title')}
+              </span>
             </div>
             <span className="text-sm font-semibold text-purple-600">
-              {t('rewards.weeklyGoal.progress', { current: weeklyPoints, target: weeklyTargetPoints })}
+              {t('rewards.weeklyGoal.progress', {
+                current: weeklyPoints,
+                target: weeklyTargetPoints,
+              })}
             </span>
           </div>
           <div className="w-full bg-purple-200 rounded-full h-3 mb-2">
@@ -161,7 +170,10 @@ export function RewardsOverview() {
             </div>
           ) : (
             <div className="text-xs text-gray-600">
-              {t('rewards.weeklyGoal.earnMore', { remaining: weeklyTargetPoints - weeklyPoints, bonus: weeklyTargetBonus.toFixed(2) })}
+              {t('rewards.weeklyGoal.earnMore', {
+                remaining: weeklyTargetPoints - weeklyPoints,
+                bonus: weeklyTargetBonus.toFixed(2),
+              })}
             </div>
           )}
         </div>
@@ -169,12 +181,17 @@ export function RewardsOverview() {
 
       {pointToMoneyRate > 0 && (
         <div className="border-t border-gray-200 pt-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('rewards.requestRedemption')}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            {t('rewards.requestRedemption')}
+          </h3>
 
           {maxRedeemablePoints >= minimumRedemption ? (
             <div className="space-y-4">
               <div>
-                <label htmlFor="redeemAmount" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="redeemAmount"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   {t('rewards.pointsToRedeem')}
                 </label>
                 <input
@@ -183,7 +200,9 @@ export function RewardsOverview() {
                   min={minimumRedemption}
                   max={maxRedeemablePoints}
                   value={requestedAmount || ''}
-                  onChange={(e) => setRequestedAmount(Math.min(parseInt(e.target.value) || 0, maxRedeemablePoints))}
+                  onChange={(e) =>
+                    setRequestedAmount(Math.min(parseInt(e.target.value) || 0, maxRedeemablePoints))
+                  }
                   placeholder={t('rewards.minimumPlaceholder', { minimum: minimumRedemption })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
@@ -215,7 +234,9 @@ export function RewardsOverview() {
 
       {pendingRedemptions.length > 0 && (
         <div className="border-t border-gray-200 pt-6 mt-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('rewards.redemptionHistory')}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            {t('rewards.redemptionHistory')}
+          </h3>
           <div className="space-y-2">
             {pendingRedemptions.map((redemption) => (
               <div
@@ -224,12 +245,14 @@ export function RewardsOverview() {
                   redemption.status === 'pending'
                     ? 'bg-yellow-50 border border-yellow-200'
                     : redemption.status === 'approved'
-                    ? 'bg-green-50 border border-green-200'
-                    : 'bg-gray-50 border border-gray-200'
+                      ? 'bg-green-50 border border-green-200'
+                      : 'bg-gray-50 border border-gray-200'
                 }`}
               >
                 <div>
-                  <div className="font-medium text-gray-900">{t('points.value', { count: redemption.points_redeemed })}</div>
+                  <div className="font-medium text-gray-900">
+                    {t('points.value', { count: redemption.points_redeemed })}
+                  </div>
                   <div className="text-sm text-gray-600">${redemption.money_amount.toFixed(2)}</div>
                 </div>
                 <span
@@ -237,8 +260,8 @@ export function RewardsOverview() {
                     redemption.status === 'pending'
                       ? 'bg-yellow-100 text-yellow-700'
                       : redemption.status === 'approved'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-gray-100 text-gray-700'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-gray-100 text-gray-700'
                   }`}
                 >
                   {t(`rewards.status.${redemption.status}`)}

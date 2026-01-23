@@ -1,0 +1,39 @@
+# Gitleaks configuration for Taskaroo
+# See https://github.com/gitleaks/gitleaks for documentation
+
+title = "Taskaroo Secret Scanning Configuration"
+
+[extend]
+# Use default gitleaks rules as base
+useDefault = true
+
+# Custom rules for this project
+[[rules]]
+id = "supabase-service-role-key"
+description = "Supabase Service Role Key"
+regex = '''(?i)supabase.*service[_-]?role[_-]?key.*[=:]\s*["']?[a-zA-Z0-9_\-\.]{100,}["']?'''
+tags = ["key", "supabase"]
+
+[[rules]]
+id = "generic-password-inline"
+description = "Generic password in code"
+regex = '''(?i)password\s*[=:]\s*["'][^"']{8,}["']'''
+tags = ["password", "generic"]
+
+# Allowlist - patterns to ignore
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''e2e/.*''',
+  '''\.env\.example''',
+  '''node_modules/.*''',
+  '''package-lock\.json''',
+  '''\.gitleaks\.toml''',
+]
+
+# Supabase anon keys are public by design (they work with RLS)
+regexes = [
+  '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+''',
+  '''VITE_SUPABASE_ANON_KEY''',
+  '''VITE_SUPABASE_URL''',
+]

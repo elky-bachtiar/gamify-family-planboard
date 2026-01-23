@@ -4,10 +4,166 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.0-alpha.9] - 2026-01-23
+
+### Added
+
+- **Streak Grace Period & Recovery System** - Protect and recover streaks after missing a day
+  - `src/lib/gamification.ts` - New streak management functions:
+    - `isInStreakGracePeriod()` - Check if member is in 24-hour warning window
+    - `getGracePeriodTimeRemaining()` - Get countdown until streak loss
+    - `formatTimeRemaining()` - Human-readable time formatting
+    - `canRecoverStreak()` - Check if recovery is possible (48hr window + 20+ point task)
+    - `recoverStreak()` - Restore streak to previous value - 1
+    - `consumeStreakFreeze()` - Auto-apply freeze when grace expires
+    - `handleStreakOnTaskComplete()` - Enhanced streak update with recovery logic
+    - `checkStreakStatus()` - Get current streak state (active/grace/frozen/lost)
+    - `getStreakFreezeInfo()` - Get freeze count and purchase availability
+  - `src/components/Child/Gamification/StreakDisplay.tsx` - Grace period warning with pulsing animation and countdown timer
+
+- **Streak Freeze Shop** - Purchase streak protection with points
+  - `src/components/Child/StreakFreezeShop.tsx` - New component for buying freezes
+    - Costs 50 points per freeze, max 3 freezes
+    - Shows current freeze count with snowflake icons
+    - Displays points balance and purchase button
+    - Explanation of how freezes work
+  - `supabase/functions/purchase-streak-freeze/index.ts` - Edge function for freeze purchases
+  - `src/components/Child/Views/ChildStatsView.tsx` - Integrated freeze shop into stats view
+
+- **Deduction Dispute System** - Children can dispute unfair point deductions
+  - **Child Penalties View**
+    - `src/components/Child/Views/ChildPenaltiesView.tsx` - View all point deductions with evidence photos
+    - Shows dispute status (pending/approved/rejected)
+    - "Dispute" button for eligible deductions (within 7 days)
+  - **Create Dispute Modal**
+    - `src/components/Child/CreateDisputeModal.tsx` - Submit dispute with reason and photo evidence
+    - Up to 3 photos as counter-evidence
+    - Validates dispute eligibility
+  - **Admin Dispute Review**
+    - `src/components/Admin/DisputeReviewManager.tsx` - Review pending disputes
+    - Side-by-side comparison of original deduction and child's response
+    - Approve (restores points) or reject with resolution note
+    - Evidence photo gallery
+  - **Dispute Notifications**
+    - `src/components/Child/Gamification/DisputeResolvedToast.tsx` - Toast notification for dispute resolution
+  - **Edge Functions**
+    - `supabase/functions/create-dispute/index.ts` - Child creates dispute
+    - `supabase/functions/resolve-dispute/index.ts` - Admin resolves dispute
+    - `supabase/functions/deduct-points-with-evidence/index.ts` - Deduction with photo evidence
+
+- **Object Association for Tasks** - Link family objects to tasks for filtering
+  - `src/components/ObjectPicker.tsx` - Grid selector with object thumbnails
+    - Compact mode for inline use
+    - Supports multiple selection with max limit
+  - `src/components/TaskModal.tsx` - Added ObjectPicker for associating objects with tasks
+  - `src/lib/recurrence.ts` - Added `associated_object_ids` to TaskTemplate interface
+
+- **Database Schema Updates**
+  - `supabase/migrations/20260124000000_streak_disputes_objects.sql`:
+    - `family_members`: Added `streak_freezes`, `streak_lost_at`, `last_streak_value`, `streak_recovered`, `streak_grace_started_at`
+    - `points_history`: Added `evidence_urls` for photo evidence
+    - `tasks`: Added `associated_object_ids` for object associations
+    - New `deduction_disputes` table with full RLS policies
+    - New `dispute-evidence` storage bucket with upload policies
+
+- **Type System Updates**
+  - `src/lib/database.types.ts` - Added new column types and `deduction_disputes` table
+  - `src/types/index.ts` - Exported `DeductionDispute`, `DeductionDisputeWithDetails`, `PointsHistoryWithMember`
+
+### Changed
+
+- **Admin Panel** - Added "Disputes" tab with DisputeReviewManager component
+  - `src/components/AdminPanel.tsx` - New tab with AlertCircle icon and pending count badge
+
+- **Rate Limiting** - Added limits for new edge functions
+  - `supabase/functions/_shared/security.ts` - Rate limits for dispute and freeze functions
+
+### Translations
+
+- `src/i18n/locales/en/gamification.json` - Added keys for:
+  - `streakFreeze.*` - Shop, purchase, and freeze status
+  - `penalties.*` - Deduction list display
+  - `disputes.*` - Dispute creation and status
+- `src/i18n/locales/nl/gamification.json` - Dutch translations for new features
+- `src/i18n/locales/en/admin.json` - Added `disputes.*` keys for admin review
+- `src/i18n/locales/nl/admin.json` - Dutch translations for dispute management
+
+## [1.0.0-alpha.8] - 2026-01-23
+
+### Added
+
+- **Child Leaderboard View** - Family ranking accessible in child mobile dashboard
+  - `src/components/Child/Views/ChildLeaderboardView.tsx` - New mobile-optimized leaderboard component
+  - New "Ranking" tab in child bottom navigation (Medal icon)
+  - Rank display with crown/medal icons for top 3 positions
+  - Shows avatar, name, level, total points, and current streak
+  - Current child highlighted with blue accent and "(you)" label
+  - Real-time updates via Supabase subscription
+  - `src/components/Child/ChildTabBar.tsx` - Added leaderboard tab
+  - `src/components/Child/ChildDashboard.tsx` - Integrated leaderboard view
+
+- **Unclaim/Cancel Claimed Task** - Children can release claimed tasks back to available pool
+  - `src/components/Child/TaskCompletionModal.tsx` - Added "Cancel Claim" button
+  - Only available for tasks child claimed (not parent-assigned tasks)
+  - Task returns to "Available to Claim" section when unclaimed
+
+- **Overdue Assigned Tasks Section** - Children can see their missed tasks from previous days
+  - `src/components/Child/TodayTaskList.tsx` - New "Overdue Tasks" section
+  - Orange warning styling for overdue tasks
+  - Due date displayed on overdue task cards
+  - Separates overdue tasks from today's tasks
+
+- **Beautiful Task Icons** - Colorful category-based icons for child task cards
+  - `src/components/Child/ChildTaskCard.tsx` - Added dynamic icon system
+  - 18 icon configurations based on task title keywords
+  - Icons for: bed, cleaning, dishes, reading, laundry, pets, hygiene, music, games, exercise, writing, shopping, trash, gardening, car, helping, gifts, achievements
+  - Colored rounded square icon boxes (12x12) with white icons
+  - Priority-based fallback colors when no keyword match
+
+### Changed
+
+- **Task Filtering Improvements** - More accurate task display in child mode
+  - Unassigned tasks now show ONLY for today (not previous days)
+  - Assigned tasks from previous days appear in dedicated "Overdue" section
+  - Weekly tasks continue to show for the full week
+
+### Translations
+
+- `src/i18n/locales/en/gamification.json` - Added keys: `child.tabs.leaderboard`, `child.leaderboard.you`, `child.taskList.sections.overdue`, `child.completion.unclaim`
+- `src/i18n/locales/nl/gamification.json` - Added Dutch translations for new features
+
+## [1.0.0-alpha.7] - 2026-01-23
+
+### Added
+
+- **Comprehensive iOS Specification** - Updated `docs/USER_STORIES.md` with full feature specifications for iOS app development
+  - **Implementation Status Legend** - Added icons (✅ ⚠️ 📱 🔮) to mark each story's implementation status
+  - **Task Field Reference** - Complete table documenting all 17 task fields with types and descriptions
+  - **Epic 3.5: Task Objects with Pictures** (📱 iOS spec)
+    - 3.10 Create Family Object - Upload reusable objects with images to `family-objects` bucket
+    - 3.11 Edit/Delete Family Object - Manage object library with task association checks
+    - 3.12 Associate Objects with Tasks - Object picker in task modal, thumbnails on cards, filter by object
+    - Database schema for `family_objects` table with RLS policies
+  - **Streak Recovery Features** (📱 iOS spec)
+    - 5.4.1 Streak Grace Period - 24-hour warning window before streak resets
+    - 5.4.2 Streak Recovery via Big Task - Complete 20+ point task within 48 hours to recover
+    - 5.4.3 Streak Freeze - Purchase freeze protection with 50 points (max 2 stored)
+  - **5.6.1 Deduction with Photo Evidence** (📱 iOS spec) - Attach up to 3 photos to point deductions
+  - **Epic 13: Deduction Disputes** (📱 iOS spec)
+    - 13.1 View Penalty Details - See deduction reason, evidence photos, admin name
+    - 13.2 Create Dispute - Submit dispute with reason and counter-evidence photos
+    - 13.3 View My Disputes - Track dispute status (pending/approved/rejected)
+    - 13.4 Review Disputes (Admin) - Side-by-side evidence comparison, approve/reject with reason
+    - 13.5 Dispute Notifications - In-app and push notifications for resolution
+    - Database schema for `deduction_disputes` table with RLS policies
+  - **Updated API Reference** - 7 new Edge Functions documented with status markers
+  - **New/Modified Columns Table** - Database changes needed for new features
+  - **iOS-Specific Implementation Notes** - Guidance for image handling, push notifications, streak freeze flow, dispute evidence upload, object gallery layout
 
 ## [1.0.0-alpha.6] - 2026-01-21
 
 ### Added
+
 - **Perfect Week Achievement Implementation** - The "Perfect Week" achievement now works correctly
   - `src/lib/gamification.ts` - Added `checkPerfectWeek()` function that checks if all assigned tasks for the current week are completed
   - Requires at least 3 completed tasks in the week to qualify
@@ -27,6 +183,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `src/components/Child/Gamification/AchievementToast.tsx` - Now actually used for notifications (was previously unused)
 
 ### Changed
+
 - **Admin Panel Visual Improvements** - Improved layout and styling of the Admin Panel
   - Purple gradient header with icon
   - Tabs positioned below title with underline-style active indicator
@@ -34,10 +191,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Family members displayed in cards with avatar initials
   - Better visual hierarchy and spacing throughout
 
-
 ## [1.0.0-alpha.5] - 2026-01-21
 
 ### Added
+
 - **Week Number Display** - Calendar header now shows "Week X" when viewing past/future weeks
   - `src/components/WeeklyCalendar.tsx` - Added `getISOWeekNumber()` and `isCurrentWeek()` helper functions
   - Shows "Today" / "Vandaag" when viewing current week, "Week X" otherwise
@@ -61,15 +218,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
       - Displays small thumbnail (16x16) for tags that match an object name
 
 ### Translations
+
 - `src/i18n/locales/en/common.json` - Added `time.weekNumber` key
 - `src/i18n/locales/nl/common.json` - Added `time.weekNumber` key (Dutch)
 - `src/i18n/locales/en/admin.json` - Added `panel.tabs.objects` and `objects.*` keys
 - `src/i18n/locales/nl/admin.json` - Added Dutch translations for objects feature
 
-
 ## [1.0.0-alpha.4] - 2026-01-21
 
 ### Added
+
 - **Child Profile Picture Upload** - Children can now upload and manage their own profile pictures
   - `src/components/Child/ChildProfileModal.tsx` - New mobile-friendly profile modal for children
     - Photo upload with camera button overlay
@@ -88,15 +246,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - Passed `onAvatarClick` handler to ChildHeader
 
 ### Translations
+
 - `src/i18n/locales/en/common.json` - Added `profile.myProfile`, `profile.tapToEdit`, `profile.savePhoto`, and other profile-related keys
 - `src/i18n/locales/nl/common.json` - Added Dutch translations for child profile features
 - `src/i18n/locales/en/gamification.json` - Added `level.toNextLevel` key
 - `src/i18n/locales/nl/gamification.json` - Added Dutch translation for level progress
 
-
 ## [1.0.0-alpha.3] - 2026-01-21
 
 ### Added
+
 - **Negative Points & Penalty System** - Parents can now deduct points from family members
   - **Manual Points Deduction** - Admins can deduct points for behavior issues
     - `src/lib/gamification.ts` - Added `awardManualPoints()` function for positive/negative point adjustments
@@ -120,6 +279,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - Integrated into ChildDashboard
 
 ### Changed
+
 - **AdminApprovalBanner Redesigned** - Now shows as "Admin Panel" for admins in child mode view
   - Purple gradient styling (from-purple-600 to-indigo-600) with Shield icon
   - Always visible for admins (not just when pending items exist)
@@ -129,15 +289,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Translations updated for new admin tools
 
 ### Translations
+
 - `src/i18n/locales/en/admin.json` - Added `manualPoints.*` and `missedWeeklyTasks.*` keys
 - `src/i18n/locales/nl/admin.json` - Added Dutch translations for penalty features
 - `src/i18n/locales/en/gamification.json` - Added `child.penalty.*` keys
 - `src/i18n/locales/nl/gamification.json` - Added Dutch penalty notification translations
 
-
 ## [1.0.0-alpha.2] - 2026-01-21
 
 ### Added
+
 - **Expanded Multi-Language Support** - Added 14 new languages (16 total)
   - Chinese (Simplified) - 中文 (zh)
   - Hindi - हिन्दी (hi)
@@ -157,13 +318,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - `src/i18n/locales/{lang}/` - 84 new translation files created
 
 ### Changed
+
 - **LanguageSwitcher** - Updated to show all 16 languages with scrollable dropdown (max-height 320px)
 - **English flag** - Changed from British (🇬🇧) to American (🇺🇸) flag
-
 
 ## [1.0.0-alpha] - 2026-01-20
 
 ### Added
+
 - **Multi-Language Support (i18n)** - Internationalization with English (default) and Dutch
   - `src/i18n/index.ts` - i18next setup with language detection and localStorage persistence
   - `src/i18n/locales/en/` - English translations (common, auth, tasks, gamification, admin)
@@ -360,6 +522,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Integrated into `ChildDashboard.tsx` between header and task list
 
 ### Changed
+
 - **Task Claiming UI** - Immediate UI refresh when a child claims a task
   - Added `onClaimSuccess` callback to `TaskCompletionModal.tsx`
   - Task list now refreshes instantly without waiting for realtime subscription
@@ -385,17 +548,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Enhanced Supabase client configuration
 
 ### Fixed
+
 - Family members RLS infinite recursion issue
 - **Welcome Message Translation Placeholders** - Fixed duplicate `dailyGreeting` keys in gamification translations
   - Merged two `dailyGreeting` objects in `en/gamification.json` and `nl/gamification.json`
   - `motivation.*` translation keys now accessible (were being overwritten by duplicate key)
 
 ### Removed
+
 - Deprecated individual migration files (consolidated into new structure)
 
 ## [0.3.0] - 2026-01-19
 
 ### Added
+
 - **Secure Invite Code System** via edge function
   - `join-family` edge function for secure family joining
   - Server-side invite code validation
@@ -403,10 +569,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Debug logging to join-family edge function
 
 ### Fixed
+
 - Security vulnerability: Removed insecure RLS policy that would have exposed all families
 - Database remains locked down with strict RLS policies
 
 ### Security
+
 - All invite code lookups now happen server-side with proper authentication
 - Edge function validates all inputs and checks authorization
 - Follows principle of least privilege
@@ -414,6 +582,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [0.2.0] - 2026-01-19
 
 ### Added
+
 - **Authentication System**
   - Supabase Auth integration with email/password
   - Login and Register pages with validation
@@ -454,6 +623,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Family-specific achievements support
 
 ### Changed
+
 - All components now family-scoped
 - Leaderboard shows only family members
 - StatsOverview calculates family-specific statistics
@@ -462,6 +632,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Real-time subscriptions scoped to family
 
 ### Security
+
 - Row Level Security policies ensure family data isolation
 - Users can only view their family's data
 - Parents can create achievements and award points
@@ -470,6 +641,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [0.1.1] - 2026-01-19
 
 ### Fixed
+
 - Families SELECT policy for family creators
   - Creators can now see their family immediately after creation
   - Fixed RLS policy that blocked SELECT after INSERT
@@ -478,6 +650,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [0.1.0] - 2026-01-19
 
 ### Added
+
 - **Initial Project Setup**
   - React 18 + TypeScript + Vite
   - Tailwind CSS styling
@@ -560,6 +733,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Hover effects
 
 ### Technical
+
 - Modular component architecture
 - Context API for global state
 - Custom hooks for data management

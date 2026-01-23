@@ -6,7 +6,8 @@ import { useFamily } from '../../../contexts/FamilyContext';
 import { useAuth } from '../../../contexts/AuthContext';
 import { LevelProgress } from '../Gamification/LevelProgress';
 import { StreakDisplay } from '../Gamification/StreakDisplay';
-import type { PointsHistory } from '../../../types';
+import { StreakFreezeShop } from '../StreakFreezeShop';
+import type { PointsHistory, FamilyMember } from '../../../types';
 
 interface WeekStats {
   tasksCompleted: number;
@@ -19,7 +20,11 @@ export function ChildStatsView() {
   const { currentMember } = useFamily();
   const { family } = useAuth();
   const [recentPoints, setRecentPoints] = useState<PointsHistory[]>([]);
-  const [weekStats, setWeekStats] = useState<WeekStats>({ tasksCompleted: 0, pointsEarned: 0, daysActive: 0 });
+  const [weekStats, setWeekStats] = useState<WeekStats>({
+    tasksCompleted: 0,
+    pointsEarned: 0,
+    daysActive: 0,
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -62,12 +67,12 @@ export function ChildStatsView() {
         // Calculate week stats
         const tasksCompleted = typedWeekTasks.length;
         const pointsEarned = typedPointsData
-          .filter(p => new Date(p.created_at) >= weekAgo)
+          .filter((p) => p.created_at && new Date(p.created_at) >= weekAgo)
           .reduce((sum, p) => sum + p.points, 0);
 
         // Count unique days with completed tasks
         const uniqueDays = new Set(
-          typedWeekTasks.map(t => t.completed_at?.split('T')[0]).filter(Boolean)
+          typedWeekTasks.map((t) => t.completed_at?.split('T')[0]).filter(Boolean)
         );
 
         setWeekStats({
@@ -99,8 +104,8 @@ export function ChildStatsView() {
     <div className="px-4 py-4 space-y-6">
       {/* Level Progress */}
       <LevelProgress
-        totalPoints={currentMember.total_points}
-        currentLevel={currentMember.current_level}
+        totalPoints={currentMember.total_points ?? 0}
+        currentLevel={currentMember.current_level ?? 1}
       />
 
       {/* Quick Stats Grid */}
@@ -108,21 +113,38 @@ export function ChildStatsView() {
         <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
           <div className="flex items-center gap-2 mb-2">
             <Star className="w-5 h-5 text-amber-500" fill="currentColor" />
-            <span className="text-sm font-medium text-gray-600">{t('child.statsView.totalPoints')}</span>
+            <span className="text-sm font-medium text-gray-600">
+              {t('child.statsView.totalPoints')}
+            </span>
           </div>
           <p className="text-2xl font-bold text-gray-900">
-            {currentMember.total_points.toLocaleString()}
+            {(currentMember.total_points ?? 0).toLocaleString()}
           </p>
         </div>
 
         <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
           <div className="flex items-center gap-2 mb-2">
             <Flame className="w-5 h-5 text-orange-500" />
-            <span className="text-sm font-medium text-gray-600">{t('child.statsView.currentStreak')}</span>
+            <span className="text-sm font-medium text-gray-600">
+              {t('child.statsView.currentStreak')}
+            </span>
           </div>
-          <StreakDisplay streakDays={currentMember.current_streak} size="md" showLabel={true} />
+          <StreakDisplay
+            streakDays={currentMember.current_streak ?? 0}
+            size="md"
+            showLabel={true}
+            member={currentMember as FamilyMember}
+            showGracePeriod={true}
+          />
         </div>
       </div>
+
+      {/* Streak Freeze Shop */}
+      <StreakFreezeShop
+        onPurchase={() => {
+          // Refresh could be handled here if needed
+        }}
+      />
 
       {/* This Week Section */}
       <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
@@ -168,29 +190,33 @@ export function ChildStatsView() {
           </p>
         ) : (
           <div className="space-y-3">
-            {recentPoints.slice(0, 5).map(entry => (
+            {recentPoints.slice(0, 5).map((entry) => (
               <div
                 key={entry.id}
                 className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
               >
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {entry.reason}
-                  </p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{entry.reason}</p>
                   <p className="text-xs text-gray-500">
-                    {new Date(entry.created_at).toLocaleDateString(i18n.language, {
-                      month: 'short',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: '2-digit',
-                    })}
+                    {entry.created_at &&
+                      new Date(entry.created_at).toLocaleDateString(i18n.language, {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      })}
                   </p>
                 </div>
-                <div className={`flex items-center gap-1 font-bold ${
-                  entry.points >= 0 ? 'text-green-600' : 'text-red-600'
-                }`}>
+                <div
+                  className={`flex items-center gap-1 font-bold ${
+                    entry.points >= 0 ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
                   <Star className="w-4 h-4 text-amber-400" fill="currentColor" />
-                  <span>{entry.points >= 0 ? '+' : ''}{entry.points}</span>
+                  <span>
+                    {entry.points >= 0 ? '+' : ''}
+                    {entry.points}
+                  </span>
                 </div>
               </div>
             ))}

@@ -6,7 +6,9 @@ interface AchievementNotificationContextType {
   showAchievements: (achievements: NewlyAwardedAchievement[]) => void;
 }
 
-const AchievementNotificationContext = createContext<AchievementNotificationContextType | null>(null);
+const AchievementNotificationContext = createContext<AchievementNotificationContextType | null>(
+  null
+);
 
 export function AchievementNotificationProvider({ children }: { children: ReactNode }) {
   const [queue, setQueue] = useState<NewlyAwardedAchievement[]>([]);
@@ -15,7 +17,7 @@ export function AchievementNotificationProvider({ children }: { children: ReactN
   const showAchievements = useCallback((achievements: NewlyAwardedAchievement[]) => {
     if (achievements.length === 0) return;
 
-    setQueue(prev => [...prev, ...achievements]);
+    setQueue((prev) => [...prev, ...achievements]);
   }, []);
 
   // Process queue - show next achievement when current one is dismissed
@@ -44,6 +46,8 @@ export function AchievementNotificationProvider({ children }: { children: ReactN
             condition_value: 0, // Not used for display
             family_id: null,
             created_at: new Date().toISOString(),
+            created_by_member_id: null,
+            is_custom: false,
           }}
           onClose={handleClose}
           autoCloseDelay={4000}
@@ -56,7 +60,9 @@ export function AchievementNotificationProvider({ children }: { children: ReactN
 export function useAchievementNotification() {
   const context = useContext(AchievementNotificationContext);
   if (!context) {
-    throw new Error('useAchievementNotification must be used within AchievementNotificationProvider');
+    throw new Error(
+      'useAchievementNotification must be used within AchievementNotificationProvider'
+    );
   }
   return context;
 }

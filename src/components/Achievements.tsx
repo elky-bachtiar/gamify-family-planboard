@@ -19,9 +19,13 @@ export function Achievements() {
       const supabase = getSupabaseClient();
       const subscription = supabase
         .channel('achievements_changes')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'user_achievements' }, () => {
-          loadAchievements();
-        })
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'user_achievements' },
+          () => {
+            loadAchievements();
+          }
+        )
         .subscribe();
 
       return () => {
@@ -46,22 +50,24 @@ export function Achievements() {
       .eq('member_id', currentMember.id);
 
     if (allAchievements) {
-      const earnedIds = new Set(userAchievements?.map(ua => ua.achievement_id) || []);
+      const earnedIds = new Set(userAchievements?.map((ua) => ua.achievement_id) || []);
       const earnedMap = new Map(
-        userAchievements?.map(ua => [ua.achievement_id, ua.earned_at]) || []
+        userAchievements?.map((ua) => [ua.achievement_id, ua.earned_at]) || []
       );
 
-      const achievementsWithStatus: AchievementWithEarned[] = allAchievements.map(achievement => ({
-        ...achievement,
-        earned: earnedIds.has(achievement.id),
-        earned_at: earnedMap.get(achievement.id),
-      }));
+      const achievementsWithStatus: AchievementWithEarned[] = allAchievements.map(
+        (achievement) => ({
+          ...achievement,
+          earned: earnedIds.has(achievement.id),
+          earned_at: earnedMap.get(achievement.id) ?? undefined,
+        })
+      );
 
       setAchievements(achievementsWithStatus);
     }
   };
 
-  const earnedCount = achievements.filter(a => a.earned).length;
+  const earnedCount = achievements.filter((a) => a.earned).length;
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString(i18n.language, {
@@ -101,9 +107,7 @@ export function Achievements() {
 
             <div className="text-center">
               <div className="text-4xl mb-2">{achievement.icon}</div>
-              <h3 className="font-semibold text-gray-900 text-sm mb-1">
-                {achievement.name}
-              </h3>
+              <h3 className="font-semibold text-gray-900 text-sm mb-1">{achievement.name}</h3>
               <p className="text-xs text-gray-600">{achievement.description}</p>
 
               {achievement.earned && achievement.earned_at && (
@@ -117,9 +121,7 @@ export function Achievements() {
       </div>
 
       {achievements.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
-          {t('achievements.noAchievements')}
-        </div>
+        <div className="text-center py-8 text-gray-500">{t('achievements.noAchievements')}</div>
       )}
     </div>
   );

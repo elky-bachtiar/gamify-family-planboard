@@ -1,5 +1,32 @@
 import { useTranslation } from 'react-i18next';
-import { Circle, CheckCircle, Clock, Star, ChevronRight, Hand, Tag, CalendarDays } from 'lucide-react';
+import {
+  Circle,
+  CheckCircle,
+  Clock,
+  Star,
+  ChevronRight,
+  Hand,
+  Tag,
+  CalendarDays,
+  Sparkles,
+  Trophy,
+  Gift,
+  BookOpen,
+  Shirt,
+  Utensils,
+  Dog,
+  Brush,
+  Music,
+  Gamepad2,
+  Dumbbell,
+  Pencil,
+  ShoppingBag,
+  Bed,
+  Trash2,
+  Flower2,
+  Car,
+  Heart,
+} from 'lucide-react';
 import type { TaskWithMember } from '../../types';
 
 interface ChildTaskCardProps {
@@ -11,11 +38,156 @@ interface ChildTaskCardProps {
   isWeeklyTask?: boolean;
 }
 
-export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCreation = false, isOverdue = false, isWeeklyTask = false }: ChildTaskCardProps) {
+// Icon configurations with colors
+const TASK_ICONS = [
+  {
+    keywords: ['bed', 'slaap', 'sleep'],
+    icon: Bed,
+    bgColor: 'bg-green-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['clean', 'schoon', 'opruim', 'room', 'kamer', 'tidy'],
+    icon: Sparkles,
+    bgColor: 'bg-amber-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['dish', 'afwas', 'vaat', 'kitchen', 'keuken', 'cook', 'kook'],
+    icon: Utensils,
+    bgColor: 'bg-orange-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['read', 'lees', 'book', 'boek', 'study', 'homework', 'huiswerk'],
+    icon: BookOpen,
+    bgColor: 'bg-blue-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['cloth', 'kled', 'laundry', 'was', 'fold', 'vouw'],
+    icon: Shirt,
+    bgColor: 'bg-indigo-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['pet', 'huisdier', 'dog', 'hond', 'cat', 'kat', 'animal', 'feed'],
+    icon: Dog,
+    bgColor: 'bg-amber-600',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['brush', 'tand', 'teeth', 'bath', 'shower', 'douche', 'wash'],
+    icon: Brush,
+    bgColor: 'bg-cyan-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['music', 'muziek', 'piano', 'guitar', 'practice', 'oefen', 'instrument'],
+    icon: Music,
+    bgColor: 'bg-pink-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['game', 'spel', 'play', 'screen'],
+    icon: Gamepad2,
+    bgColor: 'bg-purple-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['exercise', 'sport', 'gym', 'run', 'walk', 'fitness'],
+    icon: Dumbbell,
+    bgColor: 'bg-red-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['write', 'schrijf', 'draw', 'teken', 'art', 'create', 'craft'],
+    icon: Pencil,
+    bgColor: 'bg-teal-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['shop', 'winkel', 'buy', 'koop', 'grocery'],
+    icon: ShoppingBag,
+    bgColor: 'bg-rose-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['trash', 'vuil', 'garbage', 'bin', 'recycle'],
+    icon: Trash2,
+    bgColor: 'bg-gray-600',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['garden', 'tuin', 'plant', 'water', 'flower', 'bloem'],
+    icon: Flower2,
+    bgColor: 'bg-lime-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['car', 'auto', 'drive', 'vehicle'],
+    icon: Car,
+    bgColor: 'bg-slate-600',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['help', 'assist', 'chore', 'taak', 'task'],
+    icon: Heart,
+    bgColor: 'bg-pink-400',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['gift', 'reward', 'beloning', 'prize'],
+    icon: Gift,
+    bgColor: 'bg-violet-500',
+    textColor: 'text-white',
+  },
+  {
+    keywords: ['win', 'goal', 'achievement', 'trophy'],
+    icon: Trophy,
+    bgColor: 'bg-yellow-500',
+    textColor: 'text-white',
+  },
+];
+
+// Get icon and color based on task title
+const getTaskIcon = (title: string, priority: string) => {
+  const lowerTitle = title.toLowerCase();
+
+  // Find matching icon based on keywords
+  for (const config of TASK_ICONS) {
+    if (config.keywords.some((keyword) => lowerTitle.includes(keyword))) {
+      return config;
+    }
+  }
+
+  // Default based on priority
+  switch (priority) {
+    case 'high':
+      return { icon: Trophy, bgColor: 'bg-amber-500', textColor: 'text-white' };
+    case 'medium':
+      return { icon: Sparkles, bgColor: 'bg-blue-500', textColor: 'text-white' };
+    default:
+      return { icon: Star, bgColor: 'bg-green-500', textColor: 'text-white' };
+  }
+};
+
+export function ChildTaskCard({
+  task,
+  onClick,
+  isClaimable = false,
+  isPendingCreation = false,
+  isOverdue = false,
+  isWeeklyTask = false,
+}: ChildTaskCardProps) {
   const { t, i18n } = useTranslation('gamification');
   const isPending = task.status === 'pending';
   const isPendingApproval = task.status === 'pending_approval';
   const isCompleted = task.status === 'completed';
+
+  // Get task icon configuration
+  const taskIconConfig = getTaskIcon(task.title, task.priority ?? 'medium');
+  const TaskIcon = taskIconConfig.icon;
 
   // Get status icon and styling
   const getStatusConfig = () => {
@@ -136,9 +308,31 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
         ${!isDisabled ? 'hover:shadow-md hover:border-blue-300' : 'cursor-default'}
         min-h-[80px] flex items-center gap-4`}
     >
-      {/* Status icon */}
-      <div className="flex-shrink-0">
-        {config.icon}
+      {/* Beautiful task icon */}
+      <div
+        className={`flex-shrink-0 w-12 h-12 rounded-xl ${
+          isCompleted
+            ? 'bg-green-500'
+            : isPendingApproval
+              ? 'bg-yellow-500'
+              : isClaimable
+                ? 'bg-blue-500'
+                : isPendingCreation
+                  ? 'bg-orange-400'
+                  : taskIconConfig.bgColor
+        } flex items-center justify-center shadow-sm ${isCompleted ? 'opacity-70' : ''}`}
+      >
+        {isCompleted ? (
+          <CheckCircle className="w-6 h-6 text-white" />
+        ) : isPendingApproval ? (
+          <Clock className="w-6 h-6 text-white" />
+        ) : isClaimable ? (
+          <Hand className="w-6 h-6 text-white" />
+        ) : isPendingCreation ? (
+          <Clock className="w-6 h-6 text-white" />
+        ) : (
+          <TaskIcon className={`w-6 h-6 ${taskIconConfig.textColor}`} />
+        )}
       </div>
 
       {/* Task content */}
@@ -212,7 +406,9 @@ export function ChildTaskCard({ task, onClick, isClaimable = false, isPendingCre
 
       {/* Chevron for pending/claimable tasks (not for pending creation) */}
       {(isPending || isClaimable) && !isPendingCreation && (
-        <ChevronRight className={`w-5 h-5 flex-shrink-0 ${isClaimable ? 'text-blue-400' : 'text-gray-400'}`} />
+        <ChevronRight
+          className={`w-5 h-5 flex-shrink-0 ${isClaimable ? 'text-blue-400' : 'text-gray-400'}`}
+        />
       )}
     </button>
   );

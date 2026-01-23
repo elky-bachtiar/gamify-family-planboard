@@ -1,10 +1,15 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Client-Info, Apikey',
-};
+import {
+  getCorsHeaders,
+  checkRateLimit,
+  getClientId,
+  RATE_LIMITS,
+  rateLimitedResponse,
+  validateUuid,
+  errorResponse,
+  successResponse,
+  parseJsonBody,
+} from '../_shared/security.ts';
 
 interface ToggleAdminRequest {
   memberId: string;
@@ -12,23 +17,26 @@ interface ToggleAdminRequest {
 }
 
 Deno.serve(async (req: Request) => {
+  // Get dynamic CORS headers based on origin
+  const cors = getCorsHeaders(req);
+
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return new Response(null, { status: 200, headers: cors });
   }
 
   try {
+    // Rate limiting - prevent abuse
+    const clientId = getClientId(req);
+    const rateLimitKey = `toggle-admin:${clientId}`;
+    const rateLimit = checkRateLimit(rateLimitKey, RATE_LIMITS['toggle-admin']);
+
+    if (!rateLimit.allowed) {
+      return rateLimitedResponse(cors, rateLimit.resetIn);
+    }
+
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: 'Missing authorization header' }),
-        {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Missing authorization header', 401, cors);
     }
 
     // Create Supabase client with service role for database operations
@@ -49,28 +57,32 @@ Deno.serve(async (req: Request) => {
     );
 
     // Verify user is authenticated
-    const { data: { user }, error: authError } = await supabaseUser.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabaseUser.auth.getUser();
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Unauthorized', 401, cors);
     }
 
-    // Parse request body
-    const { memberId, makeAdmin }: ToggleAdminRequest = await req.json();
+    // Parse and validate request body with size limit
+    let body: ToggleAdminRequest;
+    try {
+      body = await parseJsonBody<ToggleAdminRequest>(req);
+    } catch (e) {
+      return errorResponse((e as Error).message, 400, cors);
+    }
 
-    if (!memberId) {
-      return new Response(
-        JSON.stringify({ error: 'Member ID is required' }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+    const { memberId, makeAdmin } = body;
+
+    // Input validation
+    const memberIdError = validateUuid(memberId, 'Member ID');
+    if (memberIdError) {
+      return errorResponse(memberIdError, 400, cors);
+    }
+
+    if (typeof makeAdmin !== 'boolean') {
+      return errorResponse('makeAdmin must be a boolean', 400, cors);
     }
 
     // Get the caller's family member record
@@ -81,24 +93,12 @@ Deno.serve(async (req: Request) => {
       .maybeSingle();
 
     if (callerError || !callerMember) {
-      return new Response(
-        JSON.stringify({ error: 'Caller is not a family member' }),
-        {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Caller is not a family member', 403, cors);
     }
 
     // Verify caller is an admin
     if (!callerMember.is_admin) {
-      return new Response(
-        JSON.stringify({ error: 'Only admins can modify admin status' }),
-        {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Only admins can modify admin status', 403, cors);
     }
 
     // Get the target member
@@ -109,24 +109,12 @@ Deno.serve(async (req: Request) => {
       .maybeSingle();
 
     if (targetError || !targetMember) {
-      return new Response(
-        JSON.stringify({ error: 'Target member not found' }),
-        {
-          status: 404,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Target member not found', 404, cors);
     }
 
     // Verify both are in the same family
     if (targetMember.family_id !== callerMember.family_id) {
-      return new Response(
-        JSON.stringify({ error: 'Cannot modify members from other families' }),
-        {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Cannot modify members from other families', 403, cors);
     }
 
     // If demoting (removing admin), check that we're not removing the last admin
@@ -138,23 +126,11 @@ Deno.serve(async (req: Request) => {
         .eq('is_admin', true);
 
       if (countError) {
-        return new Response(
-          JSON.stringify({ error: 'Failed to check admin count' }),
-          {
-            status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
+        return errorResponse('Failed to check admin count', 500, cors);
       }
 
       if (count && count <= 1) {
-        return new Response(
-          JSON.stringify({ error: 'Cannot remove the last admin from the family' }),
-          {
-            status: 400,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
+        return errorResponse('Cannot remove the last admin from the family', 400, cors);
       }
     }
 
@@ -174,37 +150,23 @@ Deno.serve(async (req: Request) => {
       .eq('id', memberId);
 
     if (updateError) {
-      return new Response(
-        JSON.stringify({ error: 'Failed to update admin status' }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      console.error('Update error:', updateError);
+      return errorResponse('Failed to update admin status', 500, cors);
     }
 
-    return new Response(
-      JSON.stringify({
+    return successResponse(
+      {
         success: true,
         member: {
           id: memberId,
           name: targetMember.name,
           is_admin: makeAdmin,
         },
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      },
+      cors
     );
   } catch (error) {
     console.error('Toggle admin error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+    return errorResponse('Internal server error', 500, cors);
   }
 });

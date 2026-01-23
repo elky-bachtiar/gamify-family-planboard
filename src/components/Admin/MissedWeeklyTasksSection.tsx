@@ -16,7 +16,10 @@ interface MissedWeeklyTasksSectionProps {
   compact?: boolean;
 }
 
-export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: MissedWeeklyTasksSectionProps) {
+export function MissedWeeklyTasksSection({
+  onPenaltyApplied,
+  compact = false,
+}: MissedWeeklyTasksSectionProps) {
   const { t } = useTranslation(['admin', 'common']);
   const { family, familyMember, refreshAuth } = useAuth();
   const { familyMembers } = useFamily();
@@ -31,9 +34,9 @@ export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: 
     setLoading(true);
     const tasks = await getOverdueWeeklyTasks(family.id);
 
-    const tasksWithAssignees = tasks.map(task => ({
+    const tasksWithAssignees = tasks.map((task) => ({
       ...task,
-      assignee: familyMembers.find(m => m.id === task.assigned_to) || null
+      assignee: familyMembers.find((m) => m.id === task.assigned_to) || null,
     }));
 
     setMissedTasks(tasksWithAssignees);
@@ -53,7 +56,7 @@ export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: 
           event: '*',
           schema: 'public',
           table: 'tasks',
-          filter: `family_id=eq.${family?.id}`
+          filter: `family_id=eq.${family?.id}`,
         },
         () => {
           loadMissedTasks();
@@ -106,14 +109,11 @@ export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: 
 
       <div className="space-y-2">
         {missedTasks.map((task) => {
-          const penalty = calculatePenalty(task.point_value);
+          const penalty = calculatePenalty(task.point_value ?? 0);
           const isProcessing = processingTaskId === task.id;
 
           return (
-            <div
-              key={task.id}
-              className="p-3 bg-red-50 border border-red-200 rounded-lg"
-            >
+            <div key={task.id} className="p-3 bg-red-50 border border-red-200 rounded-lg">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-medium text-gray-900">{task.title}</h4>
@@ -132,8 +132,7 @@ export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: 
                       {task.point_value} {t('common:labels.points')}
                     </span>
                     <span className="inline-flex items-center gap-1 text-xs font-medium text-red-600">
-                      <AlertTriangle className="w-3 h-3" />
-                      -{penalty} {t('common:labels.points')}
+                      <AlertTriangle className="w-3 h-3" />-{penalty} {t('common:labels.points')}
                     </span>
                   </div>
                 </div>
@@ -142,7 +141,9 @@ export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: 
                   disabled={isProcessing}
                   className="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-medium hover:bg-red-700 transition-colors disabled:opacity-50"
                 >
-                  {isProcessing ? t('admin:missedWeeklyTasks.applying') : t('admin:missedWeeklyTasks.applyPenalty')}
+                  {isProcessing
+                    ? t('admin:missedWeeklyTasks.applying')
+                    : t('admin:missedWeeklyTasks.applyPenalty')}
                 </button>
               </div>
             </div>
@@ -166,14 +167,16 @@ export function MissedWeeklyTasksSection({ onPenaltyApplied, compact = false }: 
             <p className="text-gray-600 mb-4">
               {t('admin:missedWeeklyTasks.confirmMessage', {
                 name: confirmingTask.assignee?.name || t('common:labels.unknown'),
-                penalty: calculatePenalty(confirmingTask.point_value)
+                penalty: calculatePenalty(confirmingTask.point_value ?? 0),
               })}
             </p>
 
             <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
               <p className="text-sm font-medium text-gray-900">{confirmingTask.title}</p>
               <p className="text-xs text-gray-500 mt-1">
-                {t('admin:missedWeeklyTasks.originalPoints', { points: confirmingTask.point_value })}
+                {t('admin:missedWeeklyTasks.originalPoints', {
+                  points: confirmingTask.point_value,
+                })}
               </p>
             </div>
 

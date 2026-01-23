@@ -42,7 +42,7 @@ export function RedemptionManager() {
     if (error) {
       console.error('Error loading redemptions:', error);
     } else {
-      setRedemptions(data as RedemptionWithMember[]);
+      setRedemptions(data as unknown as RedemptionWithMember[]);
     }
     setIsLoading(false);
   };
@@ -59,13 +59,16 @@ export function RedemptionManager() {
       };
 
       // If approving, deduct points from member
-      const redemption = redemptions.find(r => r.id === id);
+      const redemption = redemptions.find((r) => r.id === id);
       if (redemption && status === 'approved') {
         // Deduct points
         const { error: pointsError } = await supabase
           .from('family_members')
           .update({
-            total_points: Math.max(0, (redemption.family_members?.total_points || 0) - redemption.points_redeemed),
+            total_points: Math.max(
+              0,
+              (redemption.family_members?.total_points || 0) - redemption.points_redeemed
+            ),
           } as never)
           .eq('id', redemption.member_id as string);
 
@@ -97,9 +100,11 @@ export function RedemptionManager() {
 
   if (!isAdmin || !family) return null;
 
-  const pendingRedemptions = redemptions.filter(r => r.status === 'pending');
-  const approvedRedemptions = redemptions.filter(r => r.status === 'approved');
-  const completedRedemptions = redemptions.filter(r => r.status === 'paid' || r.status === 'rejected');
+  const pendingRedemptions = redemptions.filter((r) => r.status === 'pending');
+  const approvedRedemptions = redemptions.filter((r) => r.status === 'approved');
+  const completedRedemptions = redemptions.filter(
+    (r) => r.status === 'paid' || r.status === 'rejected'
+  );
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString(i18n.language, {
@@ -141,7 +146,7 @@ export function RedemptionManager() {
                   {redemption.family_members && (
                     <div
                       className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                      style={{ backgroundColor: redemption.family_members.color }}
+                      style={{ backgroundColor: redemption.family_members.color ?? '#3b82f6' }}
                     >
                       {redemption.family_members.name.charAt(0).toUpperCase()}
                     </div>
@@ -151,9 +156,16 @@ export function RedemptionManager() {
                       {redemption.family_members?.name || 'Unknown'}
                     </div>
                     <div className="text-sm text-gray-600">
-                      {t('rewards.manager.pointsEquals', { points: redemption.points_redeemed, money: redemption.money_amount.toFixed(2) })}
+                      {t('rewards.manager.pointsEquals', {
+                        points: redemption.points_redeemed,
+                        money: redemption.money_amount.toFixed(2),
+                      })}
                     </div>
-                    <div className="text-xs text-gray-500">{formatDate(redemption.created_at)}</div>
+                    {redemption.created_at && (
+                      <div className="text-xs text-gray-500">
+                        {formatDate(redemption.created_at)}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -196,7 +208,7 @@ export function RedemptionManager() {
                   {redemption.family_members && (
                     <div
                       className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                      style={{ backgroundColor: redemption.family_members.color }}
+                      style={{ backgroundColor: redemption.family_members.color ?? '#3b82f6' }}
                     >
                       {redemption.family_members.name.charAt(0).toUpperCase()}
                     </div>
@@ -215,7 +227,9 @@ export function RedemptionManager() {
                   disabled={processingId === redemption.id}
                   className="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 text-sm font-medium"
                 >
-                  {processingId === redemption.id ? t('rewards.manager.processing') : t('rewards.actions.markPaid')}
+                  {processingId === redemption.id
+                    ? t('rewards.manager.processing')
+                    : t('rewards.actions.markPaid')}
                 </button>
               </div>
             ))}
@@ -225,7 +239,9 @@ export function RedemptionManager() {
 
       {completedRedemptions.length > 0 && (
         <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-2">{t('rewards.manager.recentHistory')}</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2">
+            {t('rewards.manager.recentHistory')}
+          </h4>
           <div className="space-y-2">
             {completedRedemptions.slice(0, 5).map((redemption) => (
               <div
@@ -238,7 +254,7 @@ export function RedemptionManager() {
                   {redemption.family_members && (
                     <div
                       className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold opacity-60"
-                      style={{ backgroundColor: redemption.family_members.color }}
+                      style={{ backgroundColor: redemption.family_members.color ?? '#3b82f6' }}
                     >
                       {redemption.family_members.name.charAt(0).toUpperCase()}
                     </div>
@@ -248,7 +264,10 @@ export function RedemptionManager() {
                       {redemption.family_members?.name || 'Unknown'}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {t('rewards.manager.pointsEquals', { points: redemption.points_redeemed, money: redemption.money_amount.toFixed(2) })}
+                      {t('rewards.manager.pointsEquals', {
+                        points: redemption.points_redeemed,
+                        money: redemption.money_amount.toFixed(2),
+                      })}
                     </div>
                   </div>
                 </div>
@@ -268,9 +287,7 @@ export function RedemptionManager() {
       )}
 
       {redemptions.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
-          {t('rewards.noRedemptions')}
-        </div>
+        <div className="text-center py-8 text-gray-500">{t('rewards.noRedemptions')}</div>
       )}
     </div>
   );

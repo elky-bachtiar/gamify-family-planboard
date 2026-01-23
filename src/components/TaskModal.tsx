@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { PRIORITY_CONFIG } from '../types';
 import { RecurrenceSelector } from './RecurrenceSelector';
 import { TagInput } from './TagInput';
+import { ObjectPicker } from './ObjectPicker';
 import type { RecurrencePattern } from '../lib/recurrence';
 import { generateRecurringTaskInstances, validateRecurrenceConfig } from '../lib/recurrence';
 
@@ -18,6 +19,7 @@ export interface TaskInitialValues {
   dueTime?: string;
   startTime?: string;
   associatedItems?: string[];
+  associatedObjectIds?: string[];
   recurrencePattern?: RecurrencePattern;
   recurrenceDays?: number[];
   recurrenceEndDate?: string;
@@ -32,7 +34,13 @@ interface TaskModalProps {
   initialValues?: TaskInitialValues;
 }
 
-export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initialValues }: TaskModalProps) {
+export function TaskModal({
+  isOpen,
+  onClose,
+  onTaskCreated,
+  defaultDate,
+  initialValues,
+}: TaskModalProps) {
   const { t } = useTranslation(['tasks', 'common']);
   const { currentMember, familyMembers } = useFamily();
   const { family, isAdmin } = useAuth();
@@ -53,6 +61,9 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
   // Tags/Associated items state
   const [associatedItems, setAssociatedItems] = useState<string[]>([]);
   const [availableTags, setAvailableTags] = useState<string[]>([]);
+
+  // Associated objects state
+  const [associatedObjectIds, setAssociatedObjectIds] = useState<string[]>([]);
 
   // Weekly task state (admin only)
   const [isWeeklyTask, setIsWeeklyTask] = useState(false);
@@ -118,6 +129,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       setRecurrenceDays([]);
       setRecurrenceEndDate('');
       setAssociatedItems([]);
+      setAssociatedObjectIds([]);
       setIsWeeklyTask(false);
     } else if (initialValues) {
       // Apply initial values when modal opens (for copy functionality)
@@ -128,7 +140,10 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       if (initialValues.dueTime) setDueTime(initialValues.dueTime);
       if (initialValues.startTime) setStartTime(initialValues.startTime);
       if (initialValues.associatedItems) setAssociatedItems(initialValues.associatedItems);
-      if (initialValues.recurrencePattern !== undefined) setRecurrencePattern(initialValues.recurrencePattern);
+      if (initialValues.associatedObjectIds)
+        setAssociatedObjectIds(initialValues.associatedObjectIds);
+      if (initialValues.recurrencePattern !== undefined)
+        setRecurrencePattern(initialValues.recurrencePattern);
       if (initialValues.recurrenceDays) setRecurrenceDays(initialValues.recurrenceDays);
       if (initialValues.recurrenceEndDate) setRecurrenceEndDate(initialValues.recurrenceEndDate);
       if (initialValues.isWeeklyTask !== undefined) setIsWeeklyTask(initialValues.isWeeklyTask);
@@ -183,6 +198,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
             created_by: currentMember.id,
             family_id: family.id,
             associated_items: associatedItems,
+            associated_object_ids: associatedObjectIds.length > 0 ? associatedObjectIds : null,
           },
           recurrenceConfig,
           groupId
@@ -223,6 +239,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
           created_by: currentMember.id,
           family_id: family.id,
           associated_items: associatedItems,
+          associated_object_ids: associatedObjectIds.length > 0 ? associatedObjectIds : null,
           is_weekly_task: isWeeklyTask,
         });
 
@@ -246,10 +263,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-900">{t('tasks:modal.createTitle')}</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -345,9 +359,7 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder={t('tasks:modal.startTimePlaceholder')}
               />
-              <p className="mt-1 text-xs text-gray-500">
-                {t('tasks:modal.startTimeHint')}
-              </p>
+              <p className="mt-1 text-xs text-gray-500">{t('tasks:modal.startTimeHint')}</p>
             </div>
           )}
 
@@ -362,20 +374,24 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
                   const checked = e.target.checked;
                   setIsWeeklyTask(checked);
                   // Reset incompatible recurrence patterns when enabling weekly task
-                  if (checked && (recurrencePattern === 'daily' || recurrencePattern === 'specific_days')) {
+                  if (
+                    checked &&
+                    (recurrencePattern === 'daily' || recurrencePattern === 'specific_days')
+                  ) {
                     setRecurrencePattern(null);
                   }
                 }}
                 className="mt-0.5 w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
               />
               <div className="flex-1">
-                <label htmlFor="isWeeklyTask" className="flex items-center gap-2 text-sm font-medium text-gray-900 cursor-pointer">
+                <label
+                  htmlFor="isWeeklyTask"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-900 cursor-pointer"
+                >
                   <CalendarDays className="w-4 h-4 text-purple-600" />
                   {t('tasks:weeklyTask.label')}
                 </label>
-                <p className="mt-0.5 text-xs text-gray-600">
-                  {t('tasks:weeklyTask.hint')}
-                </p>
+                <p className="mt-0.5 text-xs text-gray-600">{t('tasks:weeklyTask.hint')}</p>
               </div>
             </div>
           )}
@@ -398,8 +414,12 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    <div className="text-sm font-medium text-gray-900 capitalize">{t(`tasks:priority.${p}`)}</div>
-                    <div className="text-xs text-gray-600">{config.points} {t('tasks:modal.pts')}</div>
+                    <div className="text-sm font-medium text-gray-900 capitalize">
+                      {t(`tasks:priority.${p}`)}
+                    </div>
+                    <div className="text-xs text-gray-600">
+                      {config.points} {t('tasks:modal.pts')}
+                    </div>
                   </button>
                 );
               })}
@@ -421,6 +441,13 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
               {t('tasks:modal.tagsHint', 'Press Enter or comma to add a tag')}
             </p>
           </div>
+
+          {/* Object picker for associating family objects */}
+          <ObjectPicker
+            selectedObjectIds={associatedObjectIds}
+            onObjectsChange={setAssociatedObjectIds}
+            compact={true}
+          />
 
           {/* Recurrence selector (admin only) */}
           {isAdmin && dueDate && (
@@ -446,7 +473,12 @@ export function TaskModal({ isOpen, onClose, onTaskCreated, defaultDate, initial
             </button>
             <button
               type="submit"
-              disabled={isCreating || !title.trim() || !dueDate || (recurrencePattern !== null && !recurrenceEndDate)}
+              disabled={
+                isCreating ||
+                !title.trim() ||
+                !dueDate ||
+                (recurrencePattern !== null && !recurrenceEndDate)
+              }
               className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               {isCreating ? t('tasks:modal.creating') : t('tasks:modal.createButton')}

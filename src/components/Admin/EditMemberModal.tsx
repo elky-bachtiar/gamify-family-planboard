@@ -17,7 +17,7 @@ async function hashPin(pin: string): Promise<string> {
   const data = encoder.encode(pin);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProps) {
@@ -36,7 +36,7 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
   useEffect(() => {
     if (member) {
       setName(member.name);
-      setSelectedColor(member.color);
+      setSelectedColor(member.color ?? '#3b82f6');
       setEnablePinLogin(member.is_pin_user || false);
       setPin('');
       setConfirmPin('');
@@ -161,7 +161,9 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
                   type="button"
                   onClick={() => setSelectedColor(color)}
                   className={`w-8 h-8 rounded-full transition-transform ${
-                    selectedColor === color ? 'ring-2 ring-offset-2 ring-blue-500 scale-110' : 'hover:scale-105'
+                    selectedColor === color
+                      ? 'ring-2 ring-offset-2 ring-blue-500 scale-110'
+                      : 'hover:scale-105'
                   }`}
                   style={{ backgroundColor: color }}
                 />
@@ -178,7 +180,10 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
                 onChange={(e) => setEnablePinLogin(e.target.checked)}
                 className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
               />
-              <label htmlFor="enablePinLogin" className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer">
+              <label
+                htmlFor="enablePinLogin"
+                className="flex items-center gap-2 text-sm font-medium text-gray-700 cursor-pointer"
+              >
                 <KeyRound className="w-4 h-4" />
                 {t('admin:editMember.enablePinLogin')}
               </label>
@@ -188,7 +193,9 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
               <div className="space-y-3 mt-3">
                 <div>
                   <label htmlFor="pin" className="block text-sm font-medium text-gray-700 mb-1">
-                    {member.is_pin_user ? t('admin:editMember.newPinLabel') : t('admin:editMember.pinLabel')}
+                    {member.is_pin_user
+                      ? t('admin:editMember.newPinLabel')
+                      : t('admin:editMember.pinLabel')}
                   </label>
                   <div className="relative">
                     <input
@@ -196,7 +203,9 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
                       type={showPin ? 'text' : 'password'}
                       value={pin}
                       onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                      placeholder={member.is_pin_user ? t('admin:editMember.pinPlaceholder') : '4-6 digits'}
+                      placeholder={
+                        member.is_pin_user ? t('admin:editMember.pinPlaceholder') : '4-6 digits'
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
                       inputMode="numeric"
                     />
@@ -210,7 +219,10 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="confirmPin" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="confirmPin"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     {t('admin:editMember.confirmPinLabel')}
                   </label>
                   <input

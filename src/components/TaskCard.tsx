@@ -1,6 +1,16 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, Circle, Star, Trash2, Sparkles, UserPlus, Clock, Repeat, Tag } from 'lucide-react';
+import {
+  CheckCircle2,
+  Circle,
+  Star,
+  Trash2,
+  Sparkles,
+  UserPlus,
+  Clock,
+  Repeat,
+  Tag,
+} from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
 import { completeTask } from '../lib/gamification';
@@ -26,7 +36,8 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
 
   const isCompleted = task.status === 'completed';
   const isPendingApproval = task.status === 'pending_approval';
-  const priorityConfig = PRIORITY_CONFIG[task.priority];
+  const priorityConfig =
+    PRIORITY_CONFIG[(task.priority ?? 'medium') as keyof typeof PRIORITY_CONFIG];
   const isUnassigned = !task.assigned_to;
   const isAssignedToOther = task.assigned_to && task.assigned_to !== currentMember?.id;
   const assignee = task.family_members;
@@ -86,10 +97,10 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
         isCompleted
           ? 'bg-green-50 border-green-200 opacity-75'
           : isPendingApproval
-          ? 'bg-yellow-50 border-yellow-200'
-          : isUnassigned
-          ? 'bg-gray-50 border-dashed border-gray-300 hover:border-blue-400'
-          : 'bg-white border-gray-200 hover:border-gray-300'
+            ? 'bg-yellow-50 border-yellow-200'
+            : isUnassigned
+              ? 'bg-gray-50 border-dashed border-gray-300 hover:border-blue-400'
+              : 'bg-white border-gray-200 hover:border-gray-300'
       }`}
     >
       {showCelebration && (
@@ -103,7 +114,11 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
           onClick={handleComplete}
           disabled={isCompleted || isCompleting || isPendingApproval}
           className={`flex-shrink-0 mt-0.5 transition-colors ${
-            isCompleted ? 'text-green-500' : isPendingApproval ? 'text-yellow-500' : 'text-gray-400 hover:text-blue-500'
+            isCompleted
+              ? 'text-green-500'
+              : isPendingApproval
+                ? 'text-yellow-500'
+                : 'text-gray-400 hover:text-blue-500'
           }`}
         >
           {isCompleted ? (
@@ -117,7 +132,9 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
-            <h3 className={`text-sm font-medium ${isCompleted ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+            <h3
+              className={`text-sm font-medium ${isCompleted ? 'line-through text-gray-500' : 'text-gray-900'}`}
+            >
               {task.title}
             </h3>
             {!isCompleted && (
@@ -147,7 +164,10 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
             </span>
 
             {task.recurring_task_group_id && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700" title="Recurring task">
+              <span
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700"
+                title="Recurring task"
+              >
                 <Repeat className="w-3 h-3" />
               </span>
             )}
@@ -162,7 +182,7 @@ export function TaskCard({ task, onUpdate, onTaskClick }: TaskCardProps) {
             {isAssignedToOther && assignee && (
               <span
                 className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-white"
-                style={{ backgroundColor: assignee.color }}
+                style={{ backgroundColor: assignee.color ?? '#3b82f6' }}
               >
                 {assignee.name}
               </span>

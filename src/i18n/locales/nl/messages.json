@@ -1,0 +1,21 @@
+{
+  "inbox": "Berichten",
+  "compose": "Nieuw",
+  "newMessage": "Nieuw Bericht",
+  "noMessages": "Nog geen berichten",
+  "unknownSender": "Onbekend",
+  "backToInbox": "Terug",
+  "reply": "Beantwoorden",
+  "delete": "Verwijderen",
+  "replyTo": "Antwoord aan {{name}}",
+  "originalMessage": "Origineel bericht",
+  "to": "Aan",
+  "selectRecipient": "Selecteer ontvanger...",
+  "everyone": "Iedereen",
+  "message": "Bericht",
+  "messagePlaceholder": "Schrijf hier je bericht...",
+  "send": "Verzenden",
+  "sending": "Verzenden...",
+  "errorFillFields": "Vul alle velden in",
+  "errorSending": "Bericht verzenden mislukt. Probeer het opnieuw."
+}

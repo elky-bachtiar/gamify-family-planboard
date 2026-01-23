@@ -1,0 +1,32 @@
+{
+  "name": "taskaroo-e2e-tests",
+  "version": "1.0.0",
+  "description": "E2E tests for Taskaroo RLS and Authentication",
+  "type": "module",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:rls": "npx playwright test --project=rls-tests",
+    "test:auth": "npx playwright test --project=auth-tests",
+    "test:triggers": "npx playwright test --project=trigger-tests",
+    "test:integration": "npx playwright test --project=integration-tests",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report",
+    "supabase:start": "cd .. && supabase start",
+    "supabase:stop": "cd .. && supabase stop",
+    "supabase:status": "cd .. && supabase status",
+    "supabase:reset": "cd .. && supabase db reset",
+    "setup": "npm install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@supabase/supabase-js": "^2.57.4",
+    "@types/node": "^22.10.2",
+    "jsonwebtoken": "^9.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

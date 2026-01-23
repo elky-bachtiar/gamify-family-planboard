@@ -1,0 +1,21 @@
+{
+  "inbox": "Messages",
+  "compose": "New",
+  "newMessage": "New Message",
+  "noMessages": "No messages yet",
+  "unknownSender": "Unknown",
+  "backToInbox": "Back",
+  "reply": "Reply",
+  "delete": "Delete",
+  "replyTo": "Reply to {{name}}",
+  "originalMessage": "Original message",
+  "to": "To",
+  "selectRecipient": "Select recipient...",
+  "everyone": "Everyone",
+  "message": "Message",
+  "messagePlaceholder": "Write your message here...",
+  "send": "Send",
+  "sending": "Sending...",
+  "errorFillFields": "Please fill in all fields",
+  "errorSending": "Failed to send message. Please try again."
+}

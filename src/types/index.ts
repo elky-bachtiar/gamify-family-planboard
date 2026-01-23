@@ -12,6 +12,8 @@ export type RewardRedemption = Database['public']['Tables']['reward_redemptions'
 export type TaskHistory = Database['public']['Tables']['task_history']['Row'];
 export type WeeklyEarnings = Database['public']['Tables']['weekly_earnings']['Row'];
 export type FamilyObject = Database['public']['Tables']['family_objects']['Row'];
+export type DeductionDispute = Database['public']['Tables']['deduction_disputes']['Row'];
+export type AuditLog = Database['public']['Tables']['audit_logs']['Row'];
 
 export type TaskWithMember = Task & {
   family_members: FamilyMember | null;
@@ -23,6 +25,16 @@ export type AchievementWithEarned = Achievement & {
 };
 
 export type RedemptionWithMember = RewardRedemption & {
+  family_members: FamilyMember | null;
+};
+
+export type DeductionDisputeWithDetails = DeductionDispute & {
+  points_history: PointsHistory | null;
+  created_by_member: FamilyMember | null;
+  resolved_by_member: FamilyMember | null;
+};
+
+export type PointsHistoryWithMember = PointsHistory & {
   family_members: FamilyMember | null;
 };
 
@@ -206,9 +218,7 @@ export const PRIORITY_CONFIG = {
   high: { label: 'High', color: 'bg-red-500', points: 20 },
 };
 
-export const LEVEL_THRESHOLDS = [
-  0, 100, 250, 500, 1000, 1500, 2000, 3000, 4500, 6000, 8000, 10000
-];
+export const LEVEL_THRESHOLDS = [0, 100, 250, 500, 1000, 1500, 2000, 3000, 4500, 6000, 8000, 10000];
 
 export function calculateLevel(points: number): number {
   for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
@@ -219,10 +229,15 @@ export function calculateLevel(points: number): number {
   return 1;
 }
 
-export function getPointsForNextLevel(currentPoints: number): { current: number; next: number; progress: number } {
+export function getPointsForNextLevel(currentPoints: number): {
+  current: number;
+  next: number;
+  progress: number;
+} {
   const level = calculateLevel(currentPoints);
   const currentLevelThreshold = LEVEL_THRESHOLDS[level - 1] || 0;
-  const nextLevelThreshold = LEVEL_THRESHOLDS[level] || LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
+  const nextLevelThreshold =
+    LEVEL_THRESHOLDS[level] || LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
 
   const pointsInLevel = currentPoints - currentLevelThreshold;
   const pointsNeeded = nextLevelThreshold - currentLevelThreshold;

@@ -18,7 +18,7 @@ export function ManualPointsManager() {
   const [success, setSuccess] = useState(false);
 
   // Filter out the current admin from the list
-  const selectableMembers = familyMembers.filter(m => m.id !== familyMember?.id);
+  const selectableMembers = familyMembers.filter((m) => m.id !== familyMember?.id);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,12 +51,7 @@ export function ManualPointsManager() {
     // Make points negative for deductions
     const actualPoints = pointValue < 0 ? pointValue : -Math.abs(pointValue);
 
-    const result = await awardManualPoints(
-      selectedMemberId,
-      actualPoints,
-      reason.trim(),
-      familyMember
-    );
+    const result = await awardManualPoints(selectedMemberId, actualPoints, reason.trim());
 
     if (result.success) {
       setSuccess(true);
@@ -72,7 +67,7 @@ export function ManualPointsManager() {
     setIsSubmitting(false);
   };
 
-  const selectedMember = familyMembers.find(m => m.id === selectedMemberId);
+  const selectedMember = familyMembers.find((m) => m.id === selectedMemberId);
   const pointValue = parseInt(points, 10) || 0;
 
   return (
@@ -177,7 +172,7 @@ export function ManualPointsManager() {
             <p className="text-gray-600 mb-4">
               {t('admin:manualPoints.confirmMessage', {
                 name: selectedMember.name,
-                points: Math.abs(pointValue)
+                points: Math.abs(pointValue),
               })}
             </p>
 
