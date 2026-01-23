@@ -130,6 +130,83 @@ export type Database = {
           },
         ];
       };
+      deduction_disputes: {
+        Row: {
+          created_at: string | null;
+          created_by: string;
+          evidence_urls: string[] | null;
+          family_id: string;
+          id: string;
+          points_history_id: string;
+          points_restored: number | null;
+          reason: string;
+          resolution_note: string | null;
+          resolved_at: string | null;
+          resolved_by: string | null;
+          status: string;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by: string;
+          evidence_urls?: string[] | null;
+          family_id: string;
+          id?: string;
+          points_history_id: string;
+          points_restored?: number | null;
+          reason: string;
+          resolution_note?: string | null;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          status?: string;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string;
+          evidence_urls?: string[] | null;
+          family_id?: string;
+          id?: string;
+          points_history_id?: string;
+          points_restored?: number | null;
+          reason?: string;
+          resolution_note?: string | null;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          status?: string;
+          updated_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'deduction_disputes_created_by_fkey';
+            columns: ['created_by'];
+            isOneToOne: false;
+            referencedRelation: 'family_members';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'deduction_disputes_family_id_fkey';
+            columns: ['family_id'];
+            isOneToOne: false;
+            referencedRelation: 'families';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'deduction_disputes_points_history_id_fkey';
+            columns: ['points_history_id'];
+            isOneToOne: true;
+            referencedRelation: 'points_history';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'deduction_disputes_resolved_by_fkey';
+            columns: ['resolved_by'];
+            isOneToOne: false;
+            referencedRelation: 'family_members';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       families: {
         Row: {
           color_palette: string | null;
@@ -208,10 +285,15 @@ export type Database = {
           is_admin: boolean | null;
           is_disabled: boolean | null;
           is_pin_user: boolean | null;
+          last_streak_value: number | null;
           name: string;
           pin_hash: string | null;
           privacy_settings: Json | null;
           role: string | null;
+          streak_freezes: number | null;
+          streak_grace_started_at: string | null;
+          streak_lost_at: string | null;
+          streak_recovered: boolean | null;
           total_points: number | null;
           user_id: string | null;
         };
@@ -233,10 +315,15 @@ export type Database = {
           is_admin?: boolean | null;
           is_disabled?: boolean | null;
           is_pin_user?: boolean | null;
+          last_streak_value?: number | null;
           name: string;
           pin_hash?: string | null;
           privacy_settings?: Json | null;
           role?: string | null;
+          streak_freezes?: number | null;
+          streak_grace_started_at?: string | null;
+          streak_lost_at?: string | null;
+          streak_recovered?: boolean | null;
           total_points?: number | null;
           user_id?: string | null;
         };
@@ -258,10 +345,15 @@ export type Database = {
           is_admin?: boolean | null;
           is_disabled?: boolean | null;
           is_pin_user?: boolean | null;
+          last_streak_value?: number | null;
           name?: string;
           pin_hash?: string | null;
           privacy_settings?: Json | null;
           role?: string | null;
+          streak_freezes?: number | null;
+          streak_grace_started_at?: string | null;
+          streak_lost_at?: string | null;
+          streak_recovered?: boolean | null;
           total_points?: number | null;
           user_id?: string | null;
         };
@@ -424,6 +516,7 @@ export type Database = {
       points_history: {
         Row: {
           created_at: string | null;
+          evidence_urls: string[] | null;
           family_id: string | null;
           id: string;
           member_id: string | null;
@@ -433,6 +526,7 @@ export type Database = {
         };
         Insert: {
           created_at?: string | null;
+          evidence_urls?: string[] | null;
           family_id?: string | null;
           id?: string;
           member_id?: string | null;
@@ -442,6 +536,7 @@ export type Database = {
         };
         Update: {
           created_at?: string | null;
+          evidence_urls?: string[] | null;
           family_id?: string | null;
           id?: string;
           member_id?: string | null;
@@ -594,6 +689,7 @@ export type Database = {
           approved_by: string | null;
           assigned_to: string | null;
           associated_items: string[] | null;
+          associated_object_ids: string[] | null;
           completed_at: string | null;
           completed_by: string | null;
           created_at: string | null;
@@ -627,6 +723,7 @@ export type Database = {
           approved_by?: string | null;
           assigned_to?: string | null;
           associated_items?: string[] | null;
+          associated_object_ids?: string[] | null;
           completed_at?: string | null;
           completed_by?: string | null;
           created_at?: string | null;
@@ -660,6 +757,7 @@ export type Database = {
           approved_by?: string | null;
           assigned_to?: string | null;
           associated_items?: string[] | null;
+          associated_object_ids?: string[] | null;
           completed_at?: string | null;
           completed_by?: string | null;
           created_at?: string | null;

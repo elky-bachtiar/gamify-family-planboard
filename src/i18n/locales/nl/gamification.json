@@ -235,5 +235,44 @@
       "pointsLost": "-{{points}} punten",
       "unknownReason": "Onbekende reden"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Reeks Bevriezing",
+    "shopDescription": "Bescherm je reeks als je een dag mist",
+    "youHave": "Je hebt",
+    "cost": "Kosten",
+    "yourPoints": "Jouw punten",
+    "buyButton": "Koop Reeks Bevriezing",
+    "notEnoughPoints": "Niet genoeg punten",
+    "maxReached": "Maximum bevriezingen bereikt!",
+    "maxReachedHint": "Gebruik er een voordat je er meer koopt",
+    "purchaseSuccess": "Reeks bevriezing gekocht!",
+    "howItWorks": "Bevriezingen worden automatisch gebruikt wanneer je een dag geen taak voltooit, waardoor je reeks wordt beschermd."
+  },
+  "penalties": {
+    "title": "Puntaftrek",
+    "noDeductions": "Geen aftrek!",
+    "noDeductionsHint": "Ga zo door!"
+  },
+  "disputes": {
+    "disputeButton": "Betwist deze aftrek",
+    "cannotDispute": "Betwistingstermijn verlopen",
+    "createTitle": "Aftrek Betwisten",
+    "originalDeduction": "Oorspronkelijke Aftrek",
+    "reasonLabel": "Waarom betwist je dit?",
+    "reasonPlaceholder": "Leg uit waarom je denkt dat deze aftrek oneerlijk was...",
+    "evidenceLabel": "Bewijs toevoegen (optioneel)",
+    "addPhoto": "Foto toevoegen",
+    "maxPhotos": "Maximaal 3 foto's toegestaan",
+    "photoHint": "Max 3 foto's, 5MB per stuk",
+    "submitButton": "Betwisting Indienen",
+    "status": {
+      "pending": "In Behandeling",
+      "approved": "Goedgekeurd",
+      "rejected": "Afgewezen"
+    },
+    "toastApproved": "Betwisting Goedgekeurd!",
+    "toastRejected": "Betwisting Afgewezen",
+    "pointsRestored": "+{{points}} punten teruggegeven!"
   }
 }

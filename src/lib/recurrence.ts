@@ -23,6 +23,7 @@ export interface TaskTemplate {
   created_by?: string | null;
   family_id?: string | null;
   associated_items?: string[];
+  associated_object_ids?: string[] | null;
 }
 
 const MAX_INSTANCES = 365;

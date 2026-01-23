@@ -5,7 +5,8 @@
       "members": "Members",
       "approvals": "Approvals",
       "rewards": "Rewards",
-      "objects": "Objects"
+      "objects": "Objects",
+      "disputes": "Disputes"
     }
   },
   "inviteCode": {
@@ -163,5 +164,21 @@
     "namePlaceholder": "e.g., Dishwasher, Laundry, Garden",
     "uploadImage": "Upload image",
     "removeImage": "Remove image"
+  },
+  "disputes": {
+    "title": "Deduction Disputes",
+    "pending": "pending",
+    "noDisputes": "No disputes",
+    "noDisputesHint": "All disputes have been resolved",
+    "originalDeduction": "Original Deduction",
+    "childResponse": "Child's Response",
+    "resolutionNote": "Resolution note (optional)",
+    "resolutionNotePlaceholder": "Add a note...",
+    "reject": "Reject",
+    "approveRestore": "Approve & Restore",
+    "approveHint": "Approving will restore {{points}} points",
+    "resolution": "Resolution",
+    "approvedMessage": "Points restored",
+    "rejectedMessage": "Dispute rejected"
   }
 }

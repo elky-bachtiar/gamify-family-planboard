@@ -5,7 +5,8 @@
       "members": "Leden",
       "approvals": "Goedkeuringen",
       "rewards": "Beloningen",
-      "objects": "Objecten"
+      "objects": "Objecten",
+      "disputes": "Betwistingen"
     }
   },
   "inviteCode": {
@@ -163,5 +164,21 @@
     "namePlaceholder": "bijv. Vaatwasser, Wasgoed, Tuin",
     "uploadImage": "Afbeelding uploaden",
     "removeImage": "Afbeelding verwijderen"
+  },
+  "disputes": {
+    "title": "Aftrek Betwistingen",
+    "pending": "in behandeling",
+    "noDisputes": "Geen betwistingen",
+    "noDisputesHint": "Alle betwistingen zijn opgelost",
+    "originalDeduction": "Oorspronkelijke Aftrek",
+    "childResponse": "Reactie van Kind",
+    "resolutionNote": "Oplossingsnota (optioneel)",
+    "resolutionNotePlaceholder": "Voeg een notitie toe...",
+    "reject": "Afwijzen",
+    "approveRestore": "Goedkeuren & Herstellen",
+    "approveHint": "Goedkeuren herstelt {{points}} punten",
+    "resolution": "Oplossing",
+    "approvedMessage": "Punten hersteld",
+    "rejectedMessage": "Betwisting afgewezen"
   }
 }

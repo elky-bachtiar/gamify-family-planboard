@@ -235,5 +235,44 @@
       "pointsLost": "-{{points}} points",
       "unknownReason": "Unknown reason"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Streak Freeze",
+    "shopDescription": "Protect your streak when you miss a day",
+    "youHave": "You have",
+    "cost": "Cost",
+    "yourPoints": "Your points",
+    "buyButton": "Buy Streak Freeze",
+    "notEnoughPoints": "Not enough points",
+    "maxReached": "Maximum freezes reached!",
+    "maxReachedHint": "Use one before buying more",
+    "purchaseSuccess": "Streak freeze purchased!",
+    "howItWorks": "Freezes are automatically used when you miss completing a task for the day, protecting your streak from being reset."
+  },
+  "penalties": {
+    "title": "Point Deductions",
+    "noDeductions": "No deductions!",
+    "noDeductionsHint": "Keep up the great work!"
+  },
+  "disputes": {
+    "disputeButton": "Dispute this deduction",
+    "cannotDispute": "Dispute period expired",
+    "createTitle": "Dispute Deduction",
+    "originalDeduction": "Original Deduction",
+    "reasonLabel": "Why are you disputing this?",
+    "reasonPlaceholder": "Explain why you think this deduction was unfair...",
+    "evidenceLabel": "Add evidence (optional)",
+    "addPhoto": "Add Photo",
+    "maxPhotos": "Maximum 3 photos allowed",
+    "photoHint": "Max 3 photos, 5MB each",
+    "submitButton": "Submit Dispute",
+    "status": {
+      "pending": "Pending Review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "toastApproved": "Dispute Approved!",
+    "toastRejected": "Dispute Rejected",
+    "pointsRestored": "+{{points}} points restored!"
   }
 }

@@ -4,6 +4,90 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.0-alpha.9] - 2026-01-23
+
+### Added
+
+- **Streak Grace Period & Recovery System** - Protect and recover streaks after missing a day
+  - `src/lib/gamification.ts` - New streak management functions:
+    - `isInStreakGracePeriod()` - Check if member is in 24-hour warning window
+    - `getGracePeriodTimeRemaining()` - Get countdown until streak loss
+    - `formatTimeRemaining()` - Human-readable time formatting
+    - `canRecoverStreak()` - Check if recovery is possible (48hr window + 20+ point task)
+    - `recoverStreak()` - Restore streak to previous value - 1
+    - `consumeStreakFreeze()` - Auto-apply freeze when grace expires
+    - `handleStreakOnTaskComplete()` - Enhanced streak update with recovery logic
+    - `checkStreakStatus()` - Get current streak state (active/grace/frozen/lost)
+    - `getStreakFreezeInfo()` - Get freeze count and purchase availability
+  - `src/components/Child/Gamification/StreakDisplay.tsx` - Grace period warning with pulsing animation and countdown timer
+
+- **Streak Freeze Shop** - Purchase streak protection with points
+  - `src/components/Child/StreakFreezeShop.tsx` - New component for buying freezes
+    - Costs 50 points per freeze, max 3 freezes
+    - Shows current freeze count with snowflake icons
+    - Displays points balance and purchase button
+    - Explanation of how freezes work
+  - `supabase/functions/purchase-streak-freeze/index.ts` - Edge function for freeze purchases
+  - `src/components/Child/Views/ChildStatsView.tsx` - Integrated freeze shop into stats view
+
+- **Deduction Dispute System** - Children can dispute unfair point deductions
+  - **Child Penalties View**
+    - `src/components/Child/Views/ChildPenaltiesView.tsx` - View all point deductions with evidence photos
+    - Shows dispute status (pending/approved/rejected)
+    - "Dispute" button for eligible deductions (within 7 days)
+  - **Create Dispute Modal**
+    - `src/components/Child/CreateDisputeModal.tsx` - Submit dispute with reason and photo evidence
+    - Up to 3 photos as counter-evidence
+    - Validates dispute eligibility
+  - **Admin Dispute Review**
+    - `src/components/Admin/DisputeReviewManager.tsx` - Review pending disputes
+    - Side-by-side comparison of original deduction and child's response
+    - Approve (restores points) or reject with resolution note
+    - Evidence photo gallery
+  - **Dispute Notifications**
+    - `src/components/Child/Gamification/DisputeResolvedToast.tsx` - Toast notification for dispute resolution
+  - **Edge Functions**
+    - `supabase/functions/create-dispute/index.ts` - Child creates dispute
+    - `supabase/functions/resolve-dispute/index.ts` - Admin resolves dispute
+    - `supabase/functions/deduct-points-with-evidence/index.ts` - Deduction with photo evidence
+
+- **Object Association for Tasks** - Link family objects to tasks for filtering
+  - `src/components/ObjectPicker.tsx` - Grid selector with object thumbnails
+    - Compact mode for inline use
+    - Supports multiple selection with max limit
+  - `src/components/TaskModal.tsx` - Added ObjectPicker for associating objects with tasks
+  - `src/lib/recurrence.ts` - Added `associated_object_ids` to TaskTemplate interface
+
+- **Database Schema Updates**
+  - `supabase/migrations/20260124000000_streak_disputes_objects.sql`:
+    - `family_members`: Added `streak_freezes`, `streak_lost_at`, `last_streak_value`, `streak_recovered`, `streak_grace_started_at`
+    - `points_history`: Added `evidence_urls` for photo evidence
+    - `tasks`: Added `associated_object_ids` for object associations
+    - New `deduction_disputes` table with full RLS policies
+    - New `dispute-evidence` storage bucket with upload policies
+
+- **Type System Updates**
+  - `src/lib/database.types.ts` - Added new column types and `deduction_disputes` table
+  - `src/types/index.ts` - Exported `DeductionDispute`, `DeductionDisputeWithDetails`, `PointsHistoryWithMember`
+
+### Changed
+
+- **Admin Panel** - Added "Disputes" tab with DisputeReviewManager component
+  - `src/components/AdminPanel.tsx` - New tab with AlertCircle icon and pending count badge
+
+- **Rate Limiting** - Added limits for new edge functions
+  - `supabase/functions/_shared/security.ts` - Rate limits for dispute and freeze functions
+
+### Translations
+
+- `src/i18n/locales/en/gamification.json` - Added keys for:
+  - `streakFreeze.*` - Shop, purchase, and freeze status
+  - `penalties.*` - Deduction list display
+  - `disputes.*` - Dispute creation and status
+- `src/i18n/locales/nl/gamification.json` - Dutch translations for new features
+- `src/i18n/locales/en/admin.json` - Added `disputes.*` keys for admin review
+- `src/i18n/locales/nl/admin.json` - Dutch translations for dispute management
+
 ## [1.0.0-alpha.8] - 2026-01-23
 
 ### Added

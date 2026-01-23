@@ -525,3 +525,429 @@ export async function applyWeeklyTaskPenalty(
     return { success: false, error };
   }
 }
+
+// ============================================================================
+// Streak Grace Period, Freeze, and Recovery Functions
+// ============================================================================
+
+const GRACE_PERIOD_HOURS = 24;
+const RECOVERY_WINDOW_HOURS = 48;
+const RECOVERY_MIN_TASK_POINTS = 20;
+const STREAK_FREEZE_COST = 50;
+const MAX_STREAK_FREEZES = 3;
+
+/**
+ * Check if a member is currently in a streak grace period
+ * Grace period is 24 hours after the streak_grace_started_at timestamp
+ */
+export function isInStreakGracePeriod(member: FamilyMember): boolean {
+  if (!member.streak_grace_started_at) return false;
+
+  const graceStart = new Date(member.streak_grace_started_at);
+  const graceEnd = new Date(graceStart.getTime() + GRACE_PERIOD_HOURS * 60 * 60 * 1000);
+  const now = new Date();
+
+  return now < graceEnd;
+}
+
+/**
+ * Get the remaining time in the grace period
+ * Returns milliseconds remaining, or 0 if not in grace period
+ */
+export function getGracePeriodTimeRemaining(member: FamilyMember): number {
+  if (!member.streak_grace_started_at) return 0;
+
+  const graceStart = new Date(member.streak_grace_started_at);
+  const graceEnd = new Date(graceStart.getTime() + GRACE_PERIOD_HOURS * 60 * 60 * 1000);
+  const now = new Date();
+
+  const remaining = graceEnd.getTime() - now.getTime();
+  return Math.max(0, remaining);
+}
+
+/**
+ * Format remaining time as a human-readable string
+ */
+export function formatTimeRemaining(ms: number): string {
+  if (ms <= 0) return '0m';
+
+  const hours = Math.floor(ms / (60 * 60 * 1000));
+  const minutes = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
+
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
+  }
+  return `${minutes}m`;
+}
+
+/**
+ * Check if a member can recover their streak
+ * Recovery is possible within 48 hours of streak loss, with a 20+ point task
+ */
+export function canRecoverStreak(member: FamilyMember, taskPoints: number): boolean {
+  // Must have a lost streak timestamp
+  if (!member.streak_lost_at) return false;
+
+  // Must have a previous streak value
+  if (!member.last_streak_value || member.last_streak_value <= 1) return false;
+
+  // Must not have already recovered
+  if (member.streak_recovered) return false;
+
+  // Task must be worth at least 20 points
+  if (taskPoints < RECOVERY_MIN_TASK_POINTS) return false;
+
+  // Must be within 48-hour recovery window
+  const lostAt = new Date(member.streak_lost_at);
+  const recoveryDeadline = new Date(lostAt.getTime() + RECOVERY_WINDOW_HOURS * 60 * 60 * 1000);
+  const now = new Date();
+
+  return now < recoveryDeadline;
+}
+
+/**
+ * Get the remaining time in the recovery window
+ */
+export function getRecoveryWindowTimeRemaining(member: FamilyMember): number {
+  if (!member.streak_lost_at) return 0;
+
+  const lostAt = new Date(member.streak_lost_at);
+  const recoveryDeadline = new Date(lostAt.getTime() + RECOVERY_WINDOW_HOURS * 60 * 60 * 1000);
+  const now = new Date();
+
+  const remaining = recoveryDeadline.getTime() - now.getTime();
+  return Math.max(0, remaining);
+}
+
+/**
+ * Recover a member's streak (restore to last value - 1)
+ */
+export async function recoverStreak(
+  memberId: string
+): Promise<{ success: boolean; newStreak?: number; error?: unknown }> {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Get member data
+    const { data: member, error: memberError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', memberId)
+      .single();
+
+    if (memberError || !member) {
+      throw memberError || new Error('Member not found');
+    }
+
+    // Validate recovery is possible
+    if (!member.streak_lost_at || !member.last_streak_value || member.streak_recovered) {
+      throw new Error('Streak recovery not available');
+    }
+
+    // Calculate recovered streak (last value - 1, minimum 1)
+    const recoveredStreak = Math.max(1, member.last_streak_value - 1);
+
+    // Update member
+    const { error: updateError } = await supabase
+      .from('family_members')
+      .update({
+        current_streak: recoveredStreak,
+        streak_recovered: true,
+        streak_grace_started_at: null, // Clear grace period
+      })
+      .eq('id', memberId);
+
+    if (updateError) throw updateError;
+
+    return { success: true, newStreak: recoveredStreak };
+  } catch (error) {
+    console.error('Error recovering streak:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Use a streak freeze to prevent streak loss
+ * Called automatically when grace period expires and member has freezes
+ */
+export async function consumeStreakFreeze(
+  memberId: string
+): Promise<{ success: boolean; freezesRemaining?: number; error?: unknown }> {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Get member data
+    const { data: member, error: memberError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', memberId)
+      .single();
+
+    if (memberError || !member) {
+      throw memberError || new Error('Member not found');
+    }
+
+    const currentFreezes = member.streak_freezes || 0;
+
+    if (currentFreezes <= 0) {
+      throw new Error('No streak freezes available');
+    }
+
+    // Use one freeze
+    const newFreezes = currentFreezes - 1;
+
+    const { error: updateError } = await supabase
+      .from('family_members')
+      .update({
+        streak_freezes: newFreezes,
+        streak_grace_started_at: null, // Clear grace period (freeze protects streak)
+      })
+      .eq('id', memberId);
+
+    if (updateError) throw updateError;
+
+    // Log the freeze usage
+    await supabase.from('points_history').insert({
+      member_id: memberId,
+      points: 0,
+      reason: 'Streak freeze used - streak protected!',
+      family_id: member.family_id,
+    });
+
+    return { success: true, freezesRemaining: newFreezes };
+  } catch (error) {
+    console.error('Error using streak freeze:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Start the grace period for a member (when they haven't completed a task today)
+ */
+export async function startGracePeriod(
+  memberId: string
+): Promise<{ success: boolean; error?: unknown }> {
+  try {
+    const supabase = getSupabaseClient();
+
+    const { error: updateError } = await supabase
+      .from('family_members')
+      .update({
+        streak_grace_started_at: new Date().toISOString(),
+      })
+      .eq('id', memberId);
+
+    if (updateError) throw updateError;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error starting grace period:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Handle streak loss (when grace period expires without task completion or freeze)
+ */
+export async function handleStreakLoss(
+  memberId: string
+): Promise<{ success: boolean; previousStreak?: number; error?: unknown }> {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Get member data
+    const { data: member, error: memberError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', memberId)
+      .single();
+
+    if (memberError || !member) {
+      throw memberError || new Error('Member not found');
+    }
+
+    const previousStreak = member.current_streak || 0;
+
+    // Store the streak before losing it
+    const { error: updateError } = await supabase
+      .from('family_members')
+      .update({
+        last_streak_value: previousStreak,
+        current_streak: 0,
+        streak_lost_at: new Date().toISOString(),
+        streak_recovered: false,
+        streak_grace_started_at: null,
+      })
+      .eq('id', memberId);
+
+    if (updateError) throw updateError;
+
+    return { success: true, previousStreak };
+  } catch (error) {
+    console.error('Error handling streak loss:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Enhanced streak update that handles grace period, freeze, and recovery
+ * This should be called when a task is approved/completed
+ */
+export async function handleStreakOnTaskComplete(
+  memberId: string,
+  taskPoints: number
+): Promise<{
+  success: boolean;
+  streakRecovered?: boolean;
+  newStreak?: number;
+  error?: unknown;
+}> {
+  try {
+    const supabase = getSupabaseClient();
+
+    // Get member data
+    const { data: member, error: memberError } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', memberId)
+      .single();
+
+    if (memberError || !member) {
+      throw memberError || new Error('Member not found');
+    }
+
+    // Check if streak recovery is possible
+    if (canRecoverStreak(member, taskPoints)) {
+      const recoveryResult = await recoverStreak(memberId);
+      if (recoveryResult.success) {
+        return {
+          success: true,
+          streakRecovered: true,
+          newStreak: recoveryResult.newStreak,
+        };
+      }
+    }
+
+    // Clear grace period if it was active (task completed in time)
+    if (member.streak_grace_started_at) {
+      await supabase
+        .from('family_members')
+        .update({ streak_grace_started_at: null })
+        .eq('id', memberId);
+    }
+
+    // Regular streak update
+    await updateStreak(memberId);
+
+    // Get updated streak value
+    const { data: updatedMember } = await supabase
+      .from('family_members')
+      .select('current_streak')
+      .eq('id', memberId)
+      .single();
+
+    return {
+      success: true,
+      streakRecovered: false,
+      newStreak: updatedMember?.current_streak || 0,
+    };
+  } catch (error) {
+    console.error('Error handling streak on task complete:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Check streak status for a member and handle grace period/loss if needed
+ * This should be called periodically or on app load
+ */
+export async function checkStreakStatus(memberId: string): Promise<{
+  status: 'active' | 'grace_period' | 'lost' | 'frozen';
+  timeRemaining?: number;
+  canRecover?: boolean;
+  recoveryTimeRemaining?: number;
+}> {
+  try {
+    const supabase = getSupabaseClient();
+
+    const { data: member, error } = await supabase
+      .from('family_members')
+      .select('*')
+      .eq('id', memberId)
+      .single();
+
+    if (error || !member) {
+      return { status: 'lost' };
+    }
+
+    const currentStreak = member.current_streak || 0;
+
+    // Check if in grace period
+    if (isInStreakGracePeriod(member)) {
+      return {
+        status: 'grace_period',
+        timeRemaining: getGracePeriodTimeRemaining(member),
+      };
+    }
+
+    // Check if grace period expired
+    if (member.streak_grace_started_at && !isInStreakGracePeriod(member)) {
+      // Grace period expired - check for freeze
+      if ((member.streak_freezes || 0) > 0) {
+        // Auto-use freeze
+        await consumeStreakFreeze(memberId);
+        return { status: 'frozen' };
+      } else {
+        // No freeze available - lose streak
+        await handleStreakLoss(memberId);
+        const recoveryRemaining = getRecoveryWindowTimeRemaining({
+          ...member,
+          streak_lost_at: new Date().toISOString(),
+        });
+        return {
+          status: 'lost',
+          canRecover: true,
+          recoveryTimeRemaining: recoveryRemaining,
+        };
+      }
+    }
+
+    // Check if in recovery window
+    if (member.streak_lost_at && !member.streak_recovered) {
+      const recoveryRemaining = getRecoveryWindowTimeRemaining(member);
+      if (recoveryRemaining > 0) {
+        return {
+          status: 'lost',
+          canRecover: true,
+          recoveryTimeRemaining: recoveryRemaining,
+        };
+      }
+    }
+
+    // Normal active streak
+    return { status: currentStreak > 0 ? 'active' : 'lost' };
+  } catch (error) {
+    console.error('Error checking streak status:', error);
+    return { status: 'lost' };
+  }
+}
+
+/**
+ * Get streak freeze shop info for a member
+ */
+export function getStreakFreezeInfo(member: FamilyMember): {
+  currentFreezes: number;
+  maxFreezes: number;
+  freezeCost: number;
+  canPurchase: boolean;
+} {
+  const currentFreezes = member.streak_freezes || 0;
+  const currentPoints = member.total_points || 0;
+
+  return {
+    currentFreezes,
+    maxFreezes: MAX_STREAK_FREEZES,
+    freezeCost: STREAK_FREEZE_COST,
+    canPurchase: currentFreezes < MAX_STREAK_FREEZES && currentPoints >= STREAK_FREEZE_COST,
+  };
+}

@@ -13,6 +13,7 @@ import {
   Trash2,
   Crown,
   Package,
+  MessageSquare,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
@@ -25,6 +26,7 @@ import { ToggleAdminModal } from './Admin/ToggleAdminModal';
 import { PaletteSelector } from './Admin/PaletteSelector';
 import { ManualPointsManager } from './Admin/ManualPointsManager';
 import { ObjectsManager } from './Admin/ObjectsManager';
+import { DisputeReviewManager } from './Admin/DisputeReviewManager';
 import type { FamilyMember } from '../types';
 
 export function AdminPanel() {
@@ -35,9 +37,9 @@ export function AdminPanel() {
   const [copiedParent, setCopiedParent] = useState(false);
   const [copiedMemberId, setCopiedMemberId] = useState<string | null>(null);
   const [isCreateChildOpen, setIsCreateChildOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'members' | 'approvals' | 'rewards' | 'objects'>(
-    'members'
-  );
+  const [activeTab, setActiveTab] = useState<
+    'members' | 'approvals' | 'rewards' | 'objects' | 'disputes'
+  >('members');
   const [editingMember, setEditingMember] = useState<FamilyMember | null>(null);
   const [deletingMember, setDeletingMember] = useState<FamilyMember | null>(null);
   const [togglingAdminMember, setTogglingAdminMember] = useState<FamilyMember | null>(null);
@@ -138,6 +140,17 @@ export function AdminPanel() {
           >
             <Package className="w-4 h-4" />
             {t('admin:panel.tabs.objects')}
+          </button>
+          <button
+            onClick={() => setActiveTab('disputes')}
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px ${
+              activeTab === 'disputes'
+                ? 'border-purple-600 text-purple-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <MessageSquare className="w-4 h-4" />
+            {t('admin:panel.tabs.disputes', 'Disputes')}
           </button>
         </div>
       </div>
@@ -377,6 +390,8 @@ export function AdminPanel() {
         )}
 
         {activeTab === 'objects' && <ObjectsManager />}
+
+        {activeTab === 'disputes' && <DisputeReviewManager />}
       </div>
 
       <CreateChildModal isOpen={isCreateChildOpen} onClose={() => setIsCreateChildOpen(false)} />

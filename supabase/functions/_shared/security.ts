@@ -46,11 +46,10 @@ export function getCorsHeaders(req: Request): Record<string, string> {
 
   // In development, allow all localhost origins
   const isDevelopment = Deno.env.get('ENVIRONMENT') === 'development';
-  const isLocalhost = origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:');
+  const isLocalhost =
+    origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:');
 
-  const allowedOrigin = isAllowed || (isDevelopment && isLocalhost)
-    ? origin
-    : ALLOWED_ORIGINS[0]; // Default to first allowed origin
+  const allowedOrigin = isAllowed || (isDevelopment && isLocalhost) ? origin : ALLOWED_ORIGINS[0]; // Default to first allowed origin
 
   return {
     'Access-Control-Allow-Origin': allowedOrigin,
@@ -90,25 +89,29 @@ const rateLimits = new Map<string, RateLimitRecord>();
  * Rate limit configuration per function
  */
 export interface RateLimitConfig {
-  maxRequests: number;  // Maximum requests allowed
-  windowMs: number;     // Time window in milliseconds
+  maxRequests: number; // Maximum requests allowed
+  windowMs: number; // Time window in milliseconds
 }
 
 /**
  * Default rate limits by function type
  */
 export const RATE_LIMITS: Record<string, RateLimitConfig> = {
-  'pin-login': { maxRequests: 5, windowMs: 60_000 },          // 5 per minute (brute force protection)
-  'create-child': { maxRequests: 10, windowMs: 3_600_000 },   // 10 per hour
-  'join-family': { maxRequests: 5, windowMs: 60_000 },        // 5 per minute (code enumeration protection)
+  'pin-login': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute (brute force protection)
+  'create-child': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour
+  'join-family': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute (code enumeration protection)
   'join-family-as-parent': { maxRequests: 5, windowMs: 60_000 },
-  'toggle-admin': { maxRequests: 5, windowMs: 60_000 },       // 5 per minute
-  'deduct-points': { maxRequests: 20, windowMs: 3_600_000 },  // 20 per hour
-  'reset-child-pin': { maxRequests: 5, windowMs: 60_000 },    // 5 per minute
+  'toggle-admin': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute
+  'deduct-points': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour
+  'deduct-points-with-evidence': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour
+  'reset-child-pin': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute
   'regenerate-invite-code': { maxRequests: 5, windowMs: 60_000 },
   'award-birthday-points': { maxRequests: 10, windowMs: 3_600_000 },
   'disable-member': { maxRequests: 10, windowMs: 60_000 },
   'export-family-data': { maxRequests: 3, windowMs: 3_600_000 }, // 3 per hour (expensive operation)
+  'create-dispute': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour (prevent spam)
+  'resolve-dispute': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour (admin action)
+  'purchase-streak-freeze': { maxRequests: 5, windowMs: 3_600_000 }, // 5 per hour (prevent accidental purchases)
 };
 
 /**
@@ -229,13 +232,13 @@ export function rateLimitedResponse(
  */
 export const MAX_INPUT_LENGTHS = {
   name: 255,
-  email: 320,       // RFC 5321 max
+  email: 320, // RFC 5321 max
   pin: 6,
   invite_code: 32,
   reason: 1000,
   description: 5000,
   uuid: 36,
-  general: 10000,   // General text fields
+  general: 10000, // General text fields
 };
 
 /**
@@ -403,13 +406,10 @@ export function errorResponse(
   status: number,
   corsHeaders: Record<string, string>
 ): Response {
-  return new Response(
-    JSON.stringify({ error: message }),
-    {
-      status,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    }
-  );
+  return new Response(JSON.stringify({ error: message }), {
+    status,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
 }
 
 /**
@@ -419,17 +419,11 @@ export function errorResponse(
  * @param corsHeaders - CORS headers to include
  * @returns Response object
  */
-export function successResponse(
-  data: unknown,
-  corsHeaders: Record<string, string>
-): Response {
-  return new Response(
-    JSON.stringify(data),
-    {
-      status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    }
-  );
+export function successResponse(data: unknown, corsHeaders: Record<string, string>): Response {
+  return new Response(JSON.stringify(data), {
+    status: 200,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
 }
 
 // ============================================================================
@@ -440,6 +434,6 @@ export function successResponse(
  * JWT expiry times in seconds
  */
 export const JWT_EXPIRY = {
-  PIN_USER: 24 * 60 * 60,        // 24 hours for PIN users (reduced from 7 days)
+  PIN_USER: 24 * 60 * 60, // 24 hours for PIN users (reduced from 7 days)
   REGULAR_USER: 7 * 24 * 60 * 60, // 7 days for regular users
 };

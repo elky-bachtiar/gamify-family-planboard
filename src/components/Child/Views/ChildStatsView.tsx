@@ -6,7 +6,8 @@ import { useFamily } from '../../../contexts/FamilyContext';
 import { useAuth } from '../../../contexts/AuthContext';
 import { LevelProgress } from '../Gamification/LevelProgress';
 import { StreakDisplay } from '../Gamification/StreakDisplay';
-import type { PointsHistory } from '../../../types';
+import { StreakFreezeShop } from '../StreakFreezeShop';
+import type { PointsHistory, FamilyMember } from '../../../types';
 
 interface WeekStats {
   tasksCompleted: number;
@@ -132,9 +133,18 @@ export function ChildStatsView() {
             streakDays={currentMember.current_streak ?? 0}
             size="md"
             showLabel={true}
+            member={currentMember as FamilyMember}
+            showGracePeriod={true}
           />
         </div>
       </div>
+
+      {/* Streak Freeze Shop */}
+      <StreakFreezeShop
+        onPurchase={() => {
+          // Refresh could be handled here if needed
+        }}
+      />
 
       {/* This Week Section */}
       <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
