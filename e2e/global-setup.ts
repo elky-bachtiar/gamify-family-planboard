@@ -24,7 +24,7 @@ async function waitForSupabase(maxAttempts = 30): Promise<boolean> {
         return true;
       }
       console.log(`Waiting for Supabase... attempt ${i + 1}/${maxAttempts}`);
-    } catch (e) {
+    } catch {
       console.log(`Supabase not ready yet... attempt ${i + 1}/${maxAttempts}`);
     }
     await new Promise(resolve => setTimeout(resolve, 2000));

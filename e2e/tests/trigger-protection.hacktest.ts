@@ -28,14 +28,12 @@ import {
 test.describe('protect_family_member_fields_trigger', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let child: TestMember;
 
   test.beforeAll(async () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Trigger Test Family');
     family = familyData.family;
-    adminMember = familyData.member;
     child = await createTestChild(adminUser, family.id, 'Trigger Test Child', '1234');
   });
 
@@ -344,14 +342,12 @@ test.describe('protect_family_member_fields_trigger', () => {
 test.describe('protect_task_fields_trigger', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let child: TestMember;
 
   test.beforeAll(async () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Task Trigger Test');
     family = familyData.family;
-    adminMember = familyData.member;
     child = await createTestChild(adminUser, family.id, 'Task Child', '1234');
   });
 
@@ -868,7 +864,7 @@ test.describe('Trigger bypass attempts', () => {
 
     // Try to upsert with higher point value
     // Note: This depends on upsert permissions - may need to be insert + select
-    const { data: upserted } = await childClient
+    await childClient
       .from('tasks')
       .upsert({
         id: task?.id,

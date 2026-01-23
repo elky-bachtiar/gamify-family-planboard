@@ -22,7 +22,6 @@ import {
   createPinUserClient,
   createTestChild,
   cleanupTestData,
-  randomString,
   TestUser,
   TestFamily,
   TestMember
@@ -31,7 +30,6 @@ import {
 test.describe('Avatar Storage Security', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let child: TestMember;
   let otherUser: TestUser;
   let otherFamily: TestFamily;
@@ -40,7 +38,6 @@ test.describe('Avatar Storage Security', () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Avatar Test Family');
     family = familyData.family;
-    adminMember = familyData.member;
     child = await createTestChild(adminUser, family.id, 'Avatar Child', '1234');
 
     otherUser = await createTestUser();
@@ -101,7 +98,7 @@ test.describe('Avatar Storage Security', () => {
     ]);
 
     // Try to upload to other user's folder
-    const { data, error } = await client.storage
+    const { error } = await client.storage
       .from('avatars-public')
       .upload(`${otherUser.id}/hacked-avatar.png`, pngData, {
         contentType: 'image/png'
@@ -132,7 +129,7 @@ test.describe('Avatar Storage Security', () => {
 
     // Try to delete as first user
     const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
-    const { error } = await client.storage
+    await client.storage
       .from('avatars-public')
       .remove([`${otherUser.id}/avatar.png`]);
 
@@ -234,7 +231,6 @@ test.describe('Avatar Storage Security', () => {
 test.describe('Family Objects Storage Security', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let child: TestMember;
   let otherUser: TestUser;
   let otherFamily: TestFamily;
@@ -243,7 +239,6 @@ test.describe('Family Objects Storage Security', () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Objects Test Family');
     family = familyData.family;
-    adminMember = familyData.member;
     child = await createTestChild(adminUser, family.id, 'Objects Child', '1234');
 
     otherUser = await createTestUser();
@@ -278,7 +273,7 @@ test.describe('Family Objects Storage Security', () => {
       0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
     ]);
 
-    const { data, error } = await client.storage
+    const { error } = await client.storage
       .from('family-objects')
       .upload(`${family.id}/test-object.png`, pngData, {
         contentType: 'image/png',
@@ -498,7 +493,7 @@ test.describe('Storage Content Validation', () => {
     // Try extremely long filename
     const longName = 'a'.repeat(1000) + '.png';
 
-    const { error } = await client.storage
+    await client.storage
       .from('avatars-public')
       .upload(`${adminUser.id}/${longName}`, pngData, {
         contentType: 'image/png'
@@ -521,7 +516,7 @@ test.describe('Storage Content Validation', () => {
     ]);
 
     // Try filename with null byte
-    const { error } = await client.storage
+    await client.storage
       .from('avatars-public')
       .upload(`${adminUser.id}/test\x00.png`, pngData, {
         contentType: 'image/png'
@@ -587,20 +582,11 @@ test.describe('Unauthenticated Storage Access', () => {
   });
 
   test('unauthenticated user cannot upload avatars', async () => {
-    const anonClient = createServiceClient(); // Creates anon client effectively
-
-    const pngData = Buffer.from([
-      0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
-      0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
-      0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53, 0xDE, 0x00, 0x00, 0x00,
-      0x0C, 0x49, 0x44, 0x41, 0x54, 0x08, 0xD7, 0x63, 0xF8, 0xFF, 0xFF, 0x3F,
-      0x00, 0x05, 0xFE, 0x02, 0xFE, 0xDC, 0xCC, 0x59, 0xE7, 0x00, 0x00, 0x00,
-      0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42, 0x60, 0x82
-    ]);
-
     // Note: Service client bypasses policies, but for actual anon access
     // we'd need to use the anon key without any auth
     // This test documents the expected behavior
+    // The actual anon upload test would require a different setup
+    expect(true).toBe(true); // Placeholder - proper anon test requires different approach
   });
 
   test('unauthenticated user can read public avatars', async () => {

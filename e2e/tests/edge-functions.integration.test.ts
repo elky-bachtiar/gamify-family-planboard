@@ -28,7 +28,6 @@ import {
   createTestChild,
   cleanupTestData,
   hashPin,
-  randomString,
   TestUser,
   TestFamily,
   TestMember
@@ -79,7 +78,7 @@ test.describe('Edge Function Tests', () => {
   });
 
   // Skip all tests in this file if edge functions are not available
-  test.beforeEach(async ({}, testInfo) => {
+  test.beforeEach(async (_context, testInfo) => {
     if (!edgeFunctionsAvailable) {
       testInfo.skip(true, 'Edge functions not available - run "supabase functions serve"');
     }
@@ -146,13 +145,11 @@ test.describe('Edge Function Tests', () => {
 test.describe('Edge Function: create-child', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
 
   test.beforeAll(async () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
-    adminMember = familyData.member;
   });
 
   test.afterAll(async () => {

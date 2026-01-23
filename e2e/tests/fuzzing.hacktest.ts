@@ -9,10 +9,8 @@ import { test, expect } from '@playwright/test';
 import {
   createTestUser,
   createTestFamily,
-  createTestChild,
   createAuthenticatedClient,
   cleanupTestData,
-  SUPABASE_URL,
   SUPABASE_ANON_KEY,
   randomString,
   TestUser,

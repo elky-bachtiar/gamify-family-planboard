@@ -249,7 +249,7 @@ test.describe('Authentication Flows', () => {
       const childClient = createPinUserClient(childMember.id);
 
       // Try to update family (admin-only operation)
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('families')
         .update({ name: 'Hacked Name' })
         .eq('id', family.id)
@@ -263,7 +263,7 @@ test.describe('Authentication Flows', () => {
     test('invalid PIN user ID cannot access data', async () => {
       const fakeClient = createPinUserClient('00000000-0000-0000-0000-000000000000');
 
-      const { data, error } = await fakeClient
+      const { data } = await fakeClient
         .from('families')
         .select('*');
 

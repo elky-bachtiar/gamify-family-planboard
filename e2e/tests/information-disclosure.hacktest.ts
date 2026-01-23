@@ -11,7 +11,6 @@ import {
   createTestFamily,
   createTestChild,
   cleanupTestData,
-  SUPABASE_URL,
   SUPABASE_ANON_KEY,
   randomString,
   TestUser,

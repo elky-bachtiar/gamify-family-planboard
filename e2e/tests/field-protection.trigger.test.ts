@@ -26,7 +26,6 @@ import {
 test.describe('protect_family_member_fields trigger', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let childMember: TestMember;
   let nonAdminParent: { user: TestUser; member: TestMember };
 
@@ -34,7 +33,6 @@ test.describe('protect_family_member_fields trigger', () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Trigger Test Family');
     family = familyData.family;
-    adminMember = familyData.member;
     childMember = await createTestChild(adminUser, family.id, 'Trigger Test Child', '1234');
     nonAdminParent = await createTestNonAdminParent(family.id, 'Non-Admin Parent');
   });

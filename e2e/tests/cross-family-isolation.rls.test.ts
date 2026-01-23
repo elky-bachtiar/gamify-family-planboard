@@ -16,7 +16,6 @@ import {
   createServiceClient,
   createPinUserClient,
   createTestChild,
-  createTestTask,
   cleanupTestData,
   TestUser,
   TestFamily,
@@ -169,7 +168,7 @@ test.describe('Cross-Family Data Isolation', () => {
     test('Family A admin cannot update Family B settings', async () => {
       const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('families')
         .update({ name: 'Hacked by Family A' })
         .eq('id', familyB.id)
@@ -183,7 +182,7 @@ test.describe('Cross-Family Data Isolation', () => {
     test('Family A admin cannot update Family B members', async () => {
       const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('family_members')
         .update({ name: 'Hacked Member' })
         .eq('id', familyBMember.id)
@@ -197,7 +196,7 @@ test.describe('Cross-Family Data Isolation', () => {
     test('Family A admin cannot create tasks in Family B', async () => {
       const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('tasks')
         .insert({
           title: 'Unauthorized Task in Family B',
@@ -400,7 +399,7 @@ test.describe('Cross-Family Data Isolation', () => {
       if (globalAchievement) {
         const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-        const { data, error } = await clientA
+        const { data } = await clientA
           .from('user_achievements')
           .insert({
             member_id: familyBChild.id, // Family B member
@@ -419,7 +418,7 @@ test.describe('Cross-Family Data Isolation', () => {
     test('Family A admin cannot award points to Family B members', async () => {
       const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('manual_points_awards')
         .insert({
           family_id: familyB.id,

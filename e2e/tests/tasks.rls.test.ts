@@ -21,9 +21,7 @@ import {
   createServiceClient,
   createPinUserClient,
   createTestChild,
-  createTestTask,
   cleanupTestData,
-  randomString,
   expectTriggerException,
   TestUser,
   TestFamily,
@@ -199,7 +197,7 @@ test.describe('tasks table RLS policies', () => {
     test('child CANNOT see tasks assigned to other children', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('tasks')
         .select('*')
         .eq('id', child2Task.id);
@@ -211,7 +209,7 @@ test.describe('tasks table RLS policies', () => {
     test('child CANNOT see tasks assigned to admin', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('tasks')
         .select('*')
         .eq('id', adminTask.id);
@@ -305,7 +303,7 @@ test.describe('tasks table RLS policies', () => {
     test('user cannot create tasks in other families', async () => {
       const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('tasks')
         .insert({
           title: 'Unauthorized Task',
@@ -463,7 +461,7 @@ test.describe('tasks table RLS policies', () => {
     test('child CANNOT claim task for someone else', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { error } = await childClient
         .from('tasks')
         .update({
           assigned_to: child2.id // Trying to assign to sibling
@@ -479,7 +477,7 @@ test.describe('tasks table RLS policies', () => {
     test('child CANNOT update tasks assigned to others', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('tasks')
         .update({
           status: 'in_progress'
@@ -497,7 +495,7 @@ test.describe('tasks table RLS policies', () => {
     test('child cannot change point_value', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { error } = await childClient
         .from('tasks')
         .update({ point_value: 999 })
         .eq('id', child1Task.id)
@@ -510,7 +508,7 @@ test.describe('tasks table RLS policies', () => {
     test('child cannot change priority', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { error } = await childClient
         .from('tasks')
         .update({ priority: 'high' })
         .eq('id', child1Task.id)
@@ -523,7 +521,7 @@ test.describe('tasks table RLS policies', () => {
     test('child cannot approve their own task completion', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { data, error } = await childClient
+      const { error } = await childClient
         .from('tasks')
         .update({
           approved_by: child1.id,
@@ -554,7 +552,7 @@ test.describe('tasks table RLS policies', () => {
 
       if (newTask) {
         // Try to approve it as child
-        const { data, error } = await childClient
+        const { error } = await childClient
           .from('tasks')
           .update({ creation_approved: true })
           .eq('id', newTask.id)
@@ -574,7 +572,7 @@ test.describe('tasks table RLS policies', () => {
 
       // Try to reassign child1Task (assigned to child1) to child2
       // This should be blocked because it's a reassignment
-      const { data, error } = await childClient
+      const { error } = await childClient
         .from('tasks')
         .update({ assigned_to: child2.id })
         .eq('id', child1Task.id)
@@ -625,7 +623,7 @@ test.describe('tasks table RLS policies', () => {
     test('child cannot delete tasks', async () => {
       const childClient = createPinUserClient(child1.id);
 
-      const { error } = await childClient
+      await childClient
         .from('tasks')
         .delete()
         .eq('id', child1Task.id);
@@ -666,7 +664,7 @@ test.describe('tasks table RLS policies', () => {
         if (otherTask) {
           const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-          const { error } = await client
+          await client
             .from('tasks')
             .delete()
             .eq('id', otherTask.id);

@@ -20,14 +20,12 @@ import {
   cleanupTestData,
   randomString,
   TestUser,
-  TestFamily,
-  TestMember
+  TestFamily
 } from './utils/test-helpers';
 
 test.describe('families table RLS policies', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let otherUser: TestUser;
   let otherFamily: TestFamily;
 
@@ -36,7 +34,6 @@ test.describe('families table RLS policies', () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Test Family A');
     family = familyData.family;
-    adminMember = familyData.member;
 
     otherUser = await createTestUser();
     const otherFamilyData = await createTestFamily(otherUser, 'Test Family B');
@@ -68,7 +65,7 @@ test.describe('families table RLS policies', () => {
     test('admin cannot view other families', async () => {
       const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('families')
         .select('*')
         .eq('id', otherFamily.id)
@@ -97,7 +94,7 @@ test.describe('families table RLS policies', () => {
     test('unauthenticated user cannot view any families', async () => {
       const client = createAnonClient();
 
-      const { data, error } = await client
+      const { data } = await client
         .from('families')
         .select('*');
 
@@ -181,7 +178,7 @@ test.describe('families table RLS policies', () => {
 
       const client = await createAuthenticatedClient(nonAdminUser.email, nonAdminUser.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('families')
         .update({ name: 'Hacked Family Name' })
         .eq('id', family.id)
@@ -198,7 +195,7 @@ test.describe('families table RLS policies', () => {
     test('admin cannot update other families', async () => {
       const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('families')
         .update({ name: 'Hacked Other Family' })
         .eq('id', otherFamily.id)
@@ -213,7 +210,7 @@ test.describe('families table RLS policies', () => {
       const child = await createTestChild(adminUser, family.id);
       const childClient = createPinUserClient(child.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('families')
         .update({ name: 'Child Hacked Name' })
         .eq('id', family.id)

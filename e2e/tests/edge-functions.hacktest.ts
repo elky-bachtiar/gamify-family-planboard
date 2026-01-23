@@ -20,7 +20,6 @@ import {
   createTestChild,
   createTestNonAdminParent,
   cleanupTestData,
-  hashPin,
   TestUser,
   TestFamily,
   TestMember
@@ -141,13 +140,11 @@ test.describe('PIN Login Security', () => {
 test.describe('Create Child Security', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
 
   test.beforeAll(async () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Create Child Test');
     family = familyData.family;
-    adminMember = familyData.member;
   });
 
   test.afterAll(async () => {
@@ -415,7 +412,7 @@ test.describe('Toggle Admin Security', () => {
   });
 
   test('non-admin cannot toggle admin status', async () => {
-    const { user: nonAdmin1, member: nonAdminMember1 } = await createTestNonAdminParent(family.id);
+    const { user: nonAdmin1 } = await createTestNonAdminParent(family.id);
     const { user: nonAdmin2, member: nonAdminMember2 } = await createTestNonAdminParent(family.id);
 
     const client = await createAuthenticatedClient(nonAdmin1.email, nonAdmin1.password);
@@ -555,7 +552,7 @@ test.describe('Deduct Points Security', () => {
 
     // Get current points
     const serviceClient = createServiceClient();
-    const { data: before } = await serviceClient
+    await serviceClient
       .from('family_members')
       .select('total_points')
       .eq('id', child.id)

@@ -18,7 +18,6 @@ import {
   createTestChild,
   createTestNonAdminParent,
   cleanupTestData,
-  randomString,
   TestUser,
   TestFamily,
   TestMember
@@ -180,7 +179,7 @@ test.describe('Message Security', () => {
     test('cannot send message to member of another family', async () => {
       const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('messages')
         .insert({
           family_id: familyA.id, // Own family
@@ -198,7 +197,7 @@ test.describe('Message Security', () => {
     test('cannot send message with different family_id', async () => {
       const clientA = await createAuthenticatedClient(familyAAdmin.email, familyAAdmin.password);
 
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('messages')
         .insert({
           family_id: familyB.id, // Wrong family
@@ -216,7 +215,7 @@ test.describe('Message Security', () => {
     test('cannot impersonate another sender', async () => {
       const childClient = createPinUserClient(familyAChild.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('messages')
         .insert({
           family_id: familyA.id,
@@ -306,7 +305,6 @@ test.describe('Message Security', () => {
 test.describe('Data Export Security', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let child: TestMember;
   let otherUser: TestUser;
   let otherFamily: TestFamily;
@@ -315,7 +313,6 @@ test.describe('Data Export Security', () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Export Test Family');
     family = familyData.family;
-    adminMember = familyData.member;
     child = await createTestChild(adminUser, family.id, 'Export Child', '1234');
 
     otherUser = await createTestUser();
@@ -368,7 +365,8 @@ test.describe('Data Export Security', () => {
   });
 
   test('child cannot export family data', async () => {
-    const childClient = createPinUserClient(child.id);
+    // childClient not used - PIN users can't call edge functions with auth
+    createPinUserClient(child.id);
 
     // Get a token for edge function call
     // Note: PIN users may not be able to call edge functions directly
@@ -392,7 +390,7 @@ test.describe('Audit Log Security', () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Audit Log Family');
     family = familyData.family;
-    adminMember = familyData.member;
+    adminMember = familyData.member;  // Used in audit log entries
 
     otherUser = await createTestUser();
     const otherFamilyData = await createTestFamily(otherUser, 'Other Audit Family');
@@ -450,7 +448,7 @@ test.describe('Audit Log Security', () => {
     const clientA = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
     try {
-      const { data, error } = await clientA
+      const { data } = await clientA
         .from('audit_logs')
         .insert({
           family_id: otherFamily.id, // Wrong family
@@ -531,7 +529,7 @@ test.describe('Reward Redemption Security', () => {
   test('cannot create redemption for another family member', async () => {
     const childClient = createPinUserClient(child.id);
 
-    const { data, error } = await childClient
+    const { data } = await childClient
       .from('reward_redemptions')
       .insert({
         family_id: family.id,
@@ -550,7 +548,7 @@ test.describe('Reward Redemption Security', () => {
   test('cannot create redemption in another family', async () => {
     const childClient = createPinUserClient(child.id);
 
-    const { data, error } = await childClient
+    const { data } = await childClient
       .from('reward_redemptions')
       .insert({
         family_id: otherFamily.id, // Wrong family
@@ -761,7 +759,7 @@ test.describe('Task History Security', () => {
     const { user: nonAdmin } = await createTestNonAdminParent(family.id);
     const client = await createAuthenticatedClient(nonAdmin.email, nonAdmin.password);
 
-    const { data, error } = await client
+    const { data } = await client
       .from('task_history')
       .insert({
         family_id: family.id,

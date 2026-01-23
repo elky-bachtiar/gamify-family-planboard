@@ -16,13 +16,11 @@ import {
   createTestUser,
   createTestFamily,
   createAuthenticatedClient,
-  createAnonClient,
   createServiceClient,
   createPinUserClient,
   createTestChild,
   createTestNonAdminParent,
   cleanupTestData,
-  randomString,
   expectTriggerException,
   TestUser,
   TestFamily,
@@ -110,7 +108,7 @@ test.describe('family_members table RLS policies', () => {
     test('user cannot view members of other families', async () => {
       const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('family_members')
         .select('*')
         .eq('family_id', otherFamily.id);
@@ -149,7 +147,7 @@ test.describe('family_members table RLS policies', () => {
     test('user cannot add members to other families', async () => {
       const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('family_members')
         .insert({
           name: 'Unauthorized Member',
@@ -270,7 +268,7 @@ test.describe('family_members table RLS policies', () => {
         nonAdminParent.user.password
       );
 
-      const { data, error } = await client
+      const { data } = await client
         .from('family_members')
         .update({ name: 'Hacked Name' })
         .eq('id', adminMember.id)
@@ -289,7 +287,7 @@ test.describe('family_members table RLS policies', () => {
         nonAdminParent.user.password
       );
 
-      const { data, error } = await client
+      const { error } = await client
         .from('family_members')
         .update({ is_admin: true })
         .eq('id', nonAdminParent.member.id)
@@ -306,7 +304,7 @@ test.describe('family_members table RLS policies', () => {
         nonAdminParent.user.password
       );
 
-      const { data, error } = await client
+      const { error } = await client
         .from('family_members')
         .update({ role: 'parent' })
         .eq('id', nonAdminParent.member.id)
@@ -325,7 +323,7 @@ test.describe('family_members table RLS policies', () => {
         nonAdminParent.user.password
       );
 
-      const { data, error } = await client
+      const { error } = await client
         .from('family_members')
         .update({ total_points: 9999 })
         .eq('id', nonAdminParent.member.id)
@@ -342,7 +340,7 @@ test.describe('family_members table RLS policies', () => {
         nonAdminParent.user.password
       );
 
-      const { data, error } = await client
+      const { error } = await client
         .from('family_members')
         .update({ current_level: 50 })
         .eq('id', nonAdminParent.member.id)
@@ -359,7 +357,7 @@ test.describe('family_members table RLS policies', () => {
         nonAdminParent.user.password
       );
 
-      const { data, error } = await client
+      const { error } = await client
         .from('family_members')
         .update({ family_id: otherFamily.id })
         .eq('id', nonAdminParent.member.id)
@@ -373,7 +371,7 @@ test.describe('family_members table RLS policies', () => {
     test('PIN user (child) cannot modify sensitive fields', async () => {
       const childClient = createPinUserClient(childMember.id);
 
-      const { data, error } = await childClient
+      const { error } = await childClient
         .from('family_members')
         .update({ is_admin: true })
         .eq('id', childMember.id)
@@ -441,7 +439,7 @@ test.describe('family_members table RLS policies', () => {
           nonAdminParent.user.password
         );
 
-        const { error } = await client
+        await client
           .from('family_members')
           .delete()
           .eq('id', target.id);
@@ -475,7 +473,7 @@ test.describe('family_members table RLS policies', () => {
       if (otherMember) {
         const client = await createAuthenticatedClient(adminUser.email, adminUser.password);
 
-        const { error } = await client
+        await client
           .from('family_members')
           .delete()
           .eq('id', otherMember.id);

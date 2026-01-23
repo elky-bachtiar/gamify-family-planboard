@@ -28,14 +28,12 @@ import {
 test.describe('Privilege Escalation Prevention', () => {
   let adminUser: TestUser;
   let family: TestFamily;
-  let adminMember: TestMember;
   let child: TestMember;
 
   test.beforeAll(async () => {
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser, 'Hacktest Family');
     family = familyData.family;
-    adminMember = familyData.member;
     child = await createTestChild(adminUser, family.id, 'Hacktest Child', '1234');
   });
 
@@ -52,7 +50,7 @@ test.describe('Privilege Escalation Prevention', () => {
       const client = await createAuthenticatedClient(nonAdmin.email, nonAdmin.password);
 
       // Attempt to set is_admin = true on own record
-      const { data, error } = await client
+      const { data } = await client
         .from('family_members')
         .update({ is_admin: true })
         .eq('id', nonAdminMember.id)
@@ -81,7 +79,7 @@ test.describe('Privilege Escalation Prevention', () => {
     test('child (PIN user) cannot promote themselves to admin', async () => {
       const childClient = createPinUserClient(child.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('family_members')
         .update({ is_admin: true })
         .eq('id', child.id)
@@ -107,7 +105,7 @@ test.describe('Privilege Escalation Prevention', () => {
     test('non-admin cannot change their role from child to parent', async () => {
       const childClient = createPinUserClient(child.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('family_members')
         .update({ role: 'parent' })
         .eq('id', child.id)
@@ -190,7 +188,7 @@ test.describe('Privilege Escalation Prevention', () => {
     test('non-admin cannot create points_history entries with fake points', async () => {
       const childClient = createPinUserClient(child.id);
 
-      const { data, error } = await childClient
+      await childClient
         .from('points_history')
         .insert({
           member_id: child.id,
@@ -237,7 +235,7 @@ test.describe('Privilege Escalation Prevention', () => {
     test('user cannot change their family_id to join another family', async () => {
       const childClient = createPinUserClient(child.id);
 
-      const { data, error } = await childClient
+      const { data } = await childClient
         .from('family_members')
         .update({ family_id: otherFamily.id })
         .eq('id', child.id)
@@ -312,7 +310,7 @@ test.describe('Privilege Escalation Prevention', () => {
     });
 
     test('non-admin parent cannot change another member\'s PIN', async () => {
-      const { user: nonAdmin, member: nonAdminMember } = await createTestNonAdminParent(family.id);
+      const { user: nonAdmin } = await createTestNonAdminParent(family.id);
       const client = await createAuthenticatedClient(nonAdmin.email, nonAdmin.password);
 
       const serviceClient = createServiceClient();
@@ -373,7 +371,7 @@ test.describe('Privilege Escalation Prevention', () => {
       const { user: nonAdmin } = await createTestNonAdminParent(family.id);
       const client = await createAuthenticatedClient(nonAdmin.email, nonAdmin.password);
 
-      const { data, error } = await client
+      const { data } = await client
         .from('families')
         .update({
           name: 'Hacked Family Name',
@@ -487,7 +485,7 @@ test.describe('Privilege Escalation Prevention', () => {
       const childClient = createPinUserClient(child.id);
 
       // Child tries to create a high-value, high-priority, pre-approved task
-      const { data: task, error } = await childClient
+      const { data: task } = await childClient
         .from('tasks')
         .insert({
           title: 'Child Created Task',
@@ -617,7 +615,7 @@ test.describe('SQL Injection Prevention', () => {
 
     const maliciousTitle = "'; DROP TABLE tasks; --";
 
-    const { data, error } = await client
+    const { data } = await client
       .from('tasks')
       .insert({
         title: maliciousTitle,
@@ -631,7 +629,7 @@ test.describe('SQL Injection Prevention', () => {
     expect(data?.title).toBe(maliciousTitle);
 
     // Verify tasks table still exists
-    const { data: tasks, error: selectError } = await client
+    const { error: selectError } = await client
       .from('tasks')
       .select('id')
       .limit(1);
