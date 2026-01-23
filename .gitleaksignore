@@ -1,0 +1,9 @@
+# Supabase CLI local development keys (supabase-demo issuer, localhost only)
+b80bb28203c30bb505133e34a42a48998051d4b3:e2e/global-setup.ts:jwt:10
+b80bb28203c30bb505133e34a42a48998051d4b3:e2e/tests/utils/edge-function-helpers.ts:jwt:14
+b80bb28203c30bb505133e34a42a48998051d4b3:e2e/tests/utils/edge-function-helpers.ts:jwt:15
+b80bb28203c30bb505133e34a42a48998051d4b3:e2e/tests/utils/test-helpers.ts:jwt:7
+b80bb28203c30bb505133e34a42a48998051d4b3:e2e/tests/utils/test-helpers.ts:jwt:8
+
+# Fake test JWT for security testing
+b80bb28203c30bb505133e34a42a48998051d4b3:e2e/tests/edge-functions.hacktest.ts:jwt:859
