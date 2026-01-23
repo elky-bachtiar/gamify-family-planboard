@@ -15,7 +15,13 @@ interface TaskCompletionModalProps {
   onClaimSuccess?: (task: TaskWithMember) => void;
 }
 
-export function TaskCompletionModal({ task, isOpen, onClose, onComplete, onClaimSuccess }: TaskCompletionModalProps) {
+export function TaskCompletionModal({
+  task,
+  isOpen,
+  onClose,
+  onComplete,
+  onClaimSuccess,
+}: TaskCompletionModalProps) {
   const { t } = useTranslation('gamification');
   const { currentMember } = useFamily();
   const { isAdmin } = useAuth();
@@ -51,7 +57,7 @@ export function TaskCompletionModal({ task, isOpen, onClose, onComplete, onClaim
       if (!result.success) throw result.error;
 
       // Trigger completion celebration
-      onComplete(task, task.point_value);
+      onComplete(task, task.point_value ?? 0);
     } catch (error) {
       console.error('Error completing task:', error);
       alert('Failed to complete task. Please try again.');
@@ -70,9 +76,13 @@ export function TaskCompletionModal({ task, isOpen, onClose, onComplete, onClaim
 
       // Claim the task by assigning it to the current member
       // Type assertion needed due to Supabase client type inference issues
-      const { error } = await (supabase.from('tasks') as unknown as {
-        update: (values: Record<string, unknown>) => { eq: (column: string, value: string) => Promise<{ error: Error | null }> };
-      })
+      const { error } = await (
+        supabase.from('tasks') as unknown as {
+          update: (values: Record<string, unknown>) => {
+            eq: (column: string, value: string) => Promise<{ error: Error | null }>;
+          };
+        }
+      )
         .update({ assigned_to: currentMember.id })
         .eq('id', task.id);
 
@@ -99,7 +109,7 @@ export function TaskCompletionModal({ task, isOpen, onClose, onComplete, onClaim
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center">
       <div
         className="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl max-h-[90vh] overflow-y-auto animate-slide-up"
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <div className="flex justify-end p-4">
@@ -121,9 +131,7 @@ export function TaskCompletionModal({ task, isOpen, onClose, onComplete, onClaim
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{task.title}</h2>
 
           {/* Task description */}
-          {task.description && (
-            <p className="text-gray-600 mb-6">{task.description}</p>
-          )}
+          {task.description && <p className="text-gray-600 mb-6">{task.description}</p>}
 
           {/* Task info */}
           <div className="flex items-center justify-center gap-6 mb-8">
@@ -135,7 +143,9 @@ export function TaskCompletionModal({ task, isOpen, onClose, onComplete, onClaim
             )}
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-amber-400" fill="currentColor" />
-              <span className="font-bold text-amber-600">{t('points.value', { count: task.point_value })}</span>
+              <span className="font-bold text-amber-600">
+                {t('points.value', { count: task.point_value ?? 0 })}
+              </span>
             </div>
           </div>
         </div>

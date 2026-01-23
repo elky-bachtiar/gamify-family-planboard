@@ -15,7 +15,7 @@ export function ChildHeader({ onAvatarClick }: ChildHeaderProps) {
 
   if (!currentMember) return null;
 
-  const levelProgress = getPointsForNextLevel(currentMember.total_points);
+  const levelProgress = getPointsForNextLevel(currentMember.total_points ?? 0);
 
   // Get time-based greeting
   const getGreeting = () => {
@@ -46,7 +46,7 @@ export function ChildHeader({ onAvatarClick }: ChildHeaderProps) {
               ) : (
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md group-hover:ring-2 group-hover:ring-blue-400 transition-all"
-                  style={{ backgroundColor: currentMember.color }}
+                  style={{ backgroundColor: currentMember.color ?? '#3b82f6' }}
                 >
                   {currentMember.name.charAt(0).toUpperCase()}
                 </div>
@@ -67,17 +67,21 @@ export function ChildHeader({ onAvatarClick }: ChildHeaderProps) {
           {/* Quick stats */}
           <div className="flex items-center gap-2">
             {/* Streak */}
-            {currentMember.current_streak > 0 && (
+            {(currentMember.current_streak ?? 0) > 0 && (
               <div className="flex items-center gap-1 bg-orange-100 px-2 py-1 rounded-full">
                 <Flame className="w-4 h-4 text-orange-500" />
-                <span className="text-sm font-semibold text-orange-700">{currentMember.current_streak}</span>
+                <span className="text-sm font-semibold text-orange-700">
+                  {currentMember.current_streak}
+                </span>
               </div>
             )}
 
             {/* Points */}
             <div className="flex items-center gap-1 bg-amber-100 px-2 py-1 rounded-full">
               <Star className="w-4 h-4 text-amber-500" fill="currentColor" />
-              <span className="text-sm font-semibold text-amber-700">{currentMember.total_points.toLocaleString()}</span>
+              <span className="text-sm font-semibold text-amber-700">
+                {(currentMember.total_points ?? 0).toLocaleString()}
+              </span>
             </div>
 
             {/* Sign out */}
@@ -96,9 +100,16 @@ export function ChildHeader({ onAvatarClick }: ChildHeaderProps) {
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1">
               <Trophy className="w-4 h-4 text-purple-500" />
-              <span className="text-sm font-medium text-gray-700">{t('gamification:level.current', { level: currentMember.current_level })}</span>
+              <span className="text-sm font-medium text-gray-700">
+                {t('gamification:level.current', { level: currentMember.current_level })}
+              </span>
             </div>
-            <span className="text-xs text-gray-500">{t('gamification:child.header.percentToLevel', { percent: Math.round(levelProgress.progress), level: currentMember.current_level + 1 })}</span>
+            <span className="text-xs text-gray-500">
+              {t('gamification:child.header.percentToLevel', {
+                percent: Math.round(levelProgress.progress),
+                level: (currentMember.current_level ?? 1) + 1,
+              })}
+            </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
             <div

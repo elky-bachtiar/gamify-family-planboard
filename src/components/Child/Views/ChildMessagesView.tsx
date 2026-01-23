@@ -12,7 +12,7 @@ interface Message {
   recipient_id: string | null;
   content: string;
   read_at: string | null;
-  created_at: string;
+  created_at: string | null;
 }
 
 interface MessageWithSender extends Message {
@@ -52,8 +52,8 @@ export function ChildMessagesView() {
       return;
     }
 
-    const enrichedMessages: MessageWithSender[] = (data || []).map(msg => {
-      const sender = familyMembers.find(m => m.id === msg.sender_id);
+    const enrichedMessages: MessageWithSender[] = (data || []).map((msg) => {
+      const sender = familyMembers.find((m) => m.id === msg.sender_id);
       return {
         ...msg,
         sender_name: sender?.name || t('messages:unknownSender'),
@@ -97,8 +97,8 @@ export function ChildMessagesView() {
       .update({ read_at: new Date().toISOString() })
       .eq('id', messageId);
 
-    setMessages(prev =>
-      prev.map(m => m.id === messageId ? { ...m, read_at: new Date().toISOString() } : m)
+    setMessages((prev) =>
+      prev.map((m) => (m.id === messageId ? { ...m, read_at: new Date().toISOString() } : m))
     );
   };
 
@@ -123,14 +123,12 @@ export function ChildMessagesView() {
 
     try {
       const supabase = getSupabaseClient();
-      await supabase
-        .from('messages')
-        .insert({
-          family_id: family.id,
-          sender_id: familyMember.id,
-          recipient_id: recipientId === 'all' ? null : recipientId,
-          content: content.trim(),
-        });
+      await supabase.from('messages').insert({
+        family_id: family.id,
+        sender_id: familyMember.id,
+        recipient_id: recipientId === 'all' ? null : recipientId,
+        content: content.trim(),
+      });
 
       setContent('');
       setRecipientId('');
@@ -144,7 +142,8 @@ export function ChildMessagesView() {
     }
   };
 
-  const formatDate = (dateStr: string) => {
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return '';
     const date = new Date(dateStr);
     const now = new Date();
     const isToday = date.toDateString() === now.toDateString();
@@ -155,8 +154,8 @@ export function ChildMessagesView() {
     return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
   };
 
-  const unreadCount = messages.filter(m => !m.read_at).length;
-  const availableRecipients = familyMembers.filter(m => m.id !== familyMember?.id);
+  const unreadCount = messages.filter((m) => !m.read_at).length;
+  const availableRecipients = familyMembers.filter((m) => m.id !== familyMember?.id);
 
   if (loading) {
     return (
@@ -168,7 +167,7 @@ export function ChildMessagesView() {
 
   // Compose View
   if (view === 'compose') {
-    const replyToMember = familyMembers.find(m => m.id === replyToId);
+    const replyToMember = familyMembers.find((m) => m.id === replyToId);
 
     return (
       <div className="p-4">
@@ -326,12 +325,16 @@ export function ChildMessagesView() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className={`font-semibold ${!message.read_at ? 'text-gray-900' : 'text-gray-600'}`}>
+                    <span
+                      className={`font-semibold ${!message.read_at ? 'text-gray-900' : 'text-gray-600'}`}
+                    >
                       {message.sender_name}
                     </span>
                     <span className="text-xs text-gray-500">{formatDate(message.created_at)}</span>
                   </div>
-                  <p className={`text-sm line-clamp-2 ${!message.read_at ? 'text-gray-800' : 'text-gray-500'}`}>
+                  <p
+                    className={`text-sm line-clamp-2 ${!message.read_at ? 'text-gray-800' : 'text-gray-500'}`}
+                  >
                     {message.content}
                   </p>
                 </div>

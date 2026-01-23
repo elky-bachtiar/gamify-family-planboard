@@ -23,7 +23,7 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
 
   if (!isOpen || !currentMember) return null;
 
-  const levelProgress = getPointsForNextLevel(currentMember.total_points);
+  const levelProgress = getPointsForNextLevel(currentMember.total_points ?? 0);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -119,9 +119,9 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
       if (uploadError) throw uploadError;
 
       // Get public URL with cache-busting timestamp
-      const { data: { publicUrl } } = supabase.storage
-        .from('avatars-public')
-        .getPublicUrl(fileName);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('avatars-public').getPublicUrl(fileName);
 
       const avatarUrl = `${publicUrl}?t=${Date.now()}`;
 
@@ -166,7 +166,9 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
       <div className="bg-white rounded-t-3xl sm:rounded-2xl shadow-xl w-full sm:max-w-sm max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900">{t('common:profile.myProfile', 'My Profile')}</h2>
+          <h2 className="text-xl font-bold text-gray-900">
+            {t('common:profile.myProfile', 'My Profile')}
+          </h2>
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100"
@@ -188,7 +190,7 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
               ) : (
                 <div
                   className="w-28 h-28 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg ring-4 ring-white"
-                  style={{ backgroundColor: currentMember.color }}
+                  style={{ backgroundColor: currentMember.color ?? '#3b82f6' }}
                 >
                   {currentMember.name.charAt(0).toUpperCase()}
                 </div>
@@ -237,7 +239,9 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
                 disabled={isUploading}
                 className="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full font-medium transition-colors disabled:bg-gray-300"
               >
-                {isUploading ? t('common:buttons.loading') : t('common:profile.savePhoto', 'Save Photo')}
+                {isUploading
+                  ? t('common:buttons.loading')
+                  : t('common:profile.savePhoto', 'Save Photo')}
               </button>
             )}
           </div>
@@ -254,7 +258,9 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
             {/* Points */}
             <div className="bg-amber-50 rounded-2xl p-3 text-center">
               <Star className="w-6 h-6 text-amber-500 mx-auto mb-1" fill="currentColor" />
-              <p className="text-2xl font-bold text-amber-700">{currentMember.total_points.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-amber-700">
+                {(currentMember.total_points ?? 0).toLocaleString()}
+              </p>
               <p className="text-xs text-amber-600">{t('common:labels.points')}</p>
             </div>
 
@@ -273,7 +279,10 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
                 {t('gamification:level.current', { level: currentMember.current_level })}
               </span>
               <span className="text-xs text-gray-500">
-                {t('gamification:child.header.percentToLevel', { percent: Math.round(levelProgress.progress), level: currentMember.current_level + 1 })}
+                {t('gamification:child.header.percentToLevel', {
+                  percent: Math.round(levelProgress.progress),
+                  level: (currentMember.current_level ?? 1) + 1,
+                })}
               </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
@@ -283,7 +292,8 @@ export function ChildProfileModal({ isOpen, onClose }: ChildProfileModalProps) {
               />
             </div>
             <p className="text-xs text-gray-500 mt-2 text-center">
-              {levelProgress.next - currentMember.total_points} {t('common:labels.points')} {t('gamification:level.toNextLevel', 'to next level')}
+              {levelProgress.next - (currentMember.total_points ?? 0)} {t('common:labels.points')}{' '}
+              {t('gamification:level.toNextLevel', 'to next level')}
             </p>
           </div>
         </div>

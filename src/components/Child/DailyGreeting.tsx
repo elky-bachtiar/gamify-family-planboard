@@ -37,7 +37,7 @@ export function DailyGreeting({ onDismiss, autoDismissDelay = 3000 }: DailyGreet
 
   // Get motivational message based on streak
   const getMotivation = () => {
-    const streak = currentMember.current_streak;
+    const streak = currentMember.current_streak ?? 0;
     if (streak === 0) return t('gamification:child.dailyGreeting.motivation.startStreak');
     if (streak < 3) return t('gamification:child.dailyGreeting.motivation.greatStart');
     if (streak < 7) return t('gamification:child.dailyGreeting.motivation.momentum');
@@ -78,14 +78,14 @@ export function DailyGreeting({ onDismiss, autoDismissDelay = 3000 }: DailyGreet
           phase === 'enter'
             ? 'scale-50 opacity-0'
             : phase === 'exit'
-            ? 'scale-110 opacity-0'
-            : 'scale-100 opacity-100'
+              ? 'scale-110 opacity-0'
+              : 'scale-100 opacity-100'
         }`}
       >
         {/* Avatar */}
         <div
           className="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-2xl animate-bounce-in"
-          style={{ backgroundColor: currentMember.color }}
+          style={{ backgroundColor: currentMember.color ?? '#3b82f6' }}
         >
           {currentMember.name.charAt(0).toUpperCase()}
         </div>
@@ -96,11 +96,13 @@ export function DailyGreeting({ onDismiss, autoDismissDelay = 3000 }: DailyGreet
         </h1>
 
         {/* Streak display */}
-        {currentMember.current_streak > 0 && (
+        {(currentMember.current_streak ?? 0) > 0 && (
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-4">
             <Flame className="w-8 h-8 text-orange-300 animate-flame" fill="currentColor" />
             <span className="text-3xl font-bold text-white">{currentMember.current_streak}</span>
-            <span className="text-lg text-white/90">{t('gamification:child.dailyGreeting.dayStreak')}</span>
+            <span className="text-lg text-white/90">
+              {t('gamification:child.dailyGreeting.dayStreak')}
+            </span>
           </div>
         )}
 
@@ -117,7 +119,9 @@ export function DailyGreeting({ onDismiss, autoDismissDelay = 3000 }: DailyGreet
         </button>
 
         {/* Tap to dismiss hint */}
-        <p className="text-white/60 text-sm mt-6">{t('gamification:child.dailyGreeting.tapToContinue')}</p>
+        <p className="text-white/60 text-sm mt-6">
+          {t('gamification:child.dailyGreeting.tapToContinue')}
+        </p>
       </div>
     </div>
   );

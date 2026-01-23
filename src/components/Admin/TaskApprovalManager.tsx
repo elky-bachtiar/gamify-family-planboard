@@ -47,17 +47,17 @@ export function TaskApprovalManager() {
     if (pendingCreationError) {
       console.error('Error loading pending creation tasks:', pendingCreationError);
     } else {
-      const tasksWithCreators = (pendingCreation || []).map(task => ({
+      const tasksWithCreators = (pendingCreation || []).map((task) => ({
         ...task,
-        creator: familyMembers.find(m => m.id === task.created_by) || null
+        creator: familyMembers.find((m) => m.id === task.created_by) || null,
       }));
       setPendingCreationTasks(tasksWithCreators);
       // Initialize edited point values
       const pointValues: Record<string, number> = {};
-      tasksWithCreators.forEach(task => {
-        pointValues[task.id] = task.point_value;
+      tasksWithCreators.forEach((task) => {
+        pointValues[task.id] = task.point_value ?? 0;
       });
-      setEditedPointValues(prev => ({ ...prev, ...pointValues }));
+      setEditedPointValues((prev) => ({ ...prev, ...pointValues }));
     }
 
     // Load pending approval tasks (completion approvals)
@@ -72,9 +72,9 @@ export function TaskApprovalManager() {
     if (pendingError) {
       console.error('Error loading pending tasks:', pendingError);
     } else {
-      const tasksWithCompleters = (pending || []).map(task => ({
+      const tasksWithCompleters = (pending || []).map((task) => ({
         ...task,
-        completer: familyMembers.find(m => m.id === task.completed_by) || null
+        completer: familyMembers.find((m) => m.id === task.completed_by) || null,
       }));
       setPendingTasks(tasksWithCompleters);
     }
@@ -93,9 +93,9 @@ export function TaskApprovalManager() {
     if (approvedError) {
       console.error('Error loading approved tasks:', approvedError);
     } else {
-      const tasksWithCompleters = (approved || []).map(task => ({
+      const tasksWithCompleters = (approved || []).map((task) => ({
         ...task,
-        completer: familyMembers.find(m => m.id === task.completed_by) || null
+        completer: familyMembers.find((m) => m.id === task.completed_by) || null,
       }));
       setRecentlyApproved(tasksWithCompleters);
     }
@@ -116,7 +116,7 @@ export function TaskApprovalManager() {
           event: '*',
           schema: 'public',
           table: 'tasks',
-          filter: `family_id=eq.${family?.id}`
+          filter: `family_id=eq.${family?.id}`,
         },
         () => {
           loadTasks();
@@ -164,14 +164,20 @@ export function TaskApprovalManager() {
     const pointValue = editedPointValues[task.id] ?? task.point_value;
 
     // Type assertion needed due to Supabase client type inference issues
-    const { error } = await (supabase.from('tasks') as unknown as {
-      update: (values: Record<string, unknown>) => { eq: (col: string, val: string) => Promise<{ error: Error | null }> };
-    }).update({
-      creation_approved: true,
-      creation_approved_by: familyMember.id,
-      creation_approved_at: new Date().toISOString(),
-      point_value: pointValue,
-    }).eq('id', task.id);
+    const { error } = await (
+      supabase.from('tasks') as unknown as {
+        update: (values: Record<string, unknown>) => {
+          eq: (col: string, val: string) => Promise<{ error: Error | null }>;
+        };
+      }
+    )
+      .update({
+        creation_approved: true,
+        creation_approved_by: familyMember.id,
+        creation_approved_at: new Date().toISOString(),
+        point_value: pointValue,
+      })
+      .eq('id', task.id);
 
     if (error) {
       console.error('Error approving task creation:', error);
@@ -186,10 +192,7 @@ export function TaskApprovalManager() {
     setProcessingTaskId(task.id);
     const supabase = getSupabaseClient();
 
-    const { error } = await supabase
-      .from('tasks')
-      .delete()
-      .eq('id', task.id);
+    const { error } = await supabase.from('tasks').delete().eq('id', task.id);
 
     if (error) {
       console.error('Error rejecting task creation:', error);
@@ -203,7 +206,7 @@ export function TaskApprovalManager() {
   const handlePointValueChange = (taskId: string, value: string) => {
     const numValue = parseInt(value, 10);
     if (!isNaN(numValue) && numValue >= 0) {
-      setEditedPointValues(prev => ({ ...prev, [taskId]: numValue }));
+      setEditedPointValues((prev) => ({ ...prev, [taskId]: numValue }));
     }
   };
 
@@ -237,15 +240,14 @@ export function TaskApprovalManager() {
               const pointValue = editedPointValues[task.id] ?? task.point_value;
 
               return (
-                <div
-                  key={task.id}
-                  className="p-3 bg-orange-50 border border-orange-200 rounded-lg"
-                >
+                <div key={task.id} className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-medium text-gray-900">{task.title}</h4>
                       {task.description && (
-                        <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{task.description}</p>
+                        <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                          {task.description}
+                        </p>
                       )}
                       {task.creator && (
                         <p className="text-xs text-gray-600 mt-1">
@@ -254,7 +256,9 @@ export function TaskApprovalManager() {
                       )}
                       <div className="flex items-center gap-3 mt-2">
                         <div className="flex items-center gap-1">
-                          <span className="text-xs text-gray-500">{t('admin:approvals.points')}:</span>
+                          <span className="text-xs text-gray-500">
+                            {t('admin:approvals.points')}:
+                          </span>
                           <input
                             type="number"
                             value={pointValue}
@@ -307,14 +311,12 @@ export function TaskApprovalManager() {
         ) : (
           <div className="space-y-2">
             {pendingTasks.map((task) => {
-              const priorityConfig = PRIORITY_CONFIG[task.priority];
+              const priorityConfig =
+                PRIORITY_CONFIG[(task.priority ?? 'medium') as keyof typeof PRIORITY_CONFIG];
               const isProcessing = processingTaskId === task.id;
 
               return (
-                <div
-                  key={task.id}
-                  className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg"
-                >
+                <div key={task.id} className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-medium text-gray-900">{task.title}</h4>
@@ -368,29 +370,27 @@ export function TaskApprovalManager() {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <CheckCircle2 className="w-4 h-4 text-green-500" />
-            <h3 className="text-sm font-medium text-gray-700">{t('gamification:stats.completed')}</h3>
+            <h3 className="text-sm font-medium text-gray-700">
+              {t('gamification:stats.completed')}
+            </h3>
           </div>
           <div className="space-y-2">
             {recentlyApproved.map((task) => (
-              <div
-                key={task.id}
-                className="p-2 bg-green-50 border border-green-200 rounded-lg"
-              >
+              <div key={task.id} className="p-2 bg-green-50 border border-green-200 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-900">{task.title}</span>
                     {task.completer && (
                       <span
                         className="text-xs px-2 py-0.5 rounded text-white"
-                        style={{ backgroundColor: task.completer.color }}
+                        style={{ backgroundColor: task.completer.color ?? '#3b82f6' }}
                       >
                         {task.completer.name}
                       </span>
                     )}
                   </div>
                   <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600">
-                    <Star className="w-3 h-3" fill="currentColor" />
-                    +{task.point_value}
+                    <Star className="w-3 h-3" fill="currentColor" />+{task.point_value}
                   </span>
                 </div>
               </div>

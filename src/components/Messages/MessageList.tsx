@@ -13,7 +13,7 @@ interface Message {
   recipient_id: string | null;
   content: string;
   read_at: string | null;
-  created_at: string;
+  created_at: string | null;
 }
 
 interface MessageWithSender extends Message {
@@ -50,8 +50,8 @@ export function MessageList() {
     }
 
     // Enrich with sender info
-    const enrichedMessages: MessageWithSender[] = (data || []).map(msg => {
-      const sender = familyMembers.find(m => m.id === msg.sender_id);
+    const enrichedMessages: MessageWithSender[] = (data || []).map((msg) => {
+      const sender = familyMembers.find((m) => m.id === msg.sender_id);
       return {
         ...msg,
         sender_name: sender?.name || t('messages:unknownSender'),
@@ -96,19 +96,16 @@ export function MessageList() {
       .update({ read_at: new Date().toISOString() })
       .eq('id', messageId);
 
-    setMessages(prev =>
-      prev.map(m => m.id === messageId ? { ...m, read_at: new Date().toISOString() } : m)
+    setMessages((prev) =>
+      prev.map((m) => (m.id === messageId ? { ...m, read_at: new Date().toISOString() } : m))
     );
   };
 
   const deleteMessage = async (messageId: string) => {
     const supabase = getSupabaseClient();
-    await supabase
-      .from('messages')
-      .delete()
-      .eq('id', messageId);
+    await supabase.from('messages').delete().eq('id', messageId);
 
-    setMessages(prev => prev.filter(m => m.id !== messageId));
+    setMessages((prev) => prev.filter((m) => m.id !== messageId));
     setSelectedMessage(null);
   };
 
@@ -125,7 +122,8 @@ export function MessageList() {
     setSelectedMessage(null);
   };
 
-  const formatDate = (dateStr: string) => {
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return '';
     const date = new Date(dateStr);
     const now = new Date();
     const isToday = date.toDateString() === now.toDateString();
@@ -251,12 +249,16 @@ export function MessageList() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className={`font-medium ${!message.read_at ? 'text-gray-900' : 'text-gray-600'}`}>
+                    <span
+                      className={`font-medium ${!message.read_at ? 'text-gray-900' : 'text-gray-600'}`}
+                    >
                       {message.sender_name}
                     </span>
                     <span className="text-xs text-gray-500">{formatDate(message.created_at)}</span>
                   </div>
-                  <p className={`text-sm truncate ${!message.read_at ? 'text-gray-800' : 'text-gray-500'}`}>
+                  <p
+                    className={`text-sm truncate ${!message.read_at ? 'text-gray-800' : 'text-gray-500'}`}
+                  >
                     {message.content}
                   </p>
                 </div>

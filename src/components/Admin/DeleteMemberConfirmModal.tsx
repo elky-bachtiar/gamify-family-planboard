@@ -11,7 +11,11 @@ interface DeleteMemberConfirmModalProps {
   member: FamilyMember | null;
 }
 
-export function DeleteMemberConfirmModal({ isOpen, onClose, member }: DeleteMemberConfirmModalProps) {
+export function DeleteMemberConfirmModal({
+  isOpen,
+  onClose,
+  member,
+}: DeleteMemberConfirmModalProps) {
   const { t } = useTranslation(['admin', 'common']);
   const { refreshMembers } = useFamily();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -49,10 +53,7 @@ export function DeleteMemberConfirmModal({ isOpen, onClose, member }: DeleteMemb
             <AlertTriangle className="w-5 h-5 text-red-500" />
             <h2 className="text-xl font-bold text-gray-900">{t('admin:deleteMember.title')}</h2>
           </div>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -61,14 +62,17 @@ export function DeleteMemberConfirmModal({ isOpen, onClose, member }: DeleteMemb
           <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-              style={{ backgroundColor: member.color }}
+              style={{ backgroundColor: member.color ?? '#3b82f6' }}
             >
               {member.name.charAt(0).toUpperCase()}
             </div>
             <div>
               <div className="font-medium text-gray-900">{member.name}</div>
               <div className="text-sm text-gray-500">
-                {t('admin:deleteMember.pointsAndLevel', { points: member.total_points, level: member.current_level })}
+                {t('admin:deleteMember.pointsAndLevel', {
+                  points: member.total_points,
+                  level: member.current_level,
+                })}
               </div>
             </div>
           </div>

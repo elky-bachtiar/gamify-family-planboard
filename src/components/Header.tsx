@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Trophy, Star, Flame, User, Users, Settings, Gamepad2 } from 'lucide-react';
+import { Trophy, Star, Flame, User, Users, Gamepad2 } from 'lucide-react';
 import { useFamily } from '../contexts/FamilyContext';
 import { useView } from '../contexts/ViewContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,7 +19,7 @@ export function Header() {
 
   const showChildModeToggle = !isPinUser;
 
-  const levelProgress = getPointsForNextLevel(currentMember.total_points);
+  const levelProgress = getPointsForNextLevel(currentMember.total_points ?? 0);
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
@@ -61,10 +61,16 @@ export function Header() {
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
-                title={isChildMode ? t('common:navigation.exitChildMode') : t('common:navigation.enterChildMode')}
+                title={
+                  isChildMode
+                    ? t('common:navigation.exitChildMode')
+                    : t('common:navigation.enterChildMode')
+                }
               >
                 <Gamepad2 className="w-4 h-4" />
-                {isChildMode ? t('common:navigation.exitChildMode') : t('common:navigation.childMode')}
+                {isChildMode
+                  ? t('common:navigation.exitChildMode')
+                  : t('common:navigation.childMode')}
               </button>
             )}
           </div>
@@ -83,11 +89,11 @@ export function Header() {
                 </span>
               </div>
 
-              {currentMember.current_streak > 0 && (
+              {(currentMember.current_streak ?? 0) > 0 && (
                 <div className="flex items-center gap-2 bg-orange-50 px-3 py-2 rounded-lg">
                   <Flame className="w-5 h-5 text-orange-500" />
                   <span className="font-semibold text-gray-900">
-                    {t('gamification:streak.current', { count: currentMember.current_streak })}
+                    {t('gamification:streak.current', { count: currentMember.current_streak ?? 0 })}
                   </span>
                 </div>
               )}
@@ -96,13 +102,13 @@ export function Header() {
             <select
               value={currentMember.id}
               onChange={(e) => {
-                const member = familyMembers.find(m => m.id === e.target.value);
+                const member = familyMembers.find((m) => m.id === e.target.value);
                 if (member) setCurrentMember(member);
               }}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              style={{ borderLeftWidth: '4px', borderLeftColor: currentMember.color }}
+              style={{ borderLeftWidth: '4px', borderLeftColor: currentMember.color ?? '#3b82f6' }}
             >
-              {familyMembers.map(member => (
+              {familyMembers.map((member) => (
                 <option key={member.id} value={member.id}>
                   {member.name}
                 </option>
@@ -125,7 +131,7 @@ export function Header() {
               ) : (
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold"
-                  style={{ backgroundColor: currentMember.color }}
+                  style={{ backgroundColor: currentMember.color ?? '#3b82f6' }}
                 >
                   {currentMember.name.charAt(0).toUpperCase()}
                 </div>
@@ -136,7 +142,11 @@ export function Header() {
 
         <div className="mt-3">
           <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
-            <span>{t('gamification:level.progressTo', { level: currentMember.current_level + 1 })}</span>
+            <span>
+              {t('gamification:level.progressTo', {
+                level: (currentMember.current_level ?? 1) + 1,
+              })}
+            </span>
             <span>{Math.round(levelProgress.progress)}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -144,17 +154,14 @@ export function Header() {
               className="h-2 rounded-full transition-all duration-500"
               style={{
                 width: `${levelProgress.progress}%`,
-                backgroundColor: currentMember.color,
+                backgroundColor: currentMember.color ?? '#3b82f6',
               }}
             />
           </div>
         </div>
       </div>
 
-      <ProfileModal
-        isOpen={isProfileOpen}
-        onClose={() => setIsProfileOpen(false)}
-      />
+      <ProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </header>
   );
 }

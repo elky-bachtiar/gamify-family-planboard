@@ -16,25 +16,23 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
           completed_at: now,
           completed_by: member.id,
           approved_by: member.id,
-          approved_at: now
+          approved_at: now,
         })
         .eq('id', task.id);
 
       if (taskError) throw taskError;
 
-      const { error: pointsError } = await supabase
-        .from('points_history')
-        .insert({
-          member_id: member.id,
-          points: task.point_value,
-          reason: `Completed: ${task.title}`,
-          task_id: task.id,
-          family_id: member.family_id,
-        });
+      const { error: pointsError } = await supabase.from('points_history').insert({
+        member_id: member.id,
+        points: task.point_value ?? 0,
+        reason: `Completed: ${task.title}`,
+        task_id: task.id,
+        family_id: member.family_id,
+      });
 
       if (pointsError) throw pointsError;
 
-      const newTotalPoints = member.total_points + task.point_value;
+      const newTotalPoints = (member.total_points ?? 0) + (task.point_value ?? 0);
       const newLevel = calculateLevel(newTotalPoints);
 
       const { error: memberError } = await supabase
@@ -55,7 +53,7 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
         .from('tasks')
         .update({
           status: 'pending_approval',
-          completed_by: member.id
+          completed_by: member.id,
         })
         .eq('id', task.id);
 
@@ -94,26 +92,24 @@ export async function approveTask(task: Task, approver: FamilyMember) {
         status: 'completed',
         completed_at: now,
         approved_by: approver.id,
-        approved_at: now
+        approved_at: now,
       })
       .eq('id', task.id);
 
     if (taskError) throw taskError;
 
     // Award points to the completer
-    const { error: pointsError } = await supabase
-      .from('points_history')
-      .insert({
-        member_id: completer.id,
-        points: task.point_value,
-        reason: `Completed: ${task.title}`,
-        task_id: task.id,
-        family_id: completer.family_id,
-      });
+    const { error: pointsError } = await supabase.from('points_history').insert({
+      member_id: completer.id,
+      points: task.point_value ?? 0,
+      reason: `Completed: ${task.title}`,
+      task_id: task.id,
+      family_id: completer.family_id,
+    });
 
     if (pointsError) throw pointsError;
 
-    const newTotalPoints = completer.total_points + task.point_value;
+    const newTotalPoints = (completer.total_points ?? 0) + (task.point_value ?? 0);
     const newLevel = calculateLevel(newTotalPoints);
 
     const { error: memberError } = await supabase
@@ -144,7 +140,7 @@ export async function rejectTask(task: Task) {
       .from('tasks')
       .update({
         status: 'pending',
-        completed_by: null
+        completed_by: null,
       })
       .eq('id', task.id);
 
@@ -164,7 +160,9 @@ export interface NewlyAwardedAchievement {
   icon: string;
 }
 
-export async function checkAndAwardAchievements(memberId: string): Promise<NewlyAwardedAchievement[]> {
+export async function checkAndAwardAchievements(
+  memberId: string
+): Promise<NewlyAwardedAchievement[]> {
   const newlyAwarded: NewlyAwardedAchievement[] = [];
 
   try {
@@ -175,7 +173,7 @@ export async function checkAndAwardAchievements(memberId: string): Promise<Newly
       .eq('id', memberId)
       .single();
 
-    if (!member) return newlyAwarded;
+    if (!member || !member.family_id) return newlyAwarded;
 
     const { data: completedTasks } = await supabase
       .from('tasks')
@@ -197,10 +195,12 @@ export async function checkAndAwardAchievements(memberId: string): Promise<Newly
       .select('achievement_id')
       .eq('member_id', memberId);
 
-    const earnedIds = new Set(earnedAchievements?.map(a => a.achievement_id) || []);
+    const earnedIds = new Set(earnedAchievements?.map((a) => a.achievement_id) || []);
 
     // Check for Perfect Week achievement
-    const hasPerfectWeek = await checkPerfectWeek(memberId, member.family_id);
+    const hasPerfectWeek = member.family_id
+      ? await checkPerfectWeek(memberId, member.family_id)
+      : false;
 
     for (const achievement of achievements || []) {
       if (earnedIds.has(achievement.id)) continue;
@@ -212,13 +212,13 @@ export async function checkAndAwardAchievements(memberId: string): Promise<Newly
           shouldAward = tasksCount >= 1;
           break;
         case 'tasks_count':
-          shouldAward = tasksCount >= achievement.condition_value;
+          shouldAward = tasksCount >= (achievement.condition_value ?? 0);
           break;
         case 'points_total':
-          shouldAward = member.total_points >= achievement.condition_value;
+          shouldAward = (member.total_points ?? 0) >= (achievement.condition_value ?? 0);
           break;
         case 'streak_days':
-          shouldAward = member.current_streak >= achievement.condition_value;
+          shouldAward = (member.current_streak ?? 0) >= (achievement.condition_value ?? 0);
           break;
         case 'perfect_week':
           shouldAward = hasPerfectWeek;
@@ -226,19 +226,17 @@ export async function checkAndAwardAchievements(memberId: string): Promise<Newly
       }
 
       if (shouldAward) {
-        await supabase
-          .from('user_achievements')
-          .insert({
-            member_id: memberId,
-            achievement_id: achievement.id,
-          });
+        await supabase.from('user_achievements').insert({
+          member_id: memberId,
+          achievement_id: achievement.id,
+        });
 
         // Add to newly awarded list for notifications
         newlyAwarded.push({
           id: achievement.id,
           name: achievement.name,
           description: achievement.description,
-          icon: achievement.icon,
+          icon: achievement.icon ?? '🏆',
         });
       }
     }
@@ -288,10 +286,10 @@ async function checkPerfectWeek(memberId: string, familyId: string): Promise<boo
     if (!weekTasks || weekTasks.length === 0) return false;
 
     // Check if ALL tasks are completed
-    const allCompleted = weekTasks.every(task => task.status === 'completed');
+    const allCompleted = weekTasks.every((task) => task.status === 'completed');
 
     // Need at least 3 tasks completed for Perfect Week to be meaningful
-    const completedCount = weekTasks.filter(t => t.status === 'completed').length;
+    const completedCount = weekTasks.filter((t) => t.status === 'completed').length;
 
     return allCompleted && completedCount >= 3;
   } catch (error) {
@@ -312,7 +310,7 @@ export async function updateStreak(memberId: string) {
       .eq('id', memberId)
       .single();
 
-    if (!member) return;
+    if (!member || !member.family_id) return;
 
     const { data: todayTasks } = await supabase
       .from('tasks')
@@ -332,11 +330,11 @@ export async function updateStreak(memberId: string) {
       .eq('status', 'completed')
       .eq('is_archived', false);
 
-    let newStreak = member.current_streak;
+    let newStreak = member.current_streak ?? 0;
 
     if (todayTasks && todayTasks.length > 0) {
       if (yesterdayTasks && yesterdayTasks.length > 0) {
-        newStreak = member.current_streak + 1;
+        newStreak = (member.current_streak ?? 0) + 1;
       } else {
         newStreak = 1;
       }
@@ -360,8 +358,7 @@ export async function updateStreak(memberId: string) {
 export async function awardManualPoints(
   memberId: string,
   points: number,
-  reason: string,
-  _awardedBy: FamilyMember
+  reason: string
 ): Promise<{ success: boolean; error?: unknown }> {
   try {
     const supabase = getSupabaseClient();
@@ -381,19 +378,17 @@ export async function awardManualPoints(
     const formattedReason = points < 0 ? `Straf: ${reason}` : `Bonus: ${reason}`;
 
     // Add points history entry
-    const { error: pointsError } = await supabase
-      .from('points_history')
-      .insert({
-        member_id: memberId,
-        points: points,
-        reason: formattedReason,
-        family_id: member.family_id,
-      });
+    const { error: pointsError } = await supabase.from('points_history').insert({
+      member_id: memberId,
+      points: points,
+      reason: formattedReason,
+      family_id: member.family_id,
+    });
 
     if (pointsError) throw pointsError;
 
     // Calculate new total points (minimum 0)
-    const newTotalPoints = Math.max(0, member.total_points + points);
+    const newTotalPoints = Math.max(0, (member.total_points ?? 0) + points);
     const newLevel = calculateLevel(newTotalPoints);
 
     // Update member points and level
@@ -482,7 +477,7 @@ export async function applyWeeklyTaskPenalty(
     }
 
     // Calculate penalty (-50% of task points)
-    const penaltyPoints = Math.floor(task.point_value / 2) * -1;
+    const penaltyPoints = Math.floor((task.point_value ?? 0) / 2) * -1;
 
     // Mark task as completed (with penalty applied)
     const now = new Date().toISOString();
@@ -500,20 +495,18 @@ export async function applyWeeklyTaskPenalty(
     if (taskError) throw taskError;
 
     // Add negative points history entry
-    const { error: pointsError } = await supabase
-      .from('points_history')
-      .insert({
-        member_id: task.assigned_to,
-        points: penaltyPoints,
-        reason: `Straf: Weektaak niet voltooid - ${task.title}`,
-        task_id: task.id,
-        family_id: member.family_id,
-      });
+    const { error: pointsError } = await supabase.from('points_history').insert({
+      member_id: task.assigned_to,
+      points: penaltyPoints,
+      reason: `Straf: Weektaak niet voltooid - ${task.title}`,
+      task_id: task.id,
+      family_id: member.family_id,
+    });
 
     if (pointsError) throw pointsError;
 
     // Update member points (minimum 0)
-    const newTotalPoints = Math.max(0, member.total_points + penaltyPoints);
+    const newTotalPoints = Math.max(0, (member.total_points ?? 0) + penaltyPoints);
     const newLevel = calculateLevel(newTotalPoints);
 
     const { error: updateError } = await supabase

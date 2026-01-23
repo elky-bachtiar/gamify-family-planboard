@@ -26,7 +26,16 @@ export function ApprovalCelebration({ task, onClose }: ApprovalCelebrationProps)
 
   // Generate confetti
   useEffect(() => {
-    const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#F38181', '#AA96DA', '#FCBAD3', '#6BCB77'];
+    const colors = [
+      '#FF6B6B',
+      '#4ECDC4',
+      '#FFE66D',
+      '#95E1D3',
+      '#F38181',
+      '#AA96DA',
+      '#FCBAD3',
+      '#6BCB77',
+    ];
     const newConfetti: Confetti[] = [];
 
     for (let i = 0; i < 50; i++) {
@@ -52,7 +61,9 @@ export function ApprovalCelebration({ task, onClose }: ApprovalCelebrationProps)
     };
   }, []);
 
-  const levelProgress = currentMember ? getPointsForNextLevel(currentMember.total_points) : null;
+  const levelProgress = currentMember
+    ? getPointsForNextLevel(currentMember.total_points ?? 0)
+    : null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
@@ -65,7 +76,7 @@ export function ApprovalCelebration({ task, onClose }: ApprovalCelebrationProps)
 
       {/* Confetti */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {confetti.map(c => (
+        {confetti.map((c) => (
           <div
             key={c.id}
             className="absolute w-3 h-3 rounded-sm animate-confetti-fall"
@@ -97,9 +108,7 @@ export function ApprovalCelebration({ task, onClose }: ApprovalCelebrationProps)
         </h1>
 
         {/* Task name */}
-        <p className="text-xl text-white/90 mb-6">
-          "{task.title}"
-        </p>
+        <p className="text-xl text-white/90 mb-6">"{task.title}"</p>
 
         {/* Points earned */}
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl mb-6">
@@ -111,7 +120,9 @@ export function ApprovalCelebration({ task, onClose }: ApprovalCelebrationProps)
           {currentMember && (
             <div className="text-gray-600">
               <p className="text-sm mb-2">
-                {t('child.celebration.total', { points: currentMember.total_points.toLocaleString() })}
+                {t('child.celebration.total', {
+                  points: (currentMember.total_points ?? 0).toLocaleString(),
+                })}
               </p>
 
               {levelProgress && (

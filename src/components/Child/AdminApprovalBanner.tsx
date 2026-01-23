@@ -1,11 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, XCircle, Clock, Sparkles, Star, Trash2, ChevronDown, ChevronUp, Minus, AlertTriangle, Shield } from 'lucide-react';
+import {
+  CheckCircle2,
+  XCircle,
+  Clock,
+  Sparkles,
+  Star,
+  Trash2,
+  ChevronDown,
+  ChevronUp,
+  Minus,
+  AlertTriangle,
+  Shield,
+} from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
 import { useAchievementNotification } from '../../contexts/AchievementNotificationContext';
 import { getSupabaseClient } from '../../lib/supabase';
-import { approveTask, rejectTask, getOverdueWeeklyTasks, awardManualPoints } from '../../lib/gamification';
+import {
+  approveTask,
+  rejectTask,
+  getOverdueWeeklyTasks,
+  awardManualPoints,
+} from '../../lib/gamification';
 import { MissedWeeklyTasksSection } from '../Admin/MissedWeeklyTasksSection';
 import { PRIORITY_CONFIG } from '../../types';
 import type { Task, FamilyMember } from '../../types';
@@ -57,17 +74,17 @@ export function AdminApprovalBanner() {
     if (pendingCreationError) {
       console.error('Error loading pending creation tasks:', pendingCreationError);
     } else {
-      const tasksWithCreators = (pendingCreation || []).map(task => ({
+      const tasksWithCreators = (pendingCreation || []).map((task) => ({
         ...task,
-        creator: familyMembers.find(m => m.id === task.created_by) || null
+        creator: familyMembers.find((m) => m.id === task.created_by) || null,
       }));
       setPendingCreationTasks(tasksWithCreators);
       // Initialize edited point values
       const pointValues: Record<string, number> = {};
-      tasksWithCreators.forEach(task => {
-        pointValues[task.id] = task.point_value;
+      tasksWithCreators.forEach((task) => {
+        pointValues[task.id] = task.point_value ?? 0;
       });
-      setEditedPointValues(prev => ({ ...prev, ...pointValues }));
+      setEditedPointValues((prev) => ({ ...prev, ...pointValues }));
     }
 
     // Load pending approval tasks (completion approvals)
@@ -82,9 +99,9 @@ export function AdminApprovalBanner() {
     if (pendingError) {
       console.error('Error loading pending tasks:', pendingError);
     } else {
-      const tasksWithCompleters = (pending || []).map(task => ({
+      const tasksWithCompleters = (pending || []).map((task) => ({
         ...task,
-        completer: familyMembers.find(m => m.id === task.completed_by) || null
+        completer: familyMembers.find((m) => m.id === task.completed_by) || null,
       }));
       setPendingTasks(tasksWithCompleters);
     }
@@ -109,7 +126,7 @@ export function AdminApprovalBanner() {
           event: '*',
           schema: 'public',
           table: 'tasks',
-          filter: `family_id=eq.${family?.id}`
+          filter: `family_id=eq.${family?.id}`,
         },
         () => {
           loadTasks();
@@ -156,14 +173,20 @@ export function AdminApprovalBanner() {
 
     const pointValue = editedPointValues[task.id] ?? task.point_value;
 
-    const { error } = await (supabase.from('tasks') as unknown as {
-      update: (values: Record<string, unknown>) => { eq: (col: string, val: string) => Promise<{ error: Error | null }> };
-    }).update({
-      creation_approved: true,
-      creation_approved_by: familyMember.id,
-      creation_approved_at: new Date().toISOString(),
-      point_value: pointValue,
-    }).eq('id', task.id);
+    const { error } = await (
+      supabase.from('tasks') as unknown as {
+        update: (values: Record<string, unknown>) => {
+          eq: (col: string, val: string) => Promise<{ error: Error | null }>;
+        };
+      }
+    )
+      .update({
+        creation_approved: true,
+        creation_approved_by: familyMember.id,
+        creation_approved_at: new Date().toISOString(),
+        point_value: pointValue,
+      })
+      .eq('id', task.id);
 
     if (error) {
       console.error('Error approving task creation:', error);
@@ -177,10 +200,7 @@ export function AdminApprovalBanner() {
     setProcessingTaskId(task.id);
     const supabase = getSupabaseClient();
 
-    const { error } = await supabase
-      .from('tasks')
-      .delete()
-      .eq('id', task.id);
+    const { error } = await supabase.from('tasks').delete().eq('id', task.id);
 
     if (error) {
       console.error('Error rejecting task creation:', error);
@@ -193,7 +213,7 @@ export function AdminApprovalBanner() {
   const handlePointValueChange = (taskId: string, value: string) => {
     const numValue = parseInt(value, 10);
     if (!isNaN(numValue) && numValue >= 0) {
-      setEditedPointValues(prev => ({ ...prev, [taskId]: numValue }));
+      setEditedPointValues((prev) => ({ ...prev, [taskId]: numValue }));
     }
   };
 
@@ -215,12 +235,7 @@ export function AdminApprovalBanner() {
     const pointValue = parseInt(deductPoints, 10);
     const actualPoints = -Math.abs(pointValue);
 
-    const result = await awardManualPoints(
-      deductMemberId,
-      actualPoints,
-      deductReason.trim(),
-      familyMember
-    );
+    const result = await awardManualPoints(deductMemberId, actualPoints, deductReason.trim());
 
     if (result.success) {
       setDeductSuccess(true);
@@ -235,8 +250,8 @@ export function AdminApprovalBanner() {
   };
 
   // Filter members for deduction (exclude current admin)
-  const deductableMembers = familyMembers.filter(m => m.id !== familyMember?.id);
-  const selectedDeductMember = familyMembers.find(m => m.id === deductMemberId);
+  const deductableMembers = familyMembers.filter((m) => m.id !== familyMember?.id);
+  const selectedDeductMember = familyMembers.find((m) => m.id === deductMemberId);
 
   // Don't render if not admin
   if (!isAdmin) {
@@ -252,20 +267,14 @@ export function AdminApprovalBanner() {
       >
         <div className="flex items-center gap-2">
           <Shield className="w-5 h-5" />
-          <span className="font-medium">
-            {t('admin:panel.title')}
-          </span>
+          <span className="font-medium">{t('admin:panel.title')}</span>
           {totalPending > 0 && (
             <span className="bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full text-sm font-bold">
               {totalPending}
             </span>
           )}
         </div>
-        {isExpanded ? (
-          <ChevronUp className="w-5 h-5" />
-        ) : (
-          <ChevronDown className="w-5 h-5" />
-        )}
+        {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
       </button>
 
       {/* Expanded content */}
@@ -299,7 +308,9 @@ export function AdminApprovalBanner() {
                             </p>
                           )}
                           <div className="flex items-center gap-2 mt-2">
-                            <span className="text-xs text-gray-500">{t('admin:approvals.points')}:</span>
+                            <span className="text-xs text-gray-500">
+                              {t('admin:approvals.points')}:
+                            </span>
                             <input
                               type="number"
                               value={pointValue}
@@ -346,7 +357,8 @@ export function AdminApprovalBanner() {
               </div>
               <div className="space-y-2">
                 {pendingTasks.map((task) => {
-                  const priorityConfig = PRIORITY_CONFIG[task.priority];
+                  const priorityConfig =
+                    PRIORITY_CONFIG[(task.priority ?? 'medium') as keyof typeof PRIORITY_CONFIG];
                   const isProcessing = processingTaskId === task.id;
 
                   return (
@@ -409,9 +421,7 @@ export function AdminApprovalBanner() {
           <div className="border-t border-gray-200 pt-4">
             <div className="flex items-center gap-2 mb-3">
               <Minus className="w-4 h-4 text-red-500" />
-              <h3 className="text-sm font-medium text-gray-700">
-                {t('admin:manualPoints.title')}
-              </h3>
+              <h3 className="text-sm font-medium text-gray-700">{t('admin:manualPoints.title')}</h3>
             </div>
 
             <div className="space-y-2">
@@ -463,7 +473,9 @@ export function AdminApprovalBanner() {
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
               >
                 <Minus className="w-4 h-4" />
-                {isDeducting ? t('admin:manualPoints.submitting') : t('admin:manualPoints.submitButton')}
+                {isDeducting
+                  ? t('admin:manualPoints.submitting')
+                  : t('admin:manualPoints.submitButton')}
               </button>
             </div>
           </div>
@@ -486,13 +498,14 @@ export function AdminApprovalBanner() {
             <p className="text-gray-600 mb-4">
               {t('admin:manualPoints.confirmMessage', {
                 name: selectedDeductMember.name,
-                points: Math.abs(parseInt(deductPoints, 10) || 0)
+                points: Math.abs(parseInt(deductPoints, 10) || 0),
               })}
             </p>
 
             <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
               <p className="text-sm text-gray-700">
-                <span className="font-medium">{t('admin:manualPoints.reasonLabel')}:</span> {deductReason}
+                <span className="font-medium">{t('admin:manualPoints.reasonLabel')}:</span>{' '}
+                {deductReason}
               </p>
             </div>
 

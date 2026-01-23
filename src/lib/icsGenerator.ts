@@ -148,7 +148,7 @@ export function generateTaskICS({
     medium: 5,
     low: 9,
   };
-  lines.push(`PRIORITY:${priorityMap[task.priority] || 5}`);
+  lines.push(`PRIORITY:${priorityMap[task.priority ?? 'medium'] ?? 5}`);
 
   // Add reminder/alarm
   if (includeReminder && !isAllDay) {
@@ -171,7 +171,7 @@ export function generateTaskICS({
     completed: 'COMPLETED',
     in_progress: 'IN-PROCESS',
   };
-  lines.push(`STATUS:${statusMap[task.status] || 'NEEDS-ACTION'}`);
+  lines.push(`STATUS:${statusMap[task.status ?? 'pending'] ?? 'NEEDS-ACTION'}`);
 
   lines.push('END:VEVENT');
   lines.push('END:VCALENDAR');
@@ -196,7 +196,7 @@ export function generateMultipleTasksICS({
   reminderMinutesBefore = 60,
 }: GenerateMultipleICSOptions): string {
   const now = new Date();
-  const memberMap = new Map(members.map(m => [m.id, m]));
+  const memberMap = new Map(members.map((m) => [m.id, m]));
 
   const lines: string[] = [
     'BEGIN:VCALENDAR',
@@ -274,7 +274,7 @@ export function generateMultipleTasksICS({
       medium: 5,
       low: 9,
     };
-    lines.push(`PRIORITY:${priorityMap[task.priority] || 5}`);
+    lines.push(`PRIORITY:${priorityMap[task.priority ?? 'medium'] ?? 5}`);
 
     if (includeReminder && !isAllDay) {
       lines.push('BEGIN:VALARM');
@@ -294,7 +294,7 @@ export function generateMultipleTasksICS({
       completed: 'COMPLETED',
       in_progress: 'IN-PROCESS',
     };
-    lines.push(`STATUS:${statusMap[task.status] || 'NEEDS-ACTION'}`);
+    lines.push(`STATUS:${statusMap[task.status ?? 'pending'] ?? 'NEEDS-ACTION'}`);
 
     lines.push('END:VEVENT');
   }
@@ -322,7 +322,11 @@ export function downloadICS(content: string, filename: string): void {
 /**
  * Download a single task as ICS
  */
-export function downloadTaskICS(task: Task, assignee?: FamilyMember | null, createdBy?: FamilyMember | null): void {
+export function downloadTaskICS(
+  task: Task,
+  assignee?: FamilyMember | null,
+  createdBy?: FamilyMember | null
+): void {
   const content = generateTaskICS({ task, assignee, createdBy });
   const sanitizedTitle = task.title.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30);
   downloadICS(content, `task_${sanitizedTitle}.ics`);
@@ -331,7 +335,11 @@ export function downloadTaskICS(task: Task, assignee?: FamilyMember | null, crea
 /**
  * Download multiple tasks as a single ICS file
  */
-export function downloadMultipleTasksICS(tasks: Task[], members?: FamilyMember[], filename?: string): void {
+export function downloadMultipleTasksICS(
+  tasks: Task[],
+  members?: FamilyMember[],
+  filename?: string
+): void {
   const content = generateMultipleTasksICS({ tasks, members });
   downloadICS(content, filename || 'family_tasks.ics');
 }
