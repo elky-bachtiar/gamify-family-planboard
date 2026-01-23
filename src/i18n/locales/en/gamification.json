@@ -121,8 +121,12 @@
     },
     "tabs": {
       "home": "Home",
+      "leaderboard": "Ranking",
       "badges": "Badges",
       "stats": "Stats"
+    },
+    "leaderboard": {
+      "you": "you"
     },
     "dailyGreeting": {
       "welcome": "Welcome back!",
@@ -150,6 +154,7 @@
       },
       "sections": {
         "myTasks": "My Tasks ({{count}})",
+        "overdue": "Overdue Tasks ({{count}})",
         "available": "Available to Claim ({{count}})",
         "waitingApproval": "Waiting for Approval ({{count}})",
         "waitingForParent": "Waiting for Parent ({{count}})",
@@ -194,7 +199,8 @@
       "submitting": "Submitting...",
       "earnPoints": "Earn {{points}} points!",
       "alreadyCompleted": "Already completed!",
-      "waitingApproval": "Waiting for approval..."
+      "waitingApproval": "Waiting for approval...",
+      "unclaim": "Cancel Claim"
     },
     "celebration": {
       "approved": "Task Approved!",

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Clock, Star, CheckCircle, Loader2, Hand } from 'lucide-react';
+import { X, Clock, Star, CheckCircle, Loader2, Hand, Undo2 } from 'lucide-react';
 import { completeTask } from '../../lib/gamification';
 import { getSupabaseClient } from '../../lib/supabase';
 import { useFamily } from '../../contexts/FamilyContext';
@@ -13,6 +13,7 @@ interface TaskCompletionModalProps {
   onClose: () => void;
   onComplete: (task: TaskWithMember, pointsEarned: number) => void;
   onClaimSuccess?: (task: TaskWithMember) => void;
+  onUnclaimSuccess?: (task: TaskWithMember) => void;
 }
 
 export function TaskCompletionModal({
@@ -21,6 +22,7 @@ export function TaskCompletionModal({
   onClose,
   onComplete,
   onClaimSuccess,
+  onUnclaimSuccess,
 }: TaskCompletionModalProps) {
   const { t } = useTranslation('gamification');
   const { currentMember } = useFamily();
@@ -33,6 +35,9 @@ export function TaskCompletionModal({
   const isPendingApproval = task.status === 'pending_approval';
   const isCompleted = task.status === 'completed';
   const isClaimable = isPending && task.assigned_to === null;
+  // Task is unclaimable if it's pending, assigned to me, and was originally unassigned (no created_by match)
+  const isUnclaimable =
+    isPending && task.assigned_to === currentMember?.id && task.created_by !== currentMember?.id;
 
   // Format due time if available
   const formatDueTime = () => {
@@ -98,6 +103,42 @@ export function TaskCompletionModal({
     } catch (error) {
       console.error('Error claiming task:', error);
       alert('Failed to claim task. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleUnclaimTask = async () => {
+    if (!currentMember || !isUnclaimable) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const supabase = getSupabaseClient();
+
+      // Unclaim the task by setting assigned_to back to null
+      const { error } = await (
+        supabase.from('tasks') as unknown as {
+          update: (values: Record<string, unknown>) => {
+            eq: (column: string, value: string) => Promise<{ error: Error | null }>;
+          };
+        }
+      )
+        .update({ assigned_to: null })
+        .eq('id', task.id);
+
+      if (error) throw error;
+
+      // Create updated task without assignment and notify parent for immediate UI refresh
+      const updatedTask: TaskWithMember = {
+        ...task,
+        assigned_to: null,
+      };
+      onUnclaimSuccess?.(updatedTask);
+      onClose();
+    } catch (error) {
+      console.error('Error unclaiming task:', error);
+      alert('Failed to cancel claim. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -181,28 +222,45 @@ export function TaskCompletionModal({
             </>
           )}
 
-          {/* Assigned pending task - show complete button */}
+          {/* Assigned pending task - show complete button and optional unclaim */}
           {isPending && !isClaimable && (
-            <button
-              onClick={handleComplete}
-              disabled={isSubmitting}
-              className="w-full py-4 px-6 bg-gradient-to-r from-green-500 to-green-600 text-white
-                font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02]
-                transition-all duration-200 disabled:opacity-50 disabled:transform-none
-                flex items-center justify-center gap-3"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-6 h-6 animate-spin" />
-                  {t('child.completion.submitting')}
-                </>
-              ) : (
-                <>
-                  <CheckCircle className="w-6 h-6" />
-                  {t('child.completion.imDone')}
-                </>
+            <div className="space-y-3">
+              <button
+                onClick={handleComplete}
+                disabled={isSubmitting}
+                className="w-full py-4 px-6 bg-gradient-to-r from-green-500 to-green-600 text-white
+                  font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02]
+                  transition-all duration-200 disabled:opacity-50 disabled:transform-none
+                  flex items-center justify-center gap-3"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                    {t('child.completion.submitting')}
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle className="w-6 h-6" />
+                    {t('child.completion.imDone')}
+                  </>
+                )}
+              </button>
+
+              {/* Unclaim button - only for tasks that were claimed (not created by the child) */}
+              {isUnclaimable && (
+                <button
+                  onClick={handleUnclaimTask}
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-6 bg-gray-100 text-gray-600
+                    font-medium text-sm rounded-xl hover:bg-gray-200
+                    transition-all duration-200 disabled:opacity-50
+                    flex items-center justify-center gap-2"
+                >
+                  <Undo2 className="w-4 h-4" />
+                  {t('child.completion.unclaim')}
+                </button>
               )}
-            </button>
+            </div>
           )}
 
           {isPendingApproval && (

@@ -15,6 +15,7 @@ import { ApprovalCelebration } from './Gamification/ApprovalCelebration';
 import { PenaltyToast } from './Gamification/PenaltyToast';
 import { ChildBadgesView } from './Views/ChildBadgesView';
 import { ChildStatsView } from './Views/ChildStatsView';
+import { ChildLeaderboardView } from './Views/ChildLeaderboardView';
 import type { TaskWithMember, Task, PointsHistory } from '../../types';
 
 // Session storage key for greeting shown today
@@ -168,7 +169,7 @@ export function ChildDashboard() {
     localStorage.setItem(lastSeenKey, currentPenalty.id);
 
     // Remove the current penalty from pending
-    const remaining = pendingPenalties.filter(p => p.id !== currentPenalty.id);
+    const remaining = pendingPenalties.filter((p) => p.id !== currentPenalty.id);
     setPendingPenalties(remaining);
 
     // Show next penalty if any
@@ -188,12 +189,17 @@ export function ChildDashboard() {
 
   const handleTaskCreated = useCallback(() => {
     // Refresh the task list by incrementing the key
-    setTaskListKey(k => k + 1);
+    setTaskListKey((k) => k + 1);
   }, []);
 
   const handleTaskClaimed = useCallback(() => {
     // Refresh the task list to show the claimed task in "My Tasks"
-    setTaskListKey(k => k + 1);
+    setTaskListKey((k) => k + 1);
+  }, []);
+
+  const handleTaskUnclaimed = useCallback(() => {
+    // Refresh the task list to show the unclaimed task back in "Available"
+    setTaskListKey((k) => k + 1);
   }, []);
 
   return (
@@ -214,13 +220,11 @@ export function ChildDashboard() {
           />
         )}
 
-        {activeTab === 'badges' && (
-          <ChildBadgesView />
-        )}
+        {activeTab === 'leaderboard' && <ChildLeaderboardView />}
 
-        {activeTab === 'stats' && (
-          <ChildStatsView />
-        )}
+        {activeTab === 'badges' && <ChildBadgesView />}
+
+        {activeTab === 'stats' && <ChildStatsView />}
       </main>
 
       {/* Bottom tab bar */}
@@ -234,6 +238,7 @@ export function ChildDashboard() {
           onClose={() => setSelectedTask(null)}
           onComplete={handleTaskComplete}
           onClaimSuccess={handleTaskClaimed}
+          onUnclaimSuccess={handleTaskUnclaimed}
         />
       )}
 
@@ -248,24 +253,14 @@ export function ChildDashboard() {
 
       {/* Approval celebration overlay */}
       {approvedTask && (
-        <ApprovalCelebration
-          task={approvedTask}
-          onClose={handleApprovalCelebrationClose}
-        />
+        <ApprovalCelebration task={approvedTask} onClose={handleApprovalCelebrationClose} />
       )}
 
       {/* Daily greeting overlay */}
-      {showGreeting && (
-        <DailyGreeting onDismiss={handleDismissGreeting} />
-      )}
+      {showGreeting && <DailyGreeting onDismiss={handleDismissGreeting} />}
 
       {/* Penalty notification toast */}
-      {currentPenalty && (
-        <PenaltyToast
-          penalty={currentPenalty}
-          onClose={handlePenaltyClose}
-        />
-      )}
+      {currentPenalty && <PenaltyToast penalty={currentPenalty} onClose={handlePenaltyClose} />}
 
       {/* Create task modal */}
       <ChildCreateTaskModal
@@ -279,10 +274,7 @@ export function ChildDashboard() {
       />
 
       {/* Profile modal */}
-      <ChildProfileModal
-        isOpen={showProfileModal}
-        onClose={() => setShowProfileModal(false)}
-      />
+      <ChildProfileModal isOpen={showProfileModal} onClose={() => setShowProfileModal(false)} />
     </div>
   );
 }

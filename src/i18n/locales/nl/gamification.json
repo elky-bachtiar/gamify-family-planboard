@@ -121,8 +121,12 @@
     },
     "tabs": {
       "home": "Home",
+      "leaderboard": "Ranglijst",
       "badges": "Badges",
       "stats": "Stats"
+    },
+    "leaderboard": {
+      "you": "jij"
     },
     "dailyGreeting": {
       "welcome": "Welkom terug!",
@@ -150,6 +154,7 @@
       },
       "sections": {
         "myTasks": "Mijn taken ({{count}})",
+        "overdue": "Achterstallige taken ({{count}})",
         "available": "Beschikbaar om te claimen ({{count}})",
         "waitingApproval": "Wacht op goedkeuring ({{count}})",
         "waitingForParent": "Wacht op ouder ({{count}})",
@@ -194,7 +199,8 @@
       "submitting": "Indienen...",
       "earnPoints": "Verdien {{points}} punten!",
       "alreadyCompleted": "Al voltooid!",
-      "waitingApproval": "Wacht op goedkeuring..."
+      "waitingApproval": "Wacht op goedkeuring...",
+      "unclaim": "Claim annuleren"
     },
     "celebration": {
       "approved": "Taak goedgekeurd!",
