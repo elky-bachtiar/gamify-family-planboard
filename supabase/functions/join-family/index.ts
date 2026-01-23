@@ -1,10 +1,16 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Client-Info, Apikey',
-};
+import {
+  getCorsHeaders,
+  checkRateLimit,
+  getClientId,
+  RATE_LIMITS,
+  rateLimitedResponse,
+  validateInput,
+  MAX_INPUT_LENGTHS,
+  errorResponse,
+  successResponse,
+  parseJsonBody,
+} from '../_shared/security.ts';
 
 interface JoinFamilyRequest {
   inviteCode: string;
@@ -13,24 +19,27 @@ interface JoinFamilyRequest {
 }
 
 Deno.serve(async (req: Request) => {
+  // Get dynamic CORS headers based on origin
+  const cors = getCorsHeaders(req);
+
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return new Response(null, { status: 200, headers: cors });
   }
 
   try {
+    // Rate limiting - prevent invite code enumeration attacks
+    const clientId = getClientId(req);
+    const rateLimitKey = `join-family:${clientId}`;
+    const rateLimit = checkRateLimit(rateLimitKey, RATE_LIMITS['join-family']);
+
+    if (!rateLimit.allowed) {
+      return rateLimitedResponse(cors, rateLimit.resetIn);
+    }
+
     // Get the authorization header
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: 'Missing authorization header' }),
-        {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Missing authorization header', 401, cors);
     }
 
     // Create Supabase client with service role for database operations
@@ -51,28 +60,43 @@ Deno.serve(async (req: Request) => {
     );
 
     // Verify user is authenticated
-    const { data: { user }, error: authError } = await supabaseUser.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabaseUser.auth.getUser();
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Unauthorized', 401, cors);
     }
 
-    // Parse request body
-    const { inviteCode, memberName, color }: JoinFamilyRequest = await req.json();
+    // Parse and validate request body with size limit
+    let body: JoinFamilyRequest;
+    try {
+      body = await parseJsonBody<JoinFamilyRequest>(req);
+    } catch (e) {
+      return errorResponse((e as Error).message, 400, cors);
+    }
 
-    if (!inviteCode) {
-      return new Response(
-        JSON.stringify({ error: 'Invite code is required' }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+    const { inviteCode, memberName, color } = body;
+
+    // Input validation
+    const inviteCodeError = validateInput(inviteCode, 'Invite code', MAX_INPUT_LENGTHS.invite_code);
+    if (inviteCodeError) {
+      return errorResponse(inviteCodeError, 400, cors);
+    }
+
+    // Validate optional fields
+    if (memberName) {
+      const nameError = validateInput(memberName, 'Member name', MAX_INPUT_LENGTHS.name, false);
+      if (nameError) {
+        return errorResponse(nameError, 400, cors);
+      }
+    }
+
+    if (color) {
+      const colorError = validateInput(color, 'Color', 50, false);
+      if (colorError) {
+        return errorResponse(colorError, 400, cors);
+      }
     }
 
     // Look up family by invite code using service role
@@ -84,23 +108,12 @@ Deno.serve(async (req: Request) => {
 
     if (familyError) {
       console.error('Family lookup error:', familyError);
-      return new Response(
-        JSON.stringify({ error: 'Failed to lookup family', details: familyError.message }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Failed to lookup family', 500, cors);
     }
 
+    // Use generic error to prevent code enumeration
     if (!family) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid invite code', searchedCode: inviteCode }),
-        {
-          status: 404,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('Invalid invite code', 404, cors);
     }
 
     // Check if user is already a member
@@ -112,13 +125,7 @@ Deno.serve(async (req: Request) => {
       .maybeSingle();
 
     if (existingMember) {
-      return new Response(
-        JSON.stringify({ error: 'You are already a member of this family' }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      return errorResponse('You are already a member of this family', 400, cors);
     }
 
     // Add user to family
@@ -131,47 +138,32 @@ Deno.serve(async (req: Request) => {
     };
 
     if (memberName) {
-      memberData.name = memberName;
+      memberData.name = memberName.trim();
     }
 
     if (color) {
       memberData.color = color;
     }
 
-    const { error: insertError } = await supabaseAdmin
-      .from('family_members')
-      .insert(memberData);
+    const { error: insertError } = await supabaseAdmin.from('family_members').insert(memberData);
 
     if (insertError) {
-      return new Response(
-        JSON.stringify({ error: 'Failed to join family' }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        }
-      );
+      console.error('Insert error:', insertError);
+      return errorResponse('Failed to join family', 500, cors);
     }
 
-    return new Response(
-      JSON.stringify({
+    return successResponse(
+      {
         success: true,
         family: {
           id: family.id,
           name: family.name,
         },
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      },
+      cors
     );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+    console.error('Error:', error);
+    return errorResponse('Internal server error', 500, cors);
   }
 });
