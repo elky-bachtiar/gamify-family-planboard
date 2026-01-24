@@ -41,6 +41,11 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
 
   const today = new Date().toISOString().split('T')[0];
 
+  // Calculate date for 7 days ago (for showing previous completed tasks)
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  const weekAgoStr = weekAgo.toISOString().split('T')[0];
+
   // Calculate the Sunday of the current week (for weekly tasks)
   const getWeekSunday = (): string => {
     const now = new Date();
@@ -80,7 +85,9 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
             // Overdue ASSIGNED pending tasks from previous days (non-weekly) - for "My Tasks"
             `and(due_date.lt.${today},assigned_to.eq.${currentMember.id},status.in.(pending,pending_approval),is_weekly_task.eq.false),` +
             // Weekly tasks for the current week (assigned to child or unassigned)
-            `and(is_weekly_task.eq.true,due_date.eq.${weekSunday},or(assigned_to.eq.${currentMember.id},assigned_to.is.null))`
+            `and(is_weekly_task.eq.true,due_date.eq.${weekSunday},or(assigned_to.eq.${currentMember.id},assigned_to.is.null)),` +
+            // Previous days' completed tasks (last 7 days) - shown when today has few completions
+            `and(due_date.lt.${today},due_date.gte.${weekAgoStr},assigned_to.eq.${currentMember.id},status.eq.completed,is_weekly_task.eq.false)`
         )
         .order('due_datetime', { ascending: true, nullsFirst: false });
 
@@ -186,29 +193,38 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
 
   // Filter available (unassigned) tasks - ONLY TODAY's tasks:
   // - Only show tasks due today
-  // - Hide tasks that haven't reached their start_datetime yet
-  // - Hide tasks that are past their due_datetime + 1 hour
+  // - Hide tasks that haven't reached their start time yet
+  // - Hide tasks that are past their due_datetime
   const now = new Date();
-  const oneHourMs = 60 * 60 * 1000;
   const availableTasks = dailyApprovedTasks.filter((t) => {
     if (t.status !== 'pending' || t.assigned_to !== null) return false;
 
     // Only show TODAY's unassigned tasks
     if (t.due_date !== today) return false;
 
-    // If task has a start_datetime, only show if current time >= start time
-    if (t.start_datetime) {
+    // Check start time - prefer start_time column, fall back to start_datetime
+    const startTimeStr = (t as { start_time?: string | null }).start_time;
+    if (startTimeStr) {
+      // start_time is just "HH:MM:SS", combine with today's date
+      const [hours, minutes] = startTimeStr.split(':').map(Number);
+      const startDateTime = new Date();
+      startDateTime.setHours(hours, minutes, 0, 0);
+      if (now < startDateTime) {
+        return false; // Task hasn't started yet
+      }
+    } else if (t.start_datetime) {
+      // Fallback to start_datetime for backward compatibility
       const startTime = new Date(t.start_datetime);
       if (now < startTime) {
         return false; // Task hasn't started yet
       }
     }
 
-    // If task has a due_datetime, check if it's more than 1 hour past
+    // If task has a due_datetime, hide if it's past
     if (t.due_datetime) {
       const dueTime = new Date(t.due_datetime);
-      if (dueTime.getTime() + oneHourMs < now.getTime()) {
-        return false; // Task is expired (more than 1 hour past due time)
+      if (dueTime.getTime() < now.getTime()) {
+        return false; // Task is expired
       }
     }
     return true;
@@ -216,6 +232,47 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
 
   const pendingApprovalTasks = dailyApprovedTasks.filter((t) => t.status === 'pending_approval');
   const completedTasks = dailyApprovedTasks.filter((t) => t.status === 'completed');
+
+  // Group ALL completed tasks by date (sorted newest first)
+  const completedTasksByDate = completedTasks.reduce(
+    (acc, task) => {
+      const date = task.due_date || 'unknown';
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(task);
+      return acc;
+    },
+    {} as Record<string, TaskWithMember[]>
+  );
+
+  // Sort dates in descending order (newest first)
+  const sortedCompletedDates = Object.keys(completedTasksByDate).sort(
+    (a, b) => new Date(b).getTime() - new Date(a).getTime()
+  );
+
+  // Format date for display (Today, Yesterday, weekday name, or date)
+  const formatCompletedDate = (dateStr: string): string => {
+    if (dateStr === today) {
+      return t('child.taskList.sections.today');
+    }
+
+    const date = new Date(dateStr + 'T00:00:00');
+    const todayDate = new Date(today + 'T00:00:00');
+
+    const diffTime = todayDate.getTime() - date.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      return t('child.taskList.sections.yesterday');
+    } else if (diffDays < 7) {
+      // Return weekday name
+      return date.toLocaleDateString(i18n.language, { weekday: 'long' });
+    } else {
+      // Return formatted date
+      return date.toLocaleDateString(i18n.language, { month: 'short', day: 'numeric' });
+    }
+  };
 
   // Tasks created by child that are waiting for parent approval
   const pendingCreationTasks = tasks.filter(
@@ -489,17 +546,29 @@ export function TodayTaskList({ onTaskClick, onCreateTask }: TodayTaskListProps)
                 </div>
               )}
 
-              {/* Completed tasks */}
+              {/* Completed tasks grouped by date */}
               {completedTasks.length > 0 && (
                 <div>
                   <h3 className="text-sm font-semibold text-green-600 uppercase tracking-wide mb-3">
                     {t('child.taskList.sections.completed', { count: completedTasks.length })}
                   </h3>
-                  <div className="space-y-3">
-                    {completedTasks.map((task) => (
-                      <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
-                    ))}
-                  </div>
+                  {sortedCompletedDates.map((dateStr, index) => (
+                    <div key={dateStr}>
+                      {/* Date divider */}
+                      <div className={`flex items-center gap-3 ${index === 0 ? 'mb-3' : 'my-4'}`}>
+                        <div className="flex-1 h-px bg-gray-300" />
+                        <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                          {formatCompletedDate(dateStr)}
+                        </span>
+                        <div className="flex-1 h-px bg-gray-300" />
+                      </div>
+                      <div className="space-y-3">
+                        {completedTasksByDate[dateStr].map((task) => (
+                          <ChildTaskCard key={task.id} task={task} onClick={onTaskClick} />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

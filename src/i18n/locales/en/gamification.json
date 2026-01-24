@@ -158,7 +158,9 @@
         "available": "Available to Claim ({{count}})",
         "waitingApproval": "Waiting for Approval ({{count}})",
         "waitingForParent": "Waiting for Parent ({{count}})",
-        "completed": "Completed ({{count}})"
+        "completed": "Completed ({{count}})",
+        "today": "Today",
+        "yesterday": "Yesterday"
       },
       "tabs": {
         "myTasks": "My Tasks",

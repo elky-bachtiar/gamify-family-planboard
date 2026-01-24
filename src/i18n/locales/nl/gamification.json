@@ -158,7 +158,9 @@
         "available": "Beschikbaar om te claimen ({{count}})",
         "waitingApproval": "Wacht op goedkeuring ({{count}})",
         "waitingForParent": "Wacht op ouder ({{count}})",
-        "completed": "Voltooid ({{count}})"
+        "completed": "Voltooid ({{count}})",
+        "today": "Vandaag",
+        "yesterday": "Gisteren"
       },
       "tabs": {
         "myTasks": "Mijn Taken",
