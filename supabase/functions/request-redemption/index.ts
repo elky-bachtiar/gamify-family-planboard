@@ -86,7 +86,6 @@ Deno.serve(async (req: Request) => {
     // Get authenticated user
     const {
       data: { user },
-      error: authError,
     } = await supabaseUser.auth.getUser(token);
 
     // For PIN users, the token is a custom JWT where sub = member_id
