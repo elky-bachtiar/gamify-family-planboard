@@ -1,0 +1,21 @@
+{
+  "inbox": "Nachrichten",
+  "compose": "Neu",
+  "newMessage": "Neue Nachricht",
+  "noMessages": "Noch keine Nachrichten",
+  "unknownSender": "Unbekannt",
+  "backToInbox": "Zurück",
+  "reply": "Antworten",
+  "delete": "Löschen",
+  "replyTo": "An {{name}} antworten",
+  "originalMessage": "Ursprüngliche Nachricht",
+  "to": "An",
+  "selectRecipient": "Empfänger wählen...",
+  "everyone": "Alle",
+  "message": "Nachricht",
+  "messagePlaceholder": "Schreibe deine Nachricht hier...",
+  "send": "Senden",
+  "sending": "Wird gesendet...",
+  "errorFillFields": "Bitte alle Felder ausfüllen",
+  "errorSending": "Nachricht konnte nicht gesendet werden. Bitte versuche es erneut."
+}

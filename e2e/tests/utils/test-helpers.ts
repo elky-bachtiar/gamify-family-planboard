@@ -2,14 +2,14 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { createHash } from 'crypto';
 import jwt from 'jsonwebtoken';
 
-// Test configuration constants - uses Supabase CLI local instance
-export const SUPABASE_URL = 'http://127.0.0.1:54321';
-export const SUPABASE_ANON_KEY = 'eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MTI2OWYxLTIxZDgtNGYyZS1iNzE5LWMyMjQwYTg0MGQ5MCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjIwODQ1MjE5OTR9.93sojj1SFWzw8WJ_bN6znEhFe76RGKgE19ngt7TQOzWp8em71eHnNQbXLaJ3uYp8uGi5OhJu-bFaApOdiGoQJQ';
-export const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MTI2OWYxLTIxZDgtNGYyZS1iNzE5LWMyMjQwYTg0MGQ5MCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MjA4NDUyMTk5NH0.CLLO7KRX5KjArtjcscpFTYekPMuvRYYH2pzkVXxOMWPpuxk3KgzdXiOsfxX8QU417lgyRr8P4HWoCK8D4GBweA';
-export const JWT_SECRET = 'super-secret-jwt-token-with-at-least-32-characters-long';
+// Test configuration constants - loaded from environment variables (.env.local)
+export const SUPABASE_URL = process.env.SUPABASE_URL || 'http://127.0.0.1:54321';
+export const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
+export const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+export const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-jwt-token-with-at-least-32-characters-long';
 
 // Database connection for direct queries
-export const DB_URL = 'postgresql://postgres:postgres@127.0.0.1:54322/postgres';
+export const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@127.0.0.1:54322/postgres';
 
 /**
  * Test user data interface

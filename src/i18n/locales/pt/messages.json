@@ -1,0 +1,21 @@
+{
+  "inbox": "Mensagens",
+  "compose": "Nova",
+  "newMessage": "Nova Mensagem",
+  "noMessages": "Nenhuma mensagem ainda",
+  "unknownSender": "Desconhecido",
+  "backToInbox": "Voltar",
+  "reply": "Responder",
+  "delete": "Excluir",
+  "replyTo": "Responder para {{name}}",
+  "originalMessage": "Mensagem original",
+  "to": "Para",
+  "selectRecipient": "Selecionar destinatário...",
+  "everyone": "Todos",
+  "message": "Mensagem",
+  "messagePlaceholder": "Escreva sua mensagem aqui...",
+  "send": "Enviar",
+  "sending": "Enviando...",
+  "errorFillFields": "Por favor preencha todos os campos",
+  "errorSending": "Falha ao enviar mensagem. Por favor tente novamente."
+}

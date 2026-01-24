@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "Pengaturan Profil",
-    "signOut": "Keluar"
+    "signOut": "Keluar",
+    "myProfile": "Profil Saya",
+    "tapToEdit": "Ketuk untuk edit profil",
+    "savePhoto": "Simpan Foto",
+    "changeAvatar": "Ganti avatar",
+    "removeAvatar": "Hapus avatar",
+    "invalidFileType": "Pilih file gambar",
+    "fileTooLarge": "Ukuran file harus kurang dari 2MB",
+    "uploadFailed": "Gagal mengunggah avatar",
+    "newAvatarSelected": "Avatar baru dipilih"
   }
 }

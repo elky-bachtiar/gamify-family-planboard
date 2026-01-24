@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "Configuracoes do Perfil",
-    "signOut": "Sair"
+    "signOut": "Sair",
+    "myProfile": "Meu Perfil",
+    "tapToEdit": "Toque para editar perfil",
+    "savePhoto": "Salvar Foto",
+    "changeAvatar": "Alterar avatar",
+    "removeAvatar": "Remover avatar",
+    "invalidFileType": "Por favor selecione um arquivo de imagem",
+    "fileTooLarge": "O arquivo deve ter menos de 2MB",
+    "uploadFailed": "Falha ao enviar avatar",
+    "newAvatarSelected": "Novo avatar selecionado"
   }
 }

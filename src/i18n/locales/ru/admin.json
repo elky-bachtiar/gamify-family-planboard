@@ -5,7 +5,8 @@
       "members": "Участники",
       "approvals": "Подтверждения",
       "rewards": "Награды",
-      "objects": "Объекты"
+      "objects": "Объекты",
+      "disputes": "Оспаривания"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "например, Посудомойка, Стирка, Сад",
     "uploadImage": "Загрузить изображение",
     "removeImage": "Удалить изображение"
+  },
+  "manualPoints": {
+    "title": "Списать очки",
+    "description": "Списывайте очки у члена семьи за проблемы с поведением.",
+    "selectMember": "Выбрать участника",
+    "selectPlaceholder": "Выберите члена семьи...",
+    "pointsLabel": "Очков к списанию",
+    "pointsPlaceholder": "Введите количество очков",
+    "pointsHint": "Введите положительное число (например, 10 спишет 10 очков)",
+    "reasonLabel": "Причина",
+    "reasonPlaceholder": "например, Не убрал молоко в холодильник",
+    "submitButton": "Списать очки",
+    "submitting": "Списание...",
+    "confirmTitle": "Подтвердить списание очков",
+    "confirmMessage": "Вы уверены, что хотите списать {{points}} очков у {{name}}?",
+    "confirmButton": "Списать очки",
+    "success": "Очки успешно списаны!",
+    "errorInvalidPoints": "Пожалуйста, введите допустимое количество очков",
+    "errorSelectMember": "Пожалуйста, выберите члена семьи",
+    "errorEnterReason": "Пожалуйста, введите причину",
+    "errorFailed": "Не удалось списать очки. Пожалуйста, попробуйте снова."
+  },
+  "missedWeeklyTasks": {
+    "title": "Пропущенные еженедельные задания",
+    "assignedTo": "Назначено {{name}}",
+    "originalPoints": "Изначально: {{points}} очков",
+    "applyPenalty": "Применить штраф",
+    "applying": "Применение...",
+    "confirmTitle": "Применить штраф за еженедельное задание",
+    "confirmMessage": "Это спишет {{penalty}} очков у {{name}} за невыполнение этого еженедельного задания.",
+    "confirmButton": "Применить штраф"
+  },
+  "disputes": {
+    "title": "Оспаривания списаний",
+    "pending": "на рассмотрении",
+    "noDisputes": "Нет оспариваний",
+    "noDisputesHint": "Все оспаривания рассмотрены",
+    "originalDeduction": "Первоначальное списание",
+    "childResponse": "Ответ ребёнка",
+    "resolutionNote": "Примечание к решению (необязательно)",
+    "resolutionNotePlaceholder": "Добавить примечание...",
+    "reject": "Отклонить",
+    "approveRestore": "Одобрить и восстановить",
+    "approveHint": "Одобрение восстановит {{points}} очков",
+    "resolution": "Решение",
+    "approvedMessage": "Очки восстановлены",
+    "rejectedMessage": "Оспаривание отклонено"
   }
 }

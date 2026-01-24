@@ -1,0 +1,21 @@
+{
+  "inbox": "বার্তা",
+  "compose": "নতুন",
+  "newMessage": "নতুন বার্তা",
+  "noMessages": "এখনো কোনো বার্তা নেই",
+  "unknownSender": "অজানা",
+  "backToInbox": "ফিরে যান",
+  "reply": "উত্তর",
+  "delete": "মুছুন",
+  "replyTo": "{{name}}-কে উত্তর দিন",
+  "originalMessage": "মূল বার্তা",
+  "to": "প্রাপক",
+  "selectRecipient": "প্রাপক নির্বাচন করুন...",
+  "everyone": "সবাই",
+  "message": "বার্তা",
+  "messagePlaceholder": "আপনার বার্তা এখানে লিখুন...",
+  "send": "পাঠান",
+  "sending": "পাঠানো হচ্ছে...",
+  "errorFillFields": "অনুগ্রহ করে সব ক্ষেত্র পূরণ করুন",
+  "errorSending": "বার্তা পাঠাতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
+}

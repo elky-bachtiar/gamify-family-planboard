@@ -5,7 +5,8 @@
       "members": "メンバー",
       "approvals": "承認",
       "rewards": "ごほうび",
-      "objects": "オブジェクト"
+      "objects": "オブジェクト",
+      "disputes": "異議申し立て"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "例：食洗機、洗濯、庭",
     "uploadImage": "画像をアップロード",
     "removeImage": "画像を削除"
+  },
+  "manualPoints": {
+    "title": "ポイントを減算",
+    "description": "行動上の問題でファミリーメンバーからポイントを減算します。",
+    "selectMember": "メンバーを選択",
+    "selectPlaceholder": "ファミリーメンバーを選択...",
+    "pointsLabel": "減算するポイント",
+    "pointsPlaceholder": "ポイント数を入力",
+    "pointsHint": "正の数を入力してください（例：10を入力すると10ポイント減算）",
+    "reasonLabel": "理由",
+    "reasonPlaceholder": "例：牛乳を冷蔵庫に戻さなかった",
+    "submitButton": "ポイントを減算",
+    "submitting": "減算中...",
+    "confirmTitle": "ポイント減算の確認",
+    "confirmMessage": "{{name}}から{{points}}ポイントを減算してもよろしいですか？",
+    "confirmButton": "ポイントを減算",
+    "success": "ポイントが正常に減算されました！",
+    "errorInvalidPoints": "有効なポイント数を入力してください",
+    "errorSelectMember": "ファミリーメンバーを選択してください",
+    "errorEnterReason": "理由を入力してください",
+    "errorFailed": "ポイントの減算に失敗しました。もう一度お試しください。"
+  },
+  "missedWeeklyTasks": {
+    "title": "未完了の週間タスク",
+    "assignedTo": "{{name}}に割り当て",
+    "originalPoints": "元：{{points}}ポイント",
+    "applyPenalty": "ペナルティを適用",
+    "applying": "適用中...",
+    "confirmTitle": "週間タスクのペナルティを適用",
+    "confirmMessage": "この週間タスクを完了しなかったため、{{name}}から{{penalty}}ポイントを減算します。",
+    "confirmButton": "ペナルティを適用"
+  },
+  "disputes": {
+    "title": "減算の異議申し立て",
+    "pending": "保留中",
+    "noDisputes": "異議申し立てなし",
+    "noDisputesHint": "すべての異議申し立ては解決済みです",
+    "originalDeduction": "元の減算",
+    "childResponse": "子どもの回答",
+    "resolutionNote": "解決メモ（任意）",
+    "resolutionNotePlaceholder": "メモを追加...",
+    "reject": "却下",
+    "approveRestore": "承認してポイントを復元",
+    "approveHint": "承認すると{{points}}ポイントが復元されます",
+    "resolution": "解決",
+    "approvedMessage": "ポイントが復元されました",
+    "rejectedMessage": "異議申し立てが却下されました"
   }
 }

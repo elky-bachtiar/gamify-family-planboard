@@ -1,0 +1,21 @@
+{
+  "inbox": "Сообщения",
+  "compose": "Новое",
+  "newMessage": "Новое сообщение",
+  "noMessages": "Сообщений пока нет",
+  "unknownSender": "Неизвестно",
+  "backToInbox": "Назад",
+  "reply": "Ответить",
+  "delete": "Удалить",
+  "replyTo": "Ответить {{name}}",
+  "originalMessage": "Исходное сообщение",
+  "to": "Кому",
+  "selectRecipient": "Выберите получателя...",
+  "everyone": "Все",
+  "message": "Сообщение",
+  "messagePlaceholder": "Напишите сообщение здесь...",
+  "send": "Отправить",
+  "sending": "Отправка...",
+  "errorFillFields": "Пожалуйста, заполните все поля",
+  "errorSending": "Не удалось отправить сообщение. Попробуйте снова."
+}

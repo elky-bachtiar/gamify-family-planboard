@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Home, Trophy, BarChart3, Medal } from 'lucide-react';
+import { Home, Trophy, BarChart3, Medal, Gift } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
-export type ChildViewTab = 'home' | 'leaderboard' | 'badges' | 'stats';
+export type ChildViewTab = 'home' | 'leaderboard' | 'badges' | 'stats' | 'rewards';
 
 interface ChildTabBarProps {
   activeTab: ChildViewTab;
@@ -10,12 +11,19 @@ interface ChildTabBarProps {
 
 export function ChildTabBar({ activeTab, onTabChange }: ChildTabBarProps) {
   const { t } = useTranslation('gamification');
+  const { family } = useAuth();
+
+  // Only show rewards tab if rewards are enabled (point_to_money_rate > 0)
+  const showRewardsTab = (family?.point_to_money_rate ?? 0) > 0;
 
   const tabs = [
     { id: 'home' as ChildViewTab, labelKey: 'child.tabs.home', icon: Home },
     { id: 'leaderboard' as ChildViewTab, labelKey: 'child.tabs.leaderboard', icon: Medal },
     { id: 'badges' as ChildViewTab, labelKey: 'child.tabs.badges', icon: Trophy },
     { id: 'stats' as ChildViewTab, labelKey: 'child.tabs.stats', icon: BarChart3 },
+    ...(showRewardsTab
+      ? [{ id: 'rewards' as ChildViewTab, labelKey: 'child.tabs.rewards', icon: Gift }]
+      : []),
   ];
 
   return (

@@ -1,0 +1,21 @@
+{
+  "inbox": "메시지",
+  "compose": "새 메시지",
+  "newMessage": "새 메시지",
+  "noMessages": "메시지가 없습니다",
+  "unknownSender": "알 수 없음",
+  "backToInbox": "뒤로",
+  "reply": "답장",
+  "delete": "삭제",
+  "replyTo": "{{name}}에게 답장",
+  "originalMessage": "원본 메시지",
+  "to": "받는 사람",
+  "selectRecipient": "받는 사람 선택...",
+  "everyone": "전체",
+  "message": "메시지",
+  "messagePlaceholder": "메시지를 입력하세요...",
+  "send": "보내기",
+  "sending": "보내는 중...",
+  "errorFillFields": "모든 필드를 입력해주세요",
+  "errorSending": "메시지 전송에 실패했습니다. 다시 시도해주세요."
+}

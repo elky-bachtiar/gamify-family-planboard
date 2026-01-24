@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "Profileinstellungen",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "myProfile": "Mein Profil",
+    "tapToEdit": "Tippen zum Bearbeiten",
+    "savePhoto": "Foto speichern",
+    "changeAvatar": "Avatar ändern",
+    "removeAvatar": "Avatar entfernen",
+    "invalidFileType": "Bitte wähle eine Bilddatei",
+    "fileTooLarge": "Dateigröße muss unter 2MB sein",
+    "uploadFailed": "Avatar-Upload fehlgeschlagen",
+    "newAvatarSelected": "Neuer Avatar ausgewählt"
   }
 }

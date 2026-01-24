@@ -5,7 +5,8 @@
       "members": "구성원",
       "approvals": "승인",
       "rewards": "보상",
-      "objects": "오브젝트"
+      "objects": "오브젝트",
+      "disputes": "이의 신청"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "예: 식기세척기, 빨래, 정원",
     "uploadImage": "이미지 업로드",
     "removeImage": "이미지 삭제"
+  },
+  "manualPoints": {
+    "title": "포인트 차감",
+    "description": "행동 문제로 가족 구성원의 포인트를 차감합니다.",
+    "selectMember": "구성원 선택",
+    "selectPlaceholder": "가족 구성원 선택...",
+    "pointsLabel": "차감할 포인트",
+    "pointsPlaceholder": "포인트 수 입력",
+    "pointsHint": "양수를 입력하세요 (예: 10을 입력하면 10포인트 차감)",
+    "reasonLabel": "사유",
+    "reasonPlaceholder": "예: 우유를 냉장고에 넣지 않음",
+    "submitButton": "포인트 차감",
+    "submitting": "차감 중...",
+    "confirmTitle": "포인트 차감 확인",
+    "confirmMessage": "{{name}}에게서 {{points}} 포인트를 차감하시겠습니까?",
+    "confirmButton": "포인트 차감",
+    "success": "포인트가 성공적으로 차감되었습니다!",
+    "errorInvalidPoints": "유효한 포인트 수를 입력하세요",
+    "errorSelectMember": "가족 구성원을 선택하세요",
+    "errorEnterReason": "사유를 입력하세요",
+    "errorFailed": "포인트 차감에 실패했습니다. 다시 시도하세요."
+  },
+  "missedWeeklyTasks": {
+    "title": "미완료 주간 할 일",
+    "assignedTo": "{{name}}에게 할당됨",
+    "originalPoints": "원래: {{points}} 포인트",
+    "applyPenalty": "벌점 적용",
+    "applying": "적용 중...",
+    "confirmTitle": "주간 할 일 벌점 적용",
+    "confirmMessage": "이 주간 할 일을 완료하지 않아 {{name}}에게서 {{penalty}} 포인트를 차감합니다.",
+    "confirmButton": "벌점 적용"
+  },
+  "disputes": {
+    "title": "차감 이의 신청",
+    "pending": "대기 중",
+    "noDisputes": "이의 신청 없음",
+    "noDisputesHint": "모든 이의 신청이 처리되었습니다",
+    "originalDeduction": "원래 차감",
+    "childResponse": "자녀 응답",
+    "resolutionNote": "해결 메모 (선택사항)",
+    "resolutionNotePlaceholder": "메모 추가...",
+    "reject": "거절",
+    "approveRestore": "승인 및 복원",
+    "approveHint": "승인하면 {{points}} 포인트가 복원됩니다",
+    "resolution": "해결",
+    "approvedMessage": "포인트 복원됨",
+    "rejectedMessage": "이의 신청 거절됨"
   }
 }

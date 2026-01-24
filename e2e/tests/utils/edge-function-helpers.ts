@@ -7,12 +7,13 @@
 
 import { createHash } from 'crypto';
 
-// Edge functions URL - uses the Supabase CLI local instance
-export const FUNCTIONS_URL = 'http://127.0.0.1:54321/functions/v1';
+// Edge functions URL - loaded from environment variables (.env.local)
+const SUPABASE_URL = process.env.SUPABASE_URL || 'http://127.0.0.1:54321';
+export const FUNCTIONS_URL = `${SUPABASE_URL}/functions/v1`;
 
-// Test configuration - uses Supabase CLI local instance
-export const SUPABASE_ANON_KEY = 'eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MTI2OWYxLTIxZDgtNGYyZS1iNzE5LWMyMjQwYTg0MGQ5MCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjIwODQ1MjE5OTR9.93sojj1SFWzw8WJ_bN6znEhFe76RGKgE19ngt7TQOzWp8em71eHnNQbXLaJ3uYp8uGi5OhJu-bFaApOdiGoQJQ';
-export const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MTI2OWYxLTIxZDgtNGYyZS1iNzE5LWMyMjQwYTg0MGQ5MCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MjA4NDUyMTk5NH0.CLLO7KRX5KjArtjcscpFTYekPMuvRYYH2pzkVXxOMWPpuxk3KgzdXiOsfxX8QU417lgyRr8P4HWoCK8D4GBweA';
+// Test configuration - loaded from environment variables (.env.local)
+export const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
+export const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
 /**
  * Response type for edge function calls
@@ -202,6 +203,7 @@ export interface ToggleAdminResponse {
   success: boolean;
   member: {
     id: string;
+    name: string;
     is_admin: boolean;
   };
 }
@@ -225,11 +227,12 @@ export async function callToggleAdmin(
  */
 export interface DeductPointsResponse {
   success: boolean;
-  member: {
-    id: string;
-    total_points: number;
-    previous_points: number;
-  };
+  member_id: string;
+  member_name: string;
+  points_deducted: number;
+  previous_total: number;
+  new_total: number;
+  reason: string;
 }
 
 /**
@@ -254,6 +257,9 @@ export async function callDeductPoints(
  */
 export interface ResetChildPinResponse {
   success: boolean;
+  member_id: string;
+  member_name: string;
+  message: string;
 }
 
 /**
@@ -276,8 +282,9 @@ export async function callResetChildPin(
  * Regenerate Invite Code Response
  */
 export interface RegenerateInviteCodeResponse {
-  invite_code?: string;
-  parent_invite_code?: string;
+  success: boolean;
+  code_type: 'member' | 'parent';
+  new_code: string;
 }
 
 /**
@@ -328,10 +335,10 @@ export async function callAwardBirthdayPoints(
  */
 export interface DisableMemberResponse {
   success: boolean;
-  member: {
-    id: string;
-    is_disabled: boolean;
-  };
+  member_id: string;
+  member_name: string;
+  is_disabled: boolean;
+  message: string;
 }
 
 /**
@@ -364,4 +371,37 @@ export async function getAuthToken(
 ): Promise<string | null> {
   const { data } = await supabaseClient.auth.getSession();
   return data.session?.access_token || null;
+}
+
+/**
+ * Request Redemption Response
+ */
+export interface RequestRedemptionResponse {
+  success: true;
+  redemption_id: string;
+  points_redeemed: number;
+  money_amount: number;
+  available_after: number;
+}
+
+/**
+ * Request Redemption Error Response
+ */
+export interface RequestRedemptionError {
+  error: string;
+  available?: number;
+  requested?: number;
+}
+
+/**
+ * Call request-redemption edge function
+ */
+export async function callRequestRedemption(
+  authToken: string,
+  pointsRedeemed: number
+): Promise<EdgeFunctionResponse<RequestRedemptionResponse>> {
+  return callEdgeFunction<RequestRedemptionResponse>('request-redemption', {
+    authToken,
+    body: { points_redeemed: pointsRedeemed }
+  });
 }

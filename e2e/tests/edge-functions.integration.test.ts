@@ -78,7 +78,7 @@ test.describe('Edge Function Tests', () => {
   });
 
   // Skip all tests in this file if edge functions are not available
-  test.beforeEach(async (_context, testInfo) => {
+  test.beforeEach(async ({}, testInfo) => {
     if (!edgeFunctionsAvailable) {
       testInfo.skip(true, 'Edge functions not available - run "supabase functions serve"');
     }

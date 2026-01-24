@@ -11,7 +11,8 @@
   "level": {
     "current": "Уровень {{level}}",
     "progressTo": "Прогресс до уровня {{level}}",
-    "maxLevel": "Максимальный уровень достигнут!"
+    "maxLevel": "Максимальный уровень достигнут!",
+    "toNextLevel": "до следующего уровня"
   },
   "streak": {
     "current": "{{count}} дней",
@@ -125,7 +126,8 @@
     "tabs": {
       "home": "Главная",
       "badges": "Значки",
-      "stats": "Статистика"
+      "stats": "Статистика",
+      "leaderboard": "Рейтинг"
     },
     "dailyGreeting": {
       "welcome": "С возвращением!",
@@ -156,7 +158,10 @@
         "available": "Доступно для выполнения ({{count}})",
         "waitingApproval": "Ожидает подтверждения ({{count}})",
         "waitingForParent": "Ожидает родителя ({{count}})",
-        "completed": "Выполнено ({{count}})"
+        "completed": "Выполнено ({{count}})",
+        "overdue": "Просроченные ({{count}})",
+        "today": "Сегодня",
+        "yesterday": "Вчера"
       },
       "tabs": {
         "myTasks": "Мои задания",
@@ -197,7 +202,8 @@
       "submitting": "Отправка...",
       "earnPoints": "Заработай {{points}} очков!",
       "alreadyCompleted": "Уже выполнено!",
-      "waitingApproval": "Ожидание подтверждения..."
+      "waitingApproval": "Ожидание подтверждения...",
+      "unclaim": "Отменить"
     },
     "celebration": {
       "approved": "Задание подтверждено!",
@@ -225,7 +231,61 @@
       "pointsEarned": "Очков заработано",
       "activeDays": "Активных дней",
       "recentActivity": "Недавняя активность",
-      "noActivity": "Пока нет активности. Выполни несколько заданий!"
+      "noActivity": "Пока нет активности. Выполни несколько заданий!",
+      "allTime": "Всего",
+      "longestStreak": "Лучшая серия",
+      "activityApproved": "Одобрено",
+      "activityPending": "Ожидает одобрения",
+      "activityBonus": "Бонус",
+      "activityCompleted": "Выполнено",
+      "activityPenalty": "Штраф"
+    },
+    "leaderboard": {
+      "you": "вы"
+    },
+    "penalty": {
+      "title": "Потеряны очки!",
+      "pointsLost": "-{{points}} очков",
+      "unknownReason": "Неизвестная причина"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Заморозка серии",
+    "shopDescription": "Защити серию, если пропустишь день",
+    "youHave": "У тебя",
+    "cost": "Стоимость",
+    "yourPoints": "Твои очки",
+    "buyButton": "Купить заморозку",
+    "notEnoughPoints": "Недостаточно очков",
+    "maxReached": "Достигнут максимум!",
+    "maxReachedHint": "Используй одну перед покупкой",
+    "purchaseSuccess": "Заморозка куплена!",
+    "howItWorks": "Заморозки используются автоматически, когда ты пропускаешь день, защищая твою серию от сброса."
+  },
+  "penalties": {
+    "title": "Вычеты очков",
+    "noDeductions": "Нет вычетов!",
+    "noDeductionsHint": "Так держать!"
+  },
+  "disputes": {
+    "disputeButton": "Оспорить этот вычет",
+    "cannotDispute": "Срок оспаривания истёк",
+    "createTitle": "Оспорить вычет",
+    "originalDeduction": "Исходный вычет",
+    "reasonLabel": "Почему вы оспариваете?",
+    "reasonPlaceholder": "Объясните, почему вы считаете этот вычет несправедливым...",
+    "evidenceLabel": "Добавить доказательство (необязательно)",
+    "addPhoto": "Добавить фото",
+    "maxPhotos": "Максимум 3 фото",
+    "photoHint": "Макс 3 фото, 5МБ каждое",
+    "submitButton": "Отправить оспаривание",
+    "status": {
+      "pending": "На рассмотрении",
+      "approved": "Одобрено",
+      "rejected": "Отклонено"
+    },
+    "toastApproved": "Оспаривание одобрено!",
+    "toastRejected": "Оспаривание отклонено",
+    "pointsRestored": "+{{points}} очков восстановлено!"
   }
 }

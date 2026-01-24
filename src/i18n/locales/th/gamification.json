@@ -9,7 +9,8 @@
   "level": {
     "current": "ระดับ {{level}}",
     "progressTo": "ความคืบหน้าสู่ระดับ {{level}}",
-    "maxLevel": "ถึงระดับสูงสุดแล้ว!"
+    "maxLevel": "ถึงระดับสูงสุดแล้ว!",
+    "toNextLevel": "สู่เลเวลถัดไป"
   },
   "streak": {
     "current": "{{count}} วัน",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "หน้าแรก",
       "badges": "เหรียญรางวัล",
-      "stats": "สถิติ"
+      "stats": "สถิติ",
+      "leaderboard": "อันดับ"
     },
     "dailyGreeting": {
       "welcome": "ยินดีต้อนรับกลับมา!",
@@ -152,7 +154,10 @@
         "available": "พร้อมรับงาน ({{count}})",
         "waitingApproval": "รอการอนุมัติ ({{count}})",
         "waitingForParent": "รอพ่อแม่ ({{count}})",
-        "completed": "เสร็จสิ้น ({{count}})"
+        "completed": "เสร็จสิ้น ({{count}})",
+        "overdue": "งานเลยกำหนด ({{count}})",
+        "today": "วันนี้",
+        "yesterday": "เมื่อวาน"
       },
       "tabs": {
         "myTasks": "งานของฉัน",
@@ -193,7 +198,8 @@
       "submitting": "กำลังส่ง...",
       "earnPoints": "รับ {{points}} คะแนน!",
       "alreadyCompleted": "เสร็จสิ้นแล้ว!",
-      "waitingApproval": "รอการอนุมัติ..."
+      "waitingApproval": "รอการอนุมัติ...",
+      "unclaim": "ยกเลิกการรับ"
     },
     "celebration": {
       "approved": "อนุมัติงานแล้ว!",
@@ -221,7 +227,61 @@
       "pointsEarned": "คะแนนที่ได้รับ",
       "activeDays": "วันที่ใช้งาน",
       "recentActivity": "กิจกรรมล่าสุด",
-      "noActivity": "ยังไม่มีกิจกรรม ทำงานบ้างสิ!"
+      "noActivity": "ยังไม่มีกิจกรรม ทำงานบ้างสิ!",
+      "allTime": "ทั้งหมด",
+      "longestStreak": "สถิติสูงสุด",
+      "activityApproved": "อนุมัติ",
+      "activityPending": "รอการอนุมัติ",
+      "activityBonus": "โบนัส",
+      "activityCompleted": "เสร็จสิ้น",
+      "activityPenalty": "บทลงโทษ"
+    },
+    "leaderboard": {
+      "you": "คุณ"
+    },
+    "penalty": {
+      "title": "เสียคะแนน!",
+      "pointsLost": "-{{points}} คะแนน",
+      "unknownReason": "ไม่ทราบสาเหตุ"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "แช่แข็งสตรีค",
+    "shopDescription": "ปกป้องสตรีคของคุณเมื่อพลาดวัน",
+    "youHave": "คุณมี",
+    "cost": "ค่าใช้จ่าย",
+    "yourPoints": "คะแนนของคุณ",
+    "buyButton": "ซื้อแช่แข็งสตรีค",
+    "notEnoughPoints": "คะแนนไม่พอ",
+    "maxReached": "ถึงจำนวนสูงสุดแล้ว!",
+    "maxReachedHint": "ใช้ก่อนซื้อเพิ่ม",
+    "purchaseSuccess": "ซื้อแช่แข็งสตรีคแล้ว!",
+    "howItWorks": "แช่แข็งจะถูกใช้โดยอัตโนมัติเมื่อคุณพลาดการทำงานในวันนั้น ปกป้องสตรีคของคุณจากการรีเซ็ต"
+  },
+  "penalties": {
+    "title": "การหักคะแนน",
+    "noDeductions": "ไม่มีการหัก!",
+    "noDeductionsHint": "ทำดีต่อไป!"
+  },
+  "disputes": {
+    "disputeButton": "โต้แย้งการหักนี้",
+    "cannotDispute": "หมดเวลาโต้แย้ง",
+    "createTitle": "โต้แย้งการหัก",
+    "originalDeduction": "การหักเดิม",
+    "reasonLabel": "ทำไมคุณถึงโต้แย้ง?",
+    "reasonPlaceholder": "อธิบายว่าทำไมคุณคิดว่าการหักนี้ไม่ยุติธรรม...",
+    "evidenceLabel": "เพิ่มหลักฐาน (ไม่บังคับ)",
+    "addPhoto": "เพิ่มรูป",
+    "maxPhotos": "สูงสุด 3 รูป",
+    "photoHint": "สูงสุด 3 รูป, 5MB ต่อรูป",
+    "submitButton": "ส่งคำโต้แย้ง",
+    "status": {
+      "pending": "รอการตรวจสอบ",
+      "approved": "อนุมัติ",
+      "rejected": "ปฏิเสธ"
+    },
+    "toastApproved": "การโต้แย้งได้รับการอนุมัติ!",
+    "toastRejected": "การโต้แย้งถูกปฏิเสธ",
+    "pointsRestored": "+{{points}} คะแนนคืนมา!"
   }
 }

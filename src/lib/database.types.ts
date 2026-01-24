@@ -715,6 +715,7 @@ export type Database = {
           rejection_reason: string | null;
           sort_order: number | null;
           start_datetime: string | null;
+          start_time: string | null;
           status: string | null;
           title: string;
         };
@@ -749,6 +750,7 @@ export type Database = {
           rejection_reason?: string | null;
           sort_order?: number | null;
           start_datetime?: string | null;
+          start_time?: string | null;
           status?: string | null;
           title: string;
         };
@@ -783,6 +785,7 @@ export type Database = {
           rejection_reason?: string | null;
           sort_order?: number | null;
           start_datetime?: string | null;
+          start_time?: string | null;
           status?: string | null;
           title?: string;
         };

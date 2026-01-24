@@ -1,0 +1,21 @@
+{
+  "inbox": "संदेश",
+  "compose": "नया",
+  "newMessage": "नया संदेश",
+  "noMessages": "अभी कोई संदेश नहीं",
+  "unknownSender": "अज्ञात",
+  "backToInbox": "वापस",
+  "reply": "जवाब दें",
+  "delete": "हटाएं",
+  "replyTo": "{{name}} को जवाब दें",
+  "originalMessage": "मूल संदेश",
+  "to": "प्राप्तकर्ता",
+  "selectRecipient": "प्राप्तकर्ता चुनें...",
+  "everyone": "सभी",
+  "message": "संदेश",
+  "messagePlaceholder": "अपना संदेश यहां लिखें...",
+  "send": "भेजें",
+  "sending": "भेजा जा रहा है...",
+  "errorFillFields": "कृपया सभी फ़ील्ड भरें",
+  "errorSending": "संदेश भेजने में विफल। कृपया पुनः प्रयास करें।"
+}

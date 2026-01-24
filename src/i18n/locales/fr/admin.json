@@ -5,7 +5,8 @@
       "members": "Membres",
       "approvals": "Approbations",
       "rewards": "Récompenses",
-      "objects": "Objets"
+      "objects": "Objets",
+      "disputes": "Contestations"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "ex. Lave-vaisselle, Lessive, Jardin",
     "uploadImage": "Télécharger une image",
     "removeImage": "Supprimer l'image"
+  },
+  "manualPoints": {
+    "title": "Déduire des Points",
+    "description": "Déduisez des points d'un membre de la famille pour des problèmes de comportement.",
+    "selectMember": "Sélectionner un Membre",
+    "selectPlaceholder": "Choisissez un membre de la famille...",
+    "pointsLabel": "Points à Déduire",
+    "pointsPlaceholder": "Entrez le nombre de points",
+    "pointsHint": "Entrez un nombre positif (ex. 10 déduira 10 points)",
+    "reasonLabel": "Raison",
+    "reasonPlaceholder": "ex. N'a pas remis le lait au frigo",
+    "submitButton": "Déduire les Points",
+    "submitting": "Déduction en cours...",
+    "confirmTitle": "Confirmer la Déduction de Points",
+    "confirmMessage": "Êtes-vous sûr de vouloir déduire {{points}} points de {{name}} ?",
+    "confirmButton": "Déduire les Points",
+    "success": "Points déduits avec succès !",
+    "errorInvalidPoints": "Veuillez entrer un nombre de points valide",
+    "errorSelectMember": "Veuillez sélectionner un membre de la famille",
+    "errorEnterReason": "Veuillez entrer une raison",
+    "errorFailed": "Échec de la déduction des points. Veuillez réessayer."
+  },
+  "missedWeeklyTasks": {
+    "title": "Tâches Hebdomadaires Manquées",
+    "assignedTo": "Assignée à {{name}}",
+    "originalPoints": "Original : {{points}} points",
+    "applyPenalty": "Appliquer la Pénalité",
+    "applying": "Application...",
+    "confirmTitle": "Appliquer la Pénalité de Tâche Hebdomadaire",
+    "confirmMessage": "Cela déduira {{penalty}} points de {{name}} pour ne pas avoir terminé cette tâche hebdomadaire.",
+    "confirmButton": "Appliquer la Pénalité"
+  },
+  "disputes": {
+    "title": "Contestations de Déductions",
+    "pending": "en attente",
+    "noDisputes": "Aucune contestation",
+    "noDisputesHint": "Toutes les contestations ont été résolues",
+    "originalDeduction": "Déduction Originale",
+    "childResponse": "Réponse de l'Enfant",
+    "resolutionNote": "Note de résolution (optionnel)",
+    "resolutionNotePlaceholder": "Ajouter une note...",
+    "reject": "Rejeter",
+    "approveRestore": "Approuver et Restaurer",
+    "approveHint": "L'approbation restaurera {{points}} points",
+    "resolution": "Résolution",
+    "approvedMessage": "Points restaurés",
+    "rejectedMessage": "Contestation rejetée"
   }
 }

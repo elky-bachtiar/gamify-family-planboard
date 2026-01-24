@@ -40,8 +40,14 @@ export function FamilyProvider({ children }: { children: ReactNode }) {
       if (error) throw error;
       setFamilyMembers(data || []);
 
-      if (familyMember) {
-        setCurrentMember(familyMember);
+      // Update currentMember from fresh data, not stale familyMember
+      if (familyMember && data) {
+        const updatedMember = data.find((m) => m.id === familyMember.id);
+        if (updatedMember) {
+          setCurrentMember(updatedMember);
+        } else {
+          setCurrentMember(familyMember);
+        }
       }
     } catch (error) {
       console.error('Error fetching family members:', error);

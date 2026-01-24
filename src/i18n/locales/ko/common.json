@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "프로필 설정",
-    "signOut": "로그아웃"
+    "signOut": "로그아웃",
+    "myProfile": "내 프로필",
+    "tapToEdit": "프로필 편집하려면 탭하세요",
+    "savePhoto": "사진 저장",
+    "changeAvatar": "아바타 변경",
+    "removeAvatar": "아바타 삭제",
+    "invalidFileType": "이미지 파일을 선택해주세요",
+    "fileTooLarge": "파일 크기는 2MB 미만이어야 합니다",
+    "uploadFailed": "아바타 업로드 실패",
+    "newAvatarSelected": "새 아바타가 선택되었습니다"
   }
 }

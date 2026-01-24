@@ -1,18 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Trophy, Medal, Crown } from 'lucide-react';
 import { getSupabaseClient } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import { syncFamilyPoints } from '../lib/gamification';
 import type { FamilyMember } from '../types';
 
 export function Leaderboard() {
   const { t } = useTranslation('gamification');
   const { family } = useAuth();
   const [members, setMembers] = useState<FamilyMember[]>([]);
+  const hasSynced = useRef(false);
 
   useEffect(() => {
     if (family) {
-      loadMembers();
+      // Sync family points once on initial load to fix any inconsistencies
+      if (!hasSynced.current) {
+        hasSynced.current = true;
+        syncFamilyPoints(family.id)
+          .then(() => loadMembers())
+          .catch((err) => {
+            console.error('Error syncing family points:', err);
+            loadMembers();
+          });
+      } else {
+        loadMembers();
+      }
 
       const supabase = getSupabaseClient();
       const subscription = supabase

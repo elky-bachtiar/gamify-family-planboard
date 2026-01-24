@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "Настройки профиля",
-    "signOut": "Выйти"
+    "signOut": "Выйти",
+    "myProfile": "Мой профиль",
+    "tapToEdit": "Нажмите для редактирования",
+    "savePhoto": "Сохранить фото",
+    "changeAvatar": "Изменить аватар",
+    "removeAvatar": "Удалить аватар",
+    "invalidFileType": "Пожалуйста, выберите файл изображения",
+    "fileTooLarge": "Размер файла должен быть менее 2МБ",
+    "uploadFailed": "Не удалось загрузить аватар",
+    "newAvatarSelected": "Выбран новый аватар"
   }
 }

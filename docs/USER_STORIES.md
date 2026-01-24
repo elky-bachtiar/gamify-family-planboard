@@ -927,12 +927,43 @@ USING (
 
 **Acceptance Criteria:**
 
-- View available point balance
-- Enter redemption amount
+- View available point balance (total - pending redemptions)
+- Enter redemption amount with quick-select buttons
 - Conversion rate: configurable (e.g., 100 points = €1)
 - Submit redemption request
 - Status shows as `pending`
-- Cannot request more points than available
+- Cannot request more points than **available** (not total)
+- Visual display of pending vs available when requests exist
+
+**Child Mobile Interface (ChildRewardsView):**
+
+- Mobile-friendly rewards view accessible via bottom tab bar
+- Rewards tab only visible when `point_to_money_rate > 0`
+- Points & Value card with gradient styling
+- Weekly goal progress bar (when configured)
+- Pending requests list with color-coded status
+
+### 7.1.1 Server-Side Redemption Protection ✅
+
+**As a** child
+**I want to** see my true available balance and have server-validated requests
+**So that** I can't accidentally or maliciously request more points than I have
+
+**Acceptance Criteria:**
+
+- **Available Points Calculation**: `total_points - (pending + approved redemptions) = available`
+- Display shows:
+  - Total Points: Full balance
+  - Pending: Sum of pending/approved redemption requests
+  - Available: What can still be requested
+- Input max capped at available (not total)
+- Quick-select buttons use available amount
+- **Server-Side Validation**: All requests go through `request-redemption` Edge Function
+- **Atomic Validation**: Database query ensures consistent available balance calculation
+- **Race Condition Prevention**: Parallel requests cannot cause over-redemption
+- **Rate Limiting**: 10 requests per hour prevents spam/abuse
+- Same protection applied to both child and adult interfaces
+- Direct API calls to database blocked by RLS (INSERT policy removed)
 
 ### 7.2 Approve Redemption (Admin) ✅
 
@@ -1435,26 +1466,27 @@ USING (family_id IN (
 
 ### Edge Functions
 
-| Function                      | Method | Auth   | Description                       | Status |
-| ----------------------------- | ------ | ------ | --------------------------------- | ------ |
-| `create-child`                | POST   | Admin  | Create child with PIN             | ✅     |
-| `pin-login`                   | POST   | Public | Authenticate with PIN             | ✅     |
-| `join-family`                 | POST   | User   | Join family via invite code       | ✅     |
-| `join-family-as-parent`       | POST   | User   | Join family as admin              | ✅     |
-| `toggle-admin`                | POST   | Admin  | Promote/demote admin              | ✅     |
-| `deduct-points`               | POST   | Admin  | Deduct points from member         | ✅     |
-| `deduct-points-with-evidence` | POST   | Admin  | Deduct points with photo evidence | 📱     |
-| `award-birthday-points`       | POST   | Admin  | Award birthday bonus              | ✅     |
-| `reset-child-pin`             | POST   | Admin  | Reset child's PIN                 | ✅     |
-| `disable-member`              | POST   | Admin  | Enable/disable member             | ✅     |
-| `export-family-data`          | GET    | Admin  | Export all family data            | ✅     |
-| `regenerate-invite-code`      | POST   | Admin  | Generate new invite codes         | ✅     |
-| `create-family-object`        | POST   | Admin  | Create family object with image   | 📱     |
-| `update-family-object`        | PUT    | Admin  | Update family object              | 📱     |
-| `delete-family-object`        | DELETE | Admin  | Delete family object              | 📱     |
-| `create-dispute`              | POST   | Child  | Create deduction dispute          | 📱     |
-| `resolve-dispute`             | POST   | Admin  | Approve/reject dispute            | 📱     |
-| `purchase-streak-freeze`      | POST   | User   | Buy streak freeze with points     | 📱     |
+| Function                      | Method | Auth   | Description                                 | Status |
+| ----------------------------- | ------ | ------ | ------------------------------------------- | ------ |
+| `create-child`                | POST   | Admin  | Create child with PIN                       | ✅     |
+| `pin-login`                   | POST   | Public | Authenticate with PIN                       | ✅     |
+| `join-family`                 | POST   | User   | Join family via invite code                 | ✅     |
+| `join-family-as-parent`       | POST   | User   | Join family as admin                        | ✅     |
+| `toggle-admin`                | POST   | Admin  | Promote/demote admin                        | ✅     |
+| `deduct-points`               | POST   | Admin  | Deduct points from member                   | ✅     |
+| `deduct-points-with-evidence` | POST   | Admin  | Deduct points with photo evidence           | 📱     |
+| `award-birthday-points`       | POST   | Admin  | Award birthday bonus                        | ✅     |
+| `reset-child-pin`             | POST   | Admin  | Reset child's PIN                           | ✅     |
+| `disable-member`              | POST   | Admin  | Enable/disable member                       | ✅     |
+| `export-family-data`          | GET    | Admin  | Export all family data                      | ✅     |
+| `regenerate-invite-code`      | POST   | Admin  | Generate new invite codes                   | ✅     |
+| `create-family-object`        | POST   | Admin  | Create family object with image             | 📱     |
+| `update-family-object`        | PUT    | Admin  | Update family object                        | 📱     |
+| `delete-family-object`        | DELETE | Admin  | Delete family object                        | 📱     |
+| `create-dispute`              | POST   | Child  | Create deduction dispute                    | 📱     |
+| `resolve-dispute`             | POST   | Admin  | Approve/reject dispute                      | 📱     |
+| `purchase-streak-freeze`      | POST   | User   | Buy streak freeze with points               | 📱     |
+| `request-redemption`          | POST   | User   | Request point redemption (server-validated) | ✅     |
 
 ### Supabase Tables
 

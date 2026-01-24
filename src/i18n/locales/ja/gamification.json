@@ -9,7 +9,8 @@
   "level": {
     "current": "レベル{{level}}",
     "progressTo": "レベル{{level}}まで",
-    "maxLevel": "最高レベル達成！"
+    "maxLevel": "最高レベル達成！",
+    "toNextLevel": "次のレベルまで"
   },
   "streak": {
     "current": "{{count}}日",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "ホーム",
       "badges": "バッジ",
-      "stats": "統計"
+      "stats": "統計",
+      "leaderboard": "ランキング"
     },
     "dailyGreeting": {
       "welcome": "おかえり！",
@@ -152,7 +154,10 @@
         "available": "担当できるタスク（{{count}}件）",
         "waitingApproval": "承認待ち（{{count}}件）",
         "waitingForParent": "保護者待ち（{{count}}件）",
-        "completed": "完了（{{count}}件）"
+        "completed": "完了（{{count}}件）",
+        "overdue": "期限切れタスク ({{count}})",
+        "today": "今日",
+        "yesterday": "昨日"
       },
       "tabs": {
         "myTasks": "マイタスク",
@@ -193,7 +198,8 @@
       "submitting": "送信中...",
       "earnPoints": "{{points}}ポイントゲット！",
       "alreadyCompleted": "すでに完了済み！",
-      "waitingApproval": "承認を待っています..."
+      "waitingApproval": "承認を待っています...",
+      "unclaim": "取り消し"
     },
     "celebration": {
       "approved": "タスク承認！",
@@ -221,7 +227,61 @@
       "pointsEarned": "獲得ポイント",
       "activeDays": "活動日数",
       "recentActivity": "最近の活動",
-      "noActivity": "まだ活動がありません。タスクを完了しよう！"
+      "noActivity": "まだ活動がありません。タスクを完了しよう！",
+      "allTime": "累計",
+      "longestStreak": "最長記録",
+      "activityApproved": "承認済み",
+      "activityPending": "承認待ち",
+      "activityBonus": "ボーナス",
+      "activityCompleted": "完了",
+      "activityPenalty": "ペナルティ"
+    },
+    "leaderboard": {
+      "you": "あなた"
+    },
+    "penalty": {
+      "title": "ポイント減少！",
+      "pointsLost": "-{{points}} ポイント",
+      "unknownReason": "理由不明"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "連続記録保護",
+    "shopDescription": "1日休んでも連続記録を守ります",
+    "youHave": "残り",
+    "cost": "コスト",
+    "yourPoints": "あなたのポイント",
+    "buyButton": "連続記録保護を購入",
+    "notEnoughPoints": "ポイント不足",
+    "maxReached": "上限に達しました！",
+    "maxReachedHint": "追加購入前に使用してください",
+    "purchaseSuccess": "連続記録保護を購入しました！",
+    "howItWorks": "タスクを完了できなかった日に自動的に使用され、連続記録がリセットされるのを防ぎます。"
+  },
+  "penalties": {
+    "title": "ポイント減点",
+    "noDeductions": "減点なし！",
+    "noDeductionsHint": "この調子で頑張って！"
+  },
+  "disputes": {
+    "disputeButton": "この減点に異議を申し立てる",
+    "cannotDispute": "異議申立期間終了",
+    "createTitle": "減点への異議",
+    "originalDeduction": "元の減点",
+    "reasonLabel": "なぜ異議を申し立てますか？",
+    "reasonPlaceholder": "この減点が不当だと思う理由を説明してください...",
+    "evidenceLabel": "証拠を追加（任意）",
+    "addPhoto": "写真を追加",
+    "maxPhotos": "最大3枚まで",
+    "photoHint": "最大3枚、各5MB",
+    "submitButton": "異議を提出",
+    "status": {
+      "pending": "審査中",
+      "approved": "承認済み",
+      "rejected": "却下"
+    },
+    "toastApproved": "異議が承認されました！",
+    "toastRejected": "異議が却下されました",
+    "pointsRestored": "+{{points}} ポイント復元！"
   }
 }

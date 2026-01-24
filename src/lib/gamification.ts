@@ -2,6 +2,91 @@ import { getSupabaseClient } from './supabase';
 import { calculateLevel } from '../types';
 import type { FamilyMember, Task } from '../types';
 
+/**
+ * Recalculate total_points from points_history to avoid race conditions.
+ * This ensures the total is always accurate regardless of concurrent updates.
+ */
+async function recalculateMemberPoints(memberId: string): Promise<number> {
+  const supabase = getSupabaseClient();
+
+  // Sum all points from points_history for this member
+  const { data, error } = await supabase
+    .from('points_history')
+    .select('points')
+    .eq('member_id', memberId);
+
+  if (error) {
+    console.error('Error fetching points history:', error);
+    throw error;
+  }
+
+  const totalPoints = (data || []).reduce((sum, entry) => sum + (entry.points ?? 0), 0);
+
+  // Ensure non-negative
+  return Math.max(0, totalPoints);
+}
+
+/**
+ * Update member's total_points and level by recalculating from points_history.
+ * This is the safe, race-condition-free way to update points.
+ */
+async function updateMemberPointsFromHistory(
+  memberId: string
+): Promise<{ totalPoints: number; level: number }> {
+  const supabase = getSupabaseClient();
+
+  const totalPoints = await recalculateMemberPoints(memberId);
+  const newLevel = calculateLevel(totalPoints);
+
+  const { error } = await supabase
+    .from('family_members')
+    .update({
+      total_points: totalPoints,
+      current_level: newLevel,
+    })
+    .eq('id', memberId);
+
+  if (error) {
+    console.error('Error updating member points:', error);
+    throw error;
+  }
+
+  return { totalPoints, level: newLevel };
+}
+
+/**
+ * Sync a single member's points by recalculating from history.
+ * Use this to fix incorrect point totals.
+ */
+export async function syncMemberPoints(
+  memberId: string
+): Promise<{ totalPoints: number; level: number }> {
+  return updateMemberPointsFromHistory(memberId);
+}
+
+/**
+ * Sync all family members' points by recalculating from history.
+ * Use this to fix incorrect point totals across the entire family.
+ */
+export async function syncFamilyPoints(familyId: string): Promise<void> {
+  const supabase = getSupabaseClient();
+
+  const { data: members, error } = await supabase
+    .from('family_members')
+    .select('id')
+    .eq('family_id', familyId);
+
+  if (error) {
+    console.error('Error fetching family members:', error);
+    throw error;
+  }
+
+  // Recalculate points for each member
+  for (const member of members || []) {
+    await updateMemberPointsFromHistory(member.id);
+  }
+}
+
 export async function completeTask(task: Task, member: FamilyMember, isAdmin: boolean = false) {
   try {
     const supabase = getSupabaseClient();
@@ -32,18 +117,8 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
 
       if (pointsError) throw pointsError;
 
-      const newTotalPoints = (member.total_points ?? 0) + (task.point_value ?? 0);
-      const newLevel = calculateLevel(newTotalPoints);
-
-      const { error: memberError } = await supabase
-        .from('family_members')
-        .update({
-          total_points: newTotalPoints,
-          current_level: newLevel,
-        })
-        .eq('id', member.id);
-
-      if (memberError) throw memberError;
+      // Recalculate points from history to avoid race conditions
+      await updateMemberPointsFromHistory(member.id);
 
       const newAchievements = await checkAndAwardAchievements(member.id);
       return { success: true, newAchievements };
@@ -54,6 +129,7 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
         .update({
           status: 'pending_approval',
           completed_by: member.id,
+          completed_at: now,
         })
         .eq('id', task.id);
 
@@ -86,11 +162,12 @@ export async function approveTask(task: Task, approver: FamilyMember) {
     if (completerError || !completer) throw completerError || new Error('Completer not found');
 
     // Update task to completed
+    // Only set completed_at if not already set (for backwards compatibility)
     const { error: taskError } = await supabase
       .from('tasks')
       .update({
         status: 'completed',
-        completed_at: now,
+        completed_at: task.completed_at || now,
         approved_by: approver.id,
         approved_at: now,
       })
@@ -109,18 +186,8 @@ export async function approveTask(task: Task, approver: FamilyMember) {
 
     if (pointsError) throw pointsError;
 
-    const newTotalPoints = (completer.total_points ?? 0) + (task.point_value ?? 0);
-    const newLevel = calculateLevel(newTotalPoints);
-
-    const { error: memberError } = await supabase
-      .from('family_members')
-      .update({
-        total_points: newTotalPoints,
-        current_level: newLevel,
-      })
-      .eq('id', completer.id);
-
-    if (memberError) throw memberError;
+    // Recalculate points from history to avoid race conditions
+    await updateMemberPointsFromHistory(completer.id);
 
     const newAchievements = await checkAndAwardAchievements(completer.id);
 
@@ -387,20 +454,8 @@ export async function awardManualPoints(
 
     if (pointsError) throw pointsError;
 
-    // Calculate new total points (minimum 0)
-    const newTotalPoints = Math.max(0, (member.total_points ?? 0) + points);
-    const newLevel = calculateLevel(newTotalPoints);
-
-    // Update member points and level
-    const { error: updateError } = await supabase
-      .from('family_members')
-      .update({
-        total_points: newTotalPoints,
-        current_level: newLevel,
-      })
-      .eq('id', memberId);
-
-    if (updateError) throw updateError;
+    // Recalculate points from history to avoid race conditions
+    await updateMemberPointsFromHistory(memberId);
 
     return { success: true };
   } catch (error) {
@@ -505,19 +560,8 @@ export async function applyWeeklyTaskPenalty(
 
     if (pointsError) throw pointsError;
 
-    // Update member points (minimum 0)
-    const newTotalPoints = Math.max(0, (member.total_points ?? 0) + penaltyPoints);
-    const newLevel = calculateLevel(newTotalPoints);
-
-    const { error: updateError } = await supabase
-      .from('family_members')
-      .update({
-        total_points: newTotalPoints,
-        current_level: newLevel,
-      })
-      .eq('id', task.assigned_to);
-
-    if (updateError) throw updateError;
+    // Recalculate points from history to avoid race conditions
+    await updateMemberPointsFromHistory(task.assigned_to);
 
     return { success: true, penaltyPoints };
   } catch (error) {

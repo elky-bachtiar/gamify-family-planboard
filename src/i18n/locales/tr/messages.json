@@ -1,0 +1,21 @@
+{
+  "inbox": "Mesajlar",
+  "compose": "Yeni",
+  "newMessage": "Yeni Mesaj",
+  "noMessages": "Henüz mesaj yok",
+  "unknownSender": "Bilinmiyor",
+  "backToInbox": "Geri",
+  "reply": "Yanıtla",
+  "delete": "Sil",
+  "replyTo": "{{name}} kişisine yanıtla",
+  "originalMessage": "Orijinal mesaj",
+  "to": "Kime",
+  "selectRecipient": "Alıcı seç...",
+  "everyone": "Herkes",
+  "message": "Mesaj",
+  "messagePlaceholder": "Mesajınızı buraya yazın...",
+  "send": "Gönder",
+  "sending": "Gönderiliyor...",
+  "errorFillFields": "Lütfen tüm alanları doldurun",
+  "errorSending": "Mesaj gönderilemedi. Lütfen tekrar deneyin."
+}

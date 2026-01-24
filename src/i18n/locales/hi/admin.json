@@ -5,7 +5,8 @@
       "members": "सदस्य",
       "approvals": "अनुमोदन",
       "rewards": "इनाम",
-      "objects": "वस्तुएं"
+      "objects": "वस्तुएं",
+      "disputes": "विवाद"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "जैसे, डिशवॉशर, कपड़े धोना, बगीचा",
     "uploadImage": "छवि अपलोड करें",
     "removeImage": "छवि हटाएं"
+  },
+  "manualPoints": {
+    "title": "अंक काटें",
+    "description": "व्यवहार संबंधी समस्याओं के लिए परिवार के सदस्य से अंक काटें।",
+    "selectMember": "सदस्य चुनें",
+    "selectPlaceholder": "परिवार का सदस्य चुनें...",
+    "pointsLabel": "काटने के लिए अंक",
+    "pointsPlaceholder": "अंकों की संख्या दर्ज करें",
+    "pointsHint": "एक सकारात्मक संख्या दर्ज करें (जैसे, 10 से 10 अंक कटेंगे)",
+    "reasonLabel": "कारण",
+    "reasonPlaceholder": "जैसे, दूध फ्रिज में वापस नहीं रखा",
+    "submitButton": "अंक काटें",
+    "submitting": "काट रहे हैं...",
+    "confirmTitle": "अंक कटौती की पुष्टि करें",
+    "confirmMessage": "क्या आप वाकई {{name}} से {{points}} अंक काटना चाहते हैं?",
+    "confirmButton": "अंक काटें",
+    "success": "अंक सफलतापूर्वक काटे गए!",
+    "errorInvalidPoints": "कृपया अंकों की वैध संख्या दर्ज करें",
+    "errorSelectMember": "कृपया परिवार का सदस्य चुनें",
+    "errorEnterReason": "कृपया कारण दर्ज करें",
+    "errorFailed": "अंक काटने में विफल। कृपया पुनः प्रयास करें।"
+  },
+  "missedWeeklyTasks": {
+    "title": "छूटे साप्ताहिक कार्य",
+    "assignedTo": "{{name}} को सौंपा गया",
+    "originalPoints": "मूल: {{points}} अंक",
+    "applyPenalty": "दंड लागू करें",
+    "applying": "लागू कर रहे हैं...",
+    "confirmTitle": "साप्ताहिक कार्य दंड लागू करें",
+    "confirmMessage": "इस साप्ताहिक कार्य को पूरा न करने पर {{name}} से {{penalty}} अंक काटे जाएंगे।",
+    "confirmButton": "दंड लागू करें"
+  },
+  "disputes": {
+    "title": "कटौती विवाद",
+    "pending": "लंबित",
+    "noDisputes": "कोई विवाद नहीं",
+    "noDisputesHint": "सभी विवाद हल हो गए हैं",
+    "originalDeduction": "मूल कटौती",
+    "childResponse": "बच्चे की प्रतिक्रिया",
+    "resolutionNote": "समाधान नोट (वैकल्पिक)",
+    "resolutionNotePlaceholder": "एक नोट जोड़ें...",
+    "reject": "अस्वीकार करें",
+    "approveRestore": "स्वीकृत करें और पुनर्स्थापित करें",
+    "approveHint": "स्वीकृति से {{points}} अंक पुनर्स्थापित होंगे",
+    "resolution": "समाधान",
+    "approvedMessage": "अंक पुनर्स्थापित",
+    "rejectedMessage": "विवाद अस्वीकृत"
   }
 }

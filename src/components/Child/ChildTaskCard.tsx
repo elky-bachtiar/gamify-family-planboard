@@ -256,7 +256,7 @@ export function ChildTaskCard({
 
   const config = getStatusConfig();
 
-  // Format time helper
+  // Format time helper for datetime strings
   const formatTimeValue = (datetime: string | null) => {
     if (!datetime) return null;
     const date = new Date(datetime);
@@ -267,12 +267,28 @@ export function ChildTaskCard({
     return `${displayHour}:${minutes} ${ampm}`;
   };
 
+  // Format time helper for time-only strings (HH:MM:SS)
+  const formatTimeOnly = (timeStr: string | null) => {
+    if (!timeStr) return null;
+    const [hoursStr, minutesStr] = timeStr.split(':');
+    const hours = parseInt(hoursStr, 10);
+    const minutes = minutesStr.padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const displayHour = hours % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
+
   // Format due time or time range if start time is set
   const formatTimeDisplay = () => {
     if (!task.due_datetime) return null;
 
     const dueTime = formatTimeValue(task.due_datetime);
-    const startTime = formatTimeValue(task.start_datetime);
+
+    // Prefer start_time column (time-only), fall back to start_datetime
+    const startTimeCol = (task as { start_time?: string | null }).start_time;
+    const startTime = startTimeCol
+      ? formatTimeOnly(startTimeCol)
+      : formatTimeValue(task.start_datetime);
 
     // If we have both start and due time, show as range
     if (startTime && dueTime) {

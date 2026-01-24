@@ -16,6 +16,7 @@ import { PenaltyToast } from './Gamification/PenaltyToast';
 import { ChildBadgesView } from './Views/ChildBadgesView';
 import { ChildStatsView } from './Views/ChildStatsView';
 import { ChildLeaderboardView } from './Views/ChildLeaderboardView';
+import { ChildRewardsView } from './Views/ChildRewardsView';
 import type { TaskWithMember, Task, PointsHistory } from '../../types';
 
 // Session storage key for greeting shown today
@@ -225,6 +226,8 @@ export function ChildDashboard() {
         {activeTab === 'badges' && <ChildBadgesView />}
 
         {activeTab === 'stats' && <ChildStatsView />}
+
+        {activeTab === 'rewards' && <ChildRewardsView />}
       </main>
 
       {/* Bottom tab bar */}

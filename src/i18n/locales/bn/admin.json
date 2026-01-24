@@ -5,7 +5,8 @@
       "members": "সদস্য",
       "approvals": "অনুমোদন",
       "rewards": "পুরস্কার",
-      "objects": "বস্তু"
+      "objects": "বস্তু",
+      "disputes": "বিতর্ক"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "যেমন, ডিশওয়াশার, লন্ড্রি, বাগান",
     "uploadImage": "ছবি আপলোড করুন",
     "removeImage": "ছবি মুছুন"
+  },
+  "manualPoints": {
+    "title": "পয়েন্ট কাটুন",
+    "description": "আচরণগত সমস্যার জন্য পরিবারের সদস্যের পয়েন্ট কাটুন।",
+    "selectMember": "সদস্য নির্বাচন করুন",
+    "selectPlaceholder": "একজন পরিবারের সদস্য বেছে নিন...",
+    "pointsLabel": "কাটার পয়েন্ট",
+    "pointsPlaceholder": "পয়েন্ট সংখ্যা লিখুন",
+    "pointsHint": "একটি ধনাত্মক সংখ্যা লিখুন (যেমন, ১০ লিখলে ১০ পয়েন্ট কাটবে)",
+    "reasonLabel": "কারণ",
+    "reasonPlaceholder": "যেমন, দুধ ফ্রিজে রাখেনি",
+    "submitButton": "পয়েন্ট কাটুন",
+    "submitting": "কাটা হচ্ছে...",
+    "confirmTitle": "পয়েন্ট কাটা নিশ্চিত করুন",
+    "confirmMessage": "আপনি কি নিশ্চিত {{name}} থেকে {{points}} পয়েন্ট কাটতে চান?",
+    "confirmButton": "পয়েন্ট কাটুন",
+    "success": "পয়েন্ট সফলভাবে কাটা হয়েছে!",
+    "errorInvalidPoints": "অনুগ্রহ করে একটি বৈধ পয়েন্ট সংখ্যা লিখুন",
+    "errorSelectMember": "অনুগ্রহ করে একজন পরিবারের সদস্য নির্বাচন করুন",
+    "errorEnterReason": "অনুগ্রহ করে একটি কারণ লিখুন",
+    "errorFailed": "পয়েন্ট কাটতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
+  },
+  "missedWeeklyTasks": {
+    "title": "মিস করা সাপ্তাহিক কাজ",
+    "assignedTo": "{{name}}-কে দেওয়া হয়েছে",
+    "originalPoints": "মূল: {{points}} পয়েন্ট",
+    "applyPenalty": "জরিমানা প্রয়োগ করুন",
+    "applying": "প্রয়োগ হচ্ছে...",
+    "confirmTitle": "সাপ্তাহিক কাজের জরিমানা প্রয়োগ করুন",
+    "confirmMessage": "এই সাপ্তাহিক কাজটি সম্পন্ন না করায় {{name}} থেকে {{penalty}} পয়েন্ট কাটা হবে।",
+    "confirmButton": "জরিমানা প্রয়োগ করুন"
+  },
+  "disputes": {
+    "title": "কাটার বিতর্ক",
+    "pending": "অপেক্ষমাণ",
+    "noDisputes": "কোনো বিতর্ক নেই",
+    "noDisputesHint": "সমস্ত বিতর্ক সমাধান হয়েছে",
+    "originalDeduction": "মূল কাটা",
+    "childResponse": "সন্তানের প্রতিক্রিয়া",
+    "resolutionNote": "সমাধান নোট (ঐচ্ছিক)",
+    "resolutionNotePlaceholder": "একটি নোট যোগ করুন...",
+    "reject": "প্রত্যাখ্যান",
+    "approveRestore": "অনুমোদন ও পুনরুদ্ধার",
+    "approveHint": "অনুমোদন {{points}} পয়েন্ট পুনরুদ্ধার করবে",
+    "resolution": "সমাধান",
+    "approvedMessage": "পয়েন্ট পুনরুদ্ধার হয়েছে",
+    "rejectedMessage": "বিতর্ক প্রত্যাখ্যান হয়েছে"
   }
 }

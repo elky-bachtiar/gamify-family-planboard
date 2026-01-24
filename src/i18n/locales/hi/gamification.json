@@ -9,7 +9,8 @@
   "level": {
     "current": "स्तर {{level}}",
     "progressTo": "स्तर {{level}} की प्रगति",
-    "maxLevel": "अधिकतम स्तर प्राप्त!"
+    "maxLevel": "अधिकतम स्तर प्राप्त!",
+    "toNextLevel": "अगले स्तर तक"
   },
   "streak": {
     "current": "{{count}} दिन",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "होम",
       "badges": "बैज",
-      "stats": "आंकड़े"
+      "stats": "आंकड़े",
+      "leaderboard": "रैंकिंग"
     },
     "dailyGreeting": {
       "welcome": "वापस स्वागत है!",
@@ -152,7 +154,10 @@
         "available": "लेने के लिए उपलब्ध ({{count}})",
         "waitingApproval": "अनुमोदन की प्रतीक्षा में ({{count}})",
         "waitingForParent": "माता-पिता की प्रतीक्षा में ({{count}})",
-        "completed": "पूर्ण ({{count}})"
+        "completed": "पूर्ण ({{count}})",
+        "overdue": "देरी से ({{count}})",
+        "today": "आज",
+        "yesterday": "कल"
       },
       "tabs": {
         "myTasks": "मेरे कार्य",
@@ -193,7 +198,8 @@
       "submitting": "जमा हो रहा है...",
       "earnPoints": "{{points}} अंक कमाएं!",
       "alreadyCompleted": "पहले से पूर्ण!",
-      "waitingApproval": "अनुमोदन की प्रतीक्षा में..."
+      "waitingApproval": "अनुमोदन की प्रतीक्षा में...",
+      "unclaim": "दावा रद्द करें"
     },
     "celebration": {
       "approved": "कार्य स्वीकृत!",
@@ -221,7 +227,61 @@
       "pointsEarned": "अर्जित अंक",
       "activeDays": "सक्रिय दिन",
       "recentActivity": "हाल की गतिविधि",
-      "noActivity": "अभी तक कोई गतिविधि नहीं। कुछ कार्य पूरे करें!"
+      "noActivity": "अभी तक कोई गतिविधि नहीं। कुछ कार्य पूरे करें!",
+      "allTime": "सर्वकालिक",
+      "longestStreak": "सबसे लंबी श्रृंखला",
+      "activityApproved": "स्वीकृत",
+      "activityPending": "स्वीकृति की प्रतीक्षा",
+      "activityBonus": "बोनस",
+      "activityCompleted": "पूर्ण",
+      "activityPenalty": "जुर्माना"
+    },
+    "leaderboard": {
+      "you": "आप"
+    },
+    "penalty": {
+      "title": "अंक खो गए!",
+      "pointsLost": "-{{points}} अंक",
+      "unknownReason": "अज्ञात कारण"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "स्ट्रीक फ्रीज",
+    "shopDescription": "एक दिन छूटने पर अपनी श्रृंखला की रक्षा करें",
+    "youHave": "आपके पास है",
+    "cost": "लागत",
+    "yourPoints": "आपके अंक",
+    "buyButton": "स्ट्रीक फ्रीज खरीदें",
+    "notEnoughPoints": "पर्याप्त अंक नहीं",
+    "maxReached": "अधिकतम सीमा पहुंच गई!",
+    "maxReachedHint": "और खरीदने से पहले एक का उपयोग करें",
+    "purchaseSuccess": "स्ट्रीक फ्रीज खरीदा गया!",
+    "howItWorks": "जब आप एक दिन कार्य पूरा करने से चूक जाते हैं तो फ्रीज स्वचालित रूप से उपयोग हो जाते हैं, जो आपकी श्रृंखला को रीसेट होने से बचाते हैं।"
+  },
+  "penalties": {
+    "title": "अंक कटौती",
+    "noDeductions": "कोई कटौती नहीं!",
+    "noDeductionsHint": "बहुत अच्छा काम करते रहो!"
+  },
+  "disputes": {
+    "disputeButton": "इस कटौती पर विवाद करें",
+    "cannotDispute": "विवाद अवधि समाप्त",
+    "createTitle": "कटौती पर विवाद",
+    "originalDeduction": "मूल कटौती",
+    "reasonLabel": "आप इसका विवाद क्यों कर रहे हैं?",
+    "reasonPlaceholder": "बताएं कि आपको क्यों लगता है कि यह कटौती अनुचित थी...",
+    "evidenceLabel": "सबूत जोड़ें (वैकल्पिक)",
+    "addPhoto": "फोटो जोड़ें",
+    "maxPhotos": "अधिकतम 3 फोटो की अनुमति",
+    "photoHint": "अधिकतम 3 फोटो, प्रत्येक 5MB",
+    "submitButton": "विवाद जमा करें",
+    "status": {
+      "pending": "समीक्षाधीन",
+      "approved": "स्वीकृत",
+      "rejected": "अस्वीकृत"
+    },
+    "toastApproved": "विवाद स्वीकृत!",
+    "toastRejected": "विवाद अस्वीकृत",
+    "pointsRestored": "+{{points}} अंक वापस!"
   }
 }

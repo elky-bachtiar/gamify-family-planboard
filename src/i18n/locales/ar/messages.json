@@ -1,0 +1,21 @@
+{
+  "inbox": "الرسائل",
+  "compose": "جديد",
+  "newMessage": "رسالة جديدة",
+  "noMessages": "لا توجد رسائل بعد",
+  "unknownSender": "غير معروف",
+  "backToInbox": "رجوع",
+  "reply": "رد",
+  "delete": "حذف",
+  "replyTo": "رد على {{name}}",
+  "originalMessage": "الرسالة الأصلية",
+  "to": "إلى",
+  "selectRecipient": "اختر المستلم...",
+  "everyone": "الجميع",
+  "message": "الرسالة",
+  "messagePlaceholder": "اكتب رسالتك هنا...",
+  "send": "إرسال",
+  "sending": "جارٍ الإرسال...",
+  "errorFillFields": "يرجى ملء جميع الحقول",
+  "errorSending": "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى."
+}

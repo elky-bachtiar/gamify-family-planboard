@@ -442,6 +442,57 @@ test.describe('protect_task_fields trigger', () => {
       // Trigger blocks non-admin from assigning tasks to others
       expectTriggerException(error, 'Only admins can reassign tasks');
     });
+
+    test('child CAN unclaim their own claimed task', async () => {
+      // First claim the task
+      const serviceClient = createServiceClient();
+      await serviceClient
+        .from('tasks')
+        .update({ assigned_to: childMember.id })
+        .eq('id', unassignedTask.id);
+
+      const childClient = createPinUserClient(childMember.id);
+
+      // Unclaim by setting assigned_to to null
+      const { data, error } = await childClient
+        .from('tasks')
+        .update({ assigned_to: null })
+        .eq('id', unassignedTask.id)
+        .select()
+        .single();
+
+      expect(error).toBeNull();
+      expect(data?.assigned_to).toBeNull();
+    });
+
+    test('child CANNOT unclaim task assigned to someone else', async () => {
+      // Assign task to admin
+      const serviceClient = createServiceClient();
+      await serviceClient
+        .from('tasks')
+        .update({ assigned_to: adminMember.id })
+        .eq('id', unassignedTask.id);
+
+      const childClient = createPinUserClient(childMember.id);
+
+      // Try to unclaim (set to null) a task assigned to someone else
+      // This should fail because the task is not visible to the child (RLS blocks it)
+      const { data } = await childClient
+        .from('tasks')
+        .update({ assigned_to: null })
+        .eq('id', unassignedTask.id)
+        .select()
+        .single();
+
+      // RLS prevents seeing/updating tasks assigned to others
+      expect(data).toBeNull();
+
+      // Reset for other tests
+      await serviceClient
+        .from('tasks')
+        .update({ assigned_to: null })
+        .eq('id', unassignedTask.id);
+    });
   });
 
   test.describe('Admin can modify all task fields', () => {

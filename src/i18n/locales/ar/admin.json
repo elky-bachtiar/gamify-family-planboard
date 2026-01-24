@@ -5,7 +5,8 @@
       "members": "الأعضاء",
       "approvals": "الموافقات",
       "rewards": "المكافآت",
-      "objects": "الكائنات"
+      "objects": "الكائنات",
+      "disputes": "الاعتراضات"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "مثال: غسالة الصحون، الغسيل، الحديقة",
     "uploadImage": "رفع صورة",
     "removeImage": "إزالة الصورة"
+  },
+  "manualPoints": {
+    "title": "خصم النقاط",
+    "description": "خصم نقاط من أحد أفراد العائلة بسبب مشاكل سلوكية.",
+    "selectMember": "اختر العضو",
+    "selectPlaceholder": "اختر أحد أفراد العائلة...",
+    "pointsLabel": "النقاط للخصم",
+    "pointsPlaceholder": "أدخل عدد النقاط",
+    "pointsHint": "أدخل رقماً موجباً (مثال: 10 سيخصم 10 نقاط)",
+    "reasonLabel": "السبب",
+    "reasonPlaceholder": "مثال: لم يعد الحليب إلى الثلاجة",
+    "submitButton": "خصم النقاط",
+    "submitting": "جارٍ الخصم...",
+    "confirmTitle": "تأكيد خصم النقاط",
+    "confirmMessage": "هل أنت متأكد أنك تريد خصم {{points}} نقاط من {{name}}؟",
+    "confirmButton": "خصم النقاط",
+    "success": "تم خصم النقاط بنجاح!",
+    "errorInvalidPoints": "يرجى إدخال عدد نقاط صالح",
+    "errorSelectMember": "يرجى اختيار أحد أفراد العائلة",
+    "errorEnterReason": "يرجى إدخال السبب",
+    "errorFailed": "فشل خصم النقاط. يرجى المحاولة مرة أخرى."
+  },
+  "missedWeeklyTasks": {
+    "title": "المهام الأسبوعية الفائتة",
+    "assignedTo": "مُسندة إلى {{name}}",
+    "originalPoints": "الأصلي: {{points}} نقاط",
+    "applyPenalty": "تطبيق العقوبة",
+    "applying": "جارٍ التطبيق...",
+    "confirmTitle": "تطبيق عقوبة المهمة الأسبوعية",
+    "confirmMessage": "سيتم خصم {{penalty}} نقاط من {{name}} لعدم إكمال هذه المهمة الأسبوعية.",
+    "confirmButton": "تطبيق العقوبة"
+  },
+  "disputes": {
+    "title": "اعتراضات الخصم",
+    "pending": "قيد الانتظار",
+    "noDisputes": "لا توجد اعتراضات",
+    "noDisputesHint": "تم حل جميع الاعتراضات",
+    "originalDeduction": "الخصم الأصلي",
+    "childResponse": "رد الطفل",
+    "resolutionNote": "ملاحظة الحل (اختياري)",
+    "resolutionNotePlaceholder": "أضف ملاحظة...",
+    "reject": "رفض",
+    "approveRestore": "موافقة واستعادة",
+    "approveHint": "الموافقة ستستعيد {{points}} نقاط",
+    "resolution": "الحل",
+    "approvedMessage": "تم استعادة النقاط",
+    "rejectedMessage": "تم رفض الاعتراض"
   }
 }

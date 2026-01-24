@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "إعدادات الملف الشخصي",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "myProfile": "ملفي الشخصي",
+    "tapToEdit": "اضغط لتعديل الملف الشخصي",
+    "savePhoto": "حفظ الصورة",
+    "changeAvatar": "تغيير الصورة الرمزية",
+    "removeAvatar": "إزالة الصورة الرمزية",
+    "invalidFileType": "يرجى اختيار ملف صورة",
+    "fileTooLarge": "يجب أن يكون حجم الملف أقل من 2 ميجابايت",
+    "uploadFailed": "فشل رفع الصورة الرمزية",
+    "newAvatarSelected": "تم اختيار صورة رمزية جديدة"
   }
 }

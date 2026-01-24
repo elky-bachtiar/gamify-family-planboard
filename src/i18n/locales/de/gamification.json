@@ -9,7 +9,8 @@
   "level": {
     "current": "Level {{level}}",
     "progressTo": "Fortschritt zu Level {{level}}",
-    "maxLevel": "Maximales Level erreicht!"
+    "maxLevel": "Maximales Level erreicht!",
+    "toNextLevel": "zum nächsten Level"
   },
   "streak": {
     "current": "{{count}} Tage",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "Start",
       "badges": "Abzeichen",
-      "stats": "Statistiken"
+      "stats": "Statistiken",
+      "leaderboard": "Rangliste"
     },
     "dailyGreeting": {
       "welcome": "Willkommen zurück!",
@@ -152,7 +154,10 @@
         "available": "Zum Übernehmen verfügbar ({{count}})",
         "waitingApproval": "Warte auf Genehmigung ({{count}})",
         "waitingForParent": "Warte auf Eltern ({{count}})",
-        "completed": "Erledigt ({{count}})"
+        "completed": "Erledigt ({{count}})",
+        "overdue": "Überfällige Aufgaben ({{count}})",
+        "today": "Heute",
+        "yesterday": "Gestern"
       },
       "tabs": {
         "myTasks": "Meine Aufgaben",
@@ -193,7 +198,8 @@
       "submitting": "Wird gesendet...",
       "earnPoints": "Verdiene {{points}} Punkte!",
       "alreadyCompleted": "Bereits erledigt!",
-      "waitingApproval": "Warte auf Genehmigung..."
+      "waitingApproval": "Warte auf Genehmigung...",
+      "unclaim": "Übernahme rückgängig"
     },
     "celebration": {
       "approved": "Aufgabe genehmigt!",
@@ -221,7 +227,61 @@
       "pointsEarned": "Verdiente Punkte",
       "activeDays": "Aktive Tage",
       "recentActivity": "Letzte Aktivität",
-      "noActivity": "Noch keine Aktivität. Erledige einige Aufgaben!"
+      "noActivity": "Noch keine Aktivität. Erledige einige Aufgaben!",
+      "allTime": "Insgesamt",
+      "longestStreak": "Längste Serie",
+      "activityApproved": "Genehmigt",
+      "activityPending": "Warte auf Genehmigung",
+      "activityBonus": "Bonus",
+      "activityCompleted": "Erledigt",
+      "activityPenalty": "Strafe"
+    },
+    "leaderboard": {
+      "you": "du"
+    },
+    "penalty": {
+      "title": "Punkte verloren!",
+      "pointsLost": "-{{points}} Punkte",
+      "unknownReason": "Unbekannter Grund"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Serien-Schutz",
+    "shopDescription": "Schütze deine Serie, wenn du einen Tag verpasst",
+    "youHave": "Du hast",
+    "cost": "Kosten",
+    "yourPoints": "Deine Punkte",
+    "buyButton": "Serien-Schutz kaufen",
+    "notEnoughPoints": "Nicht genügend Punkte",
+    "maxReached": "Maximum erreicht!",
+    "maxReachedHint": "Benutze einen, bevor du mehr kaufst",
+    "purchaseSuccess": "Serien-Schutz gekauft!",
+    "howItWorks": "Schutzschilde werden automatisch verwendet, wenn du einen Tag keine Aufgabe erledigst, um deine Serie zu schützen."
+  },
+  "penalties": {
+    "title": "Punktabzüge",
+    "noDeductions": "Keine Abzüge!",
+    "noDeductionsHint": "Weiter so!"
+  },
+  "disputes": {
+    "disputeButton": "Diesen Abzug anfechten",
+    "cannotDispute": "Anfechtungsfrist abgelaufen",
+    "createTitle": "Abzug anfechten",
+    "originalDeduction": "Ursprünglicher Abzug",
+    "reasonLabel": "Warum fechtest du dies an?",
+    "reasonPlaceholder": "Erkläre, warum du denkst, dass dieser Abzug unfair war...",
+    "evidenceLabel": "Beweis hinzufügen (optional)",
+    "addPhoto": "Foto hinzufügen",
+    "maxPhotos": "Maximal 3 Fotos erlaubt",
+    "photoHint": "Max 3 Fotos, je 5MB",
+    "submitButton": "Anfechtung einreichen",
+    "status": {
+      "pending": "In Prüfung",
+      "approved": "Genehmigt",
+      "rejected": "Abgelehnt"
+    },
+    "toastApproved": "Anfechtung genehmigt!",
+    "toastRejected": "Anfechtung abgelehnt",
+    "pointsRestored": "+{{points}} Punkte zurück!"
   }
 }

@@ -20,6 +20,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useFamily } from '../contexts/FamilyContext';
 import { supabase } from '../lib/supabase';
 import { TagInput } from './TagInput';
+import { ObjectPicker } from './ObjectPicker';
 import { EditRecurringTaskDialog } from './EditRecurringTaskDialog';
 import { DeleteTaskConfirmModal } from './DeleteTaskConfirmModal';
 import { countFutureRecurringTasks } from '../lib/recurrence';
@@ -41,7 +42,7 @@ export function TaskDetailModal({
   onCopyTask,
 }: TaskDetailModalProps) {
   const { t, i18n } = useTranslation(['tasks', 'common']);
-  const { isAdmin } = useAuth();
+  const { isAdmin, family } = useAuth();
   const { familyMembers } = useFamily();
 
   // Edit mode state
@@ -54,8 +55,10 @@ export function TaskDetailModal({
   const [editAssignedTo, setEditAssignedTo] = useState<string>('');
   const [editPriority, setEditPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [editAssociatedItems, setEditAssociatedItems] = useState<string[]>([]);
+  const [editAssociatedObjectIds, setEditAssociatedObjectIds] = useState<string[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [availableTags, setAvailableTags] = useState<string[]>([]);
 
   // Recurring task edit dialog state
   const [showRecurringDialog, setShowRecurringDialog] = useState(false);
@@ -67,9 +70,11 @@ export function TaskDetailModal({
     due_date: string;
     due_datetime: string;
     start_datetime: string | null;
+    start_time: string | null;
     priority: 'low' | 'medium' | 'high';
     point_value: number;
     associated_items: string[];
+    associated_object_ids: string[] | null;
   } | null>(null);
 
   // Initialize edit state when task changes or edit mode starts
@@ -88,6 +93,7 @@ export function TaskDetailModal({
       setEditAssignedTo(task.assigned_to || '');
       setEditPriority((task.priority ?? 'medium') as 'low' | 'medium' | 'high');
       setEditAssociatedItems(task.associated_items || []);
+      setEditAssociatedObjectIds(task.associated_object_ids || []);
     }
   }, [task, isEditing]);
 
@@ -97,6 +103,31 @@ export function TaskDetailModal({
       setIsEditing(false);
     }
   }, [isOpen]);
+
+  // Fetch available tags for autocomplete when editing
+  useEffect(() => {
+    async function fetchTags() {
+      if (!isEditing || !family) return;
+      const { data } = await supabase
+        .from('tasks')
+        .select('associated_items')
+        .eq('family_id', family.id)
+        .not('associated_items', 'is', null);
+
+      const tagCounts = new Map<string, number>();
+      data?.forEach((t) =>
+        t.associated_items?.forEach((tag: string) => {
+          tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+        })
+      );
+      setAvailableTags(
+        Array.from(tagCounts.entries())
+          .sort((a, b) => b[1] - a[1])
+          .map(([tag]) => tag)
+      );
+    }
+    fetchTags();
+  }, [isEditing, family?.id]);
 
   if (!isOpen || !task) return null;
 
@@ -131,6 +162,8 @@ export function TaskDetailModal({
 
     const dueDatetime = `${editDueDate}T${editDueTime}:00`;
     const startDatetime = editStartTime ? `${editDueDate}T${editStartTime}:00` : null;
+    // Store just the time portion for bulk updates on recurring tasks
+    const startTimeOnly = editStartTime ? `${editStartTime}:00` : null;
     const updatePayload = {
       title: editTitle.trim(),
       description: editDescription.trim(),
@@ -138,9 +171,11 @@ export function TaskDetailModal({
       due_date: editDueDate,
       due_datetime: dueDatetime,
       start_datetime: startDatetime,
+      start_time: startTimeOnly,
       priority: editPriority,
       point_value: PRIORITY_CONFIG[editPriority].points,
       associated_items: editAssociatedItems,
+      associated_object_ids: editAssociatedObjectIds.length > 0 ? editAssociatedObjectIds : null,
     };
 
     // If this is a recurring task, show the dialog
@@ -170,9 +205,11 @@ export function TaskDetailModal({
           due_date: payload.due_date,
           due_datetime: payload.due_datetime,
           start_datetime: payload.start_datetime,
+          start_time: payload.start_time,
           priority: payload.priority,
           point_value: payload.point_value,
           associated_items: payload.associated_items,
+          associated_object_ids: payload.associated_object_ids,
         } as never)
         .eq('id', task.id);
 
@@ -196,43 +233,9 @@ export function TaskDetailModal({
     try {
       const today = new Date().toISOString().split('T')[0];
 
-      // First, fetch all future tasks to update their start_datetime individually
-      if (pendingUpdate.start_datetime) {
-        const { data: futureTasks, error: fetchError } = await supabase
-          .from('tasks')
-          .select('id, due_date')
-          .eq('recurring_task_group_id', task.recurring_task_group_id)
-          .gte('due_date', today)
-          .neq('status', 'completed');
-
-        if (fetchError) throw fetchError;
-
-        // Extract the time portion from the new start_datetime
-        const startTime = new Date(pendingUpdate.start_datetime).toTimeString().slice(0, 8);
-
-        // Update each task's start_datetime by combining its due_date with the new start time
-        if (futureTasks && futureTasks.length > 0) {
-          const updates = futureTasks.map((t) => ({
-            id: t.id,
-            start_datetime: `${t.due_date}T${startTime}`,
-          }));
-
-          // Batch update start_datetime for all future tasks
-          for (const update of updates) {
-            const { error: updateError } = await supabase
-              .from('tasks')
-              .update({ start_datetime: update.start_datetime } as never)
-              .eq('id', update.id);
-
-            if (updateError) throw updateError;
-          }
-        }
-      }
-
-      // Update all future non-completed tasks in the group
-      // Update: title, description, assigned_to, priority, point_value, associated_items
-      // Keep per-instance: due_date, due_datetime
-      // start_datetime is updated separately above to preserve each task's date
+      // Update all future non-completed tasks in the group with a SINGLE batch update
+      // The start_time column stores just the time, enabling this bulk update
+      // start_datetime will be computed on read by combining due_date + start_time
       const { error } = await supabase
         .from('tasks')
         .update({
@@ -242,6 +245,8 @@ export function TaskDetailModal({
           priority: pendingUpdate.priority,
           point_value: pendingUpdate.point_value,
           associated_items: pendingUpdate.associated_items,
+          associated_object_ids: pendingUpdate.associated_object_ids,
+          start_time: pendingUpdate.start_time,
         } as never)
         .eq('recurring_task_group_id', task.recurring_task_group_id)
         .gte('due_date', today)
@@ -287,6 +292,7 @@ export function TaskDetailModal({
     setEditAssignedTo(task.assigned_to || '');
     setEditPriority((task.priority ?? 'medium') as 'low' | 'medium' | 'high');
     setEditAssociatedItems(task.associated_items || []);
+    setEditAssociatedObjectIds(task.associated_object_ids || []);
     setIsEditing(true);
   };
 
@@ -504,9 +510,17 @@ export function TaskDetailModal({
                 tags={editAssociatedItems}
                 onTagsChange={setEditAssociatedItems}
                 placeholder={t('tasks:detail.tagsPlaceholder')}
+                availableTags={availableTags}
+                showRecentTags={true}
               />
               <p className="mt-1 text-xs text-gray-500">{t('tasks:detail.tagsHint')}</p>
             </div>
+
+            <ObjectPicker
+              selectedObjectIds={editAssociatedObjectIds}
+              onObjectsChange={setEditAssociatedObjectIds}
+              compact={true}
+            />
           </div>
         ) : (
           // View mode

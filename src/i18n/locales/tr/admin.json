@@ -5,7 +5,8 @@
       "members": "Üyeler",
       "approvals": "Onaylar",
       "rewards": "Ödüller",
-      "objects": "Nesneler"
+      "objects": "Nesneler",
+      "disputes": "İtirazlar"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "örn. Bulaşık Makinesi, Çamaşır, Bahçe",
     "uploadImage": "Resim yükle",
     "removeImage": "Resmi kaldır"
+  },
+  "manualPoints": {
+    "title": "Puan Düş",
+    "description": "Davranış sorunları nedeniyle bir aile üyesinden puan düşün.",
+    "selectMember": "Üye Seç",
+    "selectPlaceholder": "Bir aile üyesi seçin...",
+    "pointsLabel": "Düşülecek Puan",
+    "pointsPlaceholder": "Puan sayısını girin",
+    "pointsHint": "Pozitif bir sayı girin (örn. 10, 10 puan düşer)",
+    "reasonLabel": "Sebep",
+    "reasonPlaceholder": "örn. Sütü buzdolabına koymadı",
+    "submitButton": "Puan Düş",
+    "submitting": "Düşülüyor...",
+    "confirmTitle": "Puan Düşmeyi Onayla",
+    "confirmMessage": "{{name}} adlı üyeden {{points}} puan düşmek istediğinizden emin misiniz?",
+    "confirmButton": "Puan Düş",
+    "success": "Puanlar başarıyla düşüldü!",
+    "errorInvalidPoints": "Lütfen geçerli bir puan sayısı girin",
+    "errorSelectMember": "Lütfen bir aile üyesi seçin",
+    "errorEnterReason": "Lütfen bir sebep girin",
+    "errorFailed": "Puan düşme başarısız. Lütfen tekrar deneyin."
+  },
+  "missedWeeklyTasks": {
+    "title": "Kaçırılan Haftalık Görevler",
+    "assignedTo": "{{name}} adlı üyeye atandı",
+    "originalPoints": "Orijinal: {{points}} puan",
+    "applyPenalty": "Ceza Uygula",
+    "applying": "Uygulanıyor...",
+    "confirmTitle": "Haftalık Görev Cezası Uygula",
+    "confirmMessage": "Bu haftalık görevi tamamlamadığı için {{name}} adlı üyeden {{penalty}} puan düşülecektir.",
+    "confirmButton": "Ceza Uygula"
+  },
+  "disputes": {
+    "title": "Kesinti İtirazları",
+    "pending": "beklemede",
+    "noDisputes": "İtiraz yok",
+    "noDisputesHint": "Tüm itirazlar çözüldü",
+    "originalDeduction": "Orijinal Kesinti",
+    "childResponse": "Çocuğun Yanıtı",
+    "resolutionNote": "Çözüm notu (isteğe bağlı)",
+    "resolutionNotePlaceholder": "Bir not ekleyin...",
+    "reject": "Reddet",
+    "approveRestore": "Onayla ve Geri Yükle",
+    "approveHint": "Onaylama {{points}} puanı geri yükleyecek",
+    "resolution": "Çözüm",
+    "approvedMessage": "Puanlar geri yüklendi",
+    "rejectedMessage": "İtiraz reddedildi"
   }
 }

@@ -9,7 +9,8 @@
   "level": {
     "current": "等级 {{level}}",
     "progressTo": "升至等级 {{level}} 的进度",
-    "maxLevel": "已达最高等级！"
+    "maxLevel": "已达最高等级！",
+    "toNextLevel": "到下一级"
   },
   "streak": {
     "current": "{{count}} 天",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "首页",
       "badges": "徽章",
-      "stats": "统计"
+      "stats": "统计",
+      "leaderboard": "排行榜"
     },
     "dailyGreeting": {
       "welcome": "欢迎回来！",
@@ -152,7 +154,10 @@
         "available": "可领取 ({{count}})",
         "waitingApproval": "等待审批 ({{count}})",
         "waitingForParent": "等待家长 ({{count}})",
-        "completed": "已完成 ({{count}})"
+        "completed": "已完成 ({{count}})",
+        "overdue": "逾期任务 ({{count}})",
+        "today": "今天",
+        "yesterday": "昨天"
       },
       "tabs": {
         "myTasks": "我的任务",
@@ -193,7 +198,8 @@
       "submitting": "提交中...",
       "earnPoints": "赚取 {{points}} 积分！",
       "alreadyCompleted": "已完成！",
-      "waitingApproval": "等待审批..."
+      "waitingApproval": "等待审批...",
+      "unclaim": "取消认领"
     },
     "celebration": {
       "approved": "任务已批准！",
@@ -221,7 +227,61 @@
       "pointsEarned": "获得积分",
       "activeDays": "活跃天数",
       "recentActivity": "近期活动",
-      "noActivity": "暂无活动。完成一些任务吧！"
+      "noActivity": "暂无活动。完成一些任务吧！",
+      "allTime": "累计",
+      "longestStreak": "最长连续",
+      "activityApproved": "已批准",
+      "activityPending": "等待批准",
+      "activityBonus": "奖励",
+      "activityCompleted": "已完成",
+      "activityPenalty": "扣分"
+    },
+    "leaderboard": {
+      "you": "你"
+    },
+    "penalty": {
+      "title": "积分扣除！",
+      "pointsLost": "-{{points}} 积分",
+      "unknownReason": "未知原因"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "连续保护",
+    "shopDescription": "错过一天时保护你的连续记录",
+    "youHave": "你有",
+    "cost": "花费",
+    "yourPoints": "你的积分",
+    "buyButton": "购买连续保护",
+    "notEnoughPoints": "积分不足",
+    "maxReached": "已达上限！",
+    "maxReachedHint": "购买更多前请先使用一个",
+    "purchaseSuccess": "连续保护购买成功！",
+    "howItWorks": "当你错过完成当天任务时，保护会自动使用，防止你的连续记录被重置。"
+  },
+  "penalties": {
+    "title": "积分扣除",
+    "noDeductions": "没有扣除！",
+    "noDeductionsHint": "继续保持！"
+  },
+  "disputes": {
+    "disputeButton": "对此扣除提出异议",
+    "cannotDispute": "异议期已过",
+    "createTitle": "提出异议",
+    "originalDeduction": "原始扣除",
+    "reasonLabel": "为什么提出异议？",
+    "reasonPlaceholder": "解释为什么你认为这次扣除不公平...",
+    "evidenceLabel": "添加证据（可选）",
+    "addPhoto": "添加照片",
+    "maxPhotos": "最多3张照片",
+    "photoHint": "最多3张照片，每张5MB",
+    "submitButton": "提交异议",
+    "status": {
+      "pending": "审核中",
+      "approved": "已批准",
+      "rejected": "已拒绝"
+    },
+    "toastApproved": "异议已批准！",
+    "toastRejected": "异议已拒绝",
+    "pointsRestored": "+{{points}} 积分已恢复！"
   }
 }

@@ -4,6 +4,59 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.0-alpha.10] - 2026-01-24
+
+### Added
+
+- **Child Rewards Redemption** - Children can now request point payouts directly from their mobile dashboard
+  - `src/components/Child/Views/ChildRewardsView.tsx` - New mobile-friendly rewards view with:
+    - Points & Value card showing total points and monetary worth
+    - Weekly goal progress (when configured by parents)
+    - Redemption request form with quick-select buttons
+    - Pending requests list with status tracking
+  - `src/components/Child/ChildTabBar.tsx` - Added "Rewards" tab (Gift icon), conditionally shown when `point_to_money_rate > 0`
+  - `src/components/Child/ChildDashboard.tsx` - Integrated ChildRewardsView routing
+
+- **Duplicate Redemption Prevention** - Prevents children from requesting more points than available
+  - **Available Points Calculation**: `total_points - pending_redemptions = available_points`
+  - Visual display of pending vs available points when requests exist
+  - Input field max limited to available points (not total)
+  - Double validation at submit time to prevent race conditions
+  - Same fix applied to `src/components/Rewards/RewardsOverview.tsx` for consistency
+
+- **E2E Tests for Redemption Protection**
+  - `e2e/tests/business-logic.hacktest.ts` - Added "Reward Redemption Protection" test suite:
+    - `redemption tracking prevents over-redemption` - Verifies available points calculation
+    - `cannot request redemption exceeding available points` - Tests pending + new request validation
+    - `approving redemption deducts points correctly` - Verifies point deduction flow
+
+- **Recent Activity: Pending Approval Tasks** - Tasks waiting for approval now appear in child's recent activity feed
+  - `src/components/Child/Views/ChildStatsView.tsx` - New "pending" activity type with orange clock icon
+  - Shows tasks that child has completed but are awaiting parent approval
+
+- **Unclaim Own Task** - Children can now cancel claims on tasks they previously claimed
+  - `supabase/migrations/20260124110000_allow_unclaim_own_task.sql` - Updated `protect_task_fields` trigger
+  - Allows setting `assigned_to` to NULL when unclaiming own task
+  - `e2e/tests/field-protection.trigger.test.ts` - Added unclaim tests
+  - `e2e/tests/tasks.rls.test.ts` - Added child unclaim test
+
+### Fixed
+
+- **Task Completion Timestamp** - `completed_at` is now set when a child marks a task as done
+  - `src/lib/gamification.ts` - Fixed `completeTask()` to set `completed_at` for non-admins
+  - Previously `completed_at` was only set upon approval, not completion
+  - `approveTask()` now preserves original `completed_at` when approving
+
+### Translations
+
+- `src/i18n/locales/en/gamification.json` - Added keys:
+  - `child.tabs.rewards` - "Rewards"
+  - `child.rewards.*` - title, yourPoints, worthAmount, pendingPoints, availablePoints, requestPayout, requestButton, minimumNeeded, pendingRequests, successMessage, notEnabled
+  - `child.statsView.activityPending` - "Awaiting Approval"
+- `src/i18n/locales/nl/gamification.json` - Dutch translations for all child rewards keys
+  - `child.statsView.activityPending` - "Wacht op goedkeuring"
+- All 16 language files updated with `activityPending` translation key (ar, bn, de, en, es, fr, hi, id, ja, ko, nl, pt, ru, th, tr, zh)
+
 ## [1.0.0-alpha.9] - 2026-01-23
 
 ### Added

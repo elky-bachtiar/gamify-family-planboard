@@ -21,9 +21,10 @@
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@supabase/supabase-js": "^2.57.4",
-    "@types/node": "^22.10.2",
-    "jsonwebtoken": "^9.0.2",
     "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.19.7",
+    "dotenv": "^17.2.3",
+    "jsonwebtoken": "^9.0.2",
     "typescript": "^5.7.2"
   },
   "engines": {

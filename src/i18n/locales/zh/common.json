@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "个人设置",
-    "signOut": "退出登录"
+    "signOut": "退出登录",
+    "myProfile": "我的资料",
+    "tapToEdit": "点击编辑资料",
+    "savePhoto": "保存照片",
+    "changeAvatar": "更换头像",
+    "removeAvatar": "删除头像",
+    "invalidFileType": "请选择图片文件",
+    "fileTooLarge": "文件大小必须小于2MB",
+    "uploadFailed": "头像上传失败",
+    "newAvatarSelected": "已选择新头像"
   }
 }

@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "プロフィール設定",
-    "signOut": "ログアウト"
+    "signOut": "ログアウト",
+    "myProfile": "マイプロフィール",
+    "tapToEdit": "タップして編集",
+    "savePhoto": "写真を保存",
+    "changeAvatar": "アバターを変更",
+    "removeAvatar": "アバターを削除",
+    "invalidFileType": "画像ファイルを選択してください",
+    "fileTooLarge": "ファイルサイズは2MB未満にしてください",
+    "uploadFailed": "アバターのアップロードに失敗しました",
+    "newAvatarSelected": "新しいアバターを選択しました"
   }
 }

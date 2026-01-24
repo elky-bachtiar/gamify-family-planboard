@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DollarSign, Star, Target, TrendingUp, Gift } from 'lucide-react';
+import { DollarSign, Star, Target, TrendingUp, Gift, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFamily } from '../../contexts/FamilyContext';
-import { supabase } from '../../lib/supabase';
+import { supabase, getSupabaseClient } from '../../lib/supabase';
 import type { RewardRedemption } from '../../types';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 function getWeekStart(date: Date): Date {
   const d = new Date(date);
@@ -22,6 +25,8 @@ export function RewardsOverview() {
   const [pendingRedemptions, setPendingRedemptions] = useState<RewardRedemption[]>([]);
   const [isRequesting, setIsRequesting] = useState(false);
   const [requestedAmount, setRequestedAmount] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     if (!currentMember || !family) return;
@@ -72,26 +77,71 @@ export function RewardsOverview() {
   };
 
   const handleRequestRedemption = async () => {
-    if (!currentMember || !family || requestedAmount < (family.minimum_redemption ?? 0)) return;
+    if (!currentMember || !family) return;
+
+    // Clear any previous error
+    setErrorMessage(null);
+
+    // Basic client-side validation
+    if (requestedAmount < (family.minimum_redemption ?? 0)) {
+      setErrorMessage(t('rewards.minimumError', { minimum: family.minimum_redemption }));
+      return;
+    }
 
     setIsRequesting(true);
     try {
-      const moneyAmount = requestedAmount * (family.point_to_money_rate || 0);
+      // Get auth token for the edge function
+      const supabaseClient = getSupabaseClient();
+      const {
+        data: { session },
+      } = await supabaseClient.auth.getSession();
 
-      const { error } = await supabase.from('reward_redemptions').insert({
-        family_id: family.id,
-        member_id: currentMember.id,
-        points_redeemed: requestedAmount,
-        money_amount: moneyAmount,
-        status: 'pending',
-      } as never);
+      // For PIN users, we need to get the token from sessionStorage
+      const token = session?.access_token ?? sessionStorage.getItem('pin_user_token');
 
-      if (error) throw error;
+      if (!token) {
+        setErrorMessage(t('rewards.authError'));
+        return;
+      }
 
+      // Call the edge function for server-side validation
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/request-redemption`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          apikey: SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({ points_redeemed: requestedAmount }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle specific error cases
+        if (data.available !== undefined && data.requested !== undefined) {
+          setErrorMessage(
+            t('rewards.insufficientPoints', {
+              available: data.available,
+              requested: data.requested,
+            })
+          );
+        } else if (response.status === 429) {
+          setErrorMessage(t('rewards.rateLimitError'));
+        } else {
+          setErrorMessage(data.error || t('rewards.genericError'));
+        }
+        return;
+      }
+
+      // Success
       setRequestedAmount(0);
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
       loadPendingRedemptions();
     } catch (error) {
       console.error('Error requesting redemption:', error);
+      setErrorMessage(t('rewards.networkError'));
     } finally {
       setIsRequesting(false);
     }
@@ -104,12 +154,19 @@ export function RewardsOverview() {
   const weeklyTargetPoints = family.weekly_target_points || 0;
   const weeklyTargetBonus = family.weekly_target_bonus || 0;
   const memberPoints = currentMember.total_points ?? 0;
+
+  // Calculate pending points to prevent duplicate requests
+  const pendingPointsTotal = pendingRedemptions
+    .filter((r) => r.status === 'pending' || r.status === 'approved')
+    .reduce((sum, r) => sum + r.points_redeemed, 0);
+  const availablePoints = Math.max(0, memberPoints - pendingPointsTotal);
+
   const totalMoney = memberPoints * pointToMoneyRate;
   const weeklyProgress =
     weeklyTargetPoints > 0 ? Math.min((weeklyPoints / weeklyTargetPoints) * 100, 100) : 0;
   const reachedWeeklyGoal = weeklyTargetPoints > 0 && weeklyPoints >= weeklyTargetPoints;
 
-  const maxRedeemablePoints = memberPoints;
+  const maxRedeemablePoints = availablePoints;
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
@@ -215,12 +272,32 @@ export function RewardsOverview() {
 
               <button
                 onClick={handleRequestRedemption}
-                disabled={isRequesting || requestedAmount < minimumRedemption}
+                disabled={
+                  isRequesting ||
+                  requestedAmount < minimumRedemption ||
+                  requestedAmount > maxRedeemablePoints
+                }
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
               >
                 <DollarSign className="w-4 h-4" />
                 {isRequesting ? t('rewards.requesting') : t('rewards.requestRedemption')}
               </button>
+
+              {/* Success Message */}
+              {showSuccess && (
+                <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 mt-3">
+                  <Gift className="w-4 h-4" />
+                  <span className="text-sm font-medium">{t('rewards.successMessage')}</span>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {errorMessage && (
+                <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 mt-3">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-sm font-medium">{errorMessage}</span>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-4 text-gray-500">

@@ -9,7 +9,8 @@
   "level": {
     "current": "المستوى {{level}}",
     "progressTo": "التقدم نحو المستوى {{level}}",
-    "maxLevel": "تم الوصول للمستوى الأقصى!"
+    "maxLevel": "تم الوصول للمستوى الأقصى!",
+    "toNextLevel": "للمستوى التالي"
   },
   "streak": {
     "current": "{{count}} أيام",
@@ -120,8 +121,12 @@
     },
     "tabs": {
       "home": "الرئيسية",
+      "leaderboard": "الترتيب",
       "badges": "الشارات",
       "stats": "الإحصائيات"
+    },
+    "leaderboard": {
+      "you": "أنت"
     },
     "dailyGreeting": {
       "welcome": "مرحباً بعودتك!",
@@ -149,10 +154,13 @@
       },
       "sections": {
         "myTasks": "مهامي ({{count}})",
+        "overdue": "مهام متأخرة ({{count}})",
         "available": "متاحة للاستلام ({{count}})",
         "waitingApproval": "في انتظار الموافقة ({{count}})",
         "waitingForParent": "في انتظار الوالد ({{count}})",
-        "completed": "مكتملة ({{count}})"
+        "completed": "مكتملة ({{count}})",
+        "today": "اليوم",
+        "yesterday": "أمس"
       },
       "tabs": {
         "myTasks": "مهامي",
@@ -193,7 +201,8 @@
       "submitting": "جارٍ الإرسال...",
       "earnPoints": "اكسب {{points}} نقاط!",
       "alreadyCompleted": "مكتملة بالفعل!",
-      "waitingApproval": "في انتظار الموافقة..."
+      "waitingApproval": "في انتظار الموافقة...",
+      "unclaim": "إلغاء الاستلام"
     },
     "celebration": {
       "approved": "تمت الموافقة على المهمة!",
@@ -217,11 +226,62 @@
       "currentStreak": "السلسلة الحالية",
       "days": "أيام",
       "thisWeek": "هذا الأسبوع",
+      "allTime": "كل الأوقات",
       "tasksDone": "المهام المنجزة",
       "pointsEarned": "النقاط المكتسبة",
       "activeDays": "الأيام النشطة",
+      "longestStreak": "أطول سلسلة",
       "recentActivity": "النشاط الأخير",
-      "noActivity": "لا يوجد نشاط بعد. أكمل بعض المهام!"
+      "noActivity": "لا يوجد نشاط بعد. أكمل بعض المهام!",
+      "activityApproved": "موافق عليه",
+      "activityPending": "في انتظار الموافقة",
+      "activityBonus": "مكافأة",
+      "activityCompleted": "مكتمل",
+      "activityPenalty": "عقوبة"
+    },
+    "penalty": {
+      "title": "نقاط مفقودة!",
+      "pointsLost": "-{{points}} نقاط",
+      "unknownReason": "سبب غير معروف"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "تجميد السلسلة",
+    "shopDescription": "احمِ سلسلتك عندما تفوت يوماً",
+    "youHave": "لديك",
+    "cost": "التكلفة",
+    "yourPoints": "نقاطك",
+    "buyButton": "شراء تجميد السلسلة",
+    "notEnoughPoints": "نقاط غير كافية",
+    "maxReached": "تم الوصول للحد الأقصى!",
+    "maxReachedHint": "استخدم واحدة قبل شراء المزيد",
+    "purchaseSuccess": "تم شراء تجميد السلسلة!",
+    "howItWorks": "يتم استخدام التجميد تلقائياً عندما تفوت إكمال مهمة لليوم، مما يحمي سلسلتك من إعادة التعيين."
+  },
+  "penalties": {
+    "title": "خصم النقاط",
+    "noDeductions": "لا خصومات!",
+    "noDeductionsHint": "استمر في العمل الجيد!"
+  },
+  "disputes": {
+    "disputeButton": "اعترض على هذا الخصم",
+    "cannotDispute": "انتهت فترة الاعتراض",
+    "createTitle": "اعتراض على الخصم",
+    "originalDeduction": "الخصم الأصلي",
+    "reasonLabel": "لماذا تعترض على هذا؟",
+    "reasonPlaceholder": "اشرح لماذا تعتقد أن هذا الخصم غير عادل...",
+    "evidenceLabel": "إضافة دليل (اختياري)",
+    "addPhoto": "إضافة صورة",
+    "maxPhotos": "الحد الأقصى 3 صور",
+    "photoHint": "الحد الأقصى 3 صور، 5 ميجابايت لكل صورة",
+    "submitButton": "تقديم الاعتراض",
+    "status": {
+      "pending": "قيد المراجعة",
+      "approved": "موافق عليه",
+      "rejected": "مرفوض"
+    },
+    "toastApproved": "تمت الموافقة على الاعتراض!",
+    "toastRejected": "تم رفض الاعتراض",
+    "pointsRestored": "+{{points}} نقاط مستعادة!"
   }
 }

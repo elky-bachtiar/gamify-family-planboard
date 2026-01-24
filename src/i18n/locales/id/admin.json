@@ -5,7 +5,8 @@
       "members": "Anggota",
       "approvals": "Persetujuan",
       "rewards": "Hadiah",
-      "objects": "Objek"
+      "objects": "Objek",
+      "disputes": "Sengketa"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "mis. Mesin Cuci Piring, Cucian, Taman",
     "uploadImage": "Unggah gambar",
     "removeImage": "Hapus gambar"
+  },
+  "manualPoints": {
+    "title": "Kurangi Poin",
+    "description": "Kurangi poin dari anggota keluarga karena masalah perilaku.",
+    "selectMember": "Pilih Anggota",
+    "selectPlaceholder": "Pilih anggota keluarga...",
+    "pointsLabel": "Poin untuk Dikurangi",
+    "pointsPlaceholder": "Masukkan jumlah poin",
+    "pointsHint": "Masukkan angka positif (mis. 10 akan mengurangi 10 poin)",
+    "reasonLabel": "Alasan",
+    "reasonPlaceholder": "mis. Tidak memasukkan susu ke kulkas",
+    "submitButton": "Kurangi Poin",
+    "submitting": "Mengurangi...",
+    "confirmTitle": "Konfirmasi Pengurangan Poin",
+    "confirmMessage": "Apakah Anda yakin ingin mengurangi {{points}} poin dari {{name}}?",
+    "confirmButton": "Kurangi Poin",
+    "success": "Poin berhasil dikurangi!",
+    "errorInvalidPoints": "Harap masukkan jumlah poin yang valid",
+    "errorSelectMember": "Harap pilih anggota keluarga",
+    "errorEnterReason": "Harap masukkan alasan",
+    "errorFailed": "Gagal mengurangi poin. Silakan coba lagi."
+  },
+  "missedWeeklyTasks": {
+    "title": "Tugas Mingguan yang Terlewat",
+    "assignedTo": "Ditugaskan kepada {{name}}",
+    "originalPoints": "Asli: {{points}} poin",
+    "applyPenalty": "Terapkan Penalti",
+    "applying": "Menerapkan...",
+    "confirmTitle": "Terapkan Penalti Tugas Mingguan",
+    "confirmMessage": "Ini akan mengurangi {{penalty}} poin dari {{name}} karena tidak menyelesaikan tugas mingguan ini.",
+    "confirmButton": "Terapkan Penalti"
+  },
+  "disputes": {
+    "title": "Sengketa Pengurangan",
+    "pending": "tertunda",
+    "noDisputes": "Tidak ada sengketa",
+    "noDisputesHint": "Semua sengketa telah diselesaikan",
+    "originalDeduction": "Pengurangan Asli",
+    "childResponse": "Tanggapan Anak",
+    "resolutionNote": "Catatan resolusi (opsional)",
+    "resolutionNotePlaceholder": "Tambahkan catatan...",
+    "reject": "Tolak",
+    "approveRestore": "Setujui & Pulihkan",
+    "approveHint": "Menyetujui akan memulihkan {{points}} poin",
+    "resolution": "Resolusi",
+    "approvedMessage": "Poin dipulihkan",
+    "rejectedMessage": "Sengketa ditolak"
   }
 }

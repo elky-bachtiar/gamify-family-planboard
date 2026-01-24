@@ -5,7 +5,8 @@
       "members": "成员",
       "approvals": "审批",
       "rewards": "奖励",
-      "objects": "对象"
+      "objects": "对象",
+      "disputes": "申诉"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "例如：洗碗机、洗衣、花园",
     "uploadImage": "上传图片",
     "removeImage": "移除图片"
+  },
+  "manualPoints": {
+    "title": "扣除积分",
+    "description": "因行为问题扣除家庭成员的积分。",
+    "selectMember": "选择成员",
+    "selectPlaceholder": "选择一个家庭成员...",
+    "pointsLabel": "扣除积分数",
+    "pointsPlaceholder": "输入积分数量",
+    "pointsHint": "输入正数（例如：10将扣除10积分）",
+    "reasonLabel": "原因",
+    "reasonPlaceholder": "例如：没有把牛奶放回冰箱",
+    "submitButton": "扣除积分",
+    "submitting": "扣除中...",
+    "confirmTitle": "确认扣除积分",
+    "confirmMessage": "确定要从{{name}}扣除{{points}}积分吗？",
+    "confirmButton": "扣除积分",
+    "success": "积分扣除成功！",
+    "errorInvalidPoints": "请输入有效的积分数量",
+    "errorSelectMember": "请选择一个家庭成员",
+    "errorEnterReason": "请输入原因",
+    "errorFailed": "扣除积分失败，请重试。"
+  },
+  "missedWeeklyTasks": {
+    "title": "未完成的周任务",
+    "assignedTo": "分配给{{name}}",
+    "originalPoints": "原始：{{points}}积分",
+    "applyPenalty": "应用处罚",
+    "applying": "应用中...",
+    "confirmTitle": "应用周任务处罚",
+    "confirmMessage": "这将从{{name}}扣除{{penalty}}积分，因为未完成此周任务。",
+    "confirmButton": "应用处罚"
+  },
+  "disputes": {
+    "title": "扣分申诉",
+    "pending": "待处理",
+    "noDisputes": "无申诉",
+    "noDisputesHint": "所有申诉已处理完毕",
+    "originalDeduction": "原始扣除",
+    "childResponse": "孩子的回复",
+    "resolutionNote": "处理备注（可选）",
+    "resolutionNotePlaceholder": "添加备注...",
+    "reject": "拒绝",
+    "approveRestore": "批准并恢复",
+    "approveHint": "批准将恢复{{points}}积分",
+    "resolution": "处理结果",
+    "approvedMessage": "积分已恢复",
+    "rejectedMessage": "申诉已拒绝"
   }
 }

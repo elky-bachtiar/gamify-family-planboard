@@ -9,7 +9,8 @@
   "level": {
     "current": "লেভেল {{level}}",
     "progressTo": "লেভেল {{level}}-এ অগ্রগতি",
-    "maxLevel": "সর্বোচ্চ লেভেলে পৌঁছেছেন!"
+    "maxLevel": "সর্বোচ্চ লেভেলে পৌঁছেছেন!",
+    "toNextLevel": "পরবর্তী লেভেলে"
   },
   "streak": {
     "current": "{{count}} দিন",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "হোম",
       "badges": "ব্যাজ",
-      "stats": "পরিসংখ্যান"
+      "stats": "পরিসংখ্যান",
+      "leaderboard": "র‍্যাংকিং"
     },
     "dailyGreeting": {
       "welcome": "আবার স্বাগতম!",
@@ -152,7 +154,10 @@
         "available": "দাবি করার জন্য উপলব্ধ ({{count}})",
         "waitingApproval": "অনুমোদনের অপেক্ষায় ({{count}})",
         "waitingForParent": "অভিভাবকের অপেক্ষায় ({{count}})",
-        "completed": "সম্পন্ন ({{count}})"
+        "completed": "সম্পন্ন ({{count}})",
+        "overdue": "বিলম্বিত কাজ ({{count}})",
+        "today": "আজ",
+        "yesterday": "গতকাল"
       },
       "tabs": {
         "myTasks": "আমার কাজ",
@@ -193,7 +198,8 @@
       "submitting": "জমা হচ্ছে...",
       "earnPoints": "{{points}} পয়েন্ট অর্জন করুন!",
       "alreadyCompleted": "ইতিমধ্যে সম্পন্ন!",
-      "waitingApproval": "অনুমোদনের অপেক্ষায়..."
+      "waitingApproval": "অনুমোদনের অপেক্ষায়...",
+      "unclaim": "দাবি বাতিল করুন"
     },
     "celebration": {
       "approved": "কাজ অনুমোদিত!",
@@ -221,7 +227,61 @@
       "pointsEarned": "অর্জিত পয়েন্ট",
       "activeDays": "সক্রিয় দিন",
       "recentActivity": "সাম্প্রতিক কার্যকলাপ",
-      "noActivity": "এখনো কোনো কার্যকলাপ নেই। কিছু কাজ সম্পন্ন করুন!"
+      "noActivity": "এখনো কোনো কার্যকলাপ নেই। কিছু কাজ সম্পন্ন করুন!",
+      "allTime": "সর্বকালের",
+      "longestStreak": "সেরা স্ট্রিক",
+      "activityApproved": "অনুমোদিত",
+      "activityPending": "অনুমোদনের অপেক্ষায়",
+      "activityBonus": "বোনাস",
+      "activityCompleted": "সম্পন্ন",
+      "activityPenalty": "জরিমানা"
+    },
+    "leaderboard": {
+      "you": "তুমি"
+    },
+    "penalty": {
+      "title": "পয়েন্ট হারিয়েছো!",
+      "pointsLost": "-{{points}} পয়েন্ট",
+      "unknownReason": "অজানা কারণ"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "স্ট্রিক ফ্রিজ",
+    "shopDescription": "একদিন মিস করলে তোমার স্ট্রিক রক্ষা করো",
+    "youHave": "তোমার আছে",
+    "cost": "খরচ",
+    "yourPoints": "তোমার পয়েন্ট",
+    "buyButton": "স্ট্রিক ফ্রিজ কিনুন",
+    "notEnoughPoints": "পর্যাপ্ত পয়েন্ট নেই",
+    "maxReached": "সর্বোচ্চ ফ্রিজ পৌঁছে গেছে!",
+    "maxReachedHint": "আরো কেনার আগে একটি ব্যবহার করুন",
+    "purchaseSuccess": "স্ট্রিক ফ্রিজ কেনা হয়েছে!",
+    "howItWorks": "যখন আপনি একদিন কাজ সম্পন্ন করতে মিস করেন তখন ফ্রিজগুলি স্বয়ংক্রিয়ভাবে ব্যবহার করা হয়, যা আপনার স্ট্রিক রিসেট হওয়া থেকে রক্ষা করে।"
+  },
+  "penalties": {
+    "title": "পয়েন্ট কর্তন",
+    "noDeductions": "কোনো কর্তন নেই!",
+    "noDeductionsHint": "চালিয়ে যাও!"
+  },
+  "disputes": {
+    "disputeButton": "এই কর্তনে আপত্তি করুন",
+    "cannotDispute": "আপত্তির সময় শেষ",
+    "createTitle": "কর্তনে আপত্তি",
+    "originalDeduction": "মূল কর্তন",
+    "reasonLabel": "আপনি কেন আপত্তি করছেন?",
+    "reasonPlaceholder": "কেন আপনি মনে করেন এই কর্তন অন্যায় ছিল তা ব্যাখ্যা করুন...",
+    "evidenceLabel": "প্রমাণ যোগ করুন (ঐচ্ছিক)",
+    "addPhoto": "ছবি যোগ করুন",
+    "maxPhotos": "সর্বোচ্চ ৩টি ছবি অনুমোদিত",
+    "photoHint": "সর্বোচ্চ ৩টি ছবি, প্রতিটি ৫MB",
+    "submitButton": "আপত্তি জমা দিন",
+    "status": {
+      "pending": "পর্যালোচনাধীন",
+      "approved": "অনুমোদিত",
+      "rejected": "প্রত্যাখ্যাত"
+    },
+    "toastApproved": "আপত্তি অনুমোদিত!",
+    "toastRejected": "আপত্তি প্রত্যাখ্যাত",
+    "pointsRestored": "+{{points}} পয়েন্ট ফেরত!"
   }
 }

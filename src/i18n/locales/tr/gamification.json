@@ -9,7 +9,8 @@
   "level": {
     "current": "Seviye {{level}}",
     "progressTo": "Seviye {{level}}'e ilerleme",
-    "maxLevel": "Maksimum Seviyeye Ulaşıldı!"
+    "maxLevel": "Maksimum Seviyeye Ulaşıldı!",
+    "toNextLevel": "sonraki seviyeye"
   },
   "streak": {
     "current": "{{count}} gün",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "Ana Sayfa",
       "badges": "Rozetler",
-      "stats": "İstatistikler"
+      "stats": "İstatistikler",
+      "leaderboard": "Sıralama"
     },
     "dailyGreeting": {
       "welcome": "Tekrar hoş geldin!",
@@ -152,7 +154,10 @@
         "available": "Üstlenebilecekler ({{count}})",
         "waitingApproval": "Onay Bekleyen ({{count}})",
         "waitingForParent": "Ebeveyn Bekliyor ({{count}})",
-        "completed": "Tamamlanan ({{count}})"
+        "completed": "Tamamlanan ({{count}})",
+        "overdue": "Gecikmiş Görevler ({{count}})",
+        "today": "Bugün",
+        "yesterday": "Dün"
       },
       "tabs": {
         "myTasks": "Görevlerim",
@@ -193,7 +198,8 @@
       "submitting": "Gönderiliyor...",
       "earnPoints": "{{points}} puan kazan!",
       "alreadyCompleted": "Zaten tamamlandı!",
-      "waitingApproval": "Onay bekleniyor..."
+      "waitingApproval": "Onay bekleniyor...",
+      "unclaim": "Talebi İptal Et"
     },
     "celebration": {
       "approved": "Görev Onaylandı!",
@@ -221,7 +227,61 @@
       "pointsEarned": "Kazanılan Puan",
       "activeDays": "Aktif Günler",
       "recentActivity": "Son Aktivite",
-      "noActivity": "Henüz aktivite yok. Bazı görevleri tamamla!"
+      "noActivity": "Henüz aktivite yok. Bazı görevleri tamamla!",
+      "allTime": "Tüm Zamanlar",
+      "longestStreak": "En Uzun Seri",
+      "activityApproved": "Onaylandı",
+      "activityPending": "Onay Bekleniyor",
+      "activityBonus": "Bonus",
+      "activityCompleted": "Tamamlandı",
+      "activityPenalty": "Ceza"
+    },
+    "leaderboard": {
+      "you": "sen"
+    },
+    "penalty": {
+      "title": "Puan Kaybedildi!",
+      "pointsLost": "-{{points}} puan",
+      "unknownReason": "Bilinmeyen sebep"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Seri Dondurma",
+    "shopDescription": "Bir gün kaçırdığında serini koru",
+    "youHave": "Elinde",
+    "cost": "Maliyet",
+    "yourPoints": "Puanların",
+    "buyButton": "Seri Dondurma Satın Al",
+    "notEnoughPoints": "Yeterli puan yok",
+    "maxReached": "Maksimuma ulaşıldı!",
+    "maxReachedHint": "Daha fazla almadan önce birini kullan",
+    "purchaseSuccess": "Seri dondurma satın alındı!",
+    "howItWorks": "Dondurmalar, bir gün görev tamamlamayı kaçırdığında otomatik olarak kullanılır ve serinin sıfırlanmasını engeller."
+  },
+  "penalties": {
+    "title": "Puan Kesintileri",
+    "noDeductions": "Kesinti yok!",
+    "noDeductionsHint": "Böyle devam et!"
+  },
+  "disputes": {
+    "disputeButton": "Bu kesintiyi itiraz et",
+    "cannotDispute": "İtiraz süresi doldu",
+    "createTitle": "Kesintiye İtiraz",
+    "originalDeduction": "Orijinal Kesinti",
+    "reasonLabel": "Neden itiraz ediyorsun?",
+    "reasonPlaceholder": "Bu kesintinin neden haksız olduğunu düşündüğünü açıkla...",
+    "evidenceLabel": "Kanıt ekle (isteğe bağlı)",
+    "addPhoto": "Fotoğraf Ekle",
+    "maxPhotos": "Maksimum 3 fotoğraf",
+    "photoHint": "Maks 3 fotoğraf, her biri 5MB",
+    "submitButton": "İtirazı Gönder",
+    "status": {
+      "pending": "İnceleme Bekliyor",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi"
+    },
+    "toastApproved": "İtiraz Onaylandı!",
+    "toastRejected": "İtiraz Reddedildi",
+    "pointsRestored": "+{{points}} puan iade edildi!"
   }
 }

@@ -116,9 +116,10 @@ Deno.serve(async (req: Request) => {
     );
 
     // Look up family member by invite code
+    // Use explicit relationship hint since there are multiple FK relationships between family_members and families
     const { data: member, error: memberError } = await supabaseAdmin
       .from('family_members')
-      .select('*, families(*)')
+      .select('*, families!family_members_family_id_fkey(*)')
       .eq('child_invite_code', child_invite_code)
       .eq('is_pin_user', true)
       .maybeSingle();

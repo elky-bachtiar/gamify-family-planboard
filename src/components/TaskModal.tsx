@@ -175,6 +175,8 @@ export function TaskModal({
     try {
       const dueDatetime = `${dueDate}T${dueTime}:00`;
       const startDatetime = startTime ? `${dueDate}T${startTime}:00` : null;
+      // Store just the time portion for bulk updates on recurring tasks
+      const startTimeOnly = startTime ? `${startTime}:00` : null;
 
       if (recurrencePattern && recurrenceEndDate) {
         // Generate and insert recurring task instances
@@ -193,6 +195,7 @@ export function TaskModal({
             assigned_to: assignedTo || null,
             due_datetime: dueDatetime,
             start_datetime: startDatetime,
+            start_time: startTimeOnly,
             priority,
             point_value: PRIORITY_CONFIG[priority].points,
             created_by: currentMember.id,
@@ -234,6 +237,7 @@ export function TaskModal({
           due_date: effectiveDueDate,
           due_datetime: effectiveDueDatetime,
           start_datetime: startDatetime,
+          start_time: startTimeOnly,
           priority,
           point_value: PRIORITY_CONFIG[priority].points,
           created_by: currentMember.id,

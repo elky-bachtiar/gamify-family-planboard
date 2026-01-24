@@ -107,7 +107,14 @@
       "processing": "Verwerken...",
       "recentHistory": "Recente geschiedenis",
       "pointsEquals": "{{points}} punten = €{{money}}"
-    }
+    },
+    "insufficientPoints": "Onvoldoende punten. Beschikbaar: {{available}}, Aangevraagd: {{requested}}",
+    "minimumError": "Minimale inwisseling is {{minimum}} punten",
+    "authError": "Authenticatie vereist. Log opnieuw in.",
+    "rateLimitError": "Te veel verzoeken. Probeer het later opnieuw.",
+    "genericError": "Er ging iets mis. Probeer het opnieuw.",
+    "networkError": "Netwerkfout. Controleer je verbinding.",
+    "successMessage": "Inwisselverzoek ingediend!"
   },
   "weeklyGoal": {
     "title": "Weekdoel",
@@ -123,7 +130,27 @@
       "home": "Home",
       "leaderboard": "Ranglijst",
       "badges": "Badges",
-      "stats": "Stats"
+      "stats": "Stats",
+      "rewards": "Beloningen"
+    },
+    "rewards": {
+      "title": "Mijn Beloningen",
+      "yourPoints": "Je Punten",
+      "worthAmount": "Waard",
+      "pendingPoints": "In behandeling",
+      "availablePoints": "Beschikbaar",
+      "requestPayout": "Uitbetaling Aanvragen",
+      "requestButton": "Uitbetaling Aanvragen",
+      "minimumNeeded": "Je hebt minimaal {{minimum}} punten nodig",
+      "pendingRequests": "Je Aanvragen",
+      "successMessage": "Aanvraag naar je ouders gestuurd!",
+      "notEnabled": "Beloningen zijn nog niet ingeschakeld. Vraag je ouders!",
+      "insufficientPoints": "Niet genoeg punten! Beschikbaar: {{available}}, Aangevraagd: {{requested}}",
+      "minimumError": "Minimaal {{minimum}} punten nodig",
+      "authError": "Log opnieuw in",
+      "rateLimitError": "Te veel verzoeken. Wacht even!",
+      "genericError": "Er ging iets mis",
+      "networkError": "Geen verbinding. Probeer opnieuw!"
     },
     "leaderboard": {
       "you": "jij"
@@ -226,11 +253,18 @@
       "currentStreak": "Huidige reeks",
       "days": "dagen",
       "thisWeek": "Deze week",
+      "allTime": "Totaal",
       "tasksDone": "Taken gedaan",
       "pointsEarned": "Punten verdiend",
       "activeDays": "Actieve dagen",
+      "longestStreak": "Langste reeks",
       "recentActivity": "Recente activiteit",
-      "noActivity": "Nog geen activiteit. Voltooi wat taken!"
+      "noActivity": "Nog geen activiteit. Voltooi wat taken!",
+      "activityCompleted": "Taak voltooid",
+      "activityApproved": "Goedgekeurd",
+      "activityPending": "Wacht op goedkeuring",
+      "activityBonus": "Bonus",
+      "activityPenalty": "Straf"
     },
     "penalty": {
       "title": "Punten Verloren!",

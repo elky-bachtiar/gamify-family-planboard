@@ -332,8 +332,13 @@ inspector_port = 8083
 # The Deno major version to use.
 deno_version = 2
 
-# [edge_runtime.secrets]
-# secret_key = "env(SECRET_VALUE)"
+# Edge function secrets - loaded from .env file
+# Run with: supabase functions serve --env-file .env
+[edge_runtime.secrets]
+JWT_SECRET = "env(JWT_SECRET)"
+SUPABASE_URL = "env(SUPABASE_URL)"
+SUPABASE_ANON_KEY = "env(SUPABASE_ANON_KEY)"
+SUPABASE_SERVICE_ROLE_KEY = "env(SUPABASE_SERVICE_ROLE_KEY)"
 
 [analytics]
 # Disabled temporarily due to CLI v2.48.3 compatibility issues

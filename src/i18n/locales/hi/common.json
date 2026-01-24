@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "प्रोफ़ाइल सेटिंग्स",
-    "signOut": "साइन आउट"
+    "signOut": "साइन आउट",
+    "myProfile": "मेरी प्रोफ़ाइल",
+    "tapToEdit": "प्रोफ़ाइल संपादित करने के लिए टैप करें",
+    "savePhoto": "फोटो सहेजें",
+    "changeAvatar": "अवतार बदलें",
+    "removeAvatar": "अवतार हटाएं",
+    "invalidFileType": "कृपया एक छवि फ़ाइल चुनें",
+    "fileTooLarge": "फ़ाइल का आकार 2MB से कम होना चाहिए",
+    "uploadFailed": "अवतार अपलोड विफल",
+    "newAvatarSelected": "नया अवतार चयनित"
   }
 }

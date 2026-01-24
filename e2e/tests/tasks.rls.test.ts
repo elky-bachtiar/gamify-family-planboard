@@ -458,6 +458,30 @@ test.describe('tasks table RLS policies', () => {
         .eq('id', unassignedTask.id);
     });
 
+    test('child can unclaim their own claimed task', async () => {
+      // First claim the task
+      const childClient = createPinUserClient(child1.id);
+      const serviceClient = createServiceClient();
+
+      await serviceClient
+        .from('tasks')
+        .update({ assigned_to: child1.id })
+        .eq('id', unassignedTask.id);
+
+      // Now unclaim it
+      const { data, error } = await childClient
+        .from('tasks')
+        .update({
+          assigned_to: null
+        })
+        .eq('id', unassignedTask.id)
+        .select()
+        .single();
+
+      expect(error).toBeNull();
+      expect(data?.assigned_to).toBeNull();
+    });
+
     test('child CANNOT claim task for someone else', async () => {
       const childClient = createPinUserClient(child1.id);
 

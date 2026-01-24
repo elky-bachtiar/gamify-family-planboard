@@ -5,7 +5,8 @@
       "members": "Mitglieder",
       "approvals": "Genehmigungen",
       "rewards": "Belohnungen",
-      "objects": "Objekte"
+      "objects": "Objekte",
+      "disputes": "Einsprüche"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "z.B. Geschirrspüler, Wäsche, Garten",
     "uploadImage": "Bild hochladen",
     "removeImage": "Bild entfernen"
+  },
+  "manualPoints": {
+    "title": "Punkte abziehen",
+    "description": "Ziehe Punkte von einem Familienmitglied für Verhaltensprobleme ab.",
+    "selectMember": "Mitglied auswählen",
+    "selectPlaceholder": "Wähle ein Familienmitglied...",
+    "pointsLabel": "Abzuziehende Punkte",
+    "pointsPlaceholder": "Anzahl der Punkte eingeben",
+    "pointsHint": "Gib eine positive Zahl ein (z.B. 10 zieht 10 Punkte ab)",
+    "reasonLabel": "Grund",
+    "reasonPlaceholder": "z.B. Milch nicht zurück in den Kühlschrank gestellt",
+    "submitButton": "Punkte abziehen",
+    "submitting": "Wird abgezogen...",
+    "confirmTitle": "Punkteabzug bestätigen",
+    "confirmMessage": "Bist du sicher, dass du {{points}} Punkte von {{name}} abziehen möchtest?",
+    "confirmButton": "Punkte abziehen",
+    "success": "Punkte erfolgreich abgezogen!",
+    "errorInvalidPoints": "Bitte gib eine gültige Anzahl von Punkten ein",
+    "errorSelectMember": "Bitte wähle ein Familienmitglied aus",
+    "errorEnterReason": "Bitte gib einen Grund ein",
+    "errorFailed": "Punkteabzug fehlgeschlagen. Bitte versuche es erneut."
+  },
+  "missedWeeklyTasks": {
+    "title": "Verpasste Wochenaufgaben",
+    "assignedTo": "Zugewiesen an {{name}}",
+    "originalPoints": "Original: {{points}} Punkte",
+    "applyPenalty": "Strafe anwenden",
+    "applying": "Wird angewendet...",
+    "confirmTitle": "Wochenaufgaben-Strafe anwenden",
+    "confirmMessage": "Dies zieht {{penalty}} Punkte von {{name}} für das Nichterledigen dieser Wochenaufgabe ab.",
+    "confirmButton": "Strafe anwenden"
+  },
+  "disputes": {
+    "title": "Abzug-Einsprüche",
+    "pending": "ausstehend",
+    "noDisputes": "Keine Einsprüche",
+    "noDisputesHint": "Alle Einsprüche wurden bearbeitet",
+    "originalDeduction": "Ursprünglicher Abzug",
+    "childResponse": "Antwort des Kindes",
+    "resolutionNote": "Lösungshinweis (optional)",
+    "resolutionNotePlaceholder": "Notiz hinzufügen...",
+    "reject": "Ablehnen",
+    "approveRestore": "Genehmigen & Wiederherstellen",
+    "approveHint": "Genehmigung stellt {{points}} Punkte wieder her",
+    "resolution": "Lösung",
+    "approvedMessage": "Punkte wiederhergestellt",
+    "rejectedMessage": "Einspruch abgelehnt"
   }
 }

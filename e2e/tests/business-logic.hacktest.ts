@@ -20,6 +20,11 @@ import {
   TestMember,
 } from './utils/test-helpers';
 
+import {
+  callPinLogin,
+  callRequestRedemption,
+} from './utils/edge-function-helpers';
+
 const EDGE_FUNCTION_URL = 'http://127.0.0.1:54321/functions/v1';
 
 test.describe('Business Logic Security Tests', () => {
@@ -379,6 +384,152 @@ test.describe('Business Logic Security Tests', () => {
 
       // Cleanup
       await serviceClient.from('family_members').delete().eq('id', testChild.id);
+    });
+  });
+
+  test.describe('Reward Redemption Protection', () => {
+    test('edge function enforces over-redemption protection', async () => {
+      const serviceClient = createServiceClient();
+
+      // Give child some points
+      await serviceClient
+        .from('family_members')
+        .update({ total_points: 1000 })
+        .eq('id', child.id);
+
+      // Enable rewards in family
+      await serviceClient
+        .from('families')
+        .update({
+          point_to_money_rate: 0.01,
+          minimum_redemption: 100,
+        })
+        .eq('id', family.id);
+
+      // Clean up any existing redemptions
+      await serviceClient.from('reward_redemptions').delete().eq('member_id', child.id);
+
+      // Login as child
+      const loginResponse = await callPinLogin(child.child_invite_code!, '1234');
+      expect(loginResponse.status).toBe(200);
+      const childToken = loginResponse.data?.token;
+
+      // Create first redemption for 600 points via edge function
+      const firstRedemption = await callRequestRedemption(childToken!, 600);
+      expect(firstRedemption.status).toBe(201);
+      expect(firstRedemption.data?.available_after).toBe(400); // 1000 - 600
+
+      // Try to create second redemption for 500 points (exceeds available 400)
+      const secondRedemption = await callRequestRedemption(childToken!, 500);
+      expect(secondRedemption.status).toBe(400);
+      expect(secondRedemption.error).toContain('Insufficient');
+
+      // Third redemption for 400 should work
+      const thirdRedemption = await callRequestRedemption(childToken!, 400);
+      expect(thirdRedemption.status).toBe(201);
+      expect(thirdRedemption.data?.available_after).toBe(0);
+
+      // Now nothing more should be allowed
+      const fourthRedemption = await callRequestRedemption(childToken!, 100);
+      expect(fourthRedemption.status).toBe(400);
+
+      // Cleanup
+      await serviceClient.from('reward_redemptions').delete().eq('member_id', child.id);
+      await serviceClient.from('family_members').update({ total_points: 0 }).eq('id', child.id);
+    });
+
+    test('cannot request redemption exceeding available points via edge function', async () => {
+      const serviceClient = createServiceClient();
+
+      // Give child some points
+      await serviceClient
+        .from('family_members')
+        .update({ total_points: 500 })
+        .eq('id', child.id);
+
+      // Enable rewards
+      await serviceClient
+        .from('families')
+        .update({
+          point_to_money_rate: 0.01,
+          minimum_redemption: 100,
+        })
+        .eq('id', family.id);
+
+      // Clean up any existing redemptions
+      await serviceClient.from('reward_redemptions').delete().eq('member_id', child.id);
+
+      // Create pending redemption for 400 points via direct DB insert (simulating existing pending)
+      await serviceClient.from('reward_redemptions').insert({
+        family_id: family.id,
+        member_id: child.id,
+        points_redeemed: 400,
+        money_amount: 4.0,
+        status: 'pending',
+      });
+
+      // Available should be 100 (500 - 400)
+      // Try to request 200 via edge function
+      const loginResponse = await callPinLogin(child.child_invite_code!, '1234');
+      const childToken = loginResponse.data?.token;
+
+      const response = await callRequestRedemption(childToken!, 200);
+
+      expect(response.status).toBe(400);
+      expect(response.error).toContain('Insufficient');
+
+      // Cleanup
+      await serviceClient.from('reward_redemptions').delete().eq('member_id', child.id);
+      await serviceClient.from('family_members').update({ total_points: 0 }).eq('id', child.id);
+    });
+
+    test('approved redemptions also reduce available points', async () => {
+      const serviceClient = createServiceClient();
+
+      // Give child points
+      await serviceClient
+        .from('family_members')
+        .update({ total_points: 1000 })
+        .eq('id', child.id);
+
+      // Enable rewards
+      await serviceClient
+        .from('families')
+        .update({
+          point_to_money_rate: 0.01,
+          minimum_redemption: 100,
+        })
+        .eq('id', family.id);
+
+      // Clean up any existing redemptions
+      await serviceClient.from('reward_redemptions').delete().eq('member_id', child.id);
+
+      // Create approved redemption (simulating already approved but not yet paid out)
+      await serviceClient.from('reward_redemptions').insert({
+        family_id: family.id,
+        member_id: child.id,
+        points_redeemed: 800,
+        money_amount: 8.0,
+        status: 'approved',
+        approved_at: new Date().toISOString(),
+      });
+
+      // Try to request more via edge function - should only have 200 available
+      const loginResponse = await callPinLogin(child.child_invite_code!, '1234');
+      const childToken = loginResponse.data?.token;
+
+      const response = await callRequestRedemption(childToken!, 300);
+      expect(response.status).toBe(400);
+      expect(response.error).toContain('Insufficient');
+
+      // Request 200 should work
+      const response2 = await callRequestRedemption(childToken!, 200);
+      expect(response2.status).toBe(201);
+      expect(response2.data?.available_after).toBe(0);
+
+      // Cleanup
+      await serviceClient.from('reward_redemptions').delete().eq('member_id', child.id);
+      await serviceClient.from('family_members').update({ total_points: 0 }).eq('id', child.id);
     });
   });
 

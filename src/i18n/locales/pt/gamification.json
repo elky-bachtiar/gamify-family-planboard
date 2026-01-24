@@ -9,7 +9,8 @@
   "level": {
     "current": "Nivel {{level}}",
     "progressTo": "Progresso para Nivel {{level}}",
-    "maxLevel": "Nivel Maximo Alcancado!"
+    "maxLevel": "Nivel Maximo Alcancado!",
+    "toNextLevel": "para próximo nível"
   },
   "streak": {
     "current": "{{count}} dias",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "Inicio",
       "badges": "Medalhas",
-      "stats": "Estatisticas"
+      "stats": "Estatisticas",
+      "leaderboard": "Ranking"
     },
     "dailyGreeting": {
       "welcome": "Bem-vindo de volta!",
@@ -152,7 +154,10 @@
         "available": "Disponiveis para Pegar ({{count}})",
         "waitingApproval": "Aguardando Aprovacao ({{count}})",
         "waitingForParent": "Aguardando os Pais ({{count}})",
-        "completed": "Concluidas ({{count}})"
+        "completed": "Concluidas ({{count}})",
+        "overdue": "Tarefas Atrasadas ({{count}})",
+        "today": "Hoje",
+        "yesterday": "Ontem"
       },
       "tabs": {
         "myTasks": "Minhas Tarefas",
@@ -193,7 +198,8 @@
       "submitting": "Enviando...",
       "earnPoints": "Ganhe {{points}} pontos!",
       "alreadyCompleted": "Ja concluida!",
-      "waitingApproval": "Aguardando aprovacao..."
+      "waitingApproval": "Aguardando aprovacao...",
+      "unclaim": "Cancelar reivindicação"
     },
     "celebration": {
       "approved": "Tarefa Aprovada!",
@@ -221,7 +227,61 @@
       "pointsEarned": "Pontos Ganhos",
       "activeDays": "Dias Ativos",
       "recentActivity": "Atividade Recente",
-      "noActivity": "Nenhuma atividade ainda. Complete algumas tarefas!"
+      "noActivity": "Nenhuma atividade ainda. Complete algumas tarefas!",
+      "allTime": "Todo o tempo",
+      "longestStreak": "Melhor sequência",
+      "activityApproved": "Aprovado",
+      "activityPending": "Aguardando Aprovação",
+      "activityBonus": "Bônus",
+      "activityCompleted": "Concluído",
+      "activityPenalty": "Penalidade"
+    },
+    "leaderboard": {
+      "you": "você"
+    },
+    "penalty": {
+      "title": "Pontos perdidos!",
+      "pointsLost": "-{{points}} pontos",
+      "unknownReason": "Razão desconhecida"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Congelar Sequência",
+    "shopDescription": "Proteja sua sequência quando perder um dia",
+    "youHave": "Você tem",
+    "cost": "Custo",
+    "yourPoints": "Seus pontos",
+    "buyButton": "Comprar Congelamento",
+    "notEnoughPoints": "Pontos insuficientes",
+    "maxReached": "Máximo atingido!",
+    "maxReachedHint": "Use um antes de comprar mais",
+    "purchaseSuccess": "Congelamento comprado!",
+    "howItWorks": "Congelamentos são usados automaticamente quando você perde um dia, protegendo sua sequência de ser resetada."
+  },
+  "penalties": {
+    "title": "Deduções de Pontos",
+    "noDeductions": "Sem deduções!",
+    "noDeductionsHint": "Continue assim!"
+  },
+  "disputes": {
+    "disputeButton": "Contestar esta dedução",
+    "cannotDispute": "Período de contestação expirado",
+    "createTitle": "Contestar Dedução",
+    "originalDeduction": "Dedução Original",
+    "reasonLabel": "Por que você está contestando?",
+    "reasonPlaceholder": "Explique por que você acha que esta dedução foi injusta...",
+    "evidenceLabel": "Adicionar evidência (opcional)",
+    "addPhoto": "Adicionar Foto",
+    "maxPhotos": "Máximo 3 fotos permitidas",
+    "photoHint": "Máx 3 fotos, 5MB cada",
+    "submitButton": "Enviar Contestação",
+    "status": {
+      "pending": "Pendente de Revisão",
+      "approved": "Aprovada",
+      "rejected": "Rejeitada"
+    },
+    "toastApproved": "Contestação Aprovada!",
+    "toastRejected": "Contestação Rejeitada",
+    "pointsRestored": "+{{points}} pontos restaurados!"
   }
 }

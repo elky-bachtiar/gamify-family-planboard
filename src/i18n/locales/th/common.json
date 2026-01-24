@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "ตั้งค่าโปรไฟล์",
-    "signOut": "ออกจากระบบ"
+    "signOut": "ออกจากระบบ",
+    "myProfile": "โปรไฟล์ของฉัน",
+    "tapToEdit": "แตะเพื่อแก้ไขโปรไฟล์",
+    "savePhoto": "บันทึกรูปภาพ",
+    "changeAvatar": "เปลี่ยนอวาตาร์",
+    "removeAvatar": "ลบอวาตาร์",
+    "invalidFileType": "กรุณาเลือกไฟล์รูปภาพ",
+    "fileTooLarge": "ขนาดไฟล์ต้องน้อยกว่า 2MB",
+    "uploadFailed": "อัปโหลดอวาตาร์ไม่สำเร็จ",
+    "newAvatarSelected": "เลือกอวาตาร์ใหม่แล้ว"
   }
 }

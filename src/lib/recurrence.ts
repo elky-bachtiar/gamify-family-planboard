@@ -18,6 +18,7 @@ export interface TaskTemplate {
   assigned_to?: string | null;
   due_datetime?: string | null;
   start_datetime?: string | null;
+  start_time?: string | null;
   priority: 'low' | 'medium' | 'high';
   point_value: number;
   created_by?: string | null;
@@ -130,6 +131,7 @@ export function generateRecurringTaskInstances(
       due_date: dueDate,
       due_datetime: dueDatetime,
       start_datetime: startDatetime,
+      start_time: template.start_time ?? null,
       priority: template.priority,
       point_value: template.point_value,
       created_by: template.created_by,

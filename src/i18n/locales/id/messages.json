@@ -1,0 +1,21 @@
+{
+  "inbox": "Pesan",
+  "compose": "Baru",
+  "newMessage": "Pesan Baru",
+  "noMessages": "Belum ada pesan",
+  "unknownSender": "Tidak Diketahui",
+  "backToInbox": "Kembali",
+  "reply": "Balas",
+  "delete": "Hapus",
+  "replyTo": "Balas ke {{name}}",
+  "originalMessage": "Pesan asli",
+  "to": "Kepada",
+  "selectRecipient": "Pilih penerima...",
+  "everyone": "Semua",
+  "message": "Pesan",
+  "messagePlaceholder": "Tulis pesanmu di sini...",
+  "send": "Kirim",
+  "sending": "Mengirim...",
+  "errorFillFields": "Mohon isi semua kolom",
+  "errorSending": "Gagal mengirim pesan. Silakan coba lagi."
+}

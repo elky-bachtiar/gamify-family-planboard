@@ -5,7 +5,8 @@
       "members": "Membros",
       "approvals": "Aprovacoes",
       "rewards": "Recompensas",
-      "objects": "Objetos"
+      "objects": "Objetos",
+      "disputes": "Disputas"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "ex. Lava-loucas, Lavanderia, Jardim",
     "uploadImage": "Enviar imagem",
     "removeImage": "Remover imagem"
+  },
+  "manualPoints": {
+    "title": "Deduzir Pontos",
+    "description": "Deduza pontos de um membro da familia por problemas de comportamento.",
+    "selectMember": "Selecionar Membro",
+    "selectPlaceholder": "Escolha um membro da familia...",
+    "pointsLabel": "Pontos a Deduzir",
+    "pointsPlaceholder": "Digite o numero de pontos",
+    "pointsHint": "Digite um numero positivo (ex. 10 deduzira 10 pontos)",
+    "reasonLabel": "Motivo",
+    "reasonPlaceholder": "ex. Nao guardou o leite na geladeira",
+    "submitButton": "Deduzir Pontos",
+    "submitting": "Deduzindo...",
+    "confirmTitle": "Confirmar Deducao de Pontos",
+    "confirmMessage": "Tem certeza que deseja deduzir {{points}} pontos de {{name}}?",
+    "confirmButton": "Deduzir Pontos",
+    "success": "Pontos deduzidos com sucesso!",
+    "errorInvalidPoints": "Por favor, digite um numero valido de pontos",
+    "errorSelectMember": "Por favor, selecione um membro da familia",
+    "errorEnterReason": "Por favor, digite um motivo",
+    "errorFailed": "Falha ao deduzir pontos. Por favor, tente novamente."
+  },
+  "missedWeeklyTasks": {
+    "title": "Tarefas Semanais Perdidas",
+    "assignedTo": "Atribuida a {{name}}",
+    "originalPoints": "Original: {{points}} pontos",
+    "applyPenalty": "Aplicar Penalidade",
+    "applying": "Aplicando...",
+    "confirmTitle": "Aplicar Penalidade de Tarefa Semanal",
+    "confirmMessage": "Isso deduzira {{penalty}} pontos de {{name}} por nao completar esta tarefa semanal.",
+    "confirmButton": "Aplicar Penalidade"
+  },
+  "disputes": {
+    "title": "Disputas de Deducoes",
+    "pending": "pendente",
+    "noDisputes": "Sem disputas",
+    "noDisputesHint": "Todas as disputas foram resolvidas",
+    "originalDeduction": "Deducao Original",
+    "childResponse": "Resposta da Crianca",
+    "resolutionNote": "Nota de resolucao (opcional)",
+    "resolutionNotePlaceholder": "Adicionar uma nota...",
+    "reject": "Rejeitar",
+    "approveRestore": "Aprovar e Restaurar",
+    "approveHint": "Aprovar restaurara {{points}} pontos",
+    "resolution": "Resolucao",
+    "approvedMessage": "Pontos restaurados",
+    "rejectedMessage": "Disputa rejeitada"
   }
 }

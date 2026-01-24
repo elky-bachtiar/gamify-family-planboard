@@ -9,7 +9,8 @@
   "level": {
     "current": "Nivel {{level}}",
     "progressTo": "Progreso al Nivel {{level}}",
-    "maxLevel": "¡Nivel Máximo Alcanzado!"
+    "maxLevel": "¡Nivel Máximo Alcanzado!",
+    "toNextLevel": "para siguiente nivel"
   },
   "streak": {
     "current": "{{count}} días",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "Inicio",
       "badges": "Insignias",
-      "stats": "Estadísticas"
+      "stats": "Estadísticas",
+      "leaderboard": "Ranking"
     },
     "dailyGreeting": {
       "welcome": "¡Bienvenido de nuevo!",
@@ -152,7 +154,10 @@
         "available": "Disponibles para Reclamar ({{count}})",
         "waitingApproval": "Esperando Aprobación ({{count}})",
         "waitingForParent": "Esperando a Padre/Madre ({{count}})",
-        "completed": "Completadas ({{count}})"
+        "completed": "Completadas ({{count}})",
+        "overdue": "Tareas Atrasadas ({{count}})",
+        "today": "Hoy",
+        "yesterday": "Ayer"
       },
       "tabs": {
         "myTasks": "Mis Tareas",
@@ -193,7 +198,8 @@
       "submitting": "Enviando...",
       "earnPoints": "¡Gana {{points}} puntos!",
       "alreadyCompleted": "¡Ya completada!",
-      "waitingApproval": "Esperando aprobación..."
+      "waitingApproval": "Esperando aprobación...",
+      "unclaim": "Cancelar reclamo"
     },
     "celebration": {
       "approved": "¡Tarea Aprobada!",
@@ -221,7 +227,61 @@
       "pointsEarned": "Puntos Ganados",
       "activeDays": "Días Activos",
       "recentActivity": "Actividad Reciente",
-      "noActivity": "Sin actividad aún. ¡Completa algunas tareas!"
+      "noActivity": "Sin actividad aún. ¡Completa algunas tareas!",
+      "allTime": "Todo el tiempo",
+      "longestStreak": "Mejor racha",
+      "activityApproved": "Aprobado",
+      "activityPending": "Esperando aprobación",
+      "activityBonus": "Bonus",
+      "activityCompleted": "Completado",
+      "activityPenalty": "Penalización"
+    },
+    "leaderboard": {
+      "you": "tú"
+    },
+    "penalty": {
+      "title": "¡Puntos perdidos!",
+      "pointsLost": "-{{points}} puntos",
+      "unknownReason": "Razón desconocida"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Congelador de Racha",
+    "shopDescription": "Protege tu racha cuando pierdas un día",
+    "youHave": "Tienes",
+    "cost": "Costo",
+    "yourPoints": "Tus puntos",
+    "buyButton": "Comprar Congelador",
+    "notEnoughPoints": "No tienes suficientes puntos",
+    "maxReached": "¡Máximo alcanzado!",
+    "maxReachedHint": "Usa uno antes de comprar más",
+    "purchaseSuccess": "¡Congelador comprado!",
+    "howItWorks": "Los congeladores se usan automáticamente cuando pierdes un día, protegiendo tu racha de reiniciarse."
+  },
+  "penalties": {
+    "title": "Deducciones de Puntos",
+    "noDeductions": "¡Sin deducciones!",
+    "noDeductionsHint": "¡Sigue así!"
+  },
+  "disputes": {
+    "disputeButton": "Disputar esta deducción",
+    "cannotDispute": "Período de disputa expirado",
+    "createTitle": "Disputar Deducción",
+    "originalDeduction": "Deducción Original",
+    "reasonLabel": "¿Por qué disputas esto?",
+    "reasonPlaceholder": "Explica por qué crees que esta deducción fue injusta...",
+    "evidenceLabel": "Agregar evidencia (opcional)",
+    "addPhoto": "Agregar Foto",
+    "maxPhotos": "Máximo 3 fotos permitidas",
+    "photoHint": "Máx 3 fotos, 5MB cada una",
+    "submitButton": "Enviar Disputa",
+    "status": {
+      "pending": "Pendiente de Revisión",
+      "approved": "Aprobada",
+      "rejected": "Rechazada"
+    },
+    "toastApproved": "¡Disputa Aprobada!",
+    "toastRejected": "Disputa Rechazada",
+    "pointsRestored": "+{{points}} puntos restaurados!"
   }
 }

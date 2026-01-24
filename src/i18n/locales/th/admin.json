@@ -5,7 +5,8 @@
       "members": "สมาชิก",
       "approvals": "การอนุมัติ",
       "rewards": "รางวัล",
-      "objects": "วัตถุ"
+      "objects": "วัตถุ",
+      "disputes": "การโต้แย้ง"
     }
   },
   "inviteCode": {
@@ -132,5 +133,52 @@
     "namePlaceholder": "เช่น เครื่องล้างจาน, ซักผ้า, สวน",
     "uploadImage": "อัปโหลดรูปภาพ",
     "removeImage": "ลบรูปภาพ"
+  },
+  "manualPoints": {
+    "title": "หักคะแนน",
+    "description": "หักคะแนนจากสมาชิกครอบครัวเนื่องจากปัญหาพฤติกรรม",
+    "selectMember": "เลือกสมาชิก",
+    "selectPlaceholder": "เลือกสมาชิกครอบครัว...",
+    "pointsLabel": "คะแนนที่จะหัก",
+    "pointsPlaceholder": "กรอกจำนวนคะแนน",
+    "pointsHint": "กรอกตัวเลขบวก (เช่น 10 จะหัก 10 คะแนน)",
+    "reasonLabel": "เหตุผล",
+    "reasonPlaceholder": "เช่น ไม่เก็บนมใส่ตู้เย็น",
+    "submitButton": "หักคะแนน",
+    "submitting": "กำลังหัก...",
+    "confirmTitle": "ยืนยันการหักคะแนน",
+    "confirmMessage": "คุณแน่ใจหรือไม่ว่าต้องการหัก {{points}} คะแนนจาก {{name}}?",
+    "confirmButton": "หักคะแนน",
+    "success": "หักคะแนนสำเร็จ!",
+    "errorInvalidPoints": "กรุณากรอกจำนวนคะแนนที่ถูกต้อง",
+    "errorSelectMember": "กรุณาเลือกสมาชิกครอบครัว",
+    "errorEnterReason": "กรุณากรอกเหตุผล",
+    "errorFailed": "ไม่สามารถหักคะแนนได้ กรุณาลองอีกครั้ง"
+  },
+  "missedWeeklyTasks": {
+    "title": "งานประจำสัปดาห์ที่พลาด",
+    "assignedTo": "มอบหมายให้ {{name}}",
+    "originalPoints": "เดิม: {{points}} คะแนน",
+    "applyPenalty": "ใช้บทลงโทษ",
+    "applying": "กำลังใช้...",
+    "confirmTitle": "ใช้บทลงโทษงานประจำสัปดาห์",
+    "confirmMessage": "จะหัก {{penalty}} คะแนนจาก {{name}} เนื่องจากไม่ได้ทำงานประจำสัปดาห์นี้",
+    "confirmButton": "ใช้บทลงโทษ"
+  },
+  "disputes": {
+    "title": "การโต้แย้งการหัก",
+    "pending": "รอดำเนินการ",
+    "noDisputes": "ไม่มีการโต้แย้ง",
+    "noDisputesHint": "การโต้แย้งทั้งหมดได้รับการแก้ไขแล้ว",
+    "originalDeduction": "การหักเดิม",
+    "childResponse": "การตอบกลับของลูก",
+    "resolutionNote": "บันทึกการแก้ไข (ไม่บังคับ)",
+    "resolutionNotePlaceholder": "เพิ่มบันทึก...",
+    "reject": "ปฏิเสธ",
+    "approveRestore": "อนุมัติและคืนคะแนน",
+    "approveHint": "การอนุมัติจะคืน {{points}} คะแนน",
+    "resolution": "การแก้ไข",
+    "approvedMessage": "คืนคะแนนแล้ว",
+    "rejectedMessage": "การโต้แย้งถูกปฏิเสธ"
   }
 }

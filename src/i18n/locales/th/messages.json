@@ -1,0 +1,21 @@
+{
+  "inbox": "ข้อความ",
+  "compose": "ใหม่",
+  "newMessage": "ข้อความใหม่",
+  "noMessages": "ยังไม่มีข้อความ",
+  "unknownSender": "ไม่ทราบ",
+  "backToInbox": "กลับ",
+  "reply": "ตอบกลับ",
+  "delete": "ลบ",
+  "replyTo": "ตอบกลับ {{name}}",
+  "originalMessage": "ข้อความเดิม",
+  "to": "ถึง",
+  "selectRecipient": "เลือกผู้รับ...",
+  "everyone": "ทุกคน",
+  "message": "ข้อความ",
+  "messagePlaceholder": "เขียนข้อความของคุณที่นี่...",
+  "send": "ส่ง",
+  "sending": "กำลังส่ง...",
+  "errorFillFields": "กรุณากรอกข้อมูลให้ครบ",
+  "errorSending": "ส่งข้อความไม่สำเร็จ กรุณาลองใหม่อีกครั้ง"
+}

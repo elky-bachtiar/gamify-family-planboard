@@ -112,6 +112,7 @@ export const RATE_LIMITS: Record<string, RateLimitConfig> = {
   'create-dispute': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour (prevent spam)
   'resolve-dispute': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour (admin action)
   'purchase-streak-freeze': { maxRequests: 5, windowMs: 3_600_000 }, // 5 per hour (prevent accidental purchases)
+  'request-redemption': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour (prevent redemption spam)
 };
 
 /**

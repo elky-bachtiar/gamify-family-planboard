@@ -107,7 +107,14 @@
       "processing": "Processing...",
       "recentHistory": "Recent History",
       "pointsEquals": "{{points}} points = ${{money}}"
-    }
+    },
+    "insufficientPoints": "Insufficient points. Available: {{available}}, Requested: {{requested}}",
+    "minimumError": "Minimum redemption is {{minimum}} points",
+    "authError": "Authentication required. Please log in again.",
+    "rateLimitError": "Too many requests. Please try again later.",
+    "genericError": "Something went wrong. Please try again.",
+    "networkError": "Network error. Please check your connection.",
+    "successMessage": "Redemption request submitted!"
   },
   "weeklyGoal": {
     "title": "Weekly Goal",
@@ -123,7 +130,27 @@
       "home": "Home",
       "leaderboard": "Ranking",
       "badges": "Badges",
-      "stats": "Stats"
+      "stats": "Stats",
+      "rewards": "Rewards"
+    },
+    "rewards": {
+      "title": "My Rewards",
+      "yourPoints": "Your Points",
+      "worthAmount": "Worth",
+      "pendingPoints": "Pending",
+      "availablePoints": "Available",
+      "requestPayout": "Request Payout",
+      "requestButton": "Request Payout",
+      "minimumNeeded": "Need {{minimum}} points minimum",
+      "pendingRequests": "Your Requests",
+      "successMessage": "Request sent to parents!",
+      "notEnabled": "Rewards are not enabled yet. Ask your parents!",
+      "insufficientPoints": "Not enough points! Available: {{available}}, Requested: {{requested}}",
+      "minimumError": "Need at least {{minimum}} points",
+      "authError": "Please log in again",
+      "rateLimitError": "Too many requests. Wait a bit!",
+      "genericError": "Something went wrong",
+      "networkError": "No connection. Try again!"
     },
     "leaderboard": {
       "you": "you"
@@ -226,11 +253,18 @@
       "currentStreak": "Current Streak",
       "days": "days",
       "thisWeek": "This Week",
+      "allTime": "All Time",
       "tasksDone": "Tasks Done",
       "pointsEarned": "Points Earned",
       "activeDays": "Active Days",
+      "longestStreak": "Best Streak",
       "recentActivity": "Recent Activity",
-      "noActivity": "No activity yet. Complete some tasks!"
+      "noActivity": "No activity yet. Complete some tasks!",
+      "activityCompleted": "Task Completed",
+      "activityApproved": "Approved",
+      "activityPending": "Awaiting Approval",
+      "activityBonus": "Bonus",
+      "activityPenalty": "Penalty"
     },
     "penalty": {
       "title": "Points Lost!",

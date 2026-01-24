@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "Profil Ayarları",
-    "signOut": "Çıkış Yap"
+    "signOut": "Çıkış Yap",
+    "myProfile": "Profilim",
+    "tapToEdit": "Düzenlemek için dokun",
+    "savePhoto": "Fotoğrafı Kaydet",
+    "changeAvatar": "Avatarı değiştir",
+    "removeAvatar": "Avatarı kaldır",
+    "invalidFileType": "Lütfen bir resim dosyası seçin",
+    "fileTooLarge": "Dosya boyutu 2MB'den küçük olmalıdır",
+    "uploadFailed": "Avatar yüklenemedi",
+    "newAvatarSelected": "Yeni avatar seçildi"
   }
 }

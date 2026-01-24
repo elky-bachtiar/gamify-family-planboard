@@ -9,7 +9,8 @@
   "level": {
     "current": "Level {{level}}",
     "progressTo": "Progres ke Level {{level}}",
-    "maxLevel": "Level Maksimum Tercapai!"
+    "maxLevel": "Level Maksimum Tercapai!",
+    "toNextLevel": "ke level berikutnya"
   },
   "streak": {
     "current": "{{count}} hari",
@@ -121,7 +122,8 @@
     "tabs": {
       "home": "Beranda",
       "badges": "Lencana",
-      "stats": "Statistik"
+      "stats": "Statistik",
+      "leaderboard": "Peringkat"
     },
     "dailyGreeting": {
       "welcome": "Selamat datang kembali!",
@@ -152,7 +154,10 @@
         "available": "Tersedia untuk Diambil ({{count}})",
         "waitingApproval": "Menunggu Persetujuan ({{count}})",
         "waitingForParent": "Menunggu Orang Tua ({{count}})",
-        "completed": "Selesai ({{count}})"
+        "completed": "Selesai ({{count}})",
+        "overdue": "Tugas Terlambat ({{count}})",
+        "today": "Hari Ini",
+        "yesterday": "Kemarin"
       },
       "tabs": {
         "myTasks": "Tugas Saya",
@@ -193,7 +198,8 @@
       "submitting": "Mengirim...",
       "earnPoints": "Dapatkan {{points}} poin!",
       "alreadyCompleted": "Sudah selesai!",
-      "waitingApproval": "Menunggu persetujuan..."
+      "waitingApproval": "Menunggu persetujuan...",
+      "unclaim": "Batalkan Klaim"
     },
     "celebration": {
       "approved": "Tugas Disetujui!",
@@ -221,7 +227,61 @@
       "pointsEarned": "Poin Diperoleh",
       "activeDays": "Hari Aktif",
       "recentActivity": "Aktivitas Terbaru",
-      "noActivity": "Belum ada aktivitas. Selesaikan beberapa tugas!"
+      "noActivity": "Belum ada aktivitas. Selesaikan beberapa tugas!",
+      "allTime": "Sepanjang Waktu",
+      "longestStreak": "Streak Terbaik",
+      "activityApproved": "Disetujui",
+      "activityPending": "Menunggu Persetujuan",
+      "activityBonus": "Bonus",
+      "activityCompleted": "Selesai",
+      "activityPenalty": "Penalti"
+    },
+    "leaderboard": {
+      "you": "kamu"
+    },
+    "penalty": {
+      "title": "Poin Hilang!",
+      "pointsLost": "-{{points}} poin",
+      "unknownReason": "Alasan tidak diketahui"
     }
+  },
+  "streakFreeze": {
+    "shopTitle": "Bekukan Streak",
+    "shopDescription": "Lindungi streak-mu saat melewatkan satu hari",
+    "youHave": "Kamu punya",
+    "cost": "Biaya",
+    "yourPoints": "Poin kamu",
+    "buyButton": "Beli Bekukan Streak",
+    "notEnoughPoints": "Poin tidak cukup",
+    "maxReached": "Maksimum tercapai!",
+    "maxReachedHint": "Gunakan satu sebelum membeli lebih banyak",
+    "purchaseSuccess": "Bekukan streak dibeli!",
+    "howItWorks": "Pembekuan digunakan secara otomatis saat kamu melewatkan menyelesaikan tugas hari itu, melindungi streak-mu dari reset."
+  },
+  "penalties": {
+    "title": "Pengurangan Poin",
+    "noDeductions": "Tidak ada pengurangan!",
+    "noDeductionsHint": "Terus semangat!"
+  },
+  "disputes": {
+    "disputeButton": "Sengketakan pengurangan ini",
+    "cannotDispute": "Periode sengketa berakhir",
+    "createTitle": "Sengketakan Pengurangan",
+    "originalDeduction": "Pengurangan Asli",
+    "reasonLabel": "Mengapa kamu menyengketakan ini?",
+    "reasonPlaceholder": "Jelaskan mengapa menurutmu pengurangan ini tidak adil...",
+    "evidenceLabel": "Tambah bukti (opsional)",
+    "addPhoto": "Tambah Foto",
+    "maxPhotos": "Maksimal 3 foto diizinkan",
+    "photoHint": "Maks 3 foto, masing-masing 5MB",
+    "submitButton": "Kirim Sengketa",
+    "status": {
+      "pending": "Menunggu Review",
+      "approved": "Disetujui",
+      "rejected": "Ditolak"
+    },
+    "toastApproved": "Sengketa Disetujui!",
+    "toastRejected": "Sengketa Ditolak",
+    "pointsRestored": "+{{points}} poin dikembalikan!"
   }
 }

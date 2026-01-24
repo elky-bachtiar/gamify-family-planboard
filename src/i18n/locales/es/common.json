@@ -63,6 +63,15 @@
   },
   "profile": {
     "settings": "Configuración de Perfil",
-    "signOut": "Cerrar Sesión"
+    "signOut": "Cerrar Sesión",
+    "myProfile": "Mi Perfil",
+    "tapToEdit": "Toca para editar perfil",
+    "savePhoto": "Guardar Foto",
+    "changeAvatar": "Cambiar avatar",
+    "removeAvatar": "Eliminar avatar",
+    "invalidFileType": "Por favor selecciona un archivo de imagen",
+    "fileTooLarge": "El archivo debe ser menor a 2MB",
+    "uploadFailed": "Error al subir avatar",
+    "newAvatarSelected": "Nuevo avatar seleccionado"
   }
 }
