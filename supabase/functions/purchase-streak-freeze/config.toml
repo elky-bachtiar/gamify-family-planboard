@@ -1,0 +1,3 @@
+# Disable automatic JWT verification so we can handle both
+# Supabase Auth tokens AND custom PIN user tokens
+verify_jwt = false

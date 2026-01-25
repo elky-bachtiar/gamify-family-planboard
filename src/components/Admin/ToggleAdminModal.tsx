@@ -4,6 +4,7 @@ import { X, Crown, Shield, ShieldOff } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useFamily } from '../../contexts/FamilyContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { logMemberAudit } from '../../lib/auditLog';
 import type { FamilyMember } from '../../types';
 
 interface ToggleAdminModalProps {
@@ -16,7 +17,7 @@ interface ToggleAdminModalProps {
 export function ToggleAdminModal({ isOpen, onClose, member, adminCount }: ToggleAdminModalProps) {
   const { t } = useTranslation(['admin', 'common']);
   const { refreshMembers } = useFamily();
-  const { refreshAuth } = useAuth();
+  const { refreshAuth, familyMember: currentUser, family } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,6 +44,14 @@ export function ToggleAdminModal({ isOpen, onClose, member, adminCount }: Toggle
 
       if (data?.error) {
         throw new Error(data.error);
+      }
+
+      // Log audit for admin status change
+      if (currentUser && family) {
+        await logMemberAudit(family.id, currentUser.id, 'update', member.id, member.name, {
+          admin_status_changed: true,
+          new_is_admin: isPromoting,
+        });
       }
 
       await refreshMembers();

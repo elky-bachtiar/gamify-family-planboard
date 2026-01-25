@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { X, AlertTriangle, Trash2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useFamily } from '../../contexts/FamilyContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { logMemberAudit } from '../../lib/auditLog';
 import type { FamilyMember } from '../../types';
 
 interface DeleteMemberConfirmModalProps {
@@ -18,6 +20,7 @@ export function DeleteMemberConfirmModal({
 }: DeleteMemberConfirmModalProps) {
   const { t } = useTranslation(['admin', 'common']);
   const { refreshMembers } = useFamily();
+  const { familyMember, family } = useAuth();
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,6 +31,14 @@ export function DeleteMemberConfirmModal({
     setError(null);
 
     try {
+      // Log audit before deletion (so we have the member info)
+      if (familyMember && family) {
+        await logMemberAudit(family.id, familyMember.id, 'delete', member.id, member.name, {
+          total_points: member.total_points,
+          current_level: member.current_level,
+        });
+      }
+
       const { error: deleteError } = await supabase
         .from('family_members')
         .delete()

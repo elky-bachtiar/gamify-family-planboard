@@ -17,6 +17,7 @@ import { ChildBadgesView } from './Views/ChildBadgesView';
 import { ChildStatsView } from './Views/ChildStatsView';
 import { ChildLeaderboardView } from './Views/ChildLeaderboardView';
 import { ChildRewardsView } from './Views/ChildRewardsView';
+import { ChildMessagesView } from './Views/ChildMessagesView';
 import type { TaskWithMember, Task, PointsHistory } from '../../types';
 
 // Session storage key for greeting shown today
@@ -228,6 +229,8 @@ export function ChildDashboard() {
         {activeTab === 'stats' && <ChildStatsView />}
 
         {activeTab === 'rewards' && <ChildRewardsView />}
+
+        {activeTab === 'messages' && <ChildMessagesView />}
       </main>
 
       {/* Bottom tab bar */}

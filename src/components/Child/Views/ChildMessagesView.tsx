@@ -40,17 +40,31 @@ export function ChildMessagesView() {
 
     const supabase = getSupabaseClient();
 
+    // Query the decrypted view which transparently handles encryption
+    // Include messages where:
+    // - I am the recipient (direct messages to me)
+    // - I am the sender (messages I sent)
+    // - It's a broadcast (recipient_id is null)
     const { data, error } = await supabase
-      .from('messages')
+      .from('messages_decrypted')
       .select('*')
       .eq('family_id', family.id)
-      .or(`recipient_id.eq.${familyMember.id},recipient_id.is.null`)
+      .or(`recipient_id.eq.${familyMember.id},sender_id.eq.${familyMember.id},recipient_id.is.null`)
       .order('created_at', { ascending: false });
 
     if (error) {
       console.error('Error loading messages:', error);
+      console.error('Query params:', { family_id: family.id, member_id: familyMember.id });
       return;
     }
+
+    console.log(
+      'Child messages loaded:',
+      data?.length,
+      'for member:',
+      familyMember.id,
+      familyMember.name
+    );
 
     const enrichedMessages: MessageWithSender[] = (data || []).map((msg) => {
       const sender = familyMembers.find((m) => m.id === msg.sender_id);
@@ -123,12 +137,28 @@ export function ChildMessagesView() {
 
     try {
       const supabase = getSupabaseClient();
-      await supabase.from('messages').insert({
-        family_id: family.id,
-        sender_id: familyMember.id,
-        recipient_id: recipientId === 'all' ? null : recipientId,
-        content: content.trim(),
+
+      // Get current session for authorization
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData?.session?.access_token;
+
+      // Use edge function for encrypted message sending
+      const { data, error } = await supabase.functions.invoke('send-message', {
+        body: {
+          family_id: family.id,
+          recipient_id: recipientId === 'all' ? null : recipientId,
+          content: content.trim(),
+        },
+        // Explicitly pass auth header for regular Supabase auth users
+        ...(accessToken && {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }),
       });
+
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
 
       setContent('');
       setRecipientId('');

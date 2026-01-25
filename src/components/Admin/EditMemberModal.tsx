@@ -4,6 +4,8 @@ import { X, Save, User, KeyRound, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useColorPalette } from '../../hooks/useColorPalette';
 import { useFamily } from '../../contexts/FamilyContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { logMemberAudit } from '../../lib/auditLog';
 import type { FamilyMember } from '../../types';
 
 interface EditMemberModalProps {
@@ -24,6 +26,7 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
   const { t } = useTranslation(['admin', 'common']);
   const { colors } = useColorPalette();
   const { refreshMembers } = useFamily();
+  const { familyMember: currentUser, family } = useAuth();
   const [name, setName] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [enablePinLogin, setEnablePinLogin] = useState(false);
@@ -92,6 +95,16 @@ export function EditMemberModal({ isOpen, onClose, member }: EditMemberModalProp
         .eq('id', member.id);
 
       if (updateError) throw updateError;
+
+      // Log audit for member update
+      if (currentUser && family) {
+        await logMemberAudit(family.id, currentUser.id, 'update', member.id, name.trim(), {
+          previous_name: member.name,
+          previous_color: member.color,
+          new_color: selectedColor,
+          pin_login_changed: enablePinLogin !== member.is_pin_user,
+        });
+      }
 
       await refreshMembers();
       onClose();

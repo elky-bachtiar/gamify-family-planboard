@@ -66,7 +66,8 @@ async function checkEdgeFunctionsAvailable(): Promise<boolean> {
   }
 }
 
-let edgeFunctionsAvailable = false;
+// Assume available, will be checked in beforeAll
+let edgeFunctionsAvailable = true;
 
 test.describe('Edge Function Tests', () => {
   test.beforeAll(async () => {
@@ -77,18 +78,15 @@ test.describe('Edge Function Tests', () => {
     }
   });
 
-  // Skip all tests in this file if edge functions are not available
-  test.beforeEach(async (_fixtures, testInfo) => {
-    if (!edgeFunctionsAvailable) {
-      testInfo.skip(true, 'Edge functions not available - run "supabase functions serve"');
-    }
-  });
-
   test.describe('Edge Function: pin-login', () => {
   let adminUser: TestUser;
   let family: TestFamily;
   let childMember: TestMember;
   const childPin = '1234';
+
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
 
   test.beforeAll(async () => {
     if (!edgeFunctionsAvailable) return;
@@ -146,7 +144,12 @@ test.describe('Edge Function: create-child', () => {
   let adminUser: TestUser;
   let family: TestFamily;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -243,7 +246,12 @@ test.describe('Edge Function: join-family', () => {
   let adminUser: TestUser;
   let family: TestFamily;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -296,7 +304,12 @@ test.describe('Edge Function: join-family-as-parent', () => {
   let adminUser: TestUser;
   let family: TestFamily;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -352,7 +365,12 @@ test.describe('Edge Function: toggle-admin', () => {
   let adminMember: TestMember;
   let nonAdminMember: TestMember;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -437,7 +455,12 @@ test.describe('Edge Function: deduct-points', () => {
   let family: TestFamily;
   let childMember: TestMember;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -508,7 +531,12 @@ test.describe('Edge Function: reset-child-pin', () => {
   let family: TestFamily;
   let childMember: TestMember;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -549,7 +577,12 @@ test.describe('Edge Function: regenerate-invite-code', () => {
   let adminUser: TestUser;
   let family: TestFamily;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -592,7 +625,12 @@ test.describe('Edge Function: award-birthday-points', () => {
   let family: TestFamily;
   let childMember: TestMember;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;
@@ -637,7 +675,12 @@ test.describe('Edge Function: disable-member', () => {
   let family: TestFamily;
   let childMember: TestMember;
 
+  test.beforeEach(async ({}, testInfo) => {
+    if (!edgeFunctionsAvailable) testInfo.skip();
+  });
+
   test.beforeAll(async () => {
+    if (!edgeFunctionsAvailable) return;
     adminUser = await createTestUser();
     const familyData = await createTestFamily(adminUser);
     family = familyData.family;

@@ -12,7 +12,12 @@ interface DeleteTaskConfirmModalProps {
   onDeleted: () => void;
 }
 
-export function DeleteTaskConfirmModal({ isOpen, onClose, task, onDeleted }: DeleteTaskConfirmModalProps) {
+export function DeleteTaskConfirmModal({
+  isOpen,
+  onClose,
+  task,
+  onDeleted,
+}: DeleteTaskConfirmModalProps) {
   const { t } = useTranslation(['tasks', 'common']);
   const [isDeleting, setIsDeleting] = useState(false);
   const [futureTaskCount, setFutureTaskCount] = useState(0);
@@ -40,10 +45,28 @@ export function DeleteTaskConfirmModal({ isOpen, onClose, task, onDeleted }: Del
 
     setIsDeleting(true);
     try {
-      const { error } = await supabase
-        .from('tasks')
-        .delete()
-        .eq('id', task.id);
+      // Archive completed tasks before deletion
+      if (task.status === 'completed') {
+        const { error: archiveError } = await supabase.from('task_history').insert({
+          original_task_id: task.id,
+          family_id: task.family_id,
+          title: task.title,
+          description: task.description,
+          assigned_to: task.assigned_to,
+          due_datetime: task.due_datetime,
+          priority: task.priority,
+          point_value: task.point_value,
+          completed_at: task.completed_at,
+          archived_at: new Date().toISOString(),
+        });
+
+        if (archiveError) {
+          console.error('Error archiving task:', archiveError);
+          // Continue with deletion even if archiving fails
+        }
+      }
+
+      const { error } = await supabase.from('tasks').delete().eq('id', task.id);
 
       if (error) throw error;
 
@@ -89,9 +112,7 @@ export function DeleteTaskConfirmModal({ isOpen, onClose, task, onDeleted }: Del
             <AlertTriangle className="w-5 h-5 text-red-600" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900">
-              {t('tasks:delete.confirmTitle')}
-            </h2>
+            <h2 className="text-xl font-bold text-gray-900">{t('tasks:delete.confirmTitle')}</h2>
             {showRecurringOptions && (
               <div className="flex items-center gap-1 mt-1 text-sm text-purple-600">
                 <Repeat className="w-4 h-4" />

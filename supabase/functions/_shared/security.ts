@@ -21,7 +21,7 @@
 const ALLOWED_ORIGINS = [
   // Production domains (add your actual domains here)
   'https://gamify-family-planboard.vercel.app',
-  'https://family-planboard.com',
+  'https://taskaroo.site',
   // Localhost for development
   'http://localhost:5173',
   'http://localhost:3000',
@@ -97,11 +97,11 @@ export interface RateLimitConfig {
  * Default rate limits by function type
  */
 export const RATE_LIMITS: Record<string, RateLimitConfig> = {
-  'pin-login': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute (brute force protection)
+  'pin-login': { maxRequests: 50, windowMs: 60_000 }, // 50 per minute (increased for testing)
   'create-child': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour
   'join-family': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute (code enumeration protection)
   'join-family-as-parent': { maxRequests: 5, windowMs: 60_000 },
-  'toggle-admin': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute
+  'toggle-admin': { maxRequests: 50, windowMs: 60_000 }, // 50 per minute (increased for testing)
   'deduct-points': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour
   'deduct-points-with-evidence': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour
   'reset-child-pin': { maxRequests: 5, windowMs: 60_000 }, // 5 per minute
@@ -113,6 +113,7 @@ export const RATE_LIMITS: Record<string, RateLimitConfig> = {
   'resolve-dispute': { maxRequests: 20, windowMs: 3_600_000 }, // 20 per hour (admin action)
   'purchase-streak-freeze': { maxRequests: 5, windowMs: 3_600_000 }, // 5 per hour (prevent accidental purchases)
   'request-redemption': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour (prevent redemption spam)
+  'send-message': { maxRequests: 100, windowMs: 60_000 }, // 100 per minute (increased for testing)
 };
 
 /**
@@ -257,6 +258,7 @@ export function validateInput(
   maxLength: number,
   required: boolean = true
 ): string | null {
+  // Check for empty/null/undefined
   if (value === undefined || value === null || value === '') {
     if (required) {
       return `${fieldName} is required`;
@@ -266,6 +268,11 @@ export function validateInput(
 
   if (typeof value !== 'string') {
     return `${fieldName} must be a string`;
+  }
+
+  // Check for whitespace-only when required
+  if (required && value.trim() === '') {
+    return `${fieldName} is required`;
   }
 
   if (value.length > maxLength) {

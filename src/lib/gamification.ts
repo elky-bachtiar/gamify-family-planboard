@@ -1,5 +1,6 @@
 import { getSupabaseClient } from './supabase';
 import { calculateLevel } from '../types';
+import { logTaskAudit, logPointsAudit } from './auditLog';
 import type { FamilyMember, Task } from '../types';
 
 /**
@@ -120,6 +121,14 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
       // Recalculate points from history to avoid race conditions
       await updateMemberPointsFromHistory(member.id);
 
+      // Log audit for admin task completion
+      if (member.family_id) {
+        await logTaskAudit(member.family_id, member.id, 'complete', task.id, task.title, {
+          points: task.point_value,
+          auto_approved: true,
+        });
+      }
+
       const newAchievements = await checkAndAwardAchievements(member.id);
       return { success: true, newAchievements };
     } else {
@@ -134,6 +143,13 @@ export async function completeTask(task: Task, member: FamilyMember, isAdmin: bo
         .eq('id', task.id);
 
       if (taskError) throw taskError;
+
+      // Log audit for task pending approval
+      if (member.family_id) {
+        await logTaskAudit(member.family_id, member.id, 'complete', task.id, task.title, {
+          status: 'pending_approval',
+        });
+      }
     }
 
     return { success: true };
@@ -189,6 +205,15 @@ export async function approveTask(task: Task, approver: FamilyMember) {
     // Recalculate points from history to avoid race conditions
     await updateMemberPointsFromHistory(completer.id);
 
+    // Log audit for task approval
+    if (completer.family_id) {
+      await logTaskAudit(completer.family_id, approver.id, 'approve', task.id, task.title, {
+        completed_by: completer.id,
+        completed_by_name: completer.name,
+        points: task.point_value,
+      });
+    }
+
     const newAchievements = await checkAndAwardAchievements(completer.id);
 
     return { success: true, newAchievements };
@@ -198,7 +223,7 @@ export async function approveTask(task: Task, approver: FamilyMember) {
   }
 }
 
-export async function rejectTask(task: Task) {
+export async function rejectTask(task: Task, rejector?: FamilyMember) {
   try {
     const supabase = getSupabaseClient();
 
@@ -212,6 +237,13 @@ export async function rejectTask(task: Task) {
       .eq('id', task.id);
 
     if (taskError) throw taskError;
+
+    // Log audit for task rejection
+    if (rejector?.family_id && task.family_id) {
+      await logTaskAudit(task.family_id, rejector.id, 'reject', task.id, task.title, {
+        previously_completed_by: task.completed_by,
+      });
+    }
 
     return { success: true };
   } catch (error) {
@@ -425,7 +457,8 @@ export async function updateStreak(memberId: string) {
 export async function awardManualPoints(
   memberId: string,
   points: number,
-  reason: string
+  reason: string,
+  awardedBy?: FamilyMember
 ): Promise<{ success: boolean; error?: unknown }> {
   try {
     const supabase = getSupabaseClient();
@@ -456,6 +489,18 @@ export async function awardManualPoints(
 
     // Recalculate points from history to avoid race conditions
     await updateMemberPointsFromHistory(memberId);
+
+    // Log audit for manual points
+    if (member.family_id && awardedBy) {
+      await logPointsAudit(
+        member.family_id,
+        awardedBy.id,
+        points >= 0 ? 'points_awarded' : 'points_deducted',
+        memberId,
+        points,
+        reason
+      );
+    }
 
     return { success: true };
   } catch (error) {

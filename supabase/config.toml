@@ -101,9 +101,8 @@ port = 54324
 # sender_name = "Admin"
 
 [storage]
-# Disabled temporarily due to CLI v2.48.3 storage migration bug
-# Requires updating to CLI v2.72.7+ to fix
-enabled = false
+# Re-enabled for migrations that require storage.buckets
+enabled = true
 # The maximum file size allowed (e.g. "5MB", "500KB").
 file_size_limit = "50MiB"
 
@@ -339,6 +338,80 @@ JWT_SECRET = "env(JWT_SECRET)"
 SUPABASE_URL = "env(SUPABASE_URL)"
 SUPABASE_ANON_KEY = "env(SUPABASE_ANON_KEY)"
 SUPABASE_SERVICE_ROLE_KEY = "env(SUPABASE_SERVICE_ROLE_KEY)"
+
+# ===========================================
+# Edge Functions Configuration
+# ===========================================
+# Disable JWT verification for functions that handle their own auth
+# (PIN users use custom JWTs, not Supabase Auth JWTs)
+
+[functions.pin-login]
+# Creates tokens - doesn't need auth
+verify_jwt = false
+
+[functions.send-message]
+# Handles both Supabase Auth and PIN user tokens
+verify_jwt = false
+
+[functions.create-child]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.join-family]
+# Requires Supabase Auth
+verify_jwt = false
+
+[functions.join-family-as-parent]
+# Requires Supabase Auth
+verify_jwt = false
+
+[functions.toggle-admin]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.deduct-points]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.deduct-points-with-evidence]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.reset-child-pin]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.regenerate-invite-code]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.award-birthday-points]
+# Handles both Supabase Auth and PIN user tokens
+verify_jwt = false
+
+[functions.disable-member]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.request-redemption]
+# Handles both Supabase Auth and PIN user tokens
+verify_jwt = false
+
+[functions.create-dispute]
+# Handles both Supabase Auth and PIN user tokens
+verify_jwt = false
+
+[functions.resolve-dispute]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.export-family-data]
+# Requires Supabase Auth (admin only)
+verify_jwt = false
+
+[functions.purchase-streak-freeze]
+# Handles both Supabase Auth and PIN user tokens
+verify_jwt = false
 
 [analytics]
 # Disabled temporarily due to CLI v2.48.3 compatibility issues

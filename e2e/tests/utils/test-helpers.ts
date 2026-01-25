@@ -103,6 +103,7 @@ export function createPinUserJwt(memberId: string): string {
     sub: memberId,
     aud: 'authenticated',
     role: 'authenticated',
+    is_pin_user: true, // Required for edge functions to identify PIN users
     exp: Math.floor(Date.now() / 1000) + 3600, // 1 hour expiry
     iat: Math.floor(Date.now() / 1000),
     iss: 'supabase-demo'

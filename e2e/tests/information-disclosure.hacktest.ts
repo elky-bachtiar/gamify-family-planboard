@@ -203,9 +203,16 @@ test.describe('Information Disclosure Security Tests', () => {
 
       const headers = response.headers();
 
-      // Should not expose server information
+      // Should not expose server information via x-powered-by
       expect(headers['x-powered-by']).toBeUndefined();
-      expect(headers['server']).not.toContain('version');
+
+      // Server header may be present (set by Supabase infrastructure)
+      // but should not expose detailed version information like "nginx/1.2.3"
+      const serverHeader = headers['server'] || '';
+      if (serverHeader) {
+        // Check that it doesn't contain detailed version numbers like "X.Y.Z"
+        expect(serverHeader).not.toMatch(/\d+\.\d+\.\d+/);
+      }
 
       // Should have security headers
       // Note: These may be set by Supabase infrastructure, not the function

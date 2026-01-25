@@ -4,6 +4,43 @@ All notable changes to Gamify Family Planboard will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.0-alpha.11] - 2026-01-25
+
+### Added
+
+- **Per-Family Message Encryption** - Message content is now encrypted at rest using AES-256
+  - **Database Schema** (`20260125000000_add_message_encryption.sql`):
+    - `family_encryption_keys` table stores per-family 256-bit AES keys
+    - `messages.content_encrypted` (bytea) - Encrypted message content
+    - `messages.encryption_iv` (bytea) - Initialization vector for decryption
+    - `messages.is_encrypted` (boolean) - Flag indicating encryption status
+    - `messages_decrypted` view - Transparently decrypts content for authorized users
+  - **SQL Functions** (SECURITY DEFINER):
+    - `create_family_encryption_key()` - Generates per-family AES-256 key
+    - `encrypt_message_content()` - Encrypts content with family's key
+    - `decrypt_message_content()` - Decrypts content (used by view)
+    - `insert_encrypted_message()` - Atomic encrypt + insert operation
+    - `migrate_message_to_encrypted()` - Migrates existing plaintext messages
+  - **Auto-key Generation**: Trigger creates encryption key when new family is created
+  - **Edge Function** (`send-message`):
+    - Authenticates both regular and PIN users
+    - Validates family membership
+    - Calls `insert_encrypted_message()` RPC for secure storage
+    - Rate limited: 30 requests/minute
+  - **Frontend Updates**:
+    - `ComposeMessage.tsx` - Uses `send-message` edge function
+    - `MessageList.tsx` - Queries `messages_decrypted` view
+    - `ChildMessagesView.tsx` - Uses edge function + decrypted view
+    - `database.types.ts` - Added view and function types
+
+### Security
+
+- Encryption keys stored in separate `family_encryption_keys` table with RLS (service role only)
+- Keys never exposed to frontend - all encryption/decryption via SECURITY DEFINER functions
+- AES-256-CBC encryption with random IV per message
+- Database breach only exposes encrypted ciphertext, not plaintext messages
+- Existing messages automatically migrated to encrypted storage
+
 ## [1.0.0-alpha.10] - 2026-01-24
 
 ### Added

@@ -36,18 +36,31 @@ export function MessageList() {
 
     const supabase = getSupabaseClient();
 
-    // Get messages where I am the recipient or it's a broadcast (recipient_id is null)
+    // Get messages where:
+    // - I am the recipient (direct messages to me)
+    // - I am the sender (messages I sent)
+    // - It's a broadcast (recipient_id is null)
+    // Query the decrypted view which transparently handles encryption
     const { data, error } = await supabase
-      .from('messages')
+      .from('messages_decrypted')
       .select('*')
       .eq('family_id', family.id)
-      .or(`recipient_id.eq.${familyMember.id},recipient_id.is.null`)
+      .or(`recipient_id.eq.${familyMember.id},sender_id.eq.${familyMember.id},recipient_id.is.null`)
       .order('created_at', { ascending: false });
 
     if (error) {
       console.error('Error loading messages:', error);
+      console.error('Query params:', { family_id: family.id, member_id: familyMember.id });
       return;
     }
+
+    console.log(
+      'Messages loaded:',
+      data?.length,
+      'for member:',
+      familyMember.id,
+      familyMember.name
+    );
 
     // Enrich with sender info
     const enrichedMessages: MessageWithSender[] = (data || []).map((msg) => {

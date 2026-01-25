@@ -34,13 +34,15 @@ export async function callEdgeFunction<T = unknown>(
     body?: Record<string, unknown>;
     authToken?: string;
     useServiceRole?: boolean;
+    noAuth?: boolean; // Set true to not send any Authorization header
   } = {}
 ): Promise<EdgeFunctionResponse<T>> {
   const {
     method = 'POST',
     body,
     authToken,
-    useServiceRole = false
+    useServiceRole = false,
+    noAuth = false
   } = options;
 
   const headers: Record<string, string> = {
@@ -48,7 +50,9 @@ export async function callEdgeFunction<T = unknown>(
     'apikey': SUPABASE_ANON_KEY
   };
 
-  if (useServiceRole) {
+  if (noAuth) {
+    // Don't add Authorization header
+  } else if (useServiceRole) {
     headers['Authorization'] = `Bearer ${SUPABASE_SERVICE_KEY}`;
   } else if (authToken) {
     headers['Authorization'] = `Bearer ${authToken}`;
@@ -73,7 +77,11 @@ export async function callEdgeFunction<T = unknown>(
       if (response.ok) {
         data = json;
       } else {
-        error = json.error || json.message || text;
+        // Handle various error response formats:
+        // - {"error": "..."} - our custom errorResponse
+        // - {"msg": "..."} - Supabase infrastructure errors
+        // - {"message": "..."} - some libraries use this
+        error = json.error || json.msg || json.message || text;
       }
     } catch {
       if (!response.ok) {
@@ -403,5 +411,36 @@ export async function callRequestRedemption(
   return callEdgeFunction<RequestRedemptionResponse>('request-redemption', {
     authToken,
     body: { points_redeemed: pointsRedeemed }
+  });
+}
+
+/**
+ * Send Message Response
+ */
+export interface SendMessageResponse {
+  success: boolean;
+  message_id: string;
+}
+
+/**
+ * Call send-message edge function
+ *
+ * @param authToken - User's auth token (regular Supabase auth or PIN-based JWT)
+ * @param data - Message data
+ * @param data.family_id - Family to send message in
+ * @param data.recipient_id - Recipient member ID (null for broadcast)
+ * @param data.content - Message content
+ */
+export async function callSendMessage(
+  authToken: string,
+  data: {
+    family_id: string;
+    recipient_id: string | null;
+    content: string;
+  }
+): Promise<EdgeFunctionResponse<SendMessageResponse>> {
+  return callEdgeFunction<SendMessageResponse>('send-message', {
+    authToken,
+    body: data
   });
 }

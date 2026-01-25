@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Home, Trophy, BarChart3, Medal, Gift } from 'lucide-react';
+import { Home, Trophy, BarChart3, Medal, Gift, Mail } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
-export type ChildViewTab = 'home' | 'leaderboard' | 'badges' | 'stats' | 'rewards';
+export type ChildViewTab = 'home' | 'leaderboard' | 'badges' | 'stats' | 'rewards' | 'messages';
 
 interface ChildTabBarProps {
   activeTab: ChildViewTab;
@@ -21,6 +21,7 @@ export function ChildTabBar({ activeTab, onTabChange }: ChildTabBarProps) {
     { id: 'leaderboard' as ChildViewTab, labelKey: 'child.tabs.leaderboard', icon: Medal },
     { id: 'badges' as ChildViewTab, labelKey: 'child.tabs.badges', icon: Trophy },
     { id: 'stats' as ChildViewTab, labelKey: 'child.tabs.stats', icon: BarChart3 },
+    { id: 'messages' as ChildViewTab, labelKey: 'child.tabs.messages', icon: Mail },
     ...(showRewardsTab
       ? [{ id: 'rewards' as ChildViewTab, labelKey: 'child.tabs.rewards', icon: Gift }]
       : []),

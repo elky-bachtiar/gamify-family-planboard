@@ -145,8 +145,10 @@ export function TaskApprovalManager() {
   };
 
   const handleReject = async (task: Task) => {
+    if (!familyMember) return;
+
     setProcessingTaskId(task.id);
-    const result = await rejectTask(task);
+    const result = await rejectTask(task, familyMember);
     if (result.success) {
       loadTasks();
     }

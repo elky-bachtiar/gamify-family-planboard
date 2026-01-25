@@ -1,0 +1,3 @@
+# Disable automatic JWT verification - this function creates tokens
+# and does not require authentication
+verify_jwt = false

@@ -41,21 +41,22 @@ The application supports two authentication methods:
 
 ### Core Tables
 
-| Table                  | Description                      | RLS Enabled |
-| ---------------------- | -------------------------------- | ----------- |
-| `families`             | Family groups with settings      | Yes         |
-| `family_members`       | Users linked to families         | Yes         |
-| `tasks`                | Task assignments and tracking    | Yes         |
-| `achievements`         | Badge definitions                | Yes         |
-| `user_achievements`    | Earned achievements (join table) | Yes         |
-| `points_history`       | Audit log of point transactions  | Yes         |
-| `weekly_goals`         | Weekly targets per member        | Yes         |
-| `weekly_earnings`      | Weekly points and bonus tracking | Yes         |
-| `manual_points_awards` | Admin-awarded bonus points       | Yes         |
-| `reward_redemptions`   | Points-to-money requests         | Yes         |
-| `task_history`         | Archived completed tasks         | Yes         |
-| `family_objects`       | Custom objects/tags with images  | Yes         |
-| `messages`             | Family messaging system          | Yes         |
+| Table                    | Description                         | RLS Enabled |
+| ------------------------ | ----------------------------------- | ----------- |
+| `families`               | Family groups with settings         | Yes         |
+| `family_members`         | Users linked to families            | Yes         |
+| `tasks`                  | Task assignments and tracking       | Yes         |
+| `achievements`           | Badge definitions                   | Yes         |
+| `user_achievements`      | Earned achievements (join table)    | Yes         |
+| `points_history`         | Audit log of point transactions     | Yes         |
+| `weekly_goals`           | Weekly targets per member           | Yes         |
+| `weekly_earnings`        | Weekly points and bonus tracking    | Yes         |
+| `manual_points_awards`   | Admin-awarded bonus points          | Yes         |
+| `reward_redemptions`     | Points-to-money requests            | Yes         |
+| `task_history`           | Archived completed tasks            | Yes         |
+| `family_objects`         | Custom objects/tags with images     | Yes         |
+| `messages`               | Family messaging system (encrypted) | Yes         |
+| `family_encryption_keys` | Per-family AES keys (service only)  | Yes         |
 
 ### Table: `families`
 
@@ -248,15 +249,48 @@ The application supports two authentication methods:
 
 ### Table: `messages`
 
-| Column         | Type        | Description                             |
-| -------------- | ----------- | --------------------------------------- |
-| `id`           | uuid        | Primary key                             |
-| `family_id`    | uuid        | FK to families                          |
-| `sender_id`    | uuid        | FK to family_members (sender)           |
-| `recipient_id` | uuid        | FK to family_members (null = broadcast) |
-| `content`      | text        | Message content                         |
-| `read_at`      | timestamptz | When message was read                   |
-| `created_at`   | timestamptz | Message timestamp                       |
+| Column              | Type        | Description                             |
+| ------------------- | ----------- | --------------------------------------- |
+| `id`                | uuid        | Primary key                             |
+| `family_id`         | uuid        | FK to families                          |
+| `sender_id`         | uuid        | FK to family_members (sender)           |
+| `recipient_id`      | uuid        | FK to family_members (null = broadcast) |
+| `content`           | text        | Plaintext (legacy) or '[encrypted]'     |
+| `content_encrypted` | bytea       | AES-256-CBC encrypted message content   |
+| `encryption_iv`     | bytea       | Initialization vector for decryption    |
+| `is_encrypted`      | boolean     | Whether message uses encryption         |
+| `read_at`           | timestamptz | When message was read                   |
+| `created_at`        | timestamptz | Message timestamp                       |
+
+**Note:** New messages are encrypted via the `send-message` edge function. The `messages_decrypted` view transparently decrypts content for reading.
+
+### Table: `family_encryption_keys`
+
+| Column           | Type        | Description                     |
+| ---------------- | ----------- | ------------------------------- |
+| `id`             | uuid        | Primary key                     |
+| `family_id`      | uuid        | FK to families (unique)         |
+| `encryption_key` | bytea       | 256-bit AES key (never exposed) |
+| `created_at`     | timestamptz | Creation timestamp              |
+
+**Security:** This table has RLS with service_role only access. Keys are never exposed to authenticated users or the frontend.
+
+### View: `messages_decrypted`
+
+A read-only view that transparently decrypts message content:
+
+```sql
+SELECT
+  id, family_id, sender_id, recipient_id,
+  CASE
+    WHEN is_encrypted THEN decrypt_message_content(content_encrypted, encryption_iv, family_id)
+    ELSE content
+  END AS content,
+  read_at, created_at, is_encrypted
+FROM messages;
+```
+
+Frontend components query this view instead of the `messages` table directly.
 
 ---
 
@@ -457,9 +491,19 @@ Admins see all family tasks.
 | Operation | Policy Name                          | Rule                                                                                                                          |
 | --------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | SELECT    | Family members can view messages     | `family_id = get_user_family_id() AND (recipient_id IS NULL OR sender_id = self OR recipient_id = self OR is_family_admin())` |
-| INSERT    | Family members can send messages     | `family_id = get_user_family_id() AND sender_id = self AND recipient in family`                                               |
+| INSERT    | **(Blocked)** Direct INSERT disabled | Requires `send-message` Edge Function for encryption                                                                          |
 | UPDATE    | Recipients can update messages       | `recipient_id = self OR (recipient_id IS NULL AND in family)`                                                                 |
 | DELETE    | Admins or sender can delete messages | `(family_id = get_user_family_id() AND is_family_admin()) OR sender_id = self`                                                |
+
+**Important:** All message creation must go through the `send-message` Edge Function to ensure proper encryption. Direct INSERT is not available to clients.
+
+### `family_encryption_keys`
+
+| Operation | Policy Name       | Rule                                |
+| --------- | ----------------- | ----------------------------------- |
+| ALL       | Service role only | Only `service_role` can access keys |
+
+**Critical Security:** This table is completely locked down. Encryption keys are never exposed to authenticated users or the frontend. All encryption/decryption happens via `SECURITY DEFINER` functions that bypass RLS.
 
 ---
 
@@ -639,6 +683,7 @@ Sensitive operations are handled by Edge Functions with `SUPABASE_SERVICE_ROLE_K
 | `award-birthday-points` | Awards birthday bonus points (can be cron or admin-triggered) |
 | `deduct-points`         | Admin-only point deduction with audit trail                   |
 | `request-redemption`    | Creates redemption requests with server-side validation       |
+| `send-message`          | Encrypts and stores messages (supports regular + PIN users)   |
 
 ---
 
@@ -679,6 +724,35 @@ CREATE INDEX idx_task_history_family ON task_history(family_id);
 ---
 
 ## Changelog
+
+### 2026-01-25: Per-Family Message Encryption
+
+**Message Encryption at Rest (20260125000000_add_message_encryption.sql):**
+
+| Change                         | Description                                                |
+| ------------------------------ | ---------------------------------------------------------- |
+| `family_encryption_keys` table | Stores per-family 256-bit AES keys (service role only RLS) |
+| `messages` encryption columns  | Added `content_encrypted`, `encryption_iv`, `is_encrypted` |
+| `messages_decrypted` view      | Transparently decrypts content for authorized users        |
+| `send-message` Edge Function   | Encrypts messages server-side before storage               |
+| Auto-key generation trigger    | Creates encryption key when new family is created          |
+| Existing message migration     | Automatically encrypts pre-existing plaintext messages     |
+
+**Security Functions (SECURITY DEFINER):**
+
+| Function                       | Purpose                                      |
+| ------------------------------ | -------------------------------------------- |
+| `create_family_encryption_key` | Generates 256-bit AES key for family         |
+| `encrypt_message_content`      | Encrypts content with AES-256-CBC            |
+| `decrypt_message_content`      | Decrypts content (callable by authenticated) |
+| `insert_encrypted_message`     | Atomic encrypt + insert (service role only)  |
+
+**Security Properties:**
+
+- Keys never exposed to frontend or authenticated users
+- AES-256-CBC encryption with random IV per message
+- Database breach only exposes ciphertext
+- RLS still enforces family isolation on encrypted data
 
 ### 2026-01-24: Server-Side Redemption Protection
 

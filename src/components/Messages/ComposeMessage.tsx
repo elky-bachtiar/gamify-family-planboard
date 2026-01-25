@@ -17,7 +17,7 @@ interface ComposeMessageProps {
 
 export function ComposeMessage({ onClose, onSent, replyTo }: ComposeMessageProps) {
   const { t } = useTranslation(['messages', 'common']);
-  const { familyMember, family } = useAuth();
+  const { familyMember, family, isPinUser } = useAuth();
   const { familyMembers } = useFamily();
   const [recipientId, setRecipientId] = useState<string | 'all'>(replyTo?.sender_id || '');
   const [content, setContent] = useState('');
@@ -25,7 +25,7 @@ export function ComposeMessage({ onClose, onSent, replyTo }: ComposeMessageProps
   const [error, setError] = useState<string | null>(null);
 
   // Filter out current user from recipients
-  const availableRecipients = familyMembers.filter(m => m.id !== familyMember?.id);
+  const availableRecipients = familyMembers.filter((m) => m.id !== familyMember?.id);
 
   const handleSend = async () => {
     if (!familyMember || !family || !content.trim() || (!recipientId && recipientId !== 'all')) {
@@ -39,16 +39,48 @@ export function ComposeMessage({ onClose, onSent, replyTo }: ComposeMessageProps
     try {
       const supabase = getSupabaseClient();
 
-      const { error: insertError } = await supabase
-        .from('messages')
-        .insert({
-          family_id: family.id,
-          sender_id: familyMember.id,
-          recipient_id: recipientId === 'all' ? null : recipientId,
-          content: content.trim(),
-        });
+      // Get current session for authorization
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData?.session?.access_token;
 
-      if (insertError) throw insertError;
+      console.log('[SendMessage] Debug:', {
+        isPinUser,
+        hasSession: !!sessionData?.session,
+        hasAccessToken: !!accessToken,
+        userId: sessionData?.session?.user?.id,
+        memberName: familyMember?.name,
+      });
+
+      if (!accessToken) {
+        throw new Error('No access token available');
+      }
+
+      // Use fetch directly to ensure proper Authorization header
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-message`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+            apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({
+            family_id: family.id,
+            recipient_id: recipientId === 'all' ? null : recipientId,
+            content: content.trim(),
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('[SendMessage] Error response:', data);
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      if (data?.error) throw new Error(data.error);
 
       onSent();
     } catch (err) {
@@ -63,12 +95,11 @@ export function ComposeMessage({ onClose, onSent, replyTo }: ComposeMessageProps
     <div className="bg-white rounded-xl shadow-lg p-4">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-900">
-          {replyTo ? t('messages:replyTo', { name: replyTo.sender_name }) : t('messages:newMessage')}
+          {replyTo
+            ? t('messages:replyTo', { name: replyTo.sender_name })
+            : t('messages:newMessage')}
         </h2>
-        <button
-          onClick={onClose}
-          className="text-gray-400 hover:text-gray-600"
-        >
+        <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
           <X className="w-6 h-6" />
         </button>
       </div>
@@ -82,18 +113,14 @@ export function ComposeMessage({ onClose, onSent, replyTo }: ComposeMessageProps
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            {t('messages:to')}
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">{t('messages:to')}</label>
           <select
             value={recipientId}
             onChange={(e) => setRecipientId(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="">{t('messages:selectRecipient')}</option>
-            <option value="all">
-              {t('messages:everyone')}
-            </option>
+            <option value="all">{t('messages:everyone')}</option>
             {availableRecipients.map((member) => (
               <option key={member.id} value={member.id}>
                 {member.name}

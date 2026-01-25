@@ -8,6 +8,7 @@ import { PRIORITY_CONFIG } from '../types';
 import { RecurrenceSelector } from './RecurrenceSelector';
 import { TagInput } from './TagInput';
 import { ObjectPicker } from './ObjectPicker';
+import { logTaskAudit } from '../lib/auditLog';
 import type { RecurrencePattern } from '../lib/recurrence';
 import { generateRecurringTaskInstances, validateRecurrenceConfig } from '../lib/recurrence';
 
@@ -213,8 +214,22 @@ export function TaskModal({
           return;
         }
 
-        const { error } = await supabase.from('tasks').insert(taskInstances);
+        const { data: insertedTasks, error } = await supabase
+          .from('tasks')
+          .insert(taskInstances)
+          .select('id');
         if (error) throw error;
+
+        // Log audit for recurring task creation
+        if (insertedTasks && insertedTasks.length > 0) {
+          await logTaskAudit(family.id, currentMember.id, 'create', groupId, title.trim(), {
+            recurring: true,
+            pattern: recurrencePattern,
+            instances_count: taskInstances.length,
+            priority,
+            point_value: PRIORITY_CONFIG[priority].points,
+          });
+        }
       } else {
         // Single task creation
         // For weekly tasks, set due_date to the Sunday of the selected week
@@ -230,24 +245,38 @@ export function TaskModal({
 
         const effectiveDueDatetime = `${effectiveDueDate}T${dueTime}:00`;
 
-        const { error } = await supabase.from('tasks').insert({
-          title: title.trim(),
-          description: description.trim(),
-          assigned_to: assignedTo || null,
-          due_date: effectiveDueDate,
-          due_datetime: effectiveDueDatetime,
-          start_datetime: startDatetime,
-          start_time: startTimeOnly,
-          priority,
-          point_value: PRIORITY_CONFIG[priority].points,
-          created_by: currentMember.id,
-          family_id: family.id,
-          associated_items: associatedItems,
-          associated_object_ids: associatedObjectIds.length > 0 ? associatedObjectIds : null,
-          is_weekly_task: isWeeklyTask,
-        });
+        const { data: insertedTask, error } = await supabase
+          .from('tasks')
+          .insert({
+            title: title.trim(),
+            description: description.trim(),
+            assigned_to: assignedTo || null,
+            due_date: effectiveDueDate,
+            due_datetime: effectiveDueDatetime,
+            start_datetime: startDatetime,
+            start_time: startTimeOnly,
+            priority,
+            point_value: PRIORITY_CONFIG[priority].points,
+            created_by: currentMember.id,
+            family_id: family.id,
+            associated_items: associatedItems,
+            associated_object_ids: associatedObjectIds.length > 0 ? associatedObjectIds : null,
+            is_weekly_task: isWeeklyTask,
+          })
+          .select('id')
+          .single();
 
         if (error) throw error;
+
+        // Log audit for single task creation
+        if (insertedTask) {
+          await logTaskAudit(family.id, currentMember.id, 'create', insertedTask.id, title.trim(), {
+            priority,
+            point_value: PRIORITY_CONFIG[priority].points,
+            assigned_to: assignedTo || null,
+            is_weekly_task: isWeeklyTask,
+          });
+        }
       }
 
       onTaskCreated();

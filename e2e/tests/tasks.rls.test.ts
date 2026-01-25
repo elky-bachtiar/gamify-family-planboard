@@ -494,8 +494,8 @@ test.describe('tasks table RLS policies', () => {
         .select()
         .single();
 
-      // Trigger should block this - non-admin trying to assign to someone else
-      expectTriggerException(error, 'Only admins can reassign tasks');
+      // Trigger should block this - non-admin trying to claim for someone else
+      expectTriggerException(error, 'Can only claim tasks for yourself');
     });
 
     test('child CANNOT update tasks assigned to others', async () => {
@@ -532,9 +532,10 @@ test.describe('tasks table RLS policies', () => {
     test('child cannot change priority', async () => {
       const childClient = createPinUserClient(child1.id);
 
+      // child1Task has priority 'high', try to change to 'low'
       const { error } = await childClient
         .from('tasks')
-        .update({ priority: 'high' })
+        .update({ priority: 'low' })
         .eq('id', child1Task.id)
         .select()
         .single();

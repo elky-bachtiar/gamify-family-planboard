@@ -4,6 +4,7 @@ import { X, UserPlus, Copy, Check, Link, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { useColorPalette } from '../../hooks/useColorPalette';
+import { logMemberAudit } from '../../lib/auditLog';
 
 interface CreateChildModalProps {
   isOpen: boolean;
@@ -12,7 +13,7 @@ interface CreateChildModalProps {
 
 export function CreateChildModal({ isOpen, onClose }: CreateChildModalProps) {
   const { t } = useTranslation(['admin', 'common']);
-  const { family, refreshAuth } = useAuth();
+  const { family, familyMember, refreshAuth } = useAuth();
   const { colors } = useColorPalette();
   const [name, setName] = useState('');
   const [pin, setPin] = useState('');
@@ -57,6 +58,14 @@ export function CreateChildModal({ isOpen, onClose }: CreateChildModalProps) {
       const inviteLink = `${window.location.origin}/child-login/${data.child_invite_code}`;
       setCreatedInviteLink(inviteLink);
 
+      // Log audit for member creation
+      if (familyMember && data.member_id) {
+        await logMemberAudit(family.id, familyMember.id, 'create', data.member_id, name.trim(), {
+          is_pin_user: true,
+          color: selectedColor,
+        });
+      }
+
       // Refresh auth to update family members
       await refreshAuth();
     } catch (err) {
@@ -98,7 +107,9 @@ export function CreateChildModal({ isOpen, onClose }: CreateChildModalProps) {
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-green-500" />
-              <h2 className="text-xl font-bold text-gray-900">{t('admin:createChild.success.title')}</h2>
+              <h2 className="text-xl font-bold text-gray-900">
+                {t('admin:createChild.success.title')}
+              </h2>
             </div>
             <button
               onClick={handleClose}
@@ -189,9 +200,7 @@ export function CreateChildModal({ isOpen, onClose }: CreateChildModalProps) {
         </div>
 
         <div className="p-4 space-y-4">
-          <p className="text-sm text-gray-600">
-            {t('admin:createChild.subtitle')}
-          </p>
+          <p className="text-sm text-gray-600">{t('admin:createChild.subtitle')}</p>
 
           <div>
             <label htmlFor="childName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -248,7 +257,9 @@ export function CreateChildModal({ isOpen, onClose }: CreateChildModalProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             {confirmPin && !pinsMatch && (
-              <p className="text-xs text-red-500 mt-1">{t('auth:register.errors.passwordMismatch')}</p>
+              <p className="text-xs text-red-500 mt-1">
+                {t('auth:register.errors.passwordMismatch')}
+              </p>
             )}
           </div>
 
@@ -263,7 +274,9 @@ export function CreateChildModal({ isOpen, onClose }: CreateChildModalProps) {
                   type="button"
                   onClick={() => setSelectedColor(color)}
                   className={`w-8 h-8 rounded-full transition-transform ${
-                    selectedColor === color ? 'ring-2 ring-offset-2 ring-blue-500 scale-110' : 'hover:scale-105'
+                    selectedColor === color
+                      ? 'ring-2 ring-offset-2 ring-blue-500 scale-110'
+                      : 'hover:scale-105'
                   }`}
                   style={{ backgroundColor: color }}
                 />

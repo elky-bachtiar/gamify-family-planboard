@@ -13,14 +13,14 @@ This document summarizes the security analysis of the Gamify Family Planboard ap
 
 ### Overall Security Rating
 
-| Category | Before | After |
-|----------|--------|-------|
-| Authentication | Good | Good |
-| Authorization (RLS) | Good | Good |
-| Input Validation | Poor | Good |
-| Rate Limiting | None | Good |
-| CORS Policy | Poor | Good |
-| Error Handling | Fair | Good |
+| Category            | Before | After |
+| ------------------- | ------ | ----- |
+| Authentication      | Good   | Good  |
+| Authorization (RLS) | Good   | Good  |
+| Input Validation    | Poor   | Good  |
+| Rate Limiting       | None   | Good  |
+| CORS Policy         | Poor   | Good  |
+| Error Handling      | Fair   | Good  |
 
 ---
 
@@ -28,20 +28,20 @@ This document summarizes the security analysis of the Gamify Family Planboard ap
 
 ### Critical Issues (Fixed)
 
-| Issue | Status | Remediation |
-|-------|--------|-------------|
-| **No Rate Limiting** | FIXED | Added in-memory rate limiting to all edge functions |
-| **CORS Wildcard (`*`)** | FIXED | Implemented dynamic origin checking |
-| **Long JWT Expiry (7 days)** | FIXED | Reduced PIN user tokens to 24 hours |
-| **No Input Length Limits** | FIXED | Added validation with maximum lengths |
+| Issue                        | Status | Remediation                                         |
+| ---------------------------- | ------ | --------------------------------------------------- |
+| **No Rate Limiting**         | FIXED  | Added in-memory rate limiting to all edge functions |
+| **CORS Wildcard (`*`)**      | FIXED  | Implemented dynamic origin checking                 |
+| **Long JWT Expiry (7 days)** | FIXED  | Reduced PIN user tokens to 24 hours                 |
+| **No Input Length Limits**   | FIXED  | Added validation with maximum lengths               |
 
 ### Medium Issues (Fixed)
 
-| Issue | Status | Remediation |
-|-------|--------|-------------|
-| Error messages leak info | FIXED | Standardized generic error messages |
-| No body size limits | FIXED | Added `parseJsonBody()` with size limits |
-| User enumeration possible | FIXED | Generic "Invalid credentials" for all auth failures |
+| Issue                     | Status | Remediation                                         |
+| ------------------------- | ------ | --------------------------------------------------- |
+| Error messages leak info  | FIXED  | Standardized generic error messages                 |
+| No body size limits       | FIXED  | Added `parseJsonBody()` with size limits            |
+| User enumeration possible | FIXED  | Generic "Invalid credentials" for all auth failures |
 
 ### Confirmed Secure (No Action Needed)
 
@@ -60,19 +60,20 @@ This document summarizes the security analysis of the Gamify Family Planboard ap
 
 All edge functions now implement rate limiting to prevent brute force attacks and abuse:
 
-| Function | Limit | Window | Purpose |
-|----------|-------|--------|---------|
-| `pin-login` | 5 | 1 minute | PIN brute force protection |
-| `create-child` | 10 | 1 hour | Account creation abuse |
-| `join-family` | 5 | 1 minute | Invite code enumeration |
-| `join-family-as-parent` | 5 | 1 minute | Invite code enumeration |
-| `toggle-admin` | 5 | 1 minute | Admin status abuse |
-| `deduct-points` | 20 | 1 hour | Points manipulation |
-| `reset-child-pin` | 5 | 1 minute | PIN reset abuse |
-| `regenerate-invite-code` | 5 | 1 minute | Code regeneration abuse |
-| `award-birthday-points` | 10 | 1 hour | Points manipulation |
-| `disable-member` | 10 | 1 minute | Account status abuse |
-| `export-family-data` | 3 | 1 hour | Expensive operation protection |
+| Function                 | Limit | Window   | Purpose                        |
+| ------------------------ | ----- | -------- | ------------------------------ |
+| `pin-login`              | 5     | 1 minute | PIN brute force protection     |
+| `create-child`           | 10    | 1 hour   | Account creation abuse         |
+| `join-family`            | 5     | 1 minute | Invite code enumeration        |
+| `join-family-as-parent`  | 5     | 1 minute | Invite code enumeration        |
+| `toggle-admin`           | 5     | 1 minute | Admin status abuse             |
+| `deduct-points`          | 20    | 1 hour   | Points manipulation            |
+| `reset-child-pin`        | 5     | 1 minute | PIN reset abuse                |
+| `regenerate-invite-code` | 5     | 1 minute | Code regeneration abuse        |
+| `award-birthday-points`  | 10    | 1 hour   | Points manipulation            |
+| `disable-member`         | 10    | 1 minute | Account status abuse           |
+| `export-family-data`     | 3     | 1 hour   | Expensive operation protection |
+| `send-message`           | 30    | 1 minute | Message spam prevention        |
 
 **Implementation:** In-memory rate limiting with per-IP tracking. For production at scale, consider using Upstash Redis.
 
@@ -94,6 +95,7 @@ const ALLOWED_ORIGINS = [
 ### 3. Input Validation
 
 All inputs are now validated for:
+
 - **Type checking** - Ensuring correct data types
 - **Length limits** - Preventing DoS via large payloads
 - **Format validation** - UUIDs, PINs, emails validated
@@ -119,10 +121,37 @@ Maximum input lengths:
 ### 5. Error Handling
 
 Standardized error responses that don't leak information:
+
 - Generic "Invalid credentials" for auth failures
 - No stack traces in production
 - No database schema details exposed
 - No internal paths revealed
+
+### 6. Message Encryption at Rest
+
+All family messages are encrypted using AES-256-CBC:
+
+| Component   | Description                                                           |
+| ----------- | --------------------------------------------------------------------- |
+| Key Storage | Per-family keys in `family_encryption_keys` table (service role only) |
+| Algorithm   | AES-256-CBC with PKCS7 padding                                        |
+| IV          | Random 16-byte IV per message                                         |
+| Key Size    | 256-bit (32 bytes)                                                    |
+
+**Architecture:**
+
+```
+SEND:  Frontend → send-message Edge Function → encrypt_message_content() → INSERT encrypted
+READ:  Frontend → messages_decrypted view → decrypt_message_content() → plaintext returned
+```
+
+**Security Properties:**
+
+- Keys never exposed to frontend or authenticated users
+- Encryption/decryption only via `SECURITY DEFINER` functions
+- Database breach only exposes ciphertext
+- Each family has isolated encryption key
+- RLS still enforces family isolation on top of encryption
 
 ---
 
@@ -130,20 +159,20 @@ Standardized error responses that don't leak information:
 
 ### Test Files Created
 
-| File | Purpose | Tests |
-|------|---------|-------|
-| `rate-limiting.hacktest.ts` | Rate limit verification | 4 test suites |
-| `fuzzing.hacktest.ts` | Malformed input testing | 25+ test cases |
-| `information-disclosure.hacktest.ts` | Error message analysis | 10+ tests |
-| `jwt-manipulation.hacktest.ts` | Token tampering tests | 15+ tests |
-| `business-logic.hacktest.ts` | Business rule bypass attempts | 15+ tests |
+| File                                 | Purpose                       | Tests          |
+| ------------------------------------ | ----------------------------- | -------------- |
+| `rate-limiting.hacktest.ts`          | Rate limit verification       | 4 test suites  |
+| `fuzzing.hacktest.ts`                | Malformed input testing       | 25+ test cases |
+| `information-disclosure.hacktest.ts` | Error message analysis        | 10+ tests      |
+| `jwt-manipulation.hacktest.ts`       | Token tampering tests         | 15+ tests      |
+| `business-logic.hacktest.ts`         | Business rule bypass attempts | 15+ tests      |
 
 ### Existing RLS Tests
 
-| File | Coverage |
-|------|----------|
-| `families.rls.test.ts` | Family table CRUD policies |
-| `family-members.rls.test.ts` | Member table policies |
+| File                                 | Coverage                    |
+| ------------------------------------ | --------------------------- |
+| `families.rls.test.ts`               | Family table CRUD policies  |
+| `family-members.rls.test.ts`         | Member table policies       |
 | `cross-family-isolation.rls.test.ts` | Cross-family data isolation |
 
 ### Running Security Tests
@@ -282,6 +311,7 @@ USING (
 - `supabase/functions/award-birthday-points/index.ts`
 - `supabase/functions/disable-member/index.ts`
 - `supabase/functions/export-family-data/index.ts`
+- `supabase/functions/send-message/index.ts`
 
 ### Security Test Files (NEW)
 

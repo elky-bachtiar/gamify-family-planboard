@@ -322,14 +322,28 @@ test.describe('protect_task_fields trigger', () => {
     });
 
     test('cannot modify creation_approved', async () => {
+      // First set creation_approved to false using service client
+      const serviceClient = createServiceClient();
+      await serviceClient
+        .from('tasks')
+        .update({ creation_approved: false })
+        .eq('id', testTask.id);
+
       const childClient = createPinUserClient(childMember.id);
 
+      // Try to change it to true (approve task creation)
       const { error } = await childClient
         .from('tasks')
         .update({ creation_approved: true })
         .eq('id', testTask.id);
 
       expectTriggerException(error, 'Only admins can approve task creation');
+
+      // Reset for other tests
+      await serviceClient
+        .from('tasks')
+        .update({ creation_approved: true })
+        .eq('id', testTask.id);
     });
 
     test('cannot modify approved_by', async () => {
@@ -439,8 +453,8 @@ test.describe('protect_task_fields trigger', () => {
         .update({ assigned_to: adminMember.id }) // Trying to assign to admin
         .eq('id', unassignedTask.id);
 
-      // Trigger blocks non-admin from assigning tasks to others
-      expectTriggerException(error, 'Only admins can reassign tasks');
+      // Trigger blocks non-admin from claiming tasks for others
+      expectTriggerException(error, 'Can only claim tasks for yourself');
     });
 
     test('child CAN unclaim their own claimed task', async () => {

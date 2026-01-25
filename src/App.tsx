@@ -13,6 +13,7 @@ import { Leaderboard } from './components/Leaderboard';
 import { Achievements } from './components/Achievements';
 import { AdminPanel } from './components/AdminPanel';
 import { ChildDashboard } from './components/Child';
+import { MessageList } from './components/Messages/MessageList';
 
 function Dashboard() {
   const { isAdmin } = useAuth();
@@ -28,8 +29,14 @@ function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <Leaderboard />
-          {isAdmin && <AdminPanel />}
+          <MessageList />
         </div>
+
+        {isAdmin && (
+          <div className="mb-6">
+            <AdminPanel />
+          </div>
+        )}
 
         <div className="mb-6">
           <WeeklyCalendar />

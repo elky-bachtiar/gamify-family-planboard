@@ -33,8 +33,9 @@ export function ChildPinLogin({ inviteCode, onLogin, onBack }: ChildPinLoginProp
     setError(null);
   };
 
-  const handleSubmit = async () => {
-    if (pin.length < 4) {
+  const handleSubmit = async (pinToSubmit?: string) => {
+    const pinValue = pinToSubmit ?? pin;
+    if (pinValue.length < 4) {
       setError(t('auth:childLogin.wrongPin'));
       return;
     }
@@ -46,7 +47,7 @@ export function ChildPinLogin({ inviteCode, onLogin, onBack }: ChildPinLoginProp
       const { data, error: fnError } = await supabase.functions.invoke('pin-login', {
         body: {
           child_invite_code: inviteCode,
-          pin,
+          pin: pinValue,
         },
       });
 
@@ -72,9 +73,11 @@ export function ChildPinLogin({ inviteCode, onLogin, onBack }: ChildPinLoginProp
 
   // Auto-submit when 6 digits entered
   const handlePinComplete = (value: string) => {
-    handlePinChange(value);
-    if (value.length >= 6) {
-      setTimeout(() => handleSubmit(), 100);
+    const digits = value.replace(/\D/g, '').slice(0, 6);
+    handlePinChange(digits);
+    if (digits.length >= 6) {
+      // Pass pin directly to avoid stale state closure issue
+      setTimeout(() => handleSubmit(digits), 100);
     }
   };
 
@@ -119,9 +122,7 @@ export function ChildPinLogin({ inviteCode, onLogin, onBack }: ChildPinLoginProp
           </div>
 
           {error && (
-            <div className="text-center text-red-500 text-sm font-medium mb-4">
-              {error}
-            </div>
+            <div className="text-center text-red-500 text-sm font-medium mb-4">{error}</div>
           )}
 
           {/* Hidden input for keyboard entry */}
@@ -166,17 +167,19 @@ export function ChildPinLogin({ inviteCode, onLogin, onBack }: ChildPinLoginProp
           </button>
           <button
             type="button"
-            onClick={handleSubmit}
+            onClick={() => handleSubmit()}
             disabled={isLoading || pin.length < 4}
             className="h-14 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center"
           >
-            {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : t('auth:childLogin.submitButton')}
+            {isLoading ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              t('auth:childLogin.submitButton')
+            )}
           </button>
         </div>
 
-        <p className="text-center text-xs text-gray-500">
-          {t('auth:childLogin.pinLabel')}
-        </p>
+        <p className="text-center text-xs text-gray-500">{t('auth:childLogin.pinLabel')}</p>
       </div>
     </div>
   );

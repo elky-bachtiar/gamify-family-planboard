@@ -464,27 +464,36 @@ export type Database = {
       messages: {
         Row: {
           content: string;
+          content_encrypted: string | null;
           created_at: string | null;
+          encryption_iv: string | null;
           family_id: string;
           id: string;
+          is_encrypted: boolean | null;
           read_at: string | null;
           recipient_id: string | null;
           sender_id: string;
         };
         Insert: {
           content: string;
+          content_encrypted?: string | null;
           created_at?: string | null;
+          encryption_iv?: string | null;
           family_id: string;
           id?: string;
+          is_encrypted?: boolean | null;
           read_at?: string | null;
           recipient_id?: string | null;
           sender_id: string;
         };
         Update: {
           content?: string;
+          content_encrypted?: string | null;
           created_at?: string | null;
+          encryption_iv?: string | null;
           family_id?: string;
           id?: string;
+          is_encrypted?: boolean | null;
           read_at?: string | null;
           recipient_id?: string | null;
           sender_id?: string;
@@ -981,14 +990,72 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      messages_decrypted: {
+        Row: {
+          id: string;
+          family_id: string;
+          sender_id: string;
+          recipient_id: string | null;
+          content: string;
+          read_at: string | null;
+          created_at: string | null;
+          is_encrypted: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'messages_family_id_fkey';
+            columns: ['family_id'];
+            isOneToOne: false;
+            referencedRelation: 'families';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'messages_recipient_id_fkey';
+            columns: ['recipient_id'];
+            isOneToOne: false;
+            referencedRelation: 'family_members';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'messages_sender_id_fkey';
+            columns: ['sender_id'];
+            isOneToOne: false;
+            referencedRelation: 'family_members';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Functions: {
+      decrypt_message_content: {
+        Args: {
+          p_encrypted: string; // bytea as base64
+          p_iv: string; // bytea as base64
+          p_family_id: string;
+        };
+        Returns: string;
+      };
+      encrypt_message_content: {
+        Args: {
+          p_content: string;
+          p_family_id: string;
+        };
+        Returns: { encrypted_content: string; iv: string }[];
+      };
       generate_child_invite_code: { Args: never; Returns: string };
       generate_invite_code: { Args: never; Returns: string };
       get_current_member_id: { Args: never; Returns: string };
       get_my_family_id: { Args: never; Returns: string };
       get_user_family_id: { Args: never; Returns: string };
+      insert_encrypted_message: {
+        Args: {
+          p_family_id: string;
+          p_sender_id: string;
+          p_recipient_id: string | null;
+          p_content: string;
+        };
+        Returns: string;
+      };
       is_family_admin: { Args: never; Returns: boolean };
       regenerate_parent_invite_code: {
         Args: { family_id_param: string };
