@@ -11,12 +11,14 @@ _Version 1.0 | January 2026_
 1. [Architecture Overview](#architecture-overview)
 2. [Web Application](#web-application)
 3. [Mobile Applications (iOS & Android)](#mobile-applications-ios--android)
-4. [Router Application (Chrome Extension & Electron)](#router-application-chrome-extension--electron)
-5. [Pi Router Integration](#pi-router-integration)
-6. [Backend Services](#backend-services)
-7. [Data Flow & Synchronization](#data-flow--synchronization)
-8. [Security Architecture](#security-architecture)
-9. [Deployment Architecture](#deployment-architecture)
+4. [Router Application (Chrome Extension & Desktop Bridge)](#router-application-chrome-extension--desktop-bridge)
+5. [Phase 2: Hardware Hub (Taskaroo Hub)](#phase-2-hardware-hub-taskaroo-hub)
+6. [Supported Routers & DNS Fallback](#supported-routers--dns-fallback)
+7. [Backend Services](#backend-services)
+8. [Data Flow & Synchronization](#data-flow--synchronization)
+9. [Security Architecture](#security-architecture)
+10. [Deployment Architecture](#deployment-architecture)
+11. [Router Integration Implementation Timeline](#router-integration-implementation-timeline)
 
 ---
 
@@ -30,8 +32,8 @@ _Version 1.0 | January 2026_
 ├─────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                  │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐ │
-│  │   Web App    │  │  iOS App     │  │ Android App  │  │   Router Apps        │ │
-│  │   (React)    │  │ (React Native│  │(React Native)│  │ (Chrome Ext/Electron)│ │
+│  │   Web App    │  │  iOS App     │  │ Android App  │  │   Router Control     │ │
+│  │   (React)    │  │ (React Native│  │(React Native)│  │ (Chrome Ext/Bridge)  │ │
 │  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └──────────┬───────────┘ │
 │         │                 │                 │                      │            │
 │         │                 │                 │                      │            │
@@ -50,11 +52,20 @@ _Version 1.0 | January 2026_
 │  └─────────────┘           └────────────────┘          └───────────────┘        │
 │                                                                                  │
 │  ┌──────────────────────────────────────────────────────────────────────────┐   │
-│  │                        Pi Router Network                                  │   │
-│  │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                   │   │
-│  │  │  DNS Filter │    │ Device Mgmt │    │ Time Control│                   │   │
-│  │  │  (AdGuard)  │    │  (nftables) │    │  (cron)     │                   │   │
-│  │  └─────────────┘    └─────────────┘    └─────────────┘                   │   │
+│  │                     WiFi Control Integration                              │   │
+│  │                                                                           │   │
+│  │  Phase 1: Desktop Bridge          Phase 2: Taskaroo Hub                  │   │
+│  │  ┌─────────────────────┐          ┌─────────────────────┐                │   │
+│  │  │  Electron App       │          │  Raspberry Pi Zero  │                │   │
+│  │  │  (Windows/Mac)      │          │  (Plug & Play)      │                │   │
+│  │  └──────────┬──────────┘          └──────────┬──────────┘                │   │
+│  │             │                                │                            │   │
+│  │             └────────────┬───────────────────┘                            │   │
+│  │                          ▼                                                │   │
+│  │                 ┌─────────────────┐                                       │   │
+│  │                 │  Linksys Velop  │◄──── JNAP API                        │   │
+│  │                 │  (Home Router)  │      Block/Unblock Devices           │   │
+│  │                 └─────────────────┘                                       │   │
 │  └──────────────────────────────────────────────────────────────────────────┘   │
 │                                                                                  │
 └─────────────────────────────────────────────────────────────────────────────────┘
@@ -62,14 +73,14 @@ _Version 1.0 | January 2026_
 
 ### Platform Matrix
 
-| Platform         | Technology            | Primary Users     | Key Features                       |
-| ---------------- | --------------------- | ----------------- | ---------------------------------- |
-| Web App          | React + TypeScript    | Parents, Admins   | Full administration, analytics     |
-| iOS App          | React Native + Expo   | Children, Parents | Task completion, gamification      |
-| Android App      | React Native + Expo   | Children, Parents | Task completion, gamification      |
-| Chrome Extension | Chrome Extension APIs | Parents           | Quick task approval, notifications |
-| Electron App     | Electron + React      | Parents           | Router configuration, monitoring   |
-| Pi Router        | OpenWrt + Node.js     | Network           | DNS filtering, time controls       |
+| Platform         | Technology            | Primary Users     | Key Features                            |
+| ---------------- | --------------------- | ----------------- | --------------------------------------- |
+| Web App          | React + TypeScript    | Parents, Admins   | Full administration, analytics          |
+| iOS App          | React Native + Expo   | Children, Parents | Task completion, gamification           |
+| Android App      | React Native + Expo   | Children, Parents | Task completion, gamification           |
+| Chrome Extension | Chrome Extension APIs | Parents           | Router control, device blocking, status |
+| Desktop Bridge   | Electron + TypeScript | Parents           | Linksys Velop control, command queue    |
+| Taskaroo Hub     | Raspberry Pi Zero 2 W | Network           | 24/7 plug-and-play WiFi control         |
 
 ---
 
@@ -434,16 +445,40 @@ eas update --branch production --message "Bug fix"
 
 ---
 
-## Router Application (Chrome Extension & Electron)
+## Router Application (Chrome Extension & Desktop Bridge)
 
 ### Overview
 
-The router application provides parents with network-level control over children's devices. It consists of two components:
+The router application enables **real internet access control based on chore completion** - unlike competing chore apps that only offer virtual rewards, Taskaroo delivers real consequences: complete your chores to unlock WiFi access.
 
-1. **Chrome Extension**: Quick access for task approvals, notifications, and basic controls
-2. **Electron App**: Full router configuration, device management, and monitoring
+The implementation follows a two-phase approach:
+
+| Aspect           | Phase 1: Desktop Bridge             | Phase 2: Hardware Hub       |
+| ---------------- | ----------------------------------- | --------------------------- |
+| Timeline         | MVP Launch (Months 1-6)             | Scale Launch (Months 12-18) |
+| Target Users     | Early adopters, tech-savvy families | Mass market, any family     |
+| Setup Complexity | Medium (download & install)         | Low (plug & play)           |
+| Dev Cost         | $15,000 - $25,000                   | $40,000 - $60,000           |
+| Unit Cost        | $0 (software only)                  | $25-35 per hub              |
+
+### System Architecture
+
+```
+┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
+│   Taskaroo App  │◄───►│  Supabase Cloud  │◄───►│  Taskaroo       │
+│   (Phone/Web)   │ REST│  (Commands DB)   │ WS  │  Bridge Agent   │
+└─────────────────┘     └──────────────────┘     └────────┬────────┘
+                                                          │ Local
+                                                          ▼ API
+                                                 ┌─────────────────┐
+                                                 │  Linksys Velop  │
+                                                 │  (192.168.1.1)  │
+                                                 └─────────────────┘
+```
 
 ### Chrome Extension Architecture
+
+The Chrome Extension provides a lightweight interface for router control directly in the browser, enabling quick device blocking/unblocking and status monitoring without the full desktop app.
 
 ```
 chrome-extension/
@@ -456,13 +491,13 @@ chrome-extension/
 │   │
 │   ├── popup/
 │   │   ├── Popup.tsx             # Main popup UI
-│   │   ├── QuickApproval.tsx     # Pending task approvals
-│   │   ├── DeviceStatus.tsx      # Connected devices
-│   │   └── NetworkControls.tsx   # Quick enable/disable
+│   │   ├── DeviceStatus.tsx      # Connected devices status
+│   │   ├── NetworkControls.tsx   # Block/unblock controls
+│   │   └── TaskRewards.tsx       # Chore-to-WiFi status
 │   │
 │   ├── options/
 │   │   ├── Options.tsx           # Settings page
-│   │   └── RouterConfig.tsx      # Pi router connection
+│   │   └── BridgeConfig.tsx      # Desktop bridge connection
 │   │
 │   └── content/
 │       └── blocker.ts            # Content script for blocking
@@ -481,7 +516,7 @@ chrome-extension/
   "manifest_version": 3,
   "name": "Taskaroo Router Control",
   "version": "1.0.0",
-  "description": "Parental controls and task management",
+  "description": "Control children's WiFi access based on chore completion",
 
   "permissions": ["storage", "notifications", "alarms", "identity"],
 
@@ -521,25 +556,25 @@ chrome-extension/
 │  ┌──────────────────┐                                       │
 │  │  Service Worker  │◄───── Persistent background           │
 │  │   (background)   │       - Supabase realtime subscription│
-│  └────────┬─────────┘       - Notification handling         │
-│           │                 - Alarm scheduling              │
+│  └────────┬─────────┘       - Device status monitoring      │
+│           │                 - WiFi reward notifications     │
 │           │                                                  │
 │  ┌────────▼─────────┐                                       │
 │  │   chrome.storage │◄───── Synced across devices           │
 │  │   (sync + local) │       - Auth tokens                   │
 │  └────────┬─────────┘       - Router connection info        │
-│           │                 - User preferences              │
+│           │                 - Device mappings               │
 │           │                                                  │
 │  ┌────────▼─────────┐                                       │
 │  │     Popup UI     │◄───── React-based popup               │
-│  │    (popup.tsx)   │       - Quick approvals               │
-│  └────────┬─────────┘       - Device status                 │
-│           │                 - Network toggle                │
+│  │    (popup.tsx)   │       - Device status list            │
+│  └────────┬─────────┘       - Block/unblock controls        │
+│           │                 - Chore completion status       │
 │           │                                                  │
 │  ┌────────▼─────────┐                                       │
 │  │   Options Page   │◄───── Full settings                   │
-│  │  (options.tsx)   │       - Router configuration          │
-│  └──────────────────┘       - Notification preferences      │
+│  │  (options.tsx)   │       - Bridge agent configuration    │
+│  └──────────────────┘       - Device-to-member mapping      │
 │                                                              │
 │  Communication:                                              │
 │  ┌─────────────────────────────────────────────────────┐    │
@@ -550,49 +585,96 @@ chrome-extension/
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Electron App Architecture
+### Phase 1: Desktop Bridge Agent (Electron)
+
+The Taskaroo Bridge is a lightweight desktop application that runs on a parent's Windows or Mac computer. It maintains a persistent connection to Taskaroo's cloud backend and executes router commands on the local network.
+
+#### Technical Stack
+
+| Component            | Technology                                              |
+| -------------------- | ------------------------------------------------------- |
+| Desktop Framework    | Electron 28+ (Chromium + Node.js)                       |
+| Language             | TypeScript (shared types with web app)                  |
+| Router Communication | pyvelop via Python subprocess or node-fetch to JNAP API |
+| Cloud Connection     | Supabase Realtime (WebSocket)                           |
+| Local Storage        | electron-store (encrypted credentials)                  |
+| Auto-Update          | electron-updater (GitHub Releases)                      |
+| Installer            | electron-builder (Windows NSIS, Mac DMG)                |
+
+#### Core Features
+
+- **System Tray Application**: Runs silently in background, minimal resource usage (~50MB RAM)
+- **Auto-Start on Boot**: Configurable to launch at system startup
+- **Router Auto-Discovery**: Scans local network to find compatible Linksys Velop systems
+- **Device Mapping**: Associates network devices with Taskaroo family members
+- **Command Queue**: Processes internet block/unblock commands from cloud
+- **Offline Resilience**: Queues commands if cloud connection lost, executes on reconnect
+
+#### Directory Structure
 
 ```
-electron-app/
+electron-bridge/
 ├── src/
 │   ├── main/                     # Main process (Node.js)
 │   │   ├── main.ts               # App entry point
-│   │   ├── windows.ts            # Window management
-│   │   ├── ipc.ts                # IPC handlers
-│   │   ├── tray.ts               # System tray
-│   │   ├── autoUpdater.ts        # Auto-update
+│   │   ├── tray.ts               # System tray (minimal UI)
+│   │   ├── autoUpdater.ts        # Auto-update from GitHub
 │   │   └── router/
-│   │       ├── discovery.ts      # Find Pi router on network
-│   │       ├── ssh.ts            # SSH tunnel to router
-│   │       ├── api.ts            # Router API client
-│   │       └── sync.ts           # Sync rules to router
+│   │       ├── discovery.ts      # Find Linksys Velop on network
+│   │       ├── jnap.ts           # Linksys JNAP API client
+│   │       ├── commands.ts       # Block/unblock execution
+│   │       └── deviceMap.ts      # MAC-to-member mapping
 │   │
 │   ├── renderer/                 # Renderer process (React)
 │   │   ├── App.tsx
 │   │   ├── pages/
-│   │   │   ├── Dashboard.tsx     # Overview
+│   │   │   ├── Setup.tsx         # Initial configuration wizard
 │   │   │   ├── Devices.tsx       # Device management
-│   │   │   ├── Schedules.tsx     # Time-based rules
-│   │   │   ├── Filters.tsx       # Content filtering
-│   │   │   ├── Approvals.tsx     # Pending approvals
-│   │   │   └── Settings.tsx      # App settings
+│   │   │   └── Settings.tsx      # Connection settings
 │   │   │
-│   │   ├── components/
-│   │   │   ├── DeviceCard.tsx
-│   │   │   ├── ScheduleEditor.tsx
-│   │   │   ├── FilterList.tsx
-│   │   │   └── NetworkGraph.tsx
-│   │   │
-│   │   └── hooks/
-│   │       ├── useRouter.ts      # Router connection
-│   │       ├── useDevices.ts     # Device list
-│   │       └── useSchedules.ts   # Time rules
+│   │   └── components/
+│   │       ├── DeviceCard.tsx
+│   │       ├── RouterStatus.tsx
+│   │       └── ConnectionStatus.tsx
 │   │
 │   └── preload/
 │       └── preload.ts            # Context bridge
 │
 ├── electron-builder.yml          # Build configuration
 └── forge.config.ts               # Electron Forge config
+```
+
+#### Linksys JNAP API Integration
+
+The Linksys Velop exposes an internal JNAP (JSON Network Access Protocol) API that enables programmatic control of parental features:
+
+```typescript
+// Block internet access for a device
+// POST http://192.168.1.1/JNAP/
+// X-JNAP-Action: http://linksys.com/jnap/parentalcontrol/SetDeviceAccess
+// X-JNAP-Authorization: Basic <base64(admin:password)>
+
+interface JNAPBlockRequest {
+  deviceID: string; // Device UUID from router
+  isBlocked: boolean;
+  blockedSchedule: null; // null for immediate, or schedule object
+}
+
+async function blockDevice(deviceId: string, block: boolean): Promise<void> {
+  const response = await fetch('http://192.168.1.1/JNAP/', {
+    method: 'POST',
+    headers: {
+      'X-JNAP-Action': 'http://linksys.com/jnap/parentalcontrol/SetDeviceAccess',
+      'X-JNAP-Authorization': `Basic ${Buffer.from(`admin:${password}`).toString('base64')}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      deviceID: deviceId,
+      isBlocked: block,
+      blockedSchedule: null,
+    }),
+  });
+}
 ```
 
 #### Electron IPC Architecture
@@ -607,15 +689,15 @@ electron-app/
 │  │                    (Node.js)                         │    │
 │  │                                                      │    │
 │  │  ┌────────────┐  ┌────────────┐  ┌────────────┐    │    │
-│  │  │   Window   │  │   Tray     │  │   Router   │    │    │
-│  │  │  Manager   │  │  Manager   │  │  Manager   │    │    │
+│  │  │   Tray     │  │  Supabase  │  │   Router   │    │    │
+│  │  │  Manager   │  │  Realtime  │  │   JNAP     │    │    │
 │  │  └─────┬──────┘  └─────┬──────┘  └─────┬──────┘    │    │
 │  │        │               │               │            │    │
 │  │        └───────────────┼───────────────┘            │    │
 │  │                        │                            │    │
 │  │                  ┌─────▼─────┐                      │    │
-│  │                  │    IPC    │                      │    │
-│  │                  │  Handlers │                      │    │
+│  │                  │  Command  │                      │    │
+│  │                  │   Queue   │                      │    │
 │  │                  └─────┬─────┘                      │    │
 │  └────────────────────────┼────────────────────────────┘    │
 │                           │                                  │
@@ -628,16 +710,15 @@ electron-app/
 │  │                 Renderer Process                     │    │
 │  │                    (React)                           │    │
 │  │                                                      │    │
-│  │  // Exposed via contextBridge                       │    │
 │  │  window.electronAPI = {                             │    │
 │  │    router: {                                        │    │
-│  │      connect: (ip) => ipcRenderer.invoke('...'),   │    │
+│  │      discover: () => ipcRenderer.invoke('...'),    │    │
+│  │      connect: (ip, pw) => ipcRenderer.invoke('...'),│   │
 │  │      getDevices: () => ipcRenderer.invoke('...'),  │    │
-│  │      setSchedule: (d) => ipcRenderer.invoke('...'),│    │
-│  │      blockSite: (url) => ipcRenderer.invoke('...') │    │
+│  │      blockDevice: (id) => ipcRenderer.invoke('...'),│   │
 │  │    },                                               │    │
-│  │    supabase: {                                      │    │
-│  │      onNotification: (cb) => ...                   │    │
+│  │    cloud: {                                         │    │
+│  │      getStatus: () => ipcRenderer.invoke('...'),   │    │
 │  │    }                                                │    │
 │  │  }                                                  │    │
 │  │                                                      │    │
@@ -653,7 +734,7 @@ electron-app/
 {
   'packagerConfig':
     {
-      'name': 'Taskaroo Router',
+      'name': 'Taskaroo Bridge',
       'icon': './assets/icon',
       'osxSign': {},
       'osxNotarize':
@@ -661,16 +742,14 @@ electron-app/
     },
   'makers': [{ 'name': '@electron-forge/maker-squirrel', ? // Windows
           "config"
-        : { 'name': 'TaskarooRouter' } }, { 'name': '@electron-forge/maker-dmg', ? // macOS
+        : { 'name': 'TaskarooBridge' } }, { 'name': '@electron-forge/maker-dmg', ? // macOS
           "config"
-        : { 'format': 'ULFO' } }, { 'name': '@electron-forge/maker-deb', ? // Linux
-          "config"
-        : {} }],
+        : { 'format': 'ULFO' } }],
   'publishers':
     [
       {
         'name': '@electron-forge/publisher-github',
-        'config': { 'repository': { 'owner': 'taskaroo', 'name': 'router-app' } },
+        'config': { 'repository': { 'owner': 'taskaroo', 'name': 'bridge' } },
       },
     ],
 }
@@ -678,208 +757,138 @@ electron-app/
 
 ---
 
-## Pi Router Integration
+## Phase 2: Hardware Hub (Taskaroo Hub)
 
 ### Overview
 
-The Pi Router provides network-level parental controls by acting as the home network's DNS server and optional gateway. It integrates with Taskaroo to:
+The Taskaroo Hub is a dedicated plug-and-play device that eliminates the need for a parent's computer to be running. It provides 24/7 reliability and simplifies setup for non-technical families.
 
-1. **Enforce time-based internet access** per child/device
-2. **Block inappropriate content** via DNS filtering
-3. **Reward task completion** with internet access
-4. **Monitor device usage** for parents
+### Hardware Options Comparison
 
-### Hardware Requirements
+| Option                    | Unit Cost             | Pros                           | Cons                   |
+| ------------------------- | --------------------- | ------------------------------ | ---------------------- |
+| **Raspberry Pi Zero 2 W** | $15 + $5 case         | Tiny, WiFi built-in, low power | Limited availability   |
+| Raspberry Pi 4 (2GB)      | $35 + $10 case        | Powerful, well-supported       | Overkill, higher power |
+| Orange Pi Zero 3          | $20 + $5 case         | Good balance, available        | Less community support |
+| Custom PCB (at scale)     | $12-18 at 1000+ units | Branded, optimized             | High upfront NRE cost  |
 
-| Component | Minimum              | Recommended            |
-| --------- | -------------------- | ---------------------- |
-| Board     | Raspberry Pi 4 (2GB) | NanoPi R4S / R6S       |
-| Storage   | 16GB microSD         | 32GB+ USB SSD          |
-| Network   | Built-in Ethernet    | Dual Gigabit (R4S/R6S) |
-| Power     | Official PSU         | UPS-backed             |
+**Recommended: Raspberry Pi Zero 2 W**
 
-### Software Stack
+- Quad-core 64-bit ARM Cortex-A53 @ 1GHz
+- 512MB RAM (sufficient for bridge agent)
+- Built-in 2.4GHz WiFi and Bluetooth
+- Micro USB power (phone charger compatible)
+- Tiny form factor: 65mm x 30mm
+- Power consumption: ~0.4W idle, ~1.2W active
+
+### Hub Software Stack
+
+| Component           | Technology                                |
+| ------------------- | ----------------------------------------- |
+| Operating System    | Raspberry Pi OS Lite (64-bit, headless)   |
+| Bridge Agent        | Python 3.11 + pyvelop + asyncio           |
+| Cloud Connection    | Supabase Realtime (WebSocket)             |
+| Device Provisioning | WiFi captive portal (hostapd + dnsmasq)   |
+| Status LED          | GPIO control (green=connected, red=error) |
+| OTA Updates         | Mender.io or custom apt repository        |
+
+### User Setup Flow (5 minutes)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   Pi Router Software Stack                   │
+│                    Hub Setup Flow                            │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │                 Taskaroo Agent                       │    │
-│  │                  (Node.js)                           │    │
-│  │  • Supabase realtime subscription                   │    │
-│  │  • Rule synchronization                             │    │
-│  │  • Device identification                            │    │
-│  │  • API server (local network)                       │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                           │                                  │
-│                           ▼                                  │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │               AdGuard Home                           │    │
-│  │            (DNS Filtering)                           │    │
-│  │  • Category-based blocking                          │    │
-│  │  • Per-client rules                                 │    │
-│  │  • Safe search enforcement                          │    │
-│  │  • Query logging                                    │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                           │                                  │
-│                           ▼                                  │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │              nftables / iptables                     │    │
-│  │            (Network Filtering)                       │    │
-│  │  • Time-based access rules                          │    │
-│  │  • Device-specific policies                         │    │
-│  │  • Bandwidth throttling                             │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                           │                                  │
-│                           ▼                                  │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │                    dnsmasq                           │    │
-│  │                 (DHCP Server)                        │    │
-│  │  • Static IP assignments                            │    │
-│  │  • Device identification                            │    │
-│  │  • Lease management                                 │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                           │                                  │
-│                           ▼                                  │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │          OpenWrt / Raspberry Pi OS                   │    │
-│  │                (Base OS)                             │    │
-│  └─────────────────────────────────────────────────────┘    │
+│  1. PLUG IN                                                  │
+│     └─► Connect Taskaroo Hub to power using any USB charger │
+│                                                              │
+│  2. CONNECT                                                  │
+│     └─► Hub broadcasts "Taskaroo-Setup" WiFi network        │
+│     └─► Parent connects phone to it                          │
+│                                                              │
+│  3. CONFIGURE                                                │
+│     └─► Captive portal opens automatically                   │
+│     └─► Parent selects home WiFi and enters password         │
+│                                                              │
+│  4. LINK ACCOUNT                                             │
+│     └─► Parent scans QR code or enters pairing code          │
+│     └─► Code shown in Taskaroo app                           │
+│                                                              │
+│  5. DISCOVER ROUTER                                          │
+│     └─► Hub auto-discovers Linksys Velop                     │
+│     └─► Parent enters router admin password                  │
+│                                                              │
+│  6. MAP DEVICES                                              │
+│     └─► Parent assigns network devices to family members     │
+│     └─► Done! WiFi control is active                         │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Directory Structure
+### Business Model for Hardware
 
-```
-/opt/taskaroo/
-├── agent/                        # Taskaroo Agent
-│   ├── src/
-│   │   ├── index.ts              # Main entry point
-│   │   ├── supabase.ts           # Supabase client
-│   │   ├── sync.ts               # Rule synchronization
-│   │   ├── devices.ts            # Device management
-│   │   ├── schedules.ts          # Time-based rules
-│   │   └── api/
-│   │       ├── server.ts         # Express API server
-│   │       ├── routes/
-│   │       │   ├── devices.ts
-│   │       │   ├── rules.ts
-│   │       │   └── status.ts
-│   │       └── middleware/
-│   │           └── auth.ts       # Local auth (bearer token)
-│   │
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── config/
-│   ├── taskaroo.json             # Agent configuration
-│   ├── devices.json              # Device -> Family member mapping
-│   └── schedules.json            # Active time schedules
-│
-├── scripts/
-│   ├── install.sh                # Installation script
-│   ├── update.sh                 # Update agent
-│   ├── apply-rules.sh            # Apply nftables rules
-│   └── reset.sh                  # Reset to defaults
-│
-└── logs/
-    ├── agent.log                 # Agent logs
-    └── dns-queries.log           # DNS query logs
-```
+| Model                   | Price                              | Considerations                      |
+| ----------------------- | ---------------------------------- | ----------------------------------- |
+| Hardware Sale           | $49.99 one-time                    | Simple, but upfront cost barrier    |
+| **Subscription Bundle** | Free hub with Family Pro annual    | Reduces churn, increases LTV        |
+| Deposit Model           | $25 deposit, returned after 1 year | Low barrier, ensures commitment     |
+| Premium Tier            | $14.99/mo includes hub + features  | Higher ARPU, built-in hardware cost |
 
-### Network Topology Options
+**Recommended: Subscription Bundle**
+Offer the Taskaroo Hub free with annual Family Pro subscription ($99.99/year). This approach:
 
-#### Option 1: DNS-Only Mode (Easiest)
+- Reduces customer acquisition friction
+- Increases annual commitment and reduces churn
+- Amortizes hardware cost over subscription lifetime
+- Creates strong differentiation from competitors
 
-```
-                    ┌─────────────┐
-                    │   Internet  │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │   ISP       │
-                    │   Router    │
-                    │ (Gateway)   │
-                    └──────┬──────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-    ┌─────▼─────┐   ┌──────▼──────┐  ┌─────▼─────┐
-    │  Pi       │   │   Devices    │  │  Devices  │
-    │  Router   │   │ (DNS: Pi)    │  │ (DNS: Pi) │
-    │ (DNS only)│   └──────────────┘  └───────────┘
-    └───────────┘
+### Unit Economics (at 1,000 units)
 
-    • Pi provides DNS filtering only
-    • ISP router handles DHCP, NAT, firewall
-    • Configure ISP router DHCP to point DNS to Pi
-    • Pros: Simple, no single point of failure
-    • Cons: No time-based blocking, devices can bypass
-```
+| Cost Component                  | Amount     |
+| ------------------------------- | ---------- |
+| Raspberry Pi Zero 2 W           | $15.00     |
+| Custom case with logo           | $4.00      |
+| MicroSD card (8GB, pre-flashed) | $3.00      |
+| USB power cable                 | $1.50      |
+| Packaging and insert            | $2.00      |
+| Assembly and QA                 | $3.00      |
+| Shipping (bulk to fulfillment)  | $1.50      |
+| **Total COGS per unit**         | **$30.00** |
 
-#### Option 2: DHCP + DNS Mode (Recommended)
+---
 
-```
-                    ┌─────────────┐
-                    │   Internet  │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │   ISP       │
-                    │   Router    │◄──── Disable DHCP
-                    │ (NAT only)  │
-                    └──────┬──────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-    ┌─────▼─────┐   ┌──────▼──────┐  ┌─────▼─────┐
-    │  Pi       │   │   Devices    │  │  Devices  │
-    │  Router   │   │ (DHCP from   │  │ (DHCP from│
-    │(DHCP+DNS) │   │     Pi)      │  │    Pi)    │
-    └───────────┘   └──────────────┘  └───────────┘
+## Supported Routers & DNS Fallback
 
-    • Pi provides DHCP + DNS
-    • ISP router handles NAT only
-    • Pi assigns IPs and enforces DNS
-    • Pros: Device identification, can set static IPs
-    • Cons: Pi failure = no new DHCP leases
-```
+### Launch Support
 
-#### Option 3: Full Gateway Mode (Most Control)
+| Router                         | Integration Path                 |
+| ------------------------------ | -------------------------------- |
+| **Linksys Velop (all models)** | Full support via pyvelop library |
+| **Linksys Smart WiFi routers** | JNAP API compatible models       |
 
-```
-                    ┌─────────────┐
-                    │   Internet  │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  ISP Modem  │◄──── Bridge mode
-                    │  (Bridge)   │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  Pi Router  │◄──── Dual NIC required
-                    │ (Full GW)   │      (NanoPi R4S/R6S)
-                    │ WAN    LAN  │
-                    └──────┬──────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-    ┌─────▼─────┐   ┌──────▼──────┐  ┌─────▼─────┐
-    │  Switch/  │   │   Devices    │  │  Devices  │
-    │    AP     │   └──────────────┘  └───────────┘
-    └───────────┘
+### Future Expansion (Year 2)
 
-    • Pi is the network gateway
-    • Full control: DNS, DHCP, firewall, NAT
-    • Time-based internet blocking (nftables)
-    • Bandwidth monitoring and throttling
-    • Pros: Complete control, no bypass possible
-    • Cons: Single point of failure, requires dual NIC
-```
+| Router Brand         | Integration Path                | Effort                   |
+| -------------------- | ------------------------------- | ------------------------ |
+| Ubiquiti UniFi       | Official REST API               | Medium (2-3 weeks)       |
+| ASUS (select models) | Community library (asusrouter)  | Medium (3-4 weeks)       |
+| TP-Link Deco         | Reverse-engineer or partnership | High (6-8 weeks)         |
+| Eero                 | Partnership required            | Very High (business dev) |
+| Google Nest WiFi     | No known path                   | Not feasible             |
+
+### DNS Fallback for Unsupported Routers
+
+For families with unsupported routers, offer **NextDNS integration** as a fallback. This provides service-level blocking (TikTok, YouTube, games) rather than full internet control, but still delivers meaningful value.
+
+### Risk Mitigation
+
+| Risk                                 | Impact                   | Mitigation                                                         |
+| ------------------------------------ | ------------------------ | ------------------------------------------------------------------ |
+| Linksys changes API                  | Bridge stops working     | Pin pyvelop version, monitor updates, maintain abstraction layer   |
+| Router firmware update breaks compat | Subset of users affected | Version detection, user notification, rapid patch cycle            |
+| Child bypasses via mobile data       | Reduced effectiveness    | Educate parents, position as home WiFi control (not total control) |
+| Hardware supply chain issues         | Delayed fulfillment      | Multiple supplier relationships, 3-month inventory buffer          |
+| Support burden from hardware         | Increased costs          | Extensive documentation, video tutorials, community forum          |
 
 ### Taskaroo Agent
 
@@ -1432,7 +1441,18 @@ CREATE TABLE tasks (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Router-specific tables
+-- Router Bridge instances (Phase 1: Desktop, Phase 2: Hub)
+CREATE TABLE router_bridges (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  family_id UUID REFERENCES families(id) ON DELETE CASCADE,
+  bridge_type TEXT CHECK (bridge_type IN ('desktop', 'hub')),
+  router_type TEXT DEFAULT 'linksys_velop',
+  last_seen_at TIMESTAMPTZ,
+  is_online BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Device-to-member mappings for WiFi control
 CREATE TABLE router_devices (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   family_id UUID REFERENCES families(id) ON DELETE CASCADE,
@@ -1446,6 +1466,7 @@ CREATE TABLE router_devices (
   UNIQUE(family_id, mac_address)
 );
 
+-- Time-based internet schedules
 CREATE TABLE router_schedules (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   family_id UUID REFERENCES families(id) ON DELETE CASCADE,
@@ -1457,6 +1478,7 @@ CREATE TABLE router_schedules (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Task-based WiFi reward configuration
 CREATE TABLE router_reward_configs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   family_id UUID REFERENCES families(id) ON DELETE CASCADE,
@@ -1847,6 +1869,39 @@ jobs:
 
 ---
 
+## Router Integration Implementation Timeline
+
+### Phase 1: Desktop Bridge Agent (Months 1-4)
+
+| Month | Deliverables                                                    | Resources        |
+| ----- | --------------------------------------------------------------- | ---------------- |
+| 1     | Electron app skeleton, Supabase realtime integration, basic UI  | 1 full-stack dev |
+| 2     | Linksys JNAP integration, device discovery, credential storage  | 1 full-stack dev |
+| 3     | Command queue system, offline resilience, auto-update mechanism | 1 full-stack dev |
+| 4     | Beta testing with 20 families, bug fixes, installer polish      | 1 dev + QA       |
+
+### Phase 2: Hardware Hub (Months 10-16)
+
+| Month | Deliverables                                                 | Resources      |
+| ----- | ------------------------------------------------------------ | -------------- |
+| 10-11 | Port bridge agent to Python/Linux, captive portal setup flow | 1 embedded dev |
+| 12    | Custom Raspberry Pi OS image, OTA update system              | 1 embedded dev |
+| 13    | Hardware sourcing, case design, manufacturer selection       | Ops + design   |
+| 14-15 | First 100 unit production run, internal testing              | Ops + QA       |
+| 16    | Beta with 50 families, fulfillment process validation        | Full team      |
+
+### Success Metrics
+
+| Metric                           | Target                             |
+| -------------------------------- | ---------------------------------- |
+| Desktop agent installs (Month 6) | 500 active installations           |
+| Bridge uptime                    | > 99% online when computer running |
+| Command latency                  | < 5 seconds from app to router     |
+| Family Pro conversion lift       | +15% from WiFi control feature     |
+| Hub pre-orders (Month 12)        | 1,000 units committed              |
+
+---
+
 ## Appendix: Technology Decisions
 
 ### Why React Native over Flutter?
@@ -1884,6 +1939,8 @@ jobs:
 
 ---
 
-**Document Version**: 1.0
+**Document Version**: 1.1
 **Last Updated**: January 2026
 **Authors**: Taskaroo Engineering Team
+
+_Includes Router Integration Spec v1.0_

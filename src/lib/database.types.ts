@@ -635,6 +635,65 @@ export type Database = {
           },
         ];
       };
+      router_bridges: {
+        Row: {
+          id: string;
+          family_id: string;
+          router_ip: string | null;
+          router_model: string | null;
+          router_username: string | null;
+          router_password_encrypted: string | null;
+          status: string;
+          last_seen_at: string | null;
+          last_test_at: string | null;
+          last_test_success: boolean | null;
+          last_test_error: string | null;
+          extension_id: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          family_id: string;
+          router_ip?: string | null;
+          router_model?: string | null;
+          router_username?: string | null;
+          router_password_encrypted?: string | null;
+          status?: string;
+          last_seen_at?: string | null;
+          last_test_at?: string | null;
+          last_test_success?: boolean | null;
+          last_test_error?: string | null;
+          extension_id?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          family_id?: string;
+          router_ip?: string | null;
+          router_model?: string | null;
+          router_username?: string | null;
+          router_password_encrypted?: string | null;
+          status?: string;
+          last_seen_at?: string | null;
+          last_test_at?: string | null;
+          last_test_success?: boolean | null;
+          last_test_error?: string | null;
+          extension_id?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'router_bridges_family_id_fkey';
+            columns: ['family_id'];
+            isOneToOne: false;
+            referencedRelation: 'families';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       task_history: {
         Row: {
           archived_at: string | null;

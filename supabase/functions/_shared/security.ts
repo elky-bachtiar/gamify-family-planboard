@@ -27,6 +27,8 @@ const ALLOWED_ORIGINS = [
   'http://localhost:3000',
   'http://127.0.0.1:5173',
   'http://127.0.0.1:3000',
+  // Chrome extension origins (add your extension ID after publishing)
+  // 'chrome-extension://<your-extension-id>',
 ];
 
 /**
@@ -114,6 +116,7 @@ export const RATE_LIMITS: Record<string, RateLimitConfig> = {
   'purchase-streak-freeze': { maxRequests: 5, windowMs: 3_600_000 }, // 5 per hour (prevent accidental purchases)
   'request-redemption': { maxRequests: 10, windowMs: 3_600_000 }, // 10 per hour (prevent redemption spam)
   'send-message': { maxRequests: 100, windowMs: 60_000 }, // 100 per minute (increased for testing)
+  'create-bridge-command': { maxRequests: 30, windowMs: 60_000 }, // 30 per minute (router control)
 };
 
 /**

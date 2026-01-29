@@ -6,12 +6,12 @@ This document contains comprehensive user stories for the Taskaroo iOS app imple
 
 ## Implementation Status Legend
 
-| Icon | Meaning                      |
-| ---- | ---------------------------- |
-| ✅   | Fully implemented in web UI  |
-| ⚠️   | Partially implemented        |
-| 📱   | iOS spec - not yet in web UI |
-| 🔮   | Future enhancement           |
+| Icon | Meaning                                            |
+| ---- | -------------------------------------------------- |
+| ✅   | Fully implemented (backend + web UI)               |
+| ⚠️   | Backend implemented (tables/functions), UI pending |
+| 📱   | iOS spec only - not yet implemented                |
+| 🔮   | Future enhancement                                 |
 
 ---
 
@@ -230,7 +230,7 @@ This document contains comprehensive user stories for the Taskaroo iOS app imple
 
 **Acceptance Criteria:**
 
-- Select from available languages (en, nl, zh)
+- Select from available languages (ar, bn, de, en, es, fr, hi, id, ja, ko, nl, pt, ru, th, tr, zh)
 - Stored in `families.default_language`
 - Applied to new members on join
 
@@ -700,7 +700,7 @@ COMMENT ON COLUMN tasks.associated_items IS 'DEPRECATED: Use associated_object_i
   - 30+ days: Purple flame with sparkles
 - Streak milestones unlock achievements (7, 14, 30, 50, 100, 365 days)
 
-### 5.4.1 Streak Grace Period 📱
+### 5.4.1 Streak Grace Period ⚠️
 
 **As a** family member
 **I want to** have a grace period before losing my streak
@@ -721,7 +721,7 @@ COMMENT ON COLUMN tasks.associated_items IS 'DEPRECATED: Use associated_object_i
 
 - Add `streak_grace_started_at timestamptz` to `family_members`
 
-### 5.4.2 Streak Recovery via Big Task 📱
+### 5.4.2 Streak Recovery via Big Task ⚠️
 
 **As a** family member
 **I want to** recover a recently lost streak by completing a big task
@@ -748,7 +748,7 @@ COMMENT ON COLUMN tasks.associated_items IS 'DEPRECATED: Use associated_object_i
 - Add `last_streak_value int` to enable recovery calculation
 - Add `streak_recovered boolean DEFAULT false` to prevent multiple recoveries
 
-### 5.4.3 Streak Freeze 📱
+### 5.4.3 Streak Freeze ⚠️
 
 **As a** family member
 **I want to** use streak freezes to protect my streak
@@ -807,7 +807,7 @@ COMMENT ON COLUMN tasks.associated_items IS 'DEPRECATED: Use associated_object_i
   - Show previous and new totals
 - Transaction logged in `points_history`
 
-### 5.6.1 Deduction with Photo Evidence 📱
+### 5.6.1 Deduction with Photo Evidence ⚠️
 
 **As a** parent/admin
 **I want to** attach photo evidence to point deductions
@@ -1163,7 +1163,7 @@ USING (
 **Acceptance Criteria:**
 
 - Language selector in settings
-- Available: English, Dutch, Chinese
+- Available: Arabic, Bengali, German, English, Spanish, French, Hindi, Indonesian, Japanese, Korean, Dutch, Portuguese, Russian, Thai, Turkish, Chinese (16 languages)
 - Persists across sessions
 - Immediate UI update
 
@@ -1303,11 +1303,11 @@ USING (
 
 ---
 
-## Epic 13: Deduction Disputes 📱
+## Epic 13: Deduction Disputes ⚠️
 
 Children can dispute point deductions they believe are unfair. This creates a transparent process for resolving disagreements.
 
-### 13.1 View Penalty Details (Child) 📱
+### 13.1 View Penalty Details (Child) ⚠️
 
 **As a** child
 **I want to** view details of a point deduction
@@ -1327,7 +1327,7 @@ Children can dispute point deductions they believe are unfair. This creates a tr
   - Not already disputed
   - Dispute not already resolved
 
-### 13.2 Create Dispute (Child) 📱
+### 13.2 Create Dispute (Child) ⚠️
 
 **As a** child
 **I want to** dispute an unfair point deduction
@@ -1352,7 +1352,7 @@ Children can dispute point deductions they believe are unfair. This creates a tr
 - Photos must be relevant to dispute
 - Cannot edit dispute after submission
 
-### 13.3 View My Disputes (Child) 📱
+### 13.3 View My Disputes (Child) ⚠️
 
 **As a** child
 **I want to** see all my disputes and their outcomes
@@ -1371,7 +1371,7 @@ Children can dispute point deductions they believe are unfair. This creates a tr
 - Tap to view full dispute details
 - If rejected: Shows rejection reason from admin
 
-### 13.4 Review Disputes (Admin) 📱
+### 13.4 Review Disputes (Admin) ⚠️
 
 **As a** parent/admin
 **I want to** review and resolve disputes
@@ -1399,7 +1399,7 @@ Children can dispute point deductions they believe are unfair. This creates a tr
     - Store rejection reason
     - No point changes
 
-### 13.5 Dispute Notifications 📱
+### 13.5 Dispute Notifications ⚠️
 
 **As a** child
 **I want to** be notified when my dispute is resolved
@@ -1462,6 +1462,71 @@ USING (family_id IN (
 
 ---
 
+## Epic 14: Router WiFi Control ⚠️
+
+Control children's internet access based on chore completion via Chrome Extension or Desktop Bridge connecting to Linksys Velop routers.
+
+### 14.1 Register Bridge (Admin) ⚠️
+
+**As a** parent/admin
+**I want to** connect the Chrome Extension to my family account
+**So that** I can control my router from Taskaroo
+
+**Acceptance Criteria:**
+
+- Extension generates unique `extension_id`
+- Admin authenticates extension with Supabase
+- Bridge record created with `status: pending`
+- Extension discovers router on local network
+- On successful router connection: `status: active`
+
+### 14.2 Map Devices to Members (Admin) ⚠️
+
+**As a** parent/admin
+**I want to** associate network devices with family members
+**So that** internet control affects the right person
+
+**Acceptance Criteria:**
+
+- View list of devices from router
+- Shows: device name, MAC address, IP
+- Assign device to family member
+- Multiple devices can map to one member
+- Each device can only be mapped once per bridge
+
+### 14.3 Block/Unblock Internet (Admin) ⚠️
+
+**As a** parent/admin
+**I want to** block or unblock a child's internet access
+**So that** I can enforce consequences or grant rewards
+
+**Acceptance Criteria:**
+
+- Select family member to block/unblock
+- Creates command in `bridge_commands` queue
+- Command types: `block`, `unblock`, `schedule`
+- Triggered by: `manual`, `reward`, `consequence`, `schedule`
+- Extension receives command via realtime subscription
+- Executes JNAP API call to router
+- Updates command status: `completed` or `failed`
+
+### 14.4 Automatic WiFi Reward (Child) 🔮
+
+**As a** child
+**I want to** automatically unlock WiFi when I complete my chores
+**So that** I'm motivated to finish tasks
+
+**Acceptance Criteria:**
+
+- Configure daily task requirement (e.g., 3 tasks)
+- When child completes required tasks:
+  - System creates `unblock` command
+  - `triggered_by: reward`
+- WiFi access granted until bedtime or manual block
+- Visual celebration in app when WiFi unlocked
+
+---
+
 ## API Reference
 
 ### Edge Functions
@@ -1474,7 +1539,7 @@ USING (family_id IN (
 | `join-family-as-parent`       | POST   | User   | Join family as admin                        | ✅     |
 | `toggle-admin`                | POST   | Admin  | Promote/demote admin                        | ✅     |
 | `deduct-points`               | POST   | Admin  | Deduct points from member                   | ✅     |
-| `deduct-points-with-evidence` | POST   | Admin  | Deduct points with photo evidence           | 📱     |
+| `deduct-points-with-evidence` | POST   | Admin  | Deduct points with photo evidence           | ✅     |
 | `award-birthday-points`       | POST   | Admin  | Award birthday bonus                        | ✅     |
 | `reset-child-pin`             | POST   | Admin  | Reset child's PIN                           | ✅     |
 | `disable-member`              | POST   | Admin  | Enable/disable member                       | ✅     |
@@ -1483,10 +1548,12 @@ USING (family_id IN (
 | `create-family-object`        | POST   | Admin  | Create family object with image             | 📱     |
 | `update-family-object`        | PUT    | Admin  | Update family object                        | 📱     |
 | `delete-family-object`        | DELETE | Admin  | Delete family object                        | 📱     |
-| `create-dispute`              | POST   | Child  | Create deduction dispute                    | 📱     |
-| `resolve-dispute`             | POST   | Admin  | Approve/reject dispute                      | 📱     |
-| `purchase-streak-freeze`      | POST   | User   | Buy streak freeze with points               | 📱     |
+| `create-dispute`              | POST   | Child  | Create deduction dispute                    | ✅     |
+| `resolve-dispute`             | POST   | Admin  | Approve/reject dispute                      | ✅     |
+| `purchase-streak-freeze`      | POST   | User   | Buy streak freeze with points               | ✅     |
 | `request-redemption`          | POST   | User   | Request point redemption (server-validated) | ✅     |
+| `send-message`                | POST   | User   | Send encrypted in-app message               | ✅     |
+| `create-bridge-command`       | POST   | Admin  | Create router block/unblock command         | ✅     |
 
 ### Supabase Tables
 
@@ -1501,22 +1568,25 @@ USING (family_id IN (
 | `points_history`     | Point transaction log               | ✅     |
 | `weekly_goals`       | Weekly targets                      | ✅     |
 | `reward_redemptions` | Reward requests                     | ✅     |
-| `messages`           | In-app messages                     | ✅     |
+| `messages`           | In-app messages (encrypted)         | ✅     |
 | `audit_logs`         | Activity log                        | ✅     |
-| `family_objects`     | Reusable task objects with pictures | 📱     |
-| `deduction_disputes` | Point deduction disputes            | 📱     |
+| `family_objects`     | Reusable task objects with pictures | ✅     |
+| `deduction_disputes` | Point deduction disputes            | ✅     |
+| `router_bridges`     | Chrome extension bridge instances   | ✅     |
+| `device_mappings`    | Network device to member mappings   | ✅     |
+| `bridge_commands`    | Router command queue                | ✅     |
 
 ### New/Modified Columns
 
 | Table            | Column                    | Type        | Description                         | Status |
 | ---------------- | ------------------------- | ----------- | ----------------------------------- | ------ |
-| `family_members` | `streak_freezes`          | int         | Number of freeze items (max 2)      | 📱     |
-| `family_members` | `streak_lost_at`          | timestamptz | When streak was lost (for recovery) | 📱     |
-| `family_members` | `last_streak_value`       | int         | Streak value before loss            | 📱     |
-| `family_members` | `streak_recovered`        | boolean     | Whether recovery was used           | 📱     |
-| `family_members` | `streak_grace_started_at` | timestamptz | Grace period start                  | 📱     |
-| `points_history` | `evidence_urls`           | text[]      | Photo evidence for deductions       | 📱     |
-| `tasks`          | `associated_object_ids`   | uuid[]      | References to family_objects        | 📱     |
+| `family_members` | `streak_freezes`          | int         | Number of freeze items (max 2)      | ✅     |
+| `family_members` | `streak_lost_at`          | timestamptz | When streak was lost (for recovery) | ✅     |
+| `family_members` | `last_streak_value`       | int         | Streak value before loss            | ✅     |
+| `family_members` | `streak_recovered`        | boolean     | Whether recovery was used           | ✅     |
+| `family_members` | `streak_grace_started_at` | timestamptz | Grace period start                  | ✅     |
+| `points_history` | `evidence_urls`           | text[]      | Photo evidence for deductions       | ✅     |
+| `tasks`          | `associated_object_ids`   | uuid[]      | References to family_objects        | ✅     |
 
 ---
 
@@ -1534,7 +1604,8 @@ USING (family_id IN (
   - `tasks` table (family_id filter)
   - `messages` table (recipient filter)
   - `family_members` table (family_id filter)
-  - `deduction_disputes` table (child_id filter) 📱
+  - `deduction_disputes` table (child_id filter)
+  - `bridge_commands` table (for router control)
 
 ### Offline Considerations
 
@@ -1561,7 +1632,7 @@ Use family's selected palette for UI theming:
 
 ### Localization
 
-- Support ar, bn, de, en, es, fr, hi, id, nl, pt, ru, th, , tr, zh locales
+- Support ar, bn, de, en, es, fr, hi, id, ja, ko, nl, pt, ru, th, tr, zh locales (16 languages)
 - Use i18n framework (NSLocalizedString or similar)
 - Date/number formatting per locale
 - Translation keys match web app namespaces
