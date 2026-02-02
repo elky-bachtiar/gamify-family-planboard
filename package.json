@@ -37,7 +37,7 @@
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "^4.0.18",
     "@vitest/ui": "^4.0.18",
-    "autoprefixer": "^10.4.23",
+    "autoprefixer": "^10.4.24",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
