@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
-    "@supabase/supabase-js": "^2.57.4",
+    "@supabase/supabase-js": "^2.97.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.19.7",
     "dotenv": "^17.2.3",
